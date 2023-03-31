@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     var id = "cell"
     
     var mode = SegmentMode.new
-
     
     // загруженные картинки
     var newImages: [ItemModel] = []
@@ -49,11 +48,6 @@ class ViewController: UIViewController {
     }
     
     var imagesPerPage = 10
-//    var countOfPages: Int {
-//        get {
-//            totalItems / imagesPerPage
-//        }
-//    }
 
     // всего страниц на сервере
     var countOfNewPages: Int = 0
@@ -78,57 +72,75 @@ class ViewController: UIViewController {
             }
         }
     }
-//    var currentPage = 0
-    
-    // текущие загруженные страницы
-    private var currentPageStorage: (new: Int, popular: Int) = (0, 0)
-    //    var currentNewPage = 0
-    //    var currentPopularPage = 0
+
+    // текущая загруженная страница
+    var currentNewPage: Int = 0
+    var currentPopularPage: Int = 0
     var currentPage: Int {
         get {
             switch mode {
             case .new:
-                return currentPageStorage.new
+                return currentNewPage
             case .popular:
-                return currentPageStorage.popular
+                return currentPopularPage
             }
         }
         set {
             switch mode {
             case .new:
-                currentPageStorage.new = newValue
+                currentNewPage = newValue
             case .popular:
-                currentPageStorage.popular = newValue
+                currentPopularPage = newValue
             }
         }
     }
     
     //страница на загрузку
-    private var pageToLoadStorage: (new: Int, popular: Int) = (0, 0)
+    var newPageToLoad: Int = 0
+    var popularPageToLoad: Int = 0
     var pageToLoad: Int {
         get {
             switch mode {
             case .new:
-                return pageToLoadStorage.new
+                return newPageToLoad
             case .popular:
-                return pageToLoadStorage.popular
+                return popularPageToLoad
             }
         }
         set {
             switch mode {
             case .new:
-                pageToLoadStorage.new = newValue
+                newPageToLoad = newValue
             case .popular:
-                pageToLoadStorage.popular = newValue
+                popularPageToLoad = newValue
             }
         }
     }
-    
-    
+    //положение галлереи
+    var newCollectionViewOffset: CGPoint = CGPoint()
+    var popularCollectionViewOffset: CGPoint = CGPoint()
+    var savedCollectionViewOffset: CGPoint {
+        get {
+            switch mode {
+            case .new:
+                return newCollectionViewOffset
+            case .popular:
+                return popularCollectionViewOffset
+            }
+        }
+        set {
+            switch mode {
+            case .new:
+                newCollectionViewOffset = newValue
+            case .popular:
+                popularCollectionViewOffset = newValue
+            }
+        }
+    }
+
     var hasMorePages: Bool {
         currentPage <= currentCountOfPages
     }
-    
     
     var isLoadingRightNow = false
         
@@ -151,6 +163,16 @@ class ViewController: UIViewController {
 
         return view
     }()
+
+//    lazy var activityIndicator = UIView()
+    
+    lazy var activityIndicator: UIImageView = {
+        var view = UIImageView()
+        view.image = UIImage(named: "Ellipse")
+        
+        return view
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +180,16 @@ class ViewController: UIViewController {
         setupNavgationBar()
         setupSegmentedControl()
         setupCollectionView()
+//        setupActivity()
         loadMore()
+
+    }
+    private func setupActivity() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints {
+            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+        }
     }
     
     private func setupNavgationBar() {
@@ -180,8 +211,14 @@ class ViewController: UIViewController {
     
     private func setupCollectionView() {
         view.addSubview(collectionView)
-            
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: id)
+        
+        collectionView.register(CollectionViewCell.self,
+                                forCellWithReuseIdentifier: id)
+        
+        collectionView.register(UITableViewHeaderFooterView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: "Footer")
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -190,35 +227,31 @@ class ViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(segmentedControl.snp.bottom).offset(5)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+//            $0.bottom.equalTo(activityIndicator.snp.top)
+
         }
         collectionView.refreshControl = refreshControl
     }
 
 
     func getAnswerFromRequest(completion: @escaping(Result<JSONModel, Error>) -> ()) {
-//        pageToLoad = currentPage + 1
-//        let newValue: Bool
-//        let popularValue: Bool
-
         let request = URLConfiguration.url + URLConfiguration.api
         pageToLoad = currentPage + 1
-        let parametrs: Parameters = [
+        var parametrs: Parameters = [
             "page": "\(pageToLoad)",
-            "limit": "\(imagesPerPage)",
-            mode.rawValue: "true"
+            "limit": "\(imagesPerPage)"
         ]
         
-//        switch mode {
-//        case .new:
-//            parametrs["new"] = "true"
-//            print(pageToLoad)
-//
-//        case .popular:
-//            parametrs["popular"] = "true"
-//            print(pageToLoad)
-//
-//
-//        }
+        switch mode {
+        case .new:
+            parametrs["new"] = "true"
+            print(pageToLoad)
+
+        case .popular:
+            parametrs["popular"] = "true"
+            print(pageToLoad)
+
+        }
 
         AF.request(request, method: .get, parameters: parametrs).responseData { response in
             if let data = response.data {
@@ -234,6 +267,9 @@ class ViewController: UIViewController {
                     completion(.failure(NSError(domain: "Get nothing", code: 0)))
                 }
             self.isLoadingRightNow = false
+            self.activityIndicator.stopRotating()
+            self.activityIndicator.removeFromSuperview()
+
             }
         isLoadingRightNow = true
         }
@@ -266,6 +302,7 @@ class ViewController: UIViewController {
         currentPage = 0
         requestImages.removeAll()
         collectionView.reloadData()
+        savedCollectionViewOffset = .zero
         loadMore()
     }
     
@@ -278,33 +315,31 @@ class ViewController: UIViewController {
     
     @objc
     func changeScreen(_ sender: UISegmentedControl) {
-        guard let newMode = SegmentMode(index: sender.selectedSegmentIndex) else {
-            return
+         savedCollectionViewOffset = collectionView.contentOffset
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            mode = .new
+
+        case 1:
+            mode = .popular
+
+        default:
+            mode = .new
         }
-        
-        mode = newMode
-        
-//        switch segmentedControl.selectedSegmentIndex {
-//        case 0:
-//            mode = .new
-//        case 1:
-//            mode = .popular
-//
-//        default:
-//            mode = .new
-//        }
         
         if requestImages.isEmpty {
             loadMore()
         }
-        collectionView.contentOffset = .zero
         collectionView.reloadSections([0])
+        collectionView.setContentOffset(savedCollectionViewOffset, animated: false)
+
     }
 }
-
+//MARK: - UICollectionViewDelegate
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailedVC = DetailedVC()
+        detailedVC.model = requestImages[indexPath.item]
         navigationController?.pushViewController(detailedVC, animated: true)
     }
     
@@ -312,10 +347,13 @@ extension ViewController: UICollectionViewDelegate {
         let lastItemIndex = requestImages.count - 1
         if indexPath.item == lastItemIndex {
             loadMore()
+            setupActivity()
+            activityIndicator.startRotating()
         }
     }
+     
 }
-
+//MARK: - UICollectionViewDataSource
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -335,7 +373,7 @@ extension ViewController: UICollectionViewDataSource {
         }
         
 }
-
+//MARK: -  UICollectionViewDelegateFlowLayout
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemsInRow: CGFloat = 2
@@ -357,5 +395,40 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
     }
+   
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
+                                            withReuseIdentifier: "Footer", for: indexPath)
+        footer.backgroundColor = .green
+
+
+       return footer
+    }
+    
+}
+
+//MARK: - extension UIView
+extension UIView {
+    
+    func startRotating(duration: Double = 1) {
+        let kAnimationKey = "rotation"
+        if self.layer.animation(forKey: kAnimationKey) == nil {
+            let animate = CABasicAnimation(keyPath: "transform.rotation")
+            animate.duration = duration
+            animate.repeatCount = Float.infinity
+            
+            animate.fromValue = 0.0
+            animate.toValue = Float(Double.pi * 2.0)
+            self.layer.add(animate, forKey: kAnimationKey)
+        }
+    }
+    
+    func stopRotating() {
+        let kAnimationKey = "rotation"
+        
+        if self.layer.animation(forKey: kAnimationKey) != nil {
+            self.layer.removeAnimation(forKey: kAnimationKey)
+        }
+    }
 }

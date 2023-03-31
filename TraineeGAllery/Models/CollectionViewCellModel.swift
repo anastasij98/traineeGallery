@@ -30,6 +30,14 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageInGallery.image = nil
+        request?.cancel()
+        request = nil
+    }
+    
     func setupCell() {
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
@@ -59,13 +67,4 @@ class CollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageInGallery.image = nil
-        request?.cancel()
-        request = nil
-    }
-    
-    
 }

@@ -9,13 +9,19 @@ import Foundation
 import UIKit
 import SnapKit
 
-class DetailedVC: UIViewController {
+class DetailedVC: UIViewController, UIScrollViewDelegate {
     
+    var dataTask: URLSessionDataTask?
+
     var scrollView: UIScrollView = {
         var view = UIScrollView()
         view = UIScrollView(frame: .zero)
         view.isScrollEnabled = true
-        
+//        view.contentSize = CGSize(width: 400, height: 2300)
+        view.contentSize = CGSize(width: view.contentSize.width, height: view.contentSize.height)
+        view.isUserInteractionEnabled = true
+
+
         return view
     }()
     
@@ -24,16 +30,24 @@ class DetailedVC: UIViewController {
         view.axis = .horizontal
         view.alignment = .center
         view.distribution = .fillProportionally
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     var lowerStackView: UIStackView = {
         var view = UIStackView()
         view.axis = .horizontal
-        view.alignment = .fill
-        view.distribution = .fillProportionally
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alignment = .top
+        view.distribution = .equalSpacing
+
+        return view
+    }()
+    
+    var selectedImage: UIImageView = {
+        var view = UIImageView()
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .customGrey
+
         return view
     }()
     
@@ -41,7 +55,6 @@ class DetailedVC: UIViewController {
         var view = UILabel()
         view.textColor = .black
         view.font = .systemFont(ofSize: 20, weight: .semibold)
-        view.text = "cat"
         view.numberOfLines = 0
         return view
     }()
@@ -50,26 +63,15 @@ class DetailedVC: UIViewController {
         var view = UILabel()
         view.textColor = .black
         view.font = .systemFont(ofSize: 15, weight: .regular)
-        view.text = "funny cat"
         view.numberOfLines = 0
         return view
     }()
-    
-    var selectedImage: UIImageView = {
-        var view = UIImageView()
-        view.clipsToBounds = true
-        view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "cat2")
-        view.backgroundColor = .customGrey
 
-        return view
-    }()
     
     var viewsCount: UILabel = {
         var view = UILabel()
         view.textColor = .customGrey
         view.font = .systemFont(ofSize: 12, weight: .regular)
-        view.text = "100"
         view.textAlignment = .right
         view.numberOfLines = 0
         return view
@@ -79,7 +81,6 @@ class DetailedVC: UIViewController {
         var view = UILabel()
         view.textColor = .customGrey
         view.font = .systemFont(ofSize: 12, weight: .regular)
-        view.text = "10.10.2020"
         view.textAlignment = .right
         view.numberOfLines = 0
         return view
@@ -92,6 +93,7 @@ class DetailedVC: UIViewController {
         super.viewDidLoad()
 
         setupScrollView()
+        setupCellContent()
     }
     
     
@@ -100,6 +102,8 @@ class DetailedVC: UIViewController {
     }
     
    func setupScrollView() {
+       scrollView.delegate = self
+       
        upperStackView.addArrangedSubviews(imageTitle, viewsCount)
        lowerStackView.addArrangedSubviews(imageDescription, downloadDate)
        scrollView.addSubviews(selectedImage, upperStackView, lowerStackView)
@@ -130,8 +134,35 @@ class DetailedVC: UIViewController {
            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
        }
     }
-    func setuoCellContent() {
+    func setupCellContent() {
         imageTitle.text = model?.name
         imageDescription.text = model?.description
+        selectedImage.image = UIImage(named: (model?.image.name) ?? "cat2")
+        downloadDate.text = model?.date
+        
+        guard let id = model?.id else {return}
+        viewsCount.text = "\(id)"
+
+        if let name = model?.image.name {
+            let urlString = URLConfiguration.url + URLConfiguration.media + name
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            
+            let request = URLRequest(url: url)
+            let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, _ in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        self?.selectedImage.image = UIImage(data: data)
+                    }
+                }
+            }
+            task.resume()
+            dataTask = task
+        }
+    }
+    
+    deinit {
+        dataTask?.cancel()
     }
 }
