@@ -47,7 +47,7 @@ extension ViewController: UICollectionViewDataSource {
 //MARK: -  UICollectionViewDelegateFlowLayout
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         if UIDevice.current.orientation.isLandscape {
             let itemsInRow: CGFloat = 5
             let paddingsInRow: CGFloat = (itemsInRow - 1) * 9
@@ -78,17 +78,20 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
     }
     
-     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-         
-        if kind == UICollectionView.elementKindSectionFooter {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionFooter, hasMorePages, !requestImages.isEmpty {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerReuseIdentifier, for: indexPath)
-            
             footer.startRotating()
-            
-            return footer 
+            return footer
+        } else {
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: clearReuseIdentifier, for: indexPath)
         }
-
-        return UICollectionReusableView()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+       
+        hasMorePages ? CGSize(width: 0, height: 50) : CGSize(width: 0, height: 0)
+    }
+    
 }
-

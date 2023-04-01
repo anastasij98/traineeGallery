@@ -22,9 +22,10 @@ struct ItemModel: Codable {
     var new: Bool?
     var popular: Bool?
     var image: ImageModel
+    var user: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, name, new, popular, image, description
+        case id, name, new, popular, image, description, user
         case date = "dateCreate"
     }
 }

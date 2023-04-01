@@ -10,7 +10,7 @@ import SnapKit
 import Alamofire
 
 class ViewController: UIViewController {
-    
+        
     var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero,
                                     collectionViewLayout: UICollectionViewFlowLayout())
@@ -160,6 +160,7 @@ class ViewController: UIViewController {
     }()
 
     var footerReuseIdentifier = "footer"
+    var clearReuseIdentifier = "clear"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,11 +171,6 @@ class ViewController: UIViewController {
         setupCollectionViewLayout()
 
         loadMore()
-
-        collectionView.register(BlackFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier)
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).footerReferenceSize = CGSize(width: collectionView.bounds.width, height: 50)
-
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -204,6 +200,9 @@ class ViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.register(CollectionViewCell.self,
                                 forCellWithReuseIdentifier: id)
+        
+        collectionView.register(BlackFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier)      
+        collectionView.register(ClearFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: clearReuseIdentifier)
 
         collectionView.delegate = self
         collectionView.dataSource = self
