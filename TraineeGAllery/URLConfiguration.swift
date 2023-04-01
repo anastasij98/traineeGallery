@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class URLConfiguration {
     static var url = "https://gallery.prod1.webant.ru/"
     static var media = "media/"

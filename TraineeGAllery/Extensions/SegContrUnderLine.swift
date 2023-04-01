@@ -1,25 +1,13 @@
 //
-//  ColorExtension.swift
+//  SegmentedControlUnderLine.swift
 //  TraineeGAllery
 //
-//  Created by LUNNOPARK on 27.03.23.
+//  Created by LUNNOPARK on 31.03.23.
 //
 
 import Foundation
 import UIKit
-
-extension UIColor {    
-    static var customGrey: UIColor {
-        #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
-    }
-}
-
-extension CGColor {
-    static var customGrey: CGColor {
-        #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
-    }
-}
-
+import SnapKit
 
 extension UIImage{
     class func getSegRect(color: CGColor, andSize size: CGSize) -> UIImage{
@@ -37,20 +25,43 @@ extension UIImage{
 
 extension UISegmentedControl{
     func removeBorder(){
-        let background = UIImage.getSegRect(color: UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor, andSize: self.bounds.size) // segment background color and size
+        let background = UIImage.getSegRect(color: UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor, andSize: self.bounds.size)
+        // segment background color and size
         self.setBackgroundImage(background, for: .normal, barMetrics: .default)
         self.setBackgroundImage(background, for: .selected, barMetrics: .default)
         self.setBackgroundImage(background, for: .highlighted, barMetrics: .default)
         
         let deviderLine = UIImage.getSegRect(color: UIColor.white.cgColor, andSize: CGSize(width: 1.0, height: 5))
         self.setDividerImage(deviderLine, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
-//        self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray,
-//                                    NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)
-//                                    ], for: .normal)
         self.setTitleTextAttributes([.foregroundColor: UIColor.gray,
                                     .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .normal)
         
         self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black,
                                      .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .selected)
     }
+    
+    func highlightSelectedSegment(){
+            removeBorder()
+//            let lineWidth: CGFloat = self.bounds.size.width
+            let lineWidth: CGFloat = self.bounds.width
+            let lineHeight: CGFloat = 5.0
+
+            let lineXPosition = CGFloat(selectedSegmentIndex * Int(lineWidth))
+            let lineYPosition = self.bounds.size.height - 2.0
+            let underlineFrame = CGRect(x: lineXPosition, y: lineYPosition, width: lineWidth + 5, height: lineHeight)
+            let underLine = UIView(frame: underlineFrame)
+            underLine.backgroundColor = UIColor(red: 0.812, green: 0.286, blue: 0.494, alpha: 1)
+            underLine.tag = 1
+
+            self.addSubview(underLine)
+    
+        }
+    
+    func underlinePosition(){
+            guard let underLine = self.viewWithTag(1) else {return}
+            let xPosition = (self.bounds.width / CGFloat(self.numberOfSegments)) * CGFloat(selectedSegmentIndex)
+            UIView.animate(withDuration: 0.0, delay: 0.0, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
+                underLine.frame.origin.x = xPosition + 5
+            })
+        }
 }

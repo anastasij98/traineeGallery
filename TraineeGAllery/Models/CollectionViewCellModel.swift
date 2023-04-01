@@ -41,7 +41,6 @@ class CollectionViewCell: UICollectionViewCell {
     func setupCell() {
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
-
         
     }
     
@@ -52,7 +51,7 @@ class CollectionViewCell: UICollectionViewCell {
             $0.edges.equalTo(contentView.snp.edges)
         })
     
-        imageInGallery.contentMode = .scaleAspectFit
+        imageInGallery.contentMode = .scaleAspectFill
     }
     
     func setupCollectionItem(model: CollectionViewCellModel) {
@@ -67,4 +66,5 @@ class CollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
 }

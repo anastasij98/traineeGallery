@@ -17,10 +17,7 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         var view = UIScrollView()
         view = UIScrollView(frame: .zero)
         view.isScrollEnabled = true
-//        view.contentSize = CGSize(width: 400, height: 2300)
-        view.contentSize = CGSize(width: view.contentSize.width, height: view.contentSize.height)
-        view.isUserInteractionEnabled = true
-
+        view.scrollsToTop = false
 
         return view
     }()
@@ -54,33 +51,53 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
     var imageTitle: UILabel = {
         var view = UILabel()
         view.textColor = .black
-        view.font = .systemFont(ofSize: 20, weight: .semibold)
+        view.font = UIFont(name: "Roboto-Regular", size: 20)
         view.numberOfLines = 0
+        return view
+    }()
+    
+    var usersLabel: UILabel = {
+        var view = UILabel()
+        view.textColor = .customGrey
+        view.font = UIFont(name: "Roboto-Regular", size: 15)
+        view.textAlignment = .right
         return view
     }()
     
     var imageDescription: UILabel = {
         var view = UILabel()
         view.textColor = .black
-        view.font = .systemFont(ofSize: 15, weight: .regular)
+        view.font = UIFont(name: "Roboto-Light", size: 15)
+        view.lineBreakMode = .byWordWrapping
         view.numberOfLines = 0
+        view.textAlignment = .justified
         return view
     }()
-
     
     var viewsCount: UILabel = {
         var view = UILabel()
         view.textColor = .customGrey
-        view.font = .systemFont(ofSize: 12, weight: .regular)
+        view.font = UIFont(name: "Roboto-Regular", size: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
+        return view
+    }()
+    
+    var eyeImage: UIImageView = {
+        var view = UIImageView()
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .customGrey
+        view.image = UIImage(named: "Mask")
+        view.image?.withTintColor(.customGrey)
+
         return view
     }()
     
     var downloadDate: UILabel = {
         var view = UILabel()
         view.textColor = .customGrey
-        view.font = .systemFont(ofSize: 12, weight: .regular)
+        view.font = UIFont(name: "Roboto-Regular", size: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
         return view
@@ -88,15 +105,24 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
   
     var model: ItemModel?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupScrollView()
         setupCellContent()
+
     }
     
-    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let contentHeight = upperStackView.frame.height + lowerStackView.frame.height + imageDescription.frame.height + selectedImage.frame.height
+        
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
+//        print(scrollView.frame.height)
+//        print(contentHeight)
+    }
+  
      override func viewWillAppear(_ animated: Bool) {
          view.backgroundColor = .white
     }
@@ -105,8 +131,8 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
        scrollView.delegate = self
        
        upperStackView.addArrangedSubviews(imageTitle, viewsCount)
-       lowerStackView.addArrangedSubviews(imageDescription, downloadDate)
-       scrollView.addSubviews(selectedImage, upperStackView, lowerStackView)
+       lowerStackView.addArrangedSubviews(usersLabel, downloadDate)
+       scrollView.addSubviews(selectedImage, upperStackView, eyeImage, lowerStackView, imageDescription)
 
        view.addSubview(scrollView)
        
@@ -115,27 +141,42 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
        }
        
        selectedImage.snp.makeConstraints {
-           $0.top.equalToSuperview()
-           $0.height.equalTo(300)
-           $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-           $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-           $0.centerX.equalTo(scrollView.snp.centerX)
-       }
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top)
+            $0.height.equalTo(251)
+            $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
+            $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
+            $0.centerX.equalTo(scrollView.snp.centerX)
+        }
        
        upperStackView.snp.makeConstraints {
            $0.top.equalTo(selectedImage.snp.bottom).offset(20)
-           $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
-           $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+           $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(20)
+           $0.trailing.equalTo(eyeImage.snp.trailing).inset(20)
        }
 
+       eyeImage.snp.makeConstraints {
+           $0.leading.equalTo(upperStackView.snp.trailing).offset(4)
+           $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing).inset(20)
+           $0.centerY.equalTo(upperStackView.snp.centerY)
+       }
+      
        lowerStackView.snp.makeConstraints {
            $0.top.equalTo(upperStackView.snp.bottom).offset(20)
-           $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
-           $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+           $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(20)
+           $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing).inset(20)
        }
+       
+       imageDescription.snp.makeConstraints {
+           $0.top.equalTo(lowerStackView.snp.bottom).offset(20)
+           $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(20)
+           $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing).inset(20)
+       }
+      
     }
+    
     func setupCellContent() {
         imageTitle.text = model?.name
+        usersLabel.text = model?.name
         imageDescription.text = model?.description
         selectedImage.image = UIImage(named: (model?.image.name) ?? "cat2")
         downloadDate.text = model?.date

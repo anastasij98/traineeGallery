@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     }()
     
     var id = "cell"
-    
     var mode = SegmentMode.new
     
     // загруженные картинки
@@ -42,12 +41,6 @@ class ViewController: UIViewController {
                 }
             }
     }
-
-    var totalItems: Int {
-        requestImages.count
-    }
-    
-    var imagesPerPage = 10
 
     // всего страниц на сервере
     var countOfNewPages: Int = 0
@@ -116,6 +109,13 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    var imagesPerPage = 10
+    var hasMorePages: Bool {
+        currentPage <= currentCountOfPages
+    }
+    var isLoadingRightNow = false
+
     //положение галлереи
     var newCollectionViewOffset: CGPoint = CGPoint()
     var popularCollectionViewOffset: CGPoint = CGPoint()
@@ -137,12 +137,6 @@ class ViewController: UIViewController {
             }
         }
     }
-
-    var hasMorePages: Bool {
-        currentPage <= currentCountOfPages
-    }
-    
-    var isLoadingRightNow = false
         
     lazy var segmentedControl: UISegmentedControl = {
         let segmentItems = ["New", "Popular"]
@@ -151,7 +145,8 @@ class ViewController: UIViewController {
         view.addTarget(self, action: #selector(changeScreen), for: .valueChanged)
         view.backgroundColor = .white
         view.removeBorder()
-        
+        view.highlightSelectedSegment()
+
         return view
     }()
     
@@ -164,15 +159,7 @@ class ViewController: UIViewController {
         return view
     }()
 
-//    lazy var activityIndicator = UIView()
-    
-    lazy var activityIndicator: UIImageView = {
-        var view = UIImageView()
-        view.image = UIImage(named: "Ellipse")
-        
-        return view
-    }()
-    
+    var footerReuseIdentifier = "footer"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,22 +167,27 @@ class ViewController: UIViewController {
         setupNavgationBar()
         setupSegmentedControl()
         setupCollectionView()
-//        setupActivity()
+        setupCollectionViewLayout()
+
         loadMore()
 
-    }
-    private func setupActivity() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints {
-            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
-        }
+        collectionView.register(BlackFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier)
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).footerReferenceSize = CGSize(width: collectionView.bounds.width, height: 50)
+
+        
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+
+        
+    }
+
     private func setupNavgationBar() {
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "leftArrow")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "leftArrow")
+        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "Vector")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "Vector")
     }
     
     private func setupSegmentedControl() {
@@ -206,37 +198,32 @@ class ViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
-
     }
     
     private func setupCollectionView() {
         view.addSubview(collectionView)
-        
         collectionView.register(CollectionViewCell.self,
                                 forCellWithReuseIdentifier: id)
-        
-        collectionView.register(UITableViewHeaderFooterView.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-                                withReuseIdentifier: "Footer")
-        
+
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.refreshControl = refreshControl
         
+    }
+    
+    private func setupCollectionViewLayout() {
         collectionView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(segmentedControl.snp.bottom).offset(5)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-//            $0.bottom.equalTo(activityIndicator.snp.top)
-
         }
-        collectionView.refreshControl = refreshControl
     }
 
-
     func getAnswerFromRequest(completion: @escaping(Result<JSONModel, Error>) -> ()) {
-        let request = URLConfiguration.url + URLConfiguration.api
         pageToLoad = currentPage + 1
+
+        let request = URLConfiguration.url + URLConfiguration.api
         var parametrs: Parameters = [
             "page": "\(pageToLoad)",
             "limit": "\(imagesPerPage)"
@@ -267,8 +254,6 @@ class ViewController: UIViewController {
                     completion(.failure(NSError(domain: "Get nothing", code: 0)))
                 }
             self.isLoadingRightNow = false
-            self.activityIndicator.stopRotating()
-            self.activityIndicator.removeFromSuperview()
 
             }
         isLoadingRightNow = true
@@ -287,7 +272,6 @@ class ViewController: UIViewController {
                     self.currentCountOfPages = count
                     
                     self.currentPage = self.pageToLoad
-
 
                 case .failure(let failure):
                     print(failure)
@@ -330,105 +314,10 @@ class ViewController: UIViewController {
         if requestImages.isEmpty {
             loadMore()
         }
+        segmentedControl.underlinePosition()
+
         collectionView.reloadSections([0])
         collectionView.setContentOffset(savedCollectionViewOffset, animated: false)
 
-    }
-}
-//MARK: - UICollectionViewDelegate
-extension ViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailedVC = DetailedVC()
-        detailedVC.model = requestImages[indexPath.item]
-        navigationController?.pushViewController(detailedVC, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let lastItemIndex = requestImages.count - 1
-        if indexPath.item == lastItemIndex {
-            loadMore()
-            setupActivity()
-            activityIndicator.startRotating()
-        }
-    }
-     
-}
-//MARK: - UICollectionViewDataSource
-extension ViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-     return requestImages.count
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let item = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
-            
-            let request = URLConfiguration.url + URLConfiguration.media + (requestImages[indexPath.item].image.name ?? "")
-            let model = CollectionViewCellModel(imageURL: URL(string: request))
-            item.setupCollectionItem(model: model)
-            item.backgroundColor = .customGrey
-     
-            return item
-        }
-        
-}
-//MARK: -  UICollectionViewDelegateFlowLayout
-extension ViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemsInRow: CGFloat = 2
-        let sidePadding: CGFloat = 16
-        let paddingsInRow: CGFloat = (itemsInRow - 1) * 9 + (sidePadding * 2)
-        let allowedWidth = view.frame.width - paddingsInRow
-        let itemsWidth = allowedWidth / itemsInRow
-        return CGSize(width: itemsWidth, height: itemsWidth )
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 9
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 9
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
-    }
-   
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    
-        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
-                                            withReuseIdentifier: "Footer", for: indexPath)
-        footer.backgroundColor = .green
-
-
-       return footer
-    }
-    
-}
-
-//MARK: - extension UIView
-extension UIView {
-    
-    func startRotating(duration: Double = 1) {
-        let kAnimationKey = "rotation"
-        if self.layer.animation(forKey: kAnimationKey) == nil {
-            let animate = CABasicAnimation(keyPath: "transform.rotation")
-            animate.duration = duration
-            animate.repeatCount = Float.infinity
-            
-            animate.fromValue = 0.0
-            animate.toValue = Float(Double.pi * 2.0)
-            self.layer.add(animate, forKey: kAnimationKey)
-        }
-    }
-    
-    func stopRotating() {
-        let kAnimationKey = "rotation"
-        
-        if self.layer.animation(forKey: kAnimationKey) != nil {
-            self.layer.removeAnimation(forKey: kAnimationKey)
-        }
     }
 }
