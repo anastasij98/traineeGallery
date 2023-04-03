@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Alamofire
 
+
 struct CollectionViewCellModel {
     var imageURL: URL?
 }
@@ -18,12 +19,24 @@ class CollectionViewCell: UICollectionViewCell {
     
     var imageInGallery: UIImageView = UIImageView()
     var request: Alamofire.Request?
+    var activityIndicator = UIActivityIndicatorView(style: .large)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupImage()
         setupCell()
+        
+        contentView.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.height.width.equalTo(30)
+        }
+        
+        activityIndicator.startAnimating()
+
+         
+        
     }
     
     required init?(coder: NSCoder) {
@@ -64,6 +77,10 @@ class CollectionViewCell: UICollectionViewCell {
                     self.imageInGallery.image = UIImage(data: data)
                 }
             }
+        }
+        imageInGallery.kf.setImage(with: url, options: [.transition(.fade(5))]{ [ weak self ] _ in
+            self?.activityIndicator.stopAnimating()
+            self?.activityIndicator.isHidden = true
         }
     }
     

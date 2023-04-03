@@ -102,7 +102,7 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         var view = UILabel()
         view.textColor = .customGrey
         view.font = UIFont(name: "Roboto-Regular", size: 12)
-        view.textAlignment = .left
+        view.textAlignment = .right
         view.numberOfLines = 0
         return view
     }()
@@ -182,8 +182,8 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         usersLabel.text = model?.user
         imageDescription.text = model?.description
         selectedImage.image = UIImage(named: (model?.image.name) ?? "cat2")
-        downloadDate.text = model?.date
-        
+        downloadDate.text = getFormattedDateString(rawString: model?.date)
+       
         guard let id = model?.id else {return}
         viewsCount.text = "\(id)"
 
@@ -206,7 +206,22 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    func getFormattedDateString(rawString: String?) -> String {
+        guard let text = rawString else { return "" }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        guard let date = dateFormatter.date(from: text) else { return "" }
+        
+        let neededDate = DateFormatter()
+        neededDate.dateFormat = "dd.MM.yyyy"
+        let dateString = neededDate.string(from: date)
+
+        return dateString
+    }
+    
     deinit {
         dataTask?.cancel()
     }
 }
+
