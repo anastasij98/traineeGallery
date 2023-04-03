@@ -265,7 +265,9 @@ class ViewController: UIViewController {
                 switch result {
                 case .success(let success):
                     self.requestImages.append(contentsOf: success.data)
-                    self.collectionView.reloadSections([0])
+//                    self.collectionView.reloadSections([0])
+                    self.collectionView.reconfigureItems(at: self.collectionView.indexPathsForVisibleItems)
+                    
                     
                     guard let count = success.countOfPages else { return }
                     self.currentCountOfPages = count

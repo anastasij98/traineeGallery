@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
-import Alamofire
-
+import Kingfisher
 
 struct CollectionViewCellModel {
     var imageURL: URL?
@@ -18,25 +17,17 @@ struct CollectionViewCellModel {
 class CollectionViewCell: UICollectionViewCell {
     
     var imageInGallery: UIImageView = UIImageView()
-    var request: Alamofire.Request?
     var activityIndicator = UIActivityIndicatorView(style: .large)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupImage()
         setupCell()
-        
         contentView.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.height.width.equalTo(30)
         }
-        
-        activityIndicator.startAnimating()
-
-         
-        
     }
     
     required init?(coder: NSCoder) {
@@ -47,8 +38,7 @@ class CollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageInGallery.image = nil
-        request?.cancel()
-        request = nil
+
     }
     
     func setupCell() {
@@ -69,16 +59,9 @@ class CollectionViewCell: UICollectionViewCell {
     
     func setupCollectionItem(model: CollectionViewCellModel) {
         let url = model.imageURL
-        let requestAF = url?.absoluteString
-        
-        request = AF.request(requestAF!, method: .get).responseData { response in
-            if let data = response.data {
-                DispatchQueue.main.async {
-                    self.imageInGallery.image = UIImage(data: data)
-                }
-            }
-        }
-        imageInGallery.kf.setImage(with: url, options: [.transition(.fade(5))]{ [ weak self ] _ in
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        imageInGallery.kf.setImage(with: url, options:[.transition(.fade(0.2))]) { [ weak self ] _ in
             self?.activityIndicator.stopAnimating()
             self?.activityIndicator.isHidden = true
         }
