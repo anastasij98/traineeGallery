@@ -25,24 +25,22 @@ class SplitUnderlineView: UIView {
     
 
     func setup(underlinesCount: Int) {
-    // очищаешь массив и стек
+    // очищенеие массива и стека
         arrayOfViews.removeAll()
         stackView.arrangedSubviews.forEach { view in
             stackView.removeArrangedSubview(view)
         }
-    // кладешь в массив столько вьюх, сколько прилетело в параметрах и задаешь им высоту в 1-2 пикселя по дизайну
+    // добавление в массив столько вьюх, сколько прилетело в параметрах и задание высоты в 1-2 пикселя по дизайну
         for _ in 1...underlinesCount {
             let view = UIView()
-//            view.backgroundColor = .customPink
             view.backgroundColor = .clear
             view.snp.makeConstraints {
                 $0.height.equalTo(2)
             }
             arrayOfViews.append(view)
         }
-    // добавляешь массив в стеквью
+    // добавление массива в стеквью
         stackView.addArrangedSubviews(arrayOfViews)
-        
         addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -50,7 +48,7 @@ class SplitUnderlineView: UIView {
     }
 
     func setHighlited(viewWithindex index: Int) {
-    // перекрашиваешь все вьюхи в массиве в неактивный цвет и одну с указанным индексом в активный цвет
+    // перекрашивание всех вьюх в массиве в неактивный цвет и одного(с указанным индексом) в активный цвет
         arrayOfViews.enumerated().forEach { offset, element in
             element.backgroundColor = offset == index ? .black : .clear
         }
@@ -91,26 +89,3 @@ extension UISegmentedControl {
                                      .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .selected)
     }
 }
-//    func highlightSelectedSegment(){
-//            removeBorder()
-//            let lineWidth: CGFloat = self.frame.size.width
-//            let lineHeight: CGFloat = 5.0
-//            let lineXPosition = CGFloat(selectedSegmentIndex * Int(lineWidth))
-//            let lineYPosition = self.bounds.size.height - 2.0
-//            let underlineFrame = CGRect(x: lineXPosition, y: lineYPosition, width: lineWidth , height: lineHeight)
-//            let underLine = UIView(frame: underlineFrame)
-//            underLine.backgroundColor = UIColor(red: 0.812, green: 0.286, blue: 0.494, alpha: 1)
-//            underLine.tag = 1
-//
-//            self.addSubview(underLine)
-//        }
-
-//    func underlinePosition(){
-//            guard let underLine = self.viewWithTag(1) else {return}
-//            let xPosition = (self.bounds.width / CGFloat(self.numberOfSegments)) * CGFloat(selectedSegmentIndex)
-//            UIView.animate(withDuration: 0.0, delay: 0.0, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
-//                underLine.frame.origin.x = xPosition
-//            })
-//        }
-// }
-

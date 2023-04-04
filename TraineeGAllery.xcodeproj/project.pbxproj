@@ -26,7 +26,7 @@
 		475AA78529D6E1E1006B9BC6 /* CollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78429D6E1E1006B9BC6 /* CollectionView+.swift */; };
 		475AA78829D6E6B2006B9BC6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */; };
 		475AA78A29D6E7F4006B9BC6 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */; };
-		475AA78E29D744EF006B9BC6 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footer.swift */; };
+		475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footers.swift */; };
 		47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */; };
 		47CB5B9A29DB3556002BB2ED /* ApplicationStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */; };
 /* End PBXBuildFile section */
@@ -52,7 +52,7 @@
 		475AA78429D6E1E1006B9BC6 /* CollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+.swift"; sourceTree = "<group>"; };
 		475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
-		475AA78D29D744EF006B9BC6 /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
+		475AA78D29D744EF006B9BC6 /* Footers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footers.swift; sourceTree = "<group>"; };
 		47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionStack.swift; sourceTree = "<group>"; };
 		47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = ApplicationStrings.strings; sourceTree = "<group>"; };
 		56132349D80DAEC94FF9C382 /* Pods-TraineeGAllery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraineeGAllery.debug.xcconfig"; path = "Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				4709BA2829D1C3EF0035F64F /* AddSubview.swift */,
-				475AA78D29D744EF006B9BC6 /* Footer.swift */,
+				475AA78D29D744EF006B9BC6 /* Footers.swift */,
 				475AA78429D6E1E1006B9BC6 /* CollectionView+.swift */,
 				475AA77F29D6DFDB006B9BC6 /* SegContrUnderLine.swift */,
 				4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */,
@@ -291,7 +291,7 @@
 				475AA78029D6DFDB006B9BC6 /* SegContrUnderLine.swift in Sources */,
 				4709BA0D29D1AC900035F64F /* AppDelegate.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,
-				475AA78E29D744EF006B9BC6 /* Footer.swift in Sources */,
+				475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */,
 				4709BA2929D1C3EF0035F64F /* AddSubview.swift in Sources */,
 				4709BA2629D1C06F0035F64F /* DetailedVC.swift in Sources */,
 				475AA78229D6E08C006B9BC6 /* UIViewAnimation.swift in Sources */,

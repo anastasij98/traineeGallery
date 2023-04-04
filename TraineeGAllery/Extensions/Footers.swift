@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class BlackFooterView: UICollectionReusableView {
+class IndicatorFooterView: UICollectionReusableView {
     
-    var activity: UIImageView = {
+    let activity: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Ellipse")
         return view

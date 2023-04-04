@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         return view
     }()
     
-    var id = "cell"
+    let id = "cell"
     var mode: SegmentMode = .new
     
     // загруженные картинки
@@ -109,11 +109,12 @@ class ViewController: UIViewController {
         }
     }
     
-    var imagesPerPage = 10
     var hasMorePages: Bool {
         currentPage <= currentCountOfPages
     }
-    var isLoadingRightNow = false
+    var isLoading = false
+    
+    lazy var reachibilityNetwork = NetworkReachabilityManager(host: "www.ya.ru")
     
     //положение галлереи
     var newCollectionViewOffset: CGPoint = CGPoint()
@@ -138,8 +139,7 @@ class ViewController: UIViewController {
     }
     
     lazy var segmentedControl: UISegmentedControl = {
-//        let segmentItems = ["New", "Popular"]
-        let segments = [SegmentMode.new.rawValue.capitalized, SegmentMode.popular.rawValue.capitalized]
+        let segments = [SegmentMode.new.rawValue, SegmentMode.popular.rawValue]
         let view = UISegmentedControl(items: segments)
         view.selectedSegmentIndex = 0
         view.clipsToBounds = false
@@ -178,8 +178,16 @@ class ViewController: UIViewController {
         return view
     }()
     
-    var footerReuseIdentifier = "footer"
-    var clearReuseIdentifier = "clear"
+    let noConnectionStackView: NoConnectionStack = {
+            let view = NoConnectionStack()
+            return view
+        }()
+    
+    
+    let indicatorReuseIdentifier = "indicator"
+    let clearReuseIdentifier = "clear"
+    
+    let backIndicatorImage = UIImage(named: "Vector")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,8 +197,35 @@ class ViewController: UIViewController {
         setupSegmentedControl()
         setupCollectionView()
         setupCollectionViewLayout()
+        updateUnderlineVisibility(hiddenValue: false)
+        view.addSubview(noConnectionStackView)
+        noConnectionStackView.snp.makeConstraints { make in
+            make.center.equalTo(view.snp.center)
+        }
+//        collectionView.backgroundView = noConnectionStackView
         
         loadMore()
+        
+        //Presenter
+        reachibilityNetwork?.startListening(onUpdatePerforming: { [ weak self ] status in
+            guard let self = self else { return }
+            switch status {
+            case .reachable, .unknown:
+                self.collectionView.isHidden = false
+                self.noConnectionStackView.isHidden = true
+                print("\(status)")
+                
+                if self.requestImages.isEmpty {
+                    self.loadMore()
+                }
+                
+            case .notReachable:
+                self.collectionView.isHidden = true
+                self.noConnectionStackView.isHidden = false
+                print("Network Status: \(status)")
+                
+            }
+        })
     }
     
     override func viewWillLayoutSubviews() {
@@ -201,8 +236,8 @@ class ViewController: UIViewController {
     
     private func setupNavgationBar() {
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "Vector")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "Vector")
+        navigationController?.navigationBar.backIndicatorImage = backIndicatorImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIndicatorImage
     }
     
     private func setupSegmentedControl() {
@@ -229,9 +264,6 @@ class ViewController: UIViewController {
             $0.trailing.equalTo(segmentedControl.snp.trailing)
         }
         
-        splitLeftUnderlineView.isHidden = false
-        splitRightUnderlineView.isHidden = true
-        
         view.addSubview(underlineView)
         underlineView.snp.makeConstraints {
             $0.top.equalTo(splitLeftUnderlineView.snp.bottom)
@@ -246,7 +278,7 @@ class ViewController: UIViewController {
         collectionView.register(CollectionViewCell.self,
                                 forCellWithReuseIdentifier: id)
         
-        collectionView.register(BlackFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier)
+        collectionView.register(IndicatorFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: indicatorReuseIdentifier)
         collectionView.register(ClearFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: clearReuseIdentifier)
         
         collectionView.delegate = self
@@ -270,9 +302,7 @@ class ViewController: UIViewController {
         let request = URLConfiguration.url + URLConfiguration.api
         var parametrs: Parameters = [
             "page": "\(pageToLoad)",
-//            "limit": "\(imagesPerPage)"
             "limit": "\(limit)"
-
         ]
         
         switch mode {
@@ -299,10 +329,11 @@ class ViewController: UIViewController {
             } else {
                 completion(.failure(NSError(domain: "Get nothing", code: 0)))
             }
-            self.isLoadingRightNow = false
+            self.isLoading = false
             
         }
-        isLoadingRightNow = true
+        
+        isLoading = true
     }
     
     @objc
@@ -339,7 +370,7 @@ class ViewController: UIViewController {
     }
     
     func loadMore() {
-        guard !isLoadingRightNow, hasMorePages else {
+        guard !isLoading, hasMorePages else {
             #if DEBUG
             print("All images are loaded")
             #endif
@@ -348,24 +379,29 @@ class ViewController: UIViewController {
         getData()
     }
     
+    func updateUnderlineVisibility(hiddenValue: Bool) {
+        splitLeftUnderlineView.isHidden = hiddenValue
+        splitRightUnderlineView.isHidden = !hiddenValue
+    }
+    
     @objc
     func changeScreen(_ sender: UISegmentedControl) {
         savedCollectionViewOffset = collectionView.contentOffset
         underlineView.setHighlited(viewWithindex: segmentedControl.selectedSegmentIndex)
 
+        
+        segmentedControl.selectedSegmentIndex == 0 ? updateUnderlineVisibility(hiddenValue: false) : updateUnderlineVisibility(hiddenValue: true)
+//        segmentedControl.selectedSegmentIndex == 0 ? (mode = .new) : (mode = .popular)
+        
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             mode = .new
-            splitLeftUnderlineView.isHidden = false
-            splitRightUnderlineView.isHidden = true
-            
+
         case 1:
             mode = .popular
-            splitLeftUnderlineView.isHidden = true
-            splitRightUnderlineView.isHidden = false
+
         default:
             mode = .new
-            
         }
         
         if requestImages.isEmpty {

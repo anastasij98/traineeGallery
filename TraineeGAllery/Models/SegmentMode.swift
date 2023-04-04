@@ -9,6 +9,6 @@ import Foundation
 import UIKit
 
 enum SegmentMode: String, CaseIterable {
-    case new
-    case popular
+    case new = "New"
+    case popular = "Popular"
 }

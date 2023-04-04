@@ -49,17 +49,18 @@ class NoConnectionStack: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupStackView()
         
+        setupStackView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
     }
     
     func setupStackView(){
+        self.addSubview(noConnectionStackView)
         noConnectionStackView.addArrangedSubviews(noConnectionImage, noConnectionTitle, noConnectionDescription)
-        
         
         noConnectionStackView.snp.makeConstraints {
             $0.center.equalTo(self.snp.center)
