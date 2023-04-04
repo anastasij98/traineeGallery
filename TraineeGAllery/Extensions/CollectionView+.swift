@@ -14,6 +14,7 @@ extension ViewController: UICollectionViewDelegate {
         let detailedVC = DetailedVC()
         detailedVC.model = requestImages[indexPath.item]
         navigationController?.pushViewController(detailedVC, animated: true)
+
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

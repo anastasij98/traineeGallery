@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum SegmentMode: CaseIterable {
+enum SegmentMode: String, CaseIterable {
     case new
     case popular
 }
