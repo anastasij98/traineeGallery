@@ -11,16 +11,14 @@ import UIKit
 //MARK: - UICollectionViewDelegate
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailedVC = DetailedVC()
-        detailedVC.model = requestImages[indexPath.item]
-        navigationController?.pushViewController(detailedVC, animated: true)
-
+        presenter?.didSelectItem(withIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let lastItemIndex = requestImages.count - 1
+        guard let itemsCount = presenter?.getItemsCount() else { return }
+        let lastItemIndex = itemsCount - 1
         if indexPath.item == lastItemIndex {
-            loadMore()
+            presenter?.loadMore()
         }
     }
      
@@ -29,19 +27,20 @@ extension ViewController: UICollectionViewDelegate {
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return requestImages.count
+        return presenter?.getItemsCount() ?? 0
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let item = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? CollectionViewCell,
+              let item = presenter?.getItem(index: indexPath.item) else { return UICollectionViewCell() }
         
-        let request = URLConfiguration.url + URLConfiguration.media + (requestImages[indexPath.item].image.name ?? "")
+        let request = URLConfiguration.url + URLConfiguration.media + (item.image.name ?? "")
         let model = CollectionViewCellModel(imageURL: URL(string: request))
-        item.setupCollectionItem(model: model)
-        item.backgroundColor = .customGrey
+        cell.setupCollectionItem(model: model)
+        cell.backgroundColor = .customGrey
         
-        return item
+        return cell
     }
 }
 
@@ -81,7 +80,8 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        if kind == UICollectionView.elementKindSectionFooter, hasMorePages, !requestImages.isEmpty {
+        if kind == UICollectionView.elementKindSectionFooter,
+            presenter?.needIndicatorInFooter() ?? false {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: indicatorReuseIdentifier, for: indexPath)
             footer.startRotating()
             return footer
@@ -92,7 +92,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
        
-        hasMorePages ? CGSize(width: 0, height: 50) : CGSize(width: 0, height: 0)
+        presenter?.needIndicatorInFooter() == true ? CGSize(width: 0, height: 50) : CGSize(width: 0, height: 0)
     }
     
 }
