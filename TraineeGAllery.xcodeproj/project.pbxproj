@@ -16,7 +16,7 @@
 		4709BA1929D1AC910035F64F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4709BA1729D1AC910035F64F /* LaunchScreen.storyboard */; };
 		4709BA2129D1AED70035F64F /* CollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2029D1AED70035F64F /* CollectionViewCellModel.swift */; };
 		4709BA2429D1BE730035F64F /* UIColor+CGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */; };
-		4709BA2629D1C06F0035F64F /* DetailedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2529D1C06F0035F64F /* DetailedVC.swift */; };
+		4709BA2629D1C06F0035F64F /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2529D1C06F0035F64F /* DetailedViewController.swift */; };
 		4709BA2929D1C3EF0035F64F /* AddSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2829D1C3EF0035F64F /* AddSubview.swift */; };
 		4709BA2B29D1E0920035F64F /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2A29D1E0920035F64F /* JSONModel.swift */; };
 		4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2C29D1E4690035F64F /* URLConfiguration.swift */; };
@@ -38,6 +38,9 @@
 		47CB5BAF29DCB685002BB2ED /* GalleryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5BAE29DCB685002BB2ED /* GalleryPresenter.swift */; };
 		47CB5BB129DCB6D4002BB2ED /* GalleryConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5BB029DCB6D4002BB2ED /* GalleryConfigurator.swift */; };
 		47CB5BB329DCB6E0002BB2ED /* GalleryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5BB229DCB6E0002BB2ED /* GalleryRouter.swift */; };
+		47CB5BBD29DDCF3D002BB2ED /* DetailedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5BBC29DDCF3D002BB2ED /* DetailedPresenter.swift */; };
+		47CB5BBF29DDCF4C002BB2ED /* DetailedConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5BBE29DDCF4C002BB2ED /* DetailedConfigurator.swift */; };
+		47CB5BC129DDCF5E002BB2ED /* DetailedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5BC029DDCF5E002BB2ED /* DetailedRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +54,7 @@
 		4709BA1A29D1AC910035F64F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4709BA2029D1AED70035F64F /* CollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellModel.swift; sourceTree = "<group>"; };
 		4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CGColor.swift"; sourceTree = "<group>"; };
-		4709BA2529D1C06F0035F64F /* DetailedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedVC.swift; sourceTree = "<group>"; };
+		4709BA2529D1C06F0035F64F /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		4709BA2829D1C3EF0035F64F /* AddSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubview.swift; sourceTree = "<group>"; };
 		4709BA2A29D1E0920035F64F /* JSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONModel.swift; sourceTree = "<group>"; };
 		4709BA2C29D1E4690035F64F /* URLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConfiguration.swift; sourceTree = "<group>"; };
@@ -73,6 +76,9 @@
 		47CB5BAE29DCB685002BB2ED /* GalleryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPresenter.swift; sourceTree = "<group>"; };
 		47CB5BB029DCB6D4002BB2ED /* GalleryConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryConfigurator.swift; sourceTree = "<group>"; };
 		47CB5BB229DCB6E0002BB2ED /* GalleryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRouter.swift; sourceTree = "<group>"; };
+		47CB5BBC29DDCF3D002BB2ED /* DetailedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPresenter.swift; sourceTree = "<group>"; };
+		47CB5BBE29DDCF4C002BB2ED /* DetailedConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedConfigurator.swift; sourceTree = "<group>"; };
+		47CB5BC029DDCF5E002BB2ED /* DetailedRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRouter.swift; sourceTree = "<group>"; };
 		56132349D80DAEC94FF9C382 /* Pods-TraineeGAllery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraineeGAllery.debug.xcconfig"; path = "Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery.debug.xcconfig"; sourceTree = "<group>"; };
 		5EAF76BA86F4DA72706BBFBD /* Pods-TraineeGAllery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraineeGAllery.release.xcconfig"; path = "Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery.release.xcconfig"; sourceTree = "<group>"; };
 		CC270DB30C355A1698E7FA56 /* Pods_TraineeGAllery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraineeGAllery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,10 +126,10 @@
 		4709BA0B29D1AC900035F64F /* TraineeGAllery */ = {
 			isa = PBXGroup;
 			children = (
-				47CB5BB429DD70C0002BB2ED /* DetailedScreen */,
-				47CB5BA929DCB5D3002BB2ED /* GalleryScreen */,
 				4709BA0C29D1AC900035F64F /* AppDelegate.swift */,
 				4709BA0E29D1AC900035F64F /* SceneDelegate.swift */,
+				47CB5BA929DCB5D3002BB2ED /* GalleryScreen */,
+				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
 				47CB5B9B29DCB59A002BB2ED /* Sample */,
 				4709BA2729D1C3CC0035F64F /* Extensions */,
 				4709BA2229D1AEFF0035F64F /* Models */,
@@ -164,7 +170,6 @@
 		475AA78329D6E185006B9BC6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				4709BA2529D1C06F0035F64F /* DetailedVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -212,11 +217,15 @@
 			path = GalleryScreen;
 			sourceTree = "<group>";
 		};
-		47CB5BB429DD70C0002BB2ED /* DetailedScreen */ = {
+		47CB5BBB29DDCF25002BB2ED /* DetailedViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4709BA2529D1C06F0035F64F /* DetailedViewController.swift */,
+				47CB5BBC29DDCF3D002BB2ED /* DetailedPresenter.swift */,
+				47CB5BBE29DDCF4C002BB2ED /* DetailedConfigurator.swift */,
+				47CB5BC029DDCF5E002BB2ED /* DetailedRouter.swift */,
 			);
-			path = DetailedScreen;
+			path = DetailedViewController;
 			sourceTree = "<group>";
 		};
 		EB39576A2D71A841207CAB2B /* Frameworks */ = {
@@ -346,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47CB5BA829DCB59A002BB2ED /* SampleScreenPresenter.swift in Sources */,
+				47CB5BC129DDCF5E002BB2ED /* DetailedRouter.swift in Sources */,
 				475AA78529D6E1E1006B9BC6 /* GalleryViewController+CollectionView.swift in Sources */,
 				47CB5BA429DCB59A002BB2ED /* SampleScreenRouter.swift in Sources */,
 				47CB5BA729DCB59A002BB2ED /* SampleScreenView.swift in Sources */,
@@ -355,10 +365,12 @@
 				4709BA0D29D1AC900035F64F /* AppDelegate.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,
 				475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */,
+				47CB5BBF29DDCF4C002BB2ED /* DetailedConfigurator.swift in Sources */,
 				47CB5BA629DCB59A002BB2ED /* SampleScreenConfigurator.swift in Sources */,
 				4709BA2929D1C3EF0035F64F /* AddSubview.swift in Sources */,
-				4709BA2629D1C06F0035F64F /* DetailedVC.swift in Sources */,
+				4709BA2629D1C06F0035F64F /* DetailedViewController.swift in Sources */,
 				47CB5BB129DCB6D4002BB2ED /* GalleryConfigurator.swift in Sources */,
+				47CB5BBD29DDCF3D002BB2ED /* DetailedPresenter.swift in Sources */,
 				475AA78229D6E08C006B9BC6 /* UIViewAnimation.swift in Sources */,
 				47CB5BB329DCB6E0002BB2ED /* GalleryRouter.swift in Sources */,
 				47CB5BA329DCB59A002BB2ED /* SampleScreenPresenterImp.swift in Sources */,

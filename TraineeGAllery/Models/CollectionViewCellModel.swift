@@ -21,8 +21,23 @@ class CollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupImage()
         setupCell()
+        setupActivityIndicator()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageInGallery.image = nil
+    }
+    
+    func setupActivityIndicator() {
         contentView.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -30,21 +45,9 @@ class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageInGallery.image = nil
-
-    }
-    
     func setupCell() {
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
-        
     }
     
     func setupImage() {
@@ -66,5 +69,4 @@ class CollectionViewCell: UICollectionViewCell {
             self?.activityIndicator.isHidden = true
         }
     }
-    
 }

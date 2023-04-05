@@ -9,9 +9,21 @@ import Foundation
 import UIKit
 import SnapKit
 
-class DetailedVC: UIViewController, UIScrollViewDelegate {
+protocol DetailedViewControllerProtocol: AnyObject {
     
-    var dataTask: URLSessionDataTask?
+    func setupView(name: String,
+                   user: String,
+                   description: String,
+                   imageName: String,
+                   date: String,
+                   viewsCount: String)
+    func setImage(data: Data)
+}
+
+class DetailedViewController: UIViewController, UIScrollViewDelegate {
+    
+    var presenter: DetailedPresenterProtocol?
+    var model: ItemModel?
 
     var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -27,6 +39,7 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         view.axis = .vertical
         view.alignment = .center
         view.distribution = .fill
+        
         return view
     }()
     
@@ -35,6 +48,7 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         view.axis = .horizontal
         view.alignment = .center
         view.distribution = .fill
+        
         return view
     }()
 
@@ -61,6 +75,7 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         view.textColor = .black
         view.font = UIFont(name: "Roboto-Regular", size: 20)
         view.numberOfLines = 0
+        
         return view
     }()
     
@@ -69,6 +84,7 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         view.textColor = .customGrey
         view.font = UIFont(name: "Roboto-Regular", size: 15)
         view.textAlignment = .left
+        
         return view
     }()
     
@@ -79,6 +95,7 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         view.lineBreakMode = .byWordWrapping
         view.numberOfLines = 0
         view.textAlignment = .justified
+        
         return view
     }()
     
@@ -88,12 +105,14 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         view.font = UIFont(name: "Roboto-Regular", size: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
+        
         return view
     }()
     
     var eyeImage: UIImageView = {
         var view = UIImageView()
-        view.image = UIImage(systemName: "eye")?.withTintColor(.customGrey, renderingMode: .alwaysOriginal)
+        view.image = UIImage(systemName: "eye")?.withTintColor(.customGrey,
+                                                               renderingMode: .alwaysOriginal)
 
         return view
     }()
@@ -107,17 +126,16 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
         return view
     }()
   
-    var model: ItemModel?
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupScrollView()
-        setupCellContent()
-
+        presenter?.viewDidLoad()
     }
   
      override func viewWillAppear(_ animated: Bool) {
+         super.viewWillAppear(animated)
+         
          view.backgroundColor = .white
     }
     
@@ -174,54 +192,22 @@ class DetailedVC: UIViewController, UIScrollViewDelegate {
            $0.leading.equalTo(totalStackView.snp.leading)
            $0.trailing.equalTo(totalStackView.snp.trailing)
        }
-
     }
-    
-    func setupCellContent() {
-        imageTitle.text = model?.name
-        usersLabel.text = model?.user
-        imageDescription.text = model?.description
-        selectedImage.image = UIImage(named: (model?.image.name) ?? "cat2")
-        downloadDate.text = getFormattedDateString(rawString: model?.date)
-       
-        guard let id = model?.id else {return}
-        viewsCount.text = "\(id)"
 
-        if let name = model?.image.name {
-            let urlString = URLConfiguration.url + URLConfiguration.media + name
-            guard let url = URL(string: urlString) else {
-                return
-            }
-            
-            let request = URLRequest(url: url)
-            let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, _ in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        self?.selectedImage.image = UIImage(data: data)
-                    }
-                }
-            }
-            task.resume()
-            dataTask = task
-        }
-    }
-    
-    func getFormattedDateString(rawString: String?) -> String {
-        guard let text = rawString else { return "" }
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let date = dateFormatter.date(from: text) else { return "" }
-        
-        let neededDate = DateFormatter()
-        neededDate.dateFormat = "dd.MM.yyyy"
-        let dateString = neededDate.string(from: date)
-
-        return dateString
-    }
-    
-    deinit {
-        dataTask?.cancel()
-    }
 }
 
+extension DetailedViewController: DetailedViewControllerProtocol {
+    
+    func setupView(name: String, user: String, description: String, imageName: String, date: String, viewsCount: String) {
+        imageTitle.text = name
+        usersLabel.text = user
+        imageDescription.text = description
+        selectedImage.image = UIImage(named: imageName)
+        downloadDate.text = date
+        self.viewsCount.text = viewsCount
+    }
+    
+    func setImage(data: Data) {
+        selectedImage.image = UIImage(data: data)
+    }
+}

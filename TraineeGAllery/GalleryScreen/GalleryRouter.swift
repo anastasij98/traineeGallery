@@ -25,9 +25,8 @@ class GalleryRouter {
 extension GalleryRouter: GalleryRouterProtocol {
     
     func openDetailedViewController(model: ItemModel) {
-        guard let navigationController = self.view?.navigationController else { return }
-        let detailedVC = DetailedVC()
-        detailedVC.model = model
-        navigationController.pushViewController(detailedVC, animated: true)
+        guard let navigationController = self.view?.navigationController else { return } 
+        DetailedConfigurator.openViewController(navigationController: navigationController,
+                                                model: model)
     }
 }

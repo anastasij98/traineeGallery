@@ -28,7 +28,6 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter?.getItemsCount() ?? 0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -54,7 +53,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
             let allowedWidth = view.frame.width - paddingsInRow
             let itemsWidth = allowedWidth / itemsInRow
             return CGSize(width: itemsWidth, height: itemsWidth)
-            
         } else {
             let itemsInRow: CGFloat = 2
             let sidePadding: CGFloat = 16
@@ -63,7 +61,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
             let itemsWidth = allowedWidth / itemsInRow
             return CGSize(width: itemsWidth, height: itemsWidth)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
