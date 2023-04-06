@@ -10,6 +10,7 @@ import UIKit
 
 //MARK: - UICollectionViewDelegate
 extension ViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.didSelectItem(withIndex: indexPath.item)
     }
@@ -21,7 +22,6 @@ extension ViewController: UICollectionViewDelegate {
             presenter?.loadMore()
         }
     }
-     
 }
 //MARK: - UICollectionViewDataSource
 extension ViewController: UICollectionViewDataSource {
@@ -45,6 +45,7 @@ extension ViewController: UICollectionViewDataSource {
 
 //MARK: -  UICollectionViewDelegateFlowLayout
 extension ViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if UIDevice.current.orientation.isLandscape {
@@ -91,5 +92,4 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
        
         presenter?.needIndicatorInFooter() == true ? CGSize(width: 0, height: 50) : CGSize(width: 0, height: 0)
     }
-    
 }

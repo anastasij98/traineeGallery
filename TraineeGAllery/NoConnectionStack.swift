@@ -28,22 +28,24 @@ class NoConnectionStack: UIView {
     }()
     
     var noConnectionTitle: UILabel = {
-       let view = UILabel()
-        view.font = UIFont(name: "Roboto-Regular", size: 17)
+        let view = UILabel()
+        view.font = .robotoRegular(ofSize: 17)
         view.textAlignment = .center
         view.textColor = .customGrey
         view.text = "Sorry!"
+        
         return view
     }()
     
     var noConnectionDescription: UILabel = {
-       let view = UILabel()
-        view.font = UIFont(name: "Roboto-Regular", size: 12)
+        let view = UILabel()
+        view.font = .robotoRegular(ofSize: 12)
+        view.textColor = .customGrey
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
         view.textAlignment = .center
-        view.textColor = .customGrey
         view.text = "There is no pictures.\nPlease come back later."
+        
         return view
     }()
     
@@ -66,6 +68,4 @@ class NoConnectionStack: UIView {
             $0.center.equalTo(self.snp.center)
         }
     }
-    
-    
 }

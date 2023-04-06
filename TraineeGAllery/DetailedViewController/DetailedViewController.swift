@@ -73,7 +73,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     var imageTitle: UILabel = {
         var view = UILabel()
         view.textColor = .black
-        view.font = UIFont(name: "Roboto-Regular", size: 20)
+        view.font = .robotoRegular(ofSize: 20)
         view.numberOfLines = 0
         
         return view
@@ -82,7 +82,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     var usersLabel: UILabel = {
         var view = UILabel()
         view.textColor = .customGrey
-        view.font = UIFont(name: "Roboto-Regular", size: 15)
+        view.font = .robotoRegular(ofSize: 15)
         view.textAlignment = .left
         
         return view
@@ -91,7 +91,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     var imageDescription: UILabel = {
         var view = UILabel()
         view.textColor = .black
-        view.font = UIFont(name: "Roboto-Light", size: 15)
+        view.font = .robotoLight(ofSize: 15)
         view.lineBreakMode = .byWordWrapping
         view.numberOfLines = 0
         view.textAlignment = .justified
@@ -102,7 +102,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     var viewsCount: UILabel = {
         var view = UILabel()
         view.textColor = .customGrey
-        view.font = UIFont(name: "Roboto-Regular", size: 12)
+        view.font = .robotoRegular(ofSize: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
         
@@ -120,9 +120,10 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     var downloadDate: UILabel = {
         var view = UILabel()
         view.textColor = .customGrey
-        view.font = UIFont(name: "Roboto-Regular", size: 12)
+        view.font = .robotoRegular(ofSize: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
+        
         return view
     }()
   

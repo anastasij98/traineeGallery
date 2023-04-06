@@ -52,11 +52,11 @@ class CollectionViewCell: UICollectionViewCell {
     
     func setupImage() {
         contentView.addSubview(imageInGallery)
-
+        
         imageInGallery.snp.makeConstraints({
             $0.edges.equalTo(contentView.snp.edges)
         })
-    
+        
         imageInGallery.contentMode = .scaleAspectFill
     }
     

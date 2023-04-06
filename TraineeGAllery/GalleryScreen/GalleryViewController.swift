@@ -53,11 +53,17 @@ class ViewController: UIViewController {
     lazy var segmentedControl: UISegmentedControl = {
         let segments = [SegmentMode.new.rawValue, SegmentMode.popular.rawValue]
         let view = UISegmentedControl(items: segments)
+        view.removeBorder()
         view.selectedSegmentIndex = 0
         view.clipsToBounds = false
         view.addTarget(self, action: #selector(changeScreen), for: .valueChanged)
         view.backgroundColor = .white
-        view.removeBorder()
+        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 17),
+                                     .foregroundColor : UIColor.black],
+                                    for: .selected)
+        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 17),
+                                     .foregroundColor : UIColor.customGrey],
+                                    for: .normal)
         
         return view
     }()
@@ -65,19 +71,14 @@ class ViewController: UIViewController {
     lazy var splitLeftUnderlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .customPink
+        
         return view
     }()
     
     lazy var splitRightUnderlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .customPink
-        return view
-    }()
-    
-    lazy var underlineView: SplitUnderlineView = {
-        let view = SplitUnderlineView()
-        view.setup(underlinesCount: segmentedControl.numberOfSegments)
-        view.setHighlited(viewWithindex: 0)
+        
         return view
     }()
     
@@ -94,7 +95,6 @@ class ViewController: UIViewController {
             let view = NoConnectionStack()
             return view
         }()
-    
     
     let indicatorReuseIdentifier = "indicator"
     let clearReuseIdentifier = "clear"
@@ -116,7 +116,6 @@ class ViewController: UIViewController {
         noConnectionStackView.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
         }
-                
     }
     
     override func viewWillLayoutSubviews() {
@@ -133,13 +132,13 @@ class ViewController: UIViewController {
     
     private func setupSegmentedControl() {
         view.addSubview(segmentedControl)
+        segmentedControl.addSubviews(splitLeftUnderlineView, splitRightUnderlineView)
+
         segmentedControl.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
-        
-        segmentedControl.addSubviews(splitLeftUnderlineView, splitRightUnderlineView)
         
         splitLeftUnderlineView.snp.makeConstraints {
             $0.height.equalTo(2)
@@ -148,34 +147,28 @@ class ViewController: UIViewController {
             $0.leading.equalTo(segmentedControl.snp.leading)
             
         }
+        
         splitRightUnderlineView.snp.makeConstraints {
             $0.height.equalTo(2)
             $0.width.equalTo(segmentedControl.snp.width).dividedBy(segmentedControl.numberOfSegments)
             $0.bottom.equalTo(segmentedControl.snp.bottom)
             $0.trailing.equalTo(segmentedControl.snp.trailing)
         }
-        
-        view.addSubview(underlineView)
-        underlineView.snp.makeConstraints {
-            $0.top.equalTo(splitLeftUnderlineView.snp.bottom)
-            $0.leading.equalTo(segmentedControl.snp.leading)
-            $0.trailing.equalTo(segmentedControl.snp.trailing)
-        }
-        
     }
     
     private func setupCollectionView() {
         view.addSubview(collectionView)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
         collectionView.register(CollectionViewCell.self,
                                 forCellWithReuseIdentifier: id)
         
         collectionView.register(IndicatorFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: indicatorReuseIdentifier)
         collectionView.register(ClearFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: clearReuseIdentifier)
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.refreshControl = refreshControl
-        
     }
     
     private func setupCollectionViewLayout() {
@@ -205,11 +198,8 @@ class ViewController: UIViewController {
         segmentedControl.selectedSegmentIndex == 0
             ? updateUnderlineVisibility(hiddenValue: false)
             : updateUnderlineVisibility(hiddenValue: true)
-        
-//        updateUnderlineVisibility(hiddenValue: segmentedControl.selectedSegmentIndex == 0)
-        
+    
         presenter?.didSelectSegment(withIndex: segmentedControl.selectedSegmentIndex)
-        
     }
 
 }

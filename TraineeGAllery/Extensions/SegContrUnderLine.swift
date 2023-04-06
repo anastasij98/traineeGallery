@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 import SnapKit
 
-
 class SplitUnderlineView: UIView {
-
+    
     private lazy var arrayOfViews: [UIView] = .init()
-
+    
     private lazy var stackView: UIStackView = {
         // горизонтальный стек, растягивающий контент по своей ширине
         let view = UIStackView()
@@ -23,14 +22,14 @@ class SplitUnderlineView: UIView {
         return view
     }()
     
-
+    
     func setup(underlinesCount: Int) {
-    // очищенеие массива и стека
+        // очищенеие массива и стека
         arrayOfViews.removeAll()
         stackView.arrangedSubviews.forEach { view in
             stackView.removeArrangedSubview(view)
         }
-    // добавление в массив столько вьюх, сколько прилетело в параметрах и задание высоты в 1-2 пикселя по дизайну
+        // добавление в массив столько вьюх, сколько прилетело в параметрах и задание высоты в 1-2 пикселя по дизайну
         for _ in 1...underlinesCount {
             let view = UIView()
             view.backgroundColor = .clear
@@ -39,25 +38,21 @@ class SplitUnderlineView: UIView {
             }
             arrayOfViews.append(view)
         }
-    // добавление массива в стеквью
+        // добавление массива в стеквью
         stackView.addArrangedSubviews(arrayOfViews)
         addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
-
+    
     func setHighlited(viewWithindex index: Int) {
-    // перекрашивание всех вьюх в массиве в неактивный цвет и одного(с указанным индексом) в активный цвет
+        // перекрашивание всех вьюх в массиве в неактивный цвет и одного(с указанным индексом) в активный цвет
         arrayOfViews.enumerated().forEach { offset, element in
             element.backgroundColor = offset == index ? .black : .clear
         }
     }
 }
-
-
-
-
 
 extension UIImage {
     class func getSegRect(color: CGColor, andSize size: CGSize) -> UIImage{
@@ -66,7 +61,7 @@ extension UIImage {
         context?.setFillColor(color)
         let rectangle = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
         context?.fill(rectangle)
-
+        
         let rectangleImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return rectangleImage!

@@ -122,10 +122,10 @@ class GalleryPresenter {
     var hasMorePages: Bool {
         currentPage <= currentCountOfPages
     }
+    
     var isLoading = false
     
     lazy var reachibilityNetwork = NetworkReachabilityManager(host: "www.ya.ru")
-    
     
     init(view: ViewControllerProtocol? = nil, router: GalleryRouterProtocol) {
         self.view = view
@@ -133,7 +133,6 @@ class GalleryPresenter {
     }
     
     func setupReachibilityManager() {
-        //Presenter
         reachibilityNetwork?.startListening(onUpdatePerforming: { [ weak self ] status in
             guard let self = self else { return }
             switch status {
@@ -153,7 +152,6 @@ class GalleryPresenter {
             }
         })
     }
-    
     
     func getAnswerFromRequest(limit: Int = 10, completion: @escaping(Result<JSONModel, Error>) -> ()) {
         pageToLoad = currentPage + 1
@@ -189,9 +187,7 @@ class GalleryPresenter {
                 completion(.failure(NSError(domain: "Get nothing", code: 0)))
             }
             self.isLoading = false
-            
         }
-        
         isLoading = true
     }
     
@@ -224,10 +220,6 @@ extension GalleryPresenter: GalleryPresenterProtocol {
     
     func didSelectItem(withIndex index: Int) {
         router.openDetailedViewController(model: requestImages[index])
-        
-//        let detailedVC = DetailedVC()
-//        detailedVC.model = presenter?.getItem(index: indexPath.item)
-//        navigationController?.pushViewController(detailedVC, animated: true)
     }
     
     func didSelectSegment(withIndex index: Int) {

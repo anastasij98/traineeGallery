@@ -20,7 +20,7 @@ class IndicatorFooterView: UICollectionReusableView {
         super.init(frame: frame)
         setupImage()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -36,7 +36,7 @@ class IndicatorFooterView: UICollectionReusableView {
 }
 
 class ClearFooterView: UICollectionReusableView {
-  
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

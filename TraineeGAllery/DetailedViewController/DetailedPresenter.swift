@@ -52,7 +52,6 @@ class DetailedPresenter {
 extension DetailedPresenter: DetailedPresenterProtocol {
     
     func viewDidLoad() {
-        
         let date = getFormattedDateString()
 
         view?.setupView(name: model?.name ?? "",
@@ -63,7 +62,6 @@ extension DetailedPresenter: DetailedPresenterProtocol {
                         viewsCount: "\(model?.id ?? 0)")
         downloadImage()
     }
-    
     
     func downloadImage() {
         guard let name = model?.image.name,
