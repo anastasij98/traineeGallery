@@ -143,16 +143,16 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
    func setupScrollView() {
        scrollView.delegate = self
        
+       view.addSubview(scrollView)
+       scrollView.addSubviews(totalStackView)
        upperStackView.addArrangedSubviews(imageTitle, viewsCount, eyeImage)
        lowerStackView.addArrangedSubviews(usersLabel, downloadDate)
        totalStackView.addArrangedSubviews(selectedImage, upperStackView, lowerStackView, imageDescription)
+       
        totalStackView.setCustomSpacing(11.0, after: selectedImage)
        totalStackView.setCustomSpacing(10.0, after: upperStackView)
        totalStackView.setCustomSpacing(20.0, after: lowerStackView)
 
-       scrollView.addSubviews(totalStackView)
-       view.addSubview(scrollView)
-       
        scrollView.snp.makeConstraints {
            $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
        }
@@ -194,7 +194,6 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
            $0.trailing.equalTo(totalStackView.snp.trailing)
        }
     }
-
 }
 
 extension DetailedViewController: DetailedViewControllerProtocol {

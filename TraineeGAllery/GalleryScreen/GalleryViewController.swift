@@ -17,6 +17,12 @@ protocol ViewControllerProtocol: AnyObject {
 
 class ViewController: UIViewController {
     
+    enum Identifiers {
+        static let cellId = "cell"
+        static let indicatorReuseIdentifier = "indicator"
+        static let clearReuseIdentifier = "clear"
+    }
+    
     var presenter: GalleryPresenterProtocol?
     
     var collectionView: UICollectionView = {
@@ -24,8 +30,6 @@ class ViewController: UIViewController {
                                     collectionViewLayout: UICollectionViewFlowLayout())
         return view
     }()
-    
-    let id = "cell"
    
     
     //положение галлереи
@@ -96,9 +100,6 @@ class ViewController: UIViewController {
             return view
         }()
     
-    let indicatorReuseIdentifier = "indicator"
-    let clearReuseIdentifier = "clear"
-    
     let backIndicatorImage = UIImage(named: "Vector")
     
     override func viewDidLoad() {
@@ -112,12 +113,9 @@ class ViewController: UIViewController {
         setupCollectionView()
         setupCollectionViewLayout()
         updateUnderlineVisibility(hiddenValue: false)
-        view.addSubview(noConnectionStackView)
-        noConnectionStackView.snp.makeConstraints { make in
-            make.center.equalTo(view.snp.center)
-        }
+        setupNoConnectionStackView()
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -163,10 +161,10 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
         
         collectionView.register(CollectionViewCell.self,
-                                forCellWithReuseIdentifier: id)
+                                forCellWithReuseIdentifier: Identifiers.cellId)
         
-        collectionView.register(IndicatorFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: indicatorReuseIdentifier)
-        collectionView.register(ClearFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: clearReuseIdentifier)
+        collectionView.register(IndicatorFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: Identifiers.indicatorReuseIdentifier)
+        collectionView.register(ClearFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: Identifiers.clearReuseIdentifier)
         
         collectionView.refreshControl = refreshControl
     }
@@ -177,6 +175,12 @@ class ViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(segmentedControl.snp.bottom).offset(5)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
+    private func setupNoConnectionStackView() {
+        view.addSubview(noConnectionStackView)
+        noConnectionStackView.snp.makeConstraints { make in
+            make.center.equalTo(view.snp.center)
         }
     }
 

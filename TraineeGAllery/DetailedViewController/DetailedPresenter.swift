@@ -80,5 +80,4 @@ extension DetailedPresenter: DetailedPresenterProtocol {
         task.resume()
         dataTask = task
     }
-    
 }

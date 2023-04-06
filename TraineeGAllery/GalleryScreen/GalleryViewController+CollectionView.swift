@@ -31,7 +31,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? CollectionViewCell,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.cellId, for: indexPath) as? CollectionViewCell,
               let item = presenter?.getItem(index: indexPath.item) else { return UICollectionViewCell() }
         
         let request = URLConfiguration.url + URLConfiguration.media + (item.image.name ?? "")
@@ -80,11 +80,11 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         
         if kind == UICollectionView.elementKindSectionFooter,
             presenter?.needIndicatorInFooter() ?? false {
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: indicatorReuseIdentifier, for: indexPath)
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Identifiers.indicatorReuseIdentifier, for: indexPath)
             footer.startRotating()
             return footer
         } else {
-            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: clearReuseIdentifier, for: indexPath)
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Identifiers.clearReuseIdentifier, for: indexPath)
         }
     }
     
