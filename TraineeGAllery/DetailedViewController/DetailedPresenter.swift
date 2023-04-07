@@ -9,75 +9,39 @@ import Foundation
 
 protocol DetailedPresenterProtocol {
     
-    func getFormattedDateString() -> String
+    func downloadImg(data: Data)
     func viewDidLoad()
+    func viewIsReady()
 }
 
 class DetailedPresenter {
     
     weak var view: DetailedViewControllerProtocol?
-    var model: ItemModel?
-    var dataTask: URLSessionDataTask?
-
+    var server: DetailedNetwork
     
-    init(view: DetailedViewControllerProtocol? = nil, model: ItemModel) {
+    init(view: DetailedViewControllerProtocol? = nil, server: DetailedNetwork) {
         self.view = view
-        self.model = model
-    }
-    
-    func getFormattedDateString() -> String {
-        guard let text = model?.date else {
-            return "nil"
-        }
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let date = dateFormatter.date(from: text) else {
-            return ""
-        }
-        
-        let neededDate = DateFormatter()
-        neededDate.dateFormat = "dd.MM.yyyy"
-        let dateString = neededDate.string(from: date)
-
-        return dateString
-    }
-
-    deinit {
-        dataTask?.cancel()
+        self.server = server
     }
 }
 
-
 extension DetailedPresenter: DetailedPresenterProtocol {
     
-    func viewDidLoad() {
-        let date = getFormattedDateString()
-
-        view?.setupView(name: model?.name ?? "",
-                        user: model?.user ?? "",
-                        description: model?.description ?? "",
-                        imageName: model?.image.name ?? "",
-                        date: date,
-                        viewsCount: "\(model?.id ?? 0)")
-        downloadImage()
+    func downloadImg(data: Data) {
+        view?.setImage(data: data)
     }
     
-    func downloadImage() {
-        guard let name = model?.image.name,
-              let url = URL(string: URLConfiguration.url + URLConfiguration.media + name) else {
-            return
-        }
-        
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, _ in
-            if let data = data {
-                DispatchQueue.main.async {
-                    self?.view?.setImage(data: data)
-                }
-            }
-        }
-        task.resume()
-        dataTask = task
+    func viewIsReady() {
+        view?.setupView(name: server.viewdidload().name,
+                        user: server.viewdidload().user,
+                        description: server.viewdidload().description,
+                        imageName: server.viewdidload().imageName,
+                        date: server.getFormattedDateString(),
+                        viewsCount: server.viewdidload().viewsCount)
+    }
+    
+    func viewDidLoad() {
+        viewIsReady()
+        downloadImg(data: server.downloadImageFromInternet())
     }
 }

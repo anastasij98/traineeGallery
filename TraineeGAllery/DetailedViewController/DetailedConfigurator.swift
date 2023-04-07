@@ -17,8 +17,10 @@ class DetailedConfigurator {
     
     static func getViewController(model: ItemModel) -> DetailedViewController {
         let viewController = DetailedViewController()
-        let presenter = DetailedPresenter(view: viewController, model: model)
+        let server = DetailedNetwork(model: model)
+        let presenter = DetailedPresenter(view: viewController, server: server)
         viewController.presenter = presenter
+        server.presenter = presenter
         
         return viewController
     }
