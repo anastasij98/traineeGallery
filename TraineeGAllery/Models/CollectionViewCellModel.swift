@@ -35,6 +35,7 @@ class CollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         
         imageInGallery.image = nil
+        imageInGallery.kf.cancelDownloadTask()
     }
     
     func setupActivityIndicator() {
@@ -64,7 +65,7 @@ class CollectionViewCell: UICollectionViewCell {
         let url = model.imageURL
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
-        imageInGallery.kf.setImage(with: url, options:[.transition(.fade(0.2))]) { [ weak self ] _ in
+        imageInGallery.kf.setImage(with: url, options: [.transition(.fade(0.2))]) { [ weak self ] _ in
             self?.activityIndicator.stopAnimating()
             self?.activityIndicator.isHidden = true
         }

@@ -26,6 +26,7 @@ class GalleryPresenter {
 
     weak var view: ViewControllerProtocol?
     var router: GalleryRouterProtocol
+    var network: NetworkServiceProtocol
     
     var mode: SegmentMode = .new
 
@@ -119,6 +120,37 @@ class GalleryPresenter {
         }
     }
     
+    // идентификаторы запросов
+    var newRequestID: String?
+    var popularRequestID: String?
+    var requestID: String? {
+        get {
+            switch mode {
+            case .new:
+                return newRequestID
+            case .popular:
+                return popularRequestID
+            }
+        }
+        set {
+            switch mode {
+            case .new:
+                newRequestID = newValue
+            case .popular:
+                popularRequestID = newValue
+            }
+        }
+    }
+    
+    var siski: String {
+        get {
+            return "dvoechka"
+        }
+        set {
+            _ = newValue
+        }
+    }
+    
     var hasMorePages: Bool {
         currentPage <= currentCountOfPages
     }
@@ -127,9 +159,12 @@ class GalleryPresenter {
     
     lazy var reachibilityNetwork = NetworkReachabilityManager(host: "www.ya.ru")
     
-    init(view: ViewControllerProtocol? = nil, router: GalleryRouterProtocol) {
+    init(view: ViewControllerProtocol? = nil,
+         router: GalleryRouterProtocol,
+         network: NetworkService) {
         self.view = view
         self.router = router
+        self.network = network
     }
     
     func setupReachibilityManager() {
@@ -144,7 +179,7 @@ class GalleryPresenter {
                 if self.requestImages.isEmpty {
                     self.loadMore()
                 }
-                
+
             case .notReachable:
                 self.view?.connectionDidChange(isConnected: false)
                 print("Network Status: \(status)")
@@ -153,55 +188,21 @@ class GalleryPresenter {
         })
     }
     
-    func getAnswerFromRequest(limit: Int = 10, completion: @escaping(Result<JSONModel, Error>) -> ()) {
-        pageToLoad = currentPage + 1
-        
-        let request = URLConfiguration.url + URLConfiguration.api
-        var parametrs: Parameters = [
-            "page": "\(pageToLoad)",
-            "limit": "\(limit)"
-        ]
-        
-        switch mode {
-        case .new:
-            parametrs["new"] = "true"
-            print(pageToLoad)
-            
-        case .popular:
-            parametrs["popular"] = "true"
-            print(pageToLoad)
-            
-        }
-        
-        AF.request(request, method: .get, parameters: parametrs).responseData { response in
-            if let data = response.data {
-                do {
-                    let result = try JSONDecoder().decode(JSONModel.self, from: data)
-                    completion(.success(result))
-                } catch let decodinError {
-                    completion(.failure(decodinError))
-                }
-            } else if let error = response.error {
-                completion(.failure(error))
-            } else {
-                completion(.failure(NSError(domain: "Get nothing", code: 0)))
-            }
-            self.isLoading = false
-        }
-        isLoading = true
-    }
-    
     @objc
     func getData() {
-        getAnswerFromRequest(limit: 10) { result in
+        pageToLoad = currentPage + 1
+        requestID = network.getImages(limit: 10,
+                                      pageToLoad: pageToLoad,
+                                      mode: mode,
+                                      completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
                     self.requestImages.append(contentsOf: success.data)
                     // don't touch   self.collectionView.reloadSections([0])
-//                    self.collectionView.reconfigureItems(at: self.collectionView.indexPathsForVisibleItems)
+                    // self.collectionView.reconfigureItems(at: self.collectionView.indexPathsForVisibleItems)
                     self.view?.updateView(restoreOffset: false)
-                                        
+                    
                     guard let count = success.countOfPages else { return }
                     self.currentCountOfPages = count
                     
@@ -212,6 +213,17 @@ class GalleryPresenter {
                 }
                 self.view?.hideRefreshControll()
             }
+            self.isLoading = false
+        })
+        isLoading = true
+    }
+    
+    deinit {
+        if let newID = newRequestID {
+            network.cancelTask(withIdentifier: newID)
+        }
+        if let popularID = popularRequestID {
+            network.cancelTask(withIdentifier: popularID)
         }
     }
 }
@@ -265,6 +277,7 @@ extension GalleryPresenter: GalleryPresenterProtocol {
     
     func onRefreshStarted() {
         currentPage = 0
+        requestID = nil
         requestImages.removeAll()
         loadMore()
     }

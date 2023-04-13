@@ -9,39 +9,71 @@ import Foundation
 
 protocol DetailedPresenterProtocol {
     
-    func downloadImg(data: Data)
-    func viewDidLoad()
     func viewIsReady()
 }
 
 class DetailedPresenter {
     
     weak var view: DetailedViewControllerProtocol?
-    var server: DetailedNetwork
+    var networkService: NetworkServiceProtocol
+    var model: ItemModel
+    var taskIdentifier: String?
     
-    init(view: DetailedViewControllerProtocol? = nil, server: DetailedNetwork) {
+    init(view: DetailedViewControllerProtocol? = nil,
+         network: NetworkServiceProtocol,
+         model: ItemModel) {
         self.view = view
-        self.server = server
+        self.networkService = network
+        self.model = model
+    }
+    
+    func getFormattedDateString() -> String {
+        guard let text = model.date else {
+            return "nil"
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        guard let date = dateFormatter.date(from: text) else {
+            return ""
+        }
+        
+        let neededDate = DateFormatter()
+        neededDate.dateFormat = "dd.MM.yyyy"
+        let dateString = neededDate.string(from: date)
+        
+        return dateString
+    }
+    
+    func downloadImageFile() {
+        guard let imageName = model.image.name else {
+            return
+        }
+        
+        taskIdentifier = networkService.getImageFile(name: imageName,
+                                                     completion: { [weak view = self.view] data in
+            view?.setImage(data: data)
+        })
+    }
+    
+    deinit {
+        guard let task = taskIdentifier else {
+            return
+        }
+        networkService.cancelTask(withIdentifier: task)
     }
 }
 
 extension DetailedPresenter: DetailedPresenterProtocol {
     
-    func downloadImg(data: Data) {
-        view?.setImage(data: data)
-    }
-    
     func viewIsReady() {
-        view?.setupView(name: server.viewdidload().name,
-                        user: server.viewdidload().user,
-                        description: server.viewdidload().description,
-                        imageName: server.viewdidload().imageName,
-                        date: server.getFormattedDateString(),
-                        viewsCount: server.viewdidload().viewsCount)
-    }
-    
-    func viewDidLoad() {
-        viewIsReady()
-        downloadImg(data: server.downloadImageFromInternet())
+        // Устанавливаем во вью ту информацию, которая уже есть
+        view?.setupView(name: model.name ?? .init(),
+                        user: model.user ?? "",
+                        description: model.description ?? String(),
+                        date: getFormattedDateString(),
+                        viewsCount: String(model.id ?? 0))
+        // Начинаем загрузку картинки
+        downloadImageFile()
     }
 }

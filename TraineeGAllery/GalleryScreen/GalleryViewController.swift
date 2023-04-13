@@ -220,7 +220,9 @@ extension ViewController: ViewControllerProtocol {
     }
     
     func updateView(restoreOffset: Bool) {
-        collectionView.reloadSections([0])
+        UIView.performWithoutAnimation {
+            collectionView.reloadSections([0])
+        }
         
         if restoreOffset {
             collectionView.setContentOffset(savedCollectionViewOffset,

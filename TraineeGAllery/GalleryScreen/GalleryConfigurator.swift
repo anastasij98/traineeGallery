@@ -17,8 +17,11 @@ class GalleryConfigurator {
     
     static func getViewController() -> ViewController {
         let viewController = ViewController()
+        let network = NetworkService()
         let router = GalleryRouter(view: viewController)
-        let presenter = GalleryPresenter(view: viewController, router: router)
+        let presenter = GalleryPresenter(view: viewController,
+                                         router: router,
+                                         network: network)
         viewController.presenter = presenter
         
         return viewController

@@ -14,7 +14,6 @@ protocol DetailedViewControllerProtocol: AnyObject {
     func setupView(name: String,
                    user: String,
                    description: String,
-                   imageName: String,
                    date: String,
                    viewsCount: String)
     func setImage(data: Data)
@@ -23,8 +22,7 @@ protocol DetailedViewControllerProtocol: AnyObject {
 class DetailedViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: DetailedPresenterProtocol?
-    var model: ItemModel?
-
+    
     var scrollView: UIScrollView = {
         var view = UIScrollView()
         view = UIScrollView(frame: .zero)
@@ -131,7 +129,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
 
         setupScrollView()
-        presenter?.viewDidLoad()
+        presenter?.viewIsReady()
     }
   
      override func viewWillAppear(_ animated: Bool) {
@@ -198,16 +196,21 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
 
 extension DetailedViewController: DetailedViewControllerProtocol {
     
-    func setupView(name: String, user: String, description: String, imageName: String, date: String, viewsCount: String) {
+    func setupView(name: String,
+                   user: String,
+                   description: String,
+                   date: String,
+                   viewsCount: String) {
         imageTitle.text = name
         usersLabel.text = user
         imageDescription.text = description
-        selectedImage.image = UIImage(named: imageName)
         downloadDate.text = date
         self.viewsCount.text = viewsCount
     }
     
     func setImage(data: Data) {
-        selectedImage.image = UIImage(data: data)
+        DispatchQueue.main.async {
+            self.selectedImage.image = UIImage(data: data)
+        }
     }
 }
