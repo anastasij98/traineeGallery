@@ -142,15 +142,6 @@ class GalleryPresenter {
         }
     }
     
-    var siski: String {
-        get {
-            return "dvoechka"
-        }
-        set {
-            _ = newValue
-        }
-    }
-    
     var hasMorePages: Bool {
         currentPage <= currentCountOfPages
     }

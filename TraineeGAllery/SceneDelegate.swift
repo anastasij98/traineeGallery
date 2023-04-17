@@ -19,6 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let viewController = GalleryConfigurator.getViewController()
+//        let viewController = WelcomeViewController()
+
         let navigationController = UINavigationController(rootViewController: viewController)
         
         window?.rootViewController = navigationController

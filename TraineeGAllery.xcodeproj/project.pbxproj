@@ -30,6 +30,8 @@
 		475AA78829D6E6B2006B9BC6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */; };
 		475AA78A29D6E7F4006B9BC6 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */; };
 		475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footers.swift */; };
+		479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */; };
+		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
 		47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */; };
 		47CB5B9A29DB3556002BB2ED /* ApplicationStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */; };
 		47CB5BA329DCB59A002BB2ED /* SampleScreenPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5B9C29DCB59A002BB2ED /* SampleScreenPresenterImp.swift */; };
@@ -71,6 +73,8 @@
 		475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		475AA78D29D744EF006B9BC6 /* Footers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footers.swift; sourceTree = "<group>"; };
+		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionStack.swift; sourceTree = "<group>"; };
 		47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = ApplicationStrings.strings; sourceTree = "<group>"; };
 		47CB5B9C29DCB59A002BB2ED /* SampleScreenPresenterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleScreenPresenterImp.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 				47D72DAF29E49B4E00E37909 /* NetworkService */,
 				4709BA0C29D1AC900035F64F /* AppDelegate.swift */,
 				4709BA0E29D1AC900035F64F /* SceneDelegate.swift */,
+				479E68CF29ED32E10053E706 /* WelcomViewController */,
 				47CB5BA929DCB5D3002BB2ED /* GalleryScreen */,
 				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
 				4709BA2729D1C3CC0035F64F /* Extensions */,
@@ -177,11 +182,20 @@
 		475AA78629D6E664006B9BC6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				479E68D029ED39150053E706 /* Roboto-Bold.ttf */,
 				475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */,
 				475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */,
 				47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		479E68CF29ED32E10053E706 /* WelcomViewController */ = {
+			isa = PBXGroup;
+			children = (
+				479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */,
+			);
+			path = WelcomViewController;
 			sourceTree = "<group>";
 		};
 		47CB5B9B29DCB59A002BB2ED /* Sample */ = {
@@ -305,6 +319,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */,
 				4709BA1929D1AC910035F64F /* LaunchScreen.storyboard in Resources */,
 				4709BA1629D1AC910035F64F /* Assets.xcassets in Resources */,
 				47CB5B9A29DB3556002BB2ED /* ApplicationStrings.strings in Resources */,
@@ -372,6 +387,7 @@
 				4709BA1129D1AC900035F64F /* GalleryViewController.swift in Sources */,
 				47CB5BAF29DCB685002BB2ED /* GalleryPresenter.swift in Sources */,
 				475AA78029D6DFDB006B9BC6 /* SegContrUnderLine.swift in Sources */,
+				479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */,
 				4709BA0D29D1AC900035F64F /* AppDelegate.swift in Sources */,
 				4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,

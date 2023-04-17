@@ -60,7 +60,7 @@ class NoConnectionStack: UIView {
         
     }
     
-    func setupStackView(){
+    func setupStackView() {
         self.addSubview(noConnectionStackView)
         noConnectionStackView.addArrangedSubviews(noConnectionImage, noConnectionTitle, noConnectionDescription)
         
