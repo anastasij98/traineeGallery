@@ -9,7 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol WelcomeViewControllerProtocol: AnyObject {
+    
+}
+
 class WelcomeViewController: UIViewController {
+    
+    var presenter: WelcomePresenterProtocol?
     
     lazy var welcomeStackView: UIStackView = {
        let view = UIStackView()
@@ -47,7 +53,9 @@ class WelcomeViewController: UIViewController {
         view.snp.makeConstraints { make in
             make.height.equalTo(36)
         }
-
+        view.addTarget(self,
+                       action: #selector(createAnAccount),
+                       for: .touchUpInside)
         return view
     }()
     
@@ -61,7 +69,9 @@ class WelcomeViewController: UIViewController {
         view.snp.makeConstraints { make in
             make.height.equalTo(36)
         }
-        
+        view.addTarget(self,
+                       action: #selector(signIn),
+                       for: .touchUpInside)
         return view
     }()
     
@@ -69,8 +79,21 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+    
         setupStackView()
+        setupStatusBar()
     }
+    
+    
+    func setupStatusBar() {
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backIndicatorImage = UIImage()
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
+        navigationItem.backButtonTitle = "Cancel"
+        navigationController?.navigationBar.tintColor = .customDarkGrey
+        
+    }
+ 
     
     func setupStackView() {
         view.addSubview(welcomeStackView)
@@ -85,5 +108,19 @@ class WelcomeViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
     }
+    
+    @objc
+    func createAnAccount() {
+        presenter?.createAnAccount()
+    }
+    
+    @objc
+    func signIn() {
+        presenter?.signIn()
+    }
+}
+
+extension WelcomeViewController: WelcomeViewControllerProtocol {
+    
     
 }

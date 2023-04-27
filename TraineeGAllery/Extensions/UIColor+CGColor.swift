@@ -19,6 +19,14 @@ extension UIColor {
     static var customBlack: UIColor {
         #colorLiteral(red: 0.1516073942, green: 0.1516073942, blue: 0.1516073942, alpha: 1)
     }
+    
+    static var customRed: UIColor {
+        #colorLiteral(red: 0.9098039216, green: 0, blue: 0, alpha: 1)
+    }
+    
+    static var customDarkGrey: UIColor {
+        #colorLiteral(red: 0.3725490196, green: 0.3725490196, blue: 0.3725490196, alpha: 1)
+    }
 }
 
 extension CGColor {

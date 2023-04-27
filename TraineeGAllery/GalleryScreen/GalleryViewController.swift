@@ -143,7 +143,6 @@ class ViewController: UIViewController {
             $0.width.equalTo(segmentedControl.snp.width).dividedBy(segmentedControl.numberOfSegments)
             $0.bottom.equalTo(segmentedControl.snp.bottom)
             $0.leading.equalTo(segmentedControl.snp.leading)
-            
         }
         
         splitRightUnderlineView.snp.makeConstraints {
