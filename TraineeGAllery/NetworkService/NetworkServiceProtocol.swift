@@ -30,8 +30,17 @@ protocol NetworkServiceProtocol {
     ///   - completion: замыкание для обаботки результата
     /// - Returns: возвращаемый идектификатор запроса (для отмены)
     func getImageFile(name: String) -> Observable<Data>
-    
-    ///  Метод отмены запроса
-    /// - Parameter id: идентификатор для отмены запросы
-//    func cancelTask(withIdentifier id: String)
 }
+
+/*
+     Observable<Type> -> в onNext может сколько угодно раз вернуть объект Type
+     Single<Type> -> в onSuccess может вернуть значение единожды
+     Completable -> не имеет значений, в onCompleted оповещает об успехе
+     
+     ----------------------
+     
+     .do() -> наблюдаем за последовательностью
+     .subscribe() -> подписываемся на последовательность
+     .disposed(by: disposeBage) -> сохраняем последовательность в памяти
+     
+     */

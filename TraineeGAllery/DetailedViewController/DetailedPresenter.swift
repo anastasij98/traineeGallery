@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol DetailedPresenterProtocol {
     
@@ -18,6 +19,9 @@ class DetailedPresenter {
     var networkService: NetworkServiceProtocol
     var model: ItemModel
     var taskIdentifier: String?
+    
+    var disposeBag: DisposeBag = .init()
+    
     
     init(view: DetailedViewControllerProtocol? = nil,
          network: NetworkServiceProtocol,
@@ -46,16 +50,23 @@ class DetailedPresenter {
     }
     
     func downloadImageFile() {
-//        guard let imageName = model.image.name else {
-//            return
-//        }
-        
-//        taskIdentifier = networkService.getImageFile(name: imageName,
-//                                                     completion: { [weak view = self.view] data in
-//            view?.setImage(data: data)
-//        })
+        guard let imageName = model.image?.name else {
+            return
+        }
+        networkService.getImageFile(name: imageName)
+            .debug()
+            .subscribe(onNext: { [weak self] data in
+                guard let self = self else { return }
+                self.view?.setImage(data: data)
+            }, onError: {error in
+                
+            }, onCompleted: {
+                
+            },onDisposed: {
+            })
+            .disposed(by: disposeBag)
     }
- 
+    
 }
 
 extension DetailedPresenter: DetailedPresenterProtocol {

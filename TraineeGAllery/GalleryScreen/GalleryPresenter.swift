@@ -8,7 +8,6 @@
 import Foundation
 import Alamofire
 import RxSwift
-import RxAlamofire
 
 protocol GalleryPresenterProtocol {
     
@@ -202,17 +201,10 @@ class GalleryPresenter {
             guard let self = self else { return }
             do {
                 self.requestImages.append(contentsOf: data.data)
-                // don't touch
-                // self.collectionView.reloadSections([0])
-                // self.collectionView.reconfigureItems(at: self.collectionView.indexPathsForVisibleItems)
                 self.view?.updateView(restoreOffset: false)
                 guard let count = data.countOfPages else { return }
                 self.currentCountOfPages = count
                 self.currentPage = self.pageToLoad
-                
-                print(count)
-                print(self.currentPage)
-                print(self.pageToLoad)
             } catch let erorr {
                 print(erorr)
             }
