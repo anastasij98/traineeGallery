@@ -3,62 +3,48 @@
 //  TraineeGAllery
 //
 //  Created by LUNNOPARK on 07.04.23.
-//
 
 import Foundation
 import Alamofire
+import RxSwift
+import RxAlamofire
 
 class NetworkService {
 
-//    var dataTasks: [String: URLSessionDataTask] = .init()
-    var dataTasks: [String: DataRequest] = .init()
-
-    func getImageFile(name: String,
-                      completion: @escaping (Data) -> Void) -> String? {
-//        guard let url = URL(string: URLConfiguration.url + URLConfiguration.media + name) else {
-//            return nil
-//        }
-        let url = URLConfiguration.url + URLConfiguration.media + name
-        
-        let randomString = UUID().uuidString
-//        let request = URLRequest(url: url)
-//        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, _ in
-//            if let data = data {
-//                completion(data)
-//            }
-//            self?.dataTasks.removeValue(forKey: randomString)
-//        }
-//        task.resume()
-//        dataTask = task
-        
-        let task = AF.request(url, method: .get).responseData { [weak self] response in
-            if let data = response.data {
-                completion(data)
-            }
-            self?.dataTasks.removeValue(forKey: randomString)
-        }
-        dataTasks[randomString] = task
-        
-        return randomString
-    }
-    
-    func cancelTask(withIdentifier id: String) {
-        dataTasks[id]?.cancel()
-        dataTasks.removeValue(forKey: id)
-    }
-    
-    deinit {
-        dataTasks.forEach { $0.value.cancel() }
-        dataTasks.removeAll()
-    }
 }
 
 extension NetworkService: NetworkServiceProtocol {
     
+    func getImageFile(name: String) -> Observable<Data> {
+        let url = URLConfiguration.url + URLConfiguration.media + name
+        
+        return RxAlamofire.data(.get, url)
+    }
+    
+    //    func getImages(limit: Int,
+    //                   pageToLoad: Int,
+    //                   mode: SegmentMode) -> Observable<Data> {
+    //        let request = URLConfiguration.url + URLConfiguration.api
+    //        var parametrs: Parameters = [
+    //            "page": "\(pageToLoad)",
+    //            "limit": "\(limit)"
+    //        ]
+    //
+    //        switch mode {
+    //        case .new:
+    //            parametrs["new"] = "true"
+    //
+    //        case .popular:
+    //            parametrs["popular"] = "true"
+    //        }
+    //
+    //        return RxAlamofire.data(.get, request, parameters: parametrs)
+    //    }
+    
+    
     func getImages(limit: Int,
                    pageToLoad: Int,
-                   mode: SegmentMode,
-                   completion: @escaping ((Result<JSONModel, Error>) -> Void)) -> String? {
+                   mode: SegmentMode) -> Observable<JSONModel>  {
         let request = URLConfiguration.url + URLConfiguration.api
         var parametrs: Parameters = [
             "page": "\(pageToLoad)",
@@ -68,32 +54,33 @@ extension NetworkService: NetworkServiceProtocol {
         switch mode {
         case .new:
             parametrs["new"] = "true"
-//            print(pageToLoad)
             
         case .popular:
             parametrs["popular"] = "true"
-//            print(pageToLoad)
         }
         
-        let randomString = UUID().uuidString
-
-       let task = AF.request(request, method: .get, parameters: parametrs).responseData { [weak self] response in
-            if let data = response.data {
-                do {
-                    let result = try JSONDecoder().decode(JSONModel.self, from: data)
-                    completion(.success(result))
-                } catch let decodinError {
-                    completion(.failure(decodinError))
-                }
-            } else if let error = response.error {
-                completion(.failure(error))
-            } else {
-                completion(.failure(NSError(domain: "Get nothing", code: 0)))
+        return RxAlamofire.data(.get, request, parameters: parametrs)
+            .flatMap { data -> Observable<JSONModel> in
+            do {
+                let model = try JSONDecoder().decode(JSONModel.self, from: data)
+                return .just(model)
+            } catch let error {
+                return .error(error)
             }
-           self?.dataTasks.removeValue(forKey: randomString)
         }
-        dataTasks[randomString] = task
-        
-        return randomString
     }
+    
 }
+
+/*
+     Observable<Type> -> в onNext может сколько угодно раз вернуть объект Type
+     Single<Type> -> в onSuccess может вернуть значение единожды
+     Completable -> не имеет значений, в onCompleted оповещает об успехе
+     
+     ----------------------
+     
+     .do() -> наблюдаем за последовательностью
+     .subscribe() -> подписываемся на последовательность
+     .disposed(by: disposeBage) -> сохраняем последовательность в памяти
+     
+     */

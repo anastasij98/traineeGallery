@@ -9,4 +9,7 @@ target 'TraineeGAllery' do
   pod 'Alamofire'
   pod 'Kingfisher', '~> 7.0'
 
+  pod 'RxSwift', '6.5.0'
+  pod 'RxAlamofire'
+
 end

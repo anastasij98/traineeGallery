@@ -46,22 +46,16 @@ class DetailedPresenter {
     }
     
     func downloadImageFile() {
-        guard let imageName = model.image.name else {
-            return
-        }
+//        guard let imageName = model.image.name else {
+//            return
+//        }
         
-        taskIdentifier = networkService.getImageFile(name: imageName,
-                                                     completion: { [weak view = self.view] data in
-            view?.setImage(data: data)
-        })
+//        taskIdentifier = networkService.getImageFile(name: imageName,
+//                                                     completion: { [weak view = self.view] data in
+//            view?.setImage(data: data)
+//        })
     }
-    
-    deinit {
-        guard let task = taskIdentifier else {
-            return
-        }
-        networkService.cancelTask(withIdentifier: task)
-    }
+ 
 }
 
 extension DetailedPresenter: DetailedPresenterProtocol {

@@ -7,6 +7,8 @@
 
 import Foundation
 import Alamofire
+import RxSwift
+import RxAlamofire
 
 protocol GalleryPresenterProtocol {
     
@@ -29,6 +31,8 @@ class GalleryPresenter {
     var network: NetworkServiceProtocol
     
     var mode: SegmentMode = .new
+    
+    var disposeBag = DisposeBag()
 
     // загруженные картинки
     var newImages = [ItemModel]()
@@ -182,41 +186,44 @@ class GalleryPresenter {
     @objc
     func getData() {
         pageToLoad = currentPage + 1
-        requestID = network.getImages(limit: 10,
-                                      pageToLoad: pageToLoad,
-                                      mode: mode,
-                                      completion: { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let success):
-                    self.requestImages.append(contentsOf: success.data)
-                    // don't touch   self.collectionView.reloadSections([0])
-                    // self.collectionView.reconfigureItems(at: self.collectionView.indexPathsForVisibleItems)
-                    self.view?.updateView(restoreOffset: false)
-                    
-                    guard let count = success.countOfPages else { return }
-                    self.currentCountOfPages = count
-                    
-                    self.currentPage = self.pageToLoad
-                    
-                case .failure(let failure):
-                    print(failure.localizedDescription)
-                }
-                self.view?.hideRefreshControll()
-            }
+        network.getImages(limit: 10,
+                          pageToLoad: pageToLoad,
+                          mode: mode)
+        .debug()
+        .do(onSubscribe: { [weak self]  in
+            guard let self = self else { return }
+            self.isLoading = true
+        }, onDispose: { [weak self]  in
+            guard let self = self else { return }
             self.isLoading = false
+            self.view?.hideRefreshControll()
         })
-        isLoading = true
-    }
-    
-    deinit {
-        if let newID = newRequestID {
-            network.cancelTask(withIdentifier: newID)
-        }
-        if let popularID = popularRequestID {
-            network.cancelTask(withIdentifier: popularID)
-        }
-    }
+        .subscribe(onNext:{ [weak self] data in
+            guard let self = self else { return }
+            do {
+                self.requestImages.append(contentsOf: data.data)
+                // don't touch
+                // self.collectionView.reloadSections([0])
+                // self.collectionView.reconfigureItems(at: self.collectionView.indexPathsForVisibleItems)
+                self.view?.updateView(restoreOffset: false)
+                guard let count = data.countOfPages else { return }
+                self.currentCountOfPages = count
+                self.currentPage = self.pageToLoad
+                
+                print(count)
+                print(self.currentPage)
+                print(self.pageToLoad)
+            } catch let erorr {
+                print(erorr)
+            }
+        }, onError: { error in
+            print(error)
+        }, onCompleted: {
+            
+        }, onDisposed: {
+        })
+            .disposed(by: disposeBag)
+            }
 }
 
 extension GalleryPresenter: GalleryPresenterProtocol {
@@ -229,10 +236,10 @@ extension GalleryPresenter: GalleryPresenterProtocol {
         switch index {
         case 0:
             mode = .new
-
+            
         case 1:
             mode = .popular
-
+            
         default:
             mode = .new
         }

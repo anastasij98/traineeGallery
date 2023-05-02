@@ -9,7 +9,7 @@ import Foundation
 
 protocol SignUpPresenterProtocol {
     
-    func openGallery()
+    func signIn()
 }
 
 class SignUpPresenter {
@@ -26,8 +26,8 @@ class SignUpPresenter {
 
 extension SignUpPresenter: SignUpPresenterProtocol {
  
-    func openGallery() {
-        router.openGallery()
+    func signIn() {
+        router.signIn()
 
     }
 

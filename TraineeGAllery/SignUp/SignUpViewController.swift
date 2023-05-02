@@ -72,7 +72,6 @@ class SignUpViewController: UIViewController {
         }
         view.placeholder = "Birthday"
         view.keyboardType = .numbersAndPunctuation
-        view.reloadInputViews()
 
         return view
     }()
@@ -183,7 +182,7 @@ class SignUpViewController: UIViewController {
         }
         
         view.addTarget(self,
-                       action: #selector(openGallery),
+                       action: #selector(signIn),
                        for: .touchUpInside)
         
         return view
@@ -265,8 +264,8 @@ class SignUpViewController: UIViewController {
     }
     
     @objc
-    func openGallery() {
-        presenter?.openGallery()
+    func signIn() {
+        presenter?.signIn()
     }
 }
 

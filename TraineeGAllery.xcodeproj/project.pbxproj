@@ -58,7 +58,6 @@
 		47E515D229F87C0500AB5397 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D129F87C0500AB5397 /* SignInRouter.swift */; };
 		47E515D429F87C3500AB5397 /* SignInConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D329F87C3500AB5397 /* SignInConfigurator.swift */; };
 		47E515D629F8A04200AB5397 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D529F8A04200AB5397 /* TextField.swift */; };
-		47E515D829F99F3000AB5397 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D729F99F3000AB5397 /* NavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,7 +113,6 @@
 		47E515D129F87C0500AB5397 /* SignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
 		47E515D329F87C3500AB5397 /* SignInConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInConfigurator.swift; sourceTree = "<group>"; };
 		47E515D529F8A04200AB5397 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
-		47E515D729F99F3000AB5397 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		56132349D80DAEC94FF9C382 /* Pods-TraineeGAllery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraineeGAllery.debug.xcconfig"; path = "Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery.debug.xcconfig"; sourceTree = "<group>"; };
 		5EAF76BA86F4DA72706BBFBD /* Pods-TraineeGAllery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraineeGAllery.release.xcconfig"; path = "Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery.release.xcconfig"; sourceTree = "<group>"; };
 		CC270DB30C355A1698E7FA56 /* Pods_TraineeGAllery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraineeGAllery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				4709BA2829D1C3EF0035F64F /* AddSubview.swift */,
-				47E515D729F99F3000AB5397 /* NavigationBar.swift */,
 				475AA77F29D6DFDB006B9BC6 /* SegContrUnderLine.swift */,
 				4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */,
 				4758098629DEB54E00BA741E /* UIFont.swift */,
@@ -278,8 +275,8 @@
 		47D72DAF29E49B4E00E37909 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
-				4758098829DFF86900BA741E /* NetworkService.swift */,
 				4758099429E07D9A00BA741E /* NetworkServiceProtocol.swift */,
+				4758098829DFF86900BA741E /* NetworkService.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -460,7 +457,6 @@
 				47CB5BB129DCB6D4002BB2ED /* GalleryConfigurator.swift in Sources */,
 				47E515C829F8602000AB5397 /* SignUpRouter.swift in Sources */,
 				47CB5BBD29DDCF3D002BB2ED /* DetailedPresenter.swift in Sources */,
-				47E515D829F99F3000AB5397 /* NavigationBar.swift in Sources */,
 				47E515D029F87BD500AB5397 /* SignInPresenter.swift in Sources */,
 				475AA78229D6E08C006B9BC6 /* UIViewAnimation.swift in Sources */,
 				47E515BF29F858BB00AB5397 /* WelcomeConfigurator.swift in Sources */,

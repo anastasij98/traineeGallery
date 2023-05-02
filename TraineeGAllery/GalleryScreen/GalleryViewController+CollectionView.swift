@@ -34,7 +34,7 @@ extension ViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.cellId, for: indexPath) as? CollectionViewCell,
               let item = presenter?.getItem(index: indexPath.item) else { return UICollectionViewCell() }
         
-        let request = URLConfiguration.url + URLConfiguration.media + (item.image.name ?? "")
+        let request = URLConfiguration.url + URLConfiguration.media + (item.image?.name ?? "")
         let model = CollectionViewCellModel(imageURL: URL(string: request))
         cell.setupCollectionItem(model: model)
         cell.backgroundColor = .customGrey

@@ -10,7 +10,7 @@ import UIKit
 
 protocol SignUpRouterProtocol {
     
-    func openGallery()
+    func signIn()
 }
 
 class SignUpRouter {
@@ -23,9 +23,9 @@ class SignUpRouter {
 
 extension SignUpRouter: SignUpRouterProtocol {
     
-    func openGallery() {
+    func signIn() {
         guard let navigationController = self.view?.navigationController else { return }
-        GalleryConfigurator.open(navigationController: navigationController)
+        SignInConfigurator.open(navigationController: navigationController)
     }
 
 }

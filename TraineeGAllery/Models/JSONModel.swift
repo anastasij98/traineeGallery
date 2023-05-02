@@ -21,7 +21,7 @@ struct ItemModel: Codable {
     var date: String?
     var new: Bool?
     var popular: Bool?
-    var image: ImageModel
+    var image: ImageModel?
     var user: String?
     
     enum CodingKeys: String, CodingKey {
