@@ -63,7 +63,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
         var view = UIImageView()
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .customGrey
+        view.backgroundColor = .mainGrey
 
         return view
     }()
@@ -79,7 +79,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     
     var usersLabel: UILabel = {
         var view = UILabel()
-        view.textColor = .customGrey
+        view.textColor = .mainGrey
         view.font = .robotoRegular(ofSize: 15)
         view.textAlignment = .left
         
@@ -99,7 +99,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     
     var viewsCount: UILabel = {
         var view = UILabel()
-        view.textColor = .customGrey
+        view.textColor = .mainGrey
         view.font = .robotoRegular(ofSize: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
@@ -109,7 +109,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     
     var eyeImage: UIImageView = {
         var view = UIImageView()
-        view.image = UIImage(systemName: "eye")?.withTintColor(.customGrey,
+        view.image = UIImage(systemName: "eye")?.withTintColor(.mainGrey,
                                                                renderingMode: .alwaysOriginal)
 
         return view
@@ -117,7 +117,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     
     var downloadDate: UILabel = {
         var view = UILabel()
-        view.textColor = .customGrey
+        view.textColor = .mainGrey
         view.font = .robotoRegular(ofSize: 12)
         view.textAlignment = .right
         view.numberOfLines = 0

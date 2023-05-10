@@ -18,7 +18,7 @@ class SignUpViewController: UIViewController {
     
     var presenter: SignUpPresenterProtocol?
     
-    lazy var textFieldsStackView: UIStackView = {
+    lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.distribution = .fill
@@ -44,7 +44,7 @@ class SignUpViewController: UIViewController {
     
     lazy var userNameTextField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .customGrey
+        view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
@@ -64,7 +64,7 @@ class SignUpViewController: UIViewController {
     
     lazy var birthdayTextField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .customGrey
+        view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
@@ -78,7 +78,7 @@ class SignUpViewController: UIViewController {
     
     lazy var emailTextField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .customGrey
+        view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
@@ -100,7 +100,7 @@ class SignUpViewController: UIViewController {
 
     lazy var oldPasswordTextField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .customGrey
+        view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
@@ -120,7 +120,7 @@ class SignUpViewController: UIViewController {
     
     lazy var confirmPasswordTextField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .customGrey
+        view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
@@ -195,13 +195,13 @@ class SignUpViewController: UIViewController {
     }
     
     func setupView() {
-        view.addSubviews(signInTitle, textFieldsStackView, buttonsStackView)
+        view.addSubviews(signInTitle, stackView, buttonsStackView)
         signInTitle.addSubview(titleUnderline)
-        textFieldsStackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField)
-        textFieldsStackView.setCustomSpacing(29, after: userNameTextField)
-        textFieldsStackView.setCustomSpacing(29, after: birthdayTextField)
-        textFieldsStackView.setCustomSpacing(29, after: emailTextField)
-        textFieldsStackView.setCustomSpacing(29, after: oldPasswordTextField)
+        stackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField)
+        stackView.setCustomSpacing(29, after: userNameTextField)
+        stackView.setCustomSpacing(29, after: birthdayTextField)
+        stackView.setCustomSpacing(29, after: emailTextField)
+        stackView.setCustomSpacing(29, after: oldPasswordTextField)
         
         buttonsStackView.addArrangedSubviews(signUpButton, signInButton)
         buttonsStackView.setCustomSpacing(19, after: signUpButton)
@@ -226,7 +226,7 @@ class SignUpViewController: UIViewController {
             $0.centerX.equalTo(signInTitle.snp.centerX)
         }
         
-        textFieldsStackView.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.top.equalTo(signInTitle.snp.bottom).offset(57)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
@@ -258,7 +258,7 @@ class SignUpViewController: UIViewController {
         }
         
         buttonsStackView.snp.makeConstraints {
-            $0.top.equalTo(textFieldsStackView.snp.bottom).offset(50)
+            $0.top.equalTo(stackView.snp.bottom).offset(50)
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
         }
     }

@@ -18,7 +18,7 @@ extension UIColor {
         #colorLiteral(red: 0.3725490196, green: 0.3725490196, blue: 0.3725490196, alpha: 1)
     }
     
-    static var customGrey: UIColor {
+    static var mainGrey: UIColor {
         #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
     }
     
@@ -29,11 +29,14 @@ extension UIColor {
     static var customRed: UIColor {
         #colorLiteral(red: 0.9098039216, green: 0, blue: 0, alpha: 1)
     }
+    static var customLightGrey: UIColor {
+        #colorLiteral(red: 0.9529411765, green: 0.9529411765, blue: 0.9529411765, alpha: 1)
+    }
 }
 
 extension CGColor {
     
-    static var customGrey: CGColor {
+    static var mainGrey: CGColor {
         #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
     }
 }

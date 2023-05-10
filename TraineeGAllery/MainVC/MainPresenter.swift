@@ -1,5 +1,5 @@
 //
-//  GalleryPresenter.swift
+//  MainPresenter.swift
 //  TraineeGAllery
 //
 //  Created by LUNNOPARK on 04.04.23.
@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import RxSwift
 
-protocol GalleryPresenterProtocol {
+protocol MainPresenterProtocol {
     
     var mode: SegmentMode { get set }
     
@@ -23,10 +23,10 @@ protocol GalleryPresenterProtocol {
     func viewIsReady()
 }
 
-class GalleryPresenter {
+class MainPresenter {
 
-    weak var view: ViewControllerProtocol?
-    var router: GalleryRouterProtocol
+    weak var view: MainViewControllerProtocol?
+    var router: MainRouterProtocol
     var network: NetworkServiceProtocol
     
     var mode: SegmentMode = .new
@@ -153,8 +153,8 @@ class GalleryPresenter {
     
     lazy var reachibilityNetwork = NetworkReachabilityManager(host: "www.ya.ru")
     
-    init(view: ViewControllerProtocol? = nil,
-         router: GalleryRouterProtocol,
+    init(view: MainViewControllerProtocol? = nil,
+         router: MainRouterProtocol,
          network: NetworkService) {
         self.view = view
         self.router = router
@@ -189,8 +189,9 @@ class GalleryPresenter {
                           pageToLoad: pageToLoad,
                           mode: mode)
         .debug()
-        .do(onSubscribe: { [weak self]  in
+        .do(onSubscribe: { [weak self] in
             guard let self = self else { return }
+            
             self.isLoading = true
         }, onDispose: { [weak self]  in
             guard let self = self else { return }
@@ -199,15 +200,15 @@ class GalleryPresenter {
         })
         .subscribe(onNext:{ [weak self] data in
             guard let self = self else { return }
-            do {
-                self.requestImages.append(contentsOf: data.data)
-                self.view?.updateView(restoreOffset: false)
-                guard let count = data.countOfPages else { return }
-                self.currentCountOfPages = count
-                self.currentPage = self.pageToLoad
-            } catch let erorr {
-                print(erorr)
-            }
+//            data.responseData { response in
+//                print("Status code: \(response.response?.statusCode)")
+//                print("Header: \(response.response?.headers)")
+//            }
+            self.requestImages.append(contentsOf: data.data)
+            self.view?.updateView(restoreOffset: false)
+            guard let count = data.countOfPages else { return }
+            self.currentCountOfPages = count
+            self.currentPage = self.pageToLoad
         }, onError: { error in
             print(error)
         }, onCompleted: {
@@ -215,10 +216,11 @@ class GalleryPresenter {
         }, onDisposed: {
         })
             .disposed(by: disposeBag)
-            }
+    }
+        
 }
 
-extension GalleryPresenter: GalleryPresenterProtocol {
+extension MainPresenter: MainPresenterProtocol {
     
     func didSelectItem(withIndex index: Int) {
         router.openDetailedViewController(model: requestImages[index])

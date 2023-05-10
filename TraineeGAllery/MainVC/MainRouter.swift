@@ -1,5 +1,5 @@
 //
-//  GalleryRouter.swift
+//  MainRouter.swift
 //  TraineeGAllery
 //
 //  Created by LUNNOPARK on 04.04.23.
@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol GalleryRouterProtocol {
+protocol MainRouterProtocol {
     
     func openDetailedViewController(model: ItemModel)
 }
 
-class GalleryRouter {
+class MainRouter {
  
     weak var view: UIViewController?
     
@@ -22,7 +22,7 @@ class GalleryRouter {
     }
 }
 
-extension GalleryRouter: GalleryRouterProtocol {
+extension MainRouter: MainRouterProtocol {
     
     func openDetailedViewController(model: ItemModel) {
         guard let navigationController = self.view?.navigationController else { return } 

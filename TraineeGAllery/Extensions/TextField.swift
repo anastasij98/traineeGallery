@@ -27,7 +27,31 @@ extension UITextField {
 
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         imageView.image = UIImage(named: imageName)
-        self.rightView = imageView;
+        self.rightView = imageView
         self.rightViewMode = .always
+    }
+    
+    func atributedString(text: String) {
+        let string = NSMutableAttributedString(string: text)
+        string.addAttributes([.font : UIFont.robotoRegular(ofSize: 17),
+                              .foregroundColor : UIColor.lightGray],
+                             range: NSRange(location: 0, length: string.length))
+        self.attributedPlaceholder = string
+    }
+    
+    func setupBorder() {
+        self.layer.borderColor = .mainGrey
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 4
+    }
+    
+    func setupIcon(name: String) {
+        let imageView = UIImageView(image: UIImage(named: name))
+        self.addSubview(imageView)
+        
+        imageView.snp.makeConstraints {
+            $0.centerY.equalTo(self.snp.centerY)
+            $0.trailing.equalTo(self.snp.trailing).inset(11)
+        }
     }
 }

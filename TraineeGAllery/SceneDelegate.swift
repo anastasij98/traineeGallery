@@ -18,14 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-//        let viewController = GalleryConfigurator.getViewController()
-//        let viewController = WelcomeViewController()
-        let viewController = WelcomeConfigurator.getViewController()
-
-
-        let navigationController = UINavigationController(rootViewController: viewController)
         
-        window?.rootViewController = navigationController
+        let isAuthorized = true
+        let welcome = WelcomeConfigurator.getViewController()
+        let navigationController = UINavigationController(rootViewController: welcome)
+
+        let vc = isAuthorized
+        ? TabBarConfigurator.getViewController()
+        : navigationController
+        
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
 

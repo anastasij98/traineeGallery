@@ -78,7 +78,7 @@ extension UISegmentedControl {
         
         let deviderLine = UIImage.getSegRect(color: UIColor.white.cgColor, andSize: CGSize(width: 1.0, height: 5))
         self.setDividerImage(deviderLine, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
-        self.setTitleTextAttributes([.foregroundColor: UIColor.customGrey,
+        self.setTitleTextAttributes([.foregroundColor: UIColor.mainGrey,
                                      .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .normal)
         self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black,
                                      .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .selected)

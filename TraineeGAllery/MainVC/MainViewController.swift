@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  TraineeGAllery
 //
 //  Created by LUNNOPARK on 27.03.23.
@@ -8,14 +8,14 @@
 import UIKit
 import SnapKit
 
-protocol ViewControllerProtocol: AnyObject {
+protocol MainViewControllerProtocol: AnyObject {
     
     func connectionDidChange(isConnected: Bool)
     func hideRefreshControll()
     func updateView(restoreOffset: Bool)
 }
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     enum Identifiers {
         static let cellId = "cell"
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         static let clearReuseIdentifier = "clear"
     }
     
-    var presenter: GalleryPresenterProtocol?
+    var presenter: MainPresenterProtocol?
     
     var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero,
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
                                      .foregroundColor : UIColor.black],
                                     for: .selected)
         view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 17),
-                                     .foregroundColor : UIColor.customGrey],
+                                     .foregroundColor : UIColor.mainGrey],
                                     for: .normal)
         
         return view
@@ -96,9 +96,9 @@ class ViewController: UIViewController {
     }()
     
     let noConnectionStackView: NoConnectionStack = {
-            let view = NoConnectionStack()
-            return view
-        }()
+        let view = NoConnectionStack()
+        return view
+    }()
     
     let backIndicatorImage = UIImage(named: "Vector")
     
@@ -207,7 +207,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: ViewControllerProtocol {
+extension MainViewController: MainViewControllerProtocol {
     
     func connectionDidChange(isConnected: Bool) {
        collectionView.isHidden = !isConnected

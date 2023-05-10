@@ -44,7 +44,7 @@ class SignInViewController: UIViewController {
     
     lazy var emailField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .customGrey
+        view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
@@ -58,7 +58,7 @@ class SignInViewController: UIViewController {
 
     lazy var passwordField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .customGrey
+        view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
@@ -76,7 +76,7 @@ class SignInViewController: UIViewController {
         let view = UIButton()
         view.setTitle("Forgot login or password?",
                       for: .normal)
-        view.setTitleColor(.customGrey,
+        view.setTitleColor(.mainGrey,
                            for: .normal)
         view.titleLabel?.font = .robotoRegular(ofSize: 13)
         view.layer.borderColor = UIColor.white.cgColor

@@ -1,5 +1,5 @@
 //
-//  ViewControllerExt.swift
+//  MainViewControllerExt.swift
 //  TraineeGAllery
 //
 //  Created by LUNNOPARK on 31.03.23.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 //MARK: - UICollectionViewDelegate
-extension ViewController: UICollectionViewDelegate {
+extension MainViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.didSelectItem(withIndex: indexPath.item)
@@ -24,7 +24,7 @@ extension ViewController: UICollectionViewDelegate {
     }
 }
 //MARK: - UICollectionViewDataSource
-extension ViewController: UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter?.getItemsCount() ?? 0
@@ -37,14 +37,14 @@ extension ViewController: UICollectionViewDataSource {
         let request = URLConfiguration.url + URLConfiguration.media + (item.image?.name ?? "")
         let model = CollectionViewCellModel(imageURL: URL(string: request))
         cell.setupCollectionItem(model: model)
-        cell.backgroundColor = .customGrey
+        cell.backgroundColor = .mainGrey
         
         return cell
     }
 }
 
 //MARK: -  UICollectionViewDelegateFlowLayout
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
