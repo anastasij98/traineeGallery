@@ -11,6 +11,8 @@ import SnapKit
 
 class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
+    var imageName: String?
+    
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
         view = UIScrollView(frame: .zero)
@@ -31,10 +33,10 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "cat2")
-        view.contentMode = .scaleAspectFit
         view.backgroundColor = .customLightGrey
-        
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: imageName ?? "")
+         
         return view
     }()
     

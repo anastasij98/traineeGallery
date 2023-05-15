@@ -191,14 +191,14 @@ class MainPresenter {
         .debug()
         .do(onSubscribe: { [weak self] in
             guard let self = self else { return }
-            
+
             self.isLoading = true
         }, onDispose: { [weak self]  in
             guard let self = self else { return }
             self.isLoading = false
             self.view?.hideRefreshControll()
         })
-        .subscribe(onNext:{ [weak self] data in
+        .subscribe(onSuccess:{ [weak self] data in
             guard let self = self else { return }
 //            data.responseData { response in
 //                print("Status code: \(response.response?.statusCode)")
@@ -209,11 +209,8 @@ class MainPresenter {
             guard let count = data.countOfPages else { return }
             self.currentCountOfPages = count
             self.currentPage = self.pageToLoad
-        }, onError: { error in
+        }, onFailure: { error in
             print(error)
-        }, onCompleted: {
-            
-        }, onDisposed: {
         })
             .disposed(by: disposeBag)
     }

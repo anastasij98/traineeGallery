@@ -8,29 +8,28 @@
 import Foundation
 import UIKit
 
-extension AddPhotoViewController: UICollectionViewDelegate {
-    
-    
-}
-
 extension AddPhotoViewController: UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        presenter?.didSelectItem(withIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        25
+        presenter?.getItemsCount() ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let array = ["cat1", "cat2", "cat3", "cat4", "cat5", "cat6"]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath)
-        cell.backgroundView = UIImageView(image: UIImage(named: array.randomElement()!))
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? AddPhotoCollectionVIewCell,
+              let model = presenter?.getItem(withIndex: indexPath.item) else {
+            return UICollectionViewCell()
+        }
+        
+        cell.setupImage(model: model)
         
         return cell
     }
-    
 }
 
 extension AddPhotoViewController: UICollectionViewDelegateFlowLayout {

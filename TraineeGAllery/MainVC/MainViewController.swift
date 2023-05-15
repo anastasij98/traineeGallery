@@ -108,7 +108,7 @@ class MainViewController: UIViewController {
         presenter?.viewIsReady()
         
         view.backgroundColor = .white
-        setupNavgationBar()
+//        setupNavgationBar()
         setupSegmentedControl()
         setupCollectionView()
         setupCollectionViewLayout()
@@ -122,11 +122,24 @@ class MainViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    private func setupNavgationBar() {
-        navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.backIndicatorImage = backIndicatorImage
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIndicatorImage
-    }
+//    private func setupNavgationBar() {
+//
+//        if let appearance = navigationController?.navigationBar.standardAppearance {
+//            appearance.configureWithTransparentBackground()
+//
+//            let color: UIColor = .black
+//            appearance.shadowColor = color
+////            appearance.shadowImage = color.image()
+//            //априенс бэкБатон как и аринес навБара
+////            appearance.backButtonAppearance
+//
+//            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        }
+////        navigationItem.backButtonTitle = ""
+//        navigationItem.backBarButtonItem = .init(title: .init(), image: nil, target: nil, action: nil)
+//        navigationController?.navigationBar.backIndicatorImage = backIndicatorImage
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIndicatorImage
+//    }
     
     private func setupSegmentedControl() {
         view.addSubview(segmentedControl)
@@ -159,7 +172,7 @@ class MainViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.register(CollectionViewCell.self,
+        collectionView.register(MainCollectionViewCell.self,
                                 forCellWithReuseIdentifier: Identifiers.cellId)
         
         collectionView.register(IndicatorFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: Identifiers.indicatorReuseIdentifier)

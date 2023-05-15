@@ -55,7 +55,7 @@ class SplitUnderlineView: UIView {
 }
 
 extension UIImage {
-    class func getSegRect(color: CGColor, andSize size: CGSize) -> UIImage{
+    class func getSegRect(color: CGColor, andSize size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
         context?.setFillColor(color)

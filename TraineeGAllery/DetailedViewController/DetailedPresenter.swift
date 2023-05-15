@@ -55,14 +55,11 @@ class DetailedPresenter {
         }
         networkService.getImageFile(name: imageName)
             .debug()
-            .subscribe(onNext: { [weak self] data in
+            .subscribe(onSuccess: { [weak self] data in
                 guard let self = self else { return }
                 self.view?.setImage(data: data)
-            }, onError: {error in
+            }, onFailure: { error in
                 
-            }, onCompleted: {
-                
-            },onDisposed: {
             })
             .disposed(by: disposeBag)
     }

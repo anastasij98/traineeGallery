@@ -30,8 +30,10 @@
 		475AA78829D6E6B2006B9BC6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */; };
 		475AA78A29D6E7F4006B9BC6 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */; };
 		475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footers.swift */; };
+		47784C3A2A1242C600A96E53 /* SelectAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47784C392A1242C600A96E53 /* SelectAlbumViewController.swift */; };
 		479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */; };
 		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
+		47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */; };
 		47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */; };
 		47CB5B9A29DB3556002BB2ED /* ApplicationStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */; };
 		47CB5BA329DCB59A002BB2ED /* SampleScreenPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5B9C29DCB59A002BB2ED /* SampleScreenPresenterImp.swift */; };
@@ -102,8 +104,10 @@
 		475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		475AA78D29D744EF006B9BC6 /* Footers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footers.swift; sourceTree = "<group>"; };
+		47784C392A1242C600A96E53 /* SelectAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAlbumViewController.swift; sourceTree = "<group>"; };
 		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
 		47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionStack.swift; sourceTree = "<group>"; };
 		47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = ApplicationStrings.strings; sourceTree = "<group>"; };
 		47CB5B9C29DCB59A002BB2ED /* SampleScreenPresenterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleScreenPresenterImp.swift; sourceTree = "<group>"; };
@@ -203,9 +207,10 @@
 				47EEEEC22A026F430075791D /* TabBarVC */,
 				47CB5BA929DCB5D3002BB2ED /* MainVC */,
 				47EEEEC12A026F170075791D /* AddPhotoVC */,
-				47EEEED32A02E3B70075791D /* AddData */,
+				47EEEED32A02E3B70075791D /* AddDataVC */,
+				47784C382A12428700A96E53 /* SelectAlbumVC */,
 				47EEEEC02A026F010075791D /* ProfileVC */,
-				47EEEED82A0947F60075791D /* Settings */,
+				47EEEED82A0947F60075791D /* SettingsVC */,
 				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
 				4709BA2729D1C3CC0035F64F /* Extensions */,
 				4709BA2229D1AEFF0035F64F /* Models */,
@@ -228,6 +233,7 @@
 			children = (
 				4709BA2029D1AED70035F64F /* CollectionViewCellModel.swift */,
 				4709BA2A29D1E0920035F64F /* JSONModel.swift */,
+				47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -254,6 +260,14 @@
 				47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		47784C382A12428700A96E53 /* SelectAlbumVC */ = {
+			isa = PBXGroup;
+			children = (
+				47784C392A1242C600A96E53 /* SelectAlbumViewController.swift */,
+			);
+			path = SelectAlbumVC;
 			sourceTree = "<group>";
 		};
 		479E68CF29ED32E10053E706 /* WelcomViewController */ = {
@@ -376,22 +390,22 @@
 			path = TabBarVC;
 			sourceTree = "<group>";
 		};
-		47EEEED32A02E3B70075791D /* AddData */ = {
+		47EEEED32A02E3B70075791D /* AddDataVC */ = {
 			isa = PBXGroup;
 			children = (
 				47EEEED42A02E49F0075791D /* AddDataViewController.swift */,
 				47EEEED62A02E4AF0075791D /* AddDataConfigurator.swift */,
 			);
-			path = AddData;
+			path = AddDataVC;
 			sourceTree = "<group>";
 		};
-		47EEEED82A0947F60075791D /* Settings */ = {
+		47EEEED82A0947F60075791D /* SettingsVC */ = {
 			isa = PBXGroup;
 			children = (
 				47EEEEDD2A0989AB0075791D /* SettingsViewController.swift */,
 				47EEEEDF2A098A0B0075791D /* SettingsConfigurator.swift */,
 			);
-			path = Settings;
+			path = SettingsVC;
 			sourceTree = "<group>";
 		};
 		EB39576A2D71A841207CAB2B /* Frameworks */ = {
@@ -537,6 +551,7 @@
 				4709BA1129D1AC900035F64F /* MainViewController.swift in Sources */,
 				47E515C129F85BEC00AB5397 /* WelcomeRouter.swift in Sources */,
 				47EEEED22A02E21A0075791D /* AddPhotoRouter.swift in Sources */,
+				47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */,
 				47CB5BAF29DCB685002BB2ED /* MainPresenter.swift in Sources */,
 				47EEEECA2A0283A90075791D /* AddPhotoConfigurator.swift in Sources */,
 				475AA78029D6DFDB006B9BC6 /* SegContrUnderLine.swift in Sources */,
@@ -566,6 +581,7 @@
 				47EEEEDC2A09880C0075791D /* ProfileRouter.swift in Sources */,
 				47CB5BB329DCB6E0002BB2ED /* MainRouter.swift in Sources */,
 				47CB5BA329DCB59A002BB2ED /* SampleScreenPresenterImp.swift in Sources */,
+				47784C3A2A1242C600A96E53 /* SelectAlbumViewController.swift in Sources */,
 				4709BA0F29D1AC900035F64F /* SceneDelegate.swift in Sources */,
 				4709BA2B29D1E0920035F64F /* JSONModel.swift in Sources */,
 				47E515C429F8600900AB5397 /* SignUpViewController.swift in Sources */,

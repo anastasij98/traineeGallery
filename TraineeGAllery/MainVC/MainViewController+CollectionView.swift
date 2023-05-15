@@ -31,7 +31,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.cellId, for: indexPath) as? CollectionViewCell,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.cellId, for: indexPath) as? MainCollectionViewCell,
               let item = presenter?.getItem(index: indexPath.item) else { return UICollectionViewCell() }
         
         let request = URLConfiguration.url + URLConfiguration.media + (item.image?.name ?? "")

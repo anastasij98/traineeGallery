@@ -11,15 +11,14 @@ import SnapKit
 
 protocol AddPhotoVCProtocol: AnyObject {
     
-    
+    func setSelectedImage(model: ImageObjectModel)
 }
 
-class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
+class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
     
     var presenter: AddPhotoPresenterProtocol?
     var id = "addPhoto"
-    
-    var img: UIView?
+    var identifier = "addPhoto"
     
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -39,9 +38,8 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    lazy var imageView: UIView = {
-        let view = UIView()
-//        view.image = UIImage(named: "cat2")
+    lazy var imageView: UIImageView = {
+        let view = UIImageView()
         view.contentMode = .scaleAspectFit
         view.backgroundColor = .customLightGrey
         
@@ -71,19 +69,54 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
+    lazy var buttonView: UIView = {
+        let view = UIView()
+        view.snp.makeConstraints {
+            $0.height.equalTo(120)
+            $0.width.equalTo(120)
+        }
+        return view
+    }()
+    
+    lazy var navigationBarButton: UIButton = {
+        let view = UIButton(type: .custom) as UIButton
+        view.addTarget(self, action: #selector(openImagePickerController), for: .touchUpInside)
+        let image = UIImageView(image: UIImage(named: "downArrow"))
+        view.addSubview(image)
+        image.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(view.snp.trailing).offset(5)
+        }
+        view.setTitle("All photos ", for: UIControl.State.normal)
+        view.setTitleColor(.customBlack, for: .normal)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         setupScrollAndStack()
         navigationBar()
+        setNavigationBar()
+        setupNavgationBar()
+    }
+    
+    func setNavigationBar() {
+        self.navigationItem.titleView = buttonView
+        buttonView.addSubview(navigationBarButton)
+        navigationBarButton.snp.makeConstraints {
+            $0.height.equalTo(20)
+            $0.center.equalToSuperview()
+        }
+        
     }
     
     func navigationBar() {
         let rightButton = UIBarButtonItem(title: "Next",
                                           style: .plain,
                                           target: self,
-                                          action: #selector(addData))
+                                          action: #selector(onNextButtonTap))
         rightButton.setTitleTextAttributes([.font : UIFont.robotoBold(ofSize: 15),
                                             .foregroundColor : UIColor.customPink],
                                            for: .normal)
@@ -98,6 +131,8 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         
         collectionView.register(UICollectionViewCell.self,
                                 forCellWithReuseIdentifier: id)
+        collectionView.register(AddPhotoCollectionVIewCell.self,
+                                forCellWithReuseIdentifier: identifier)
         
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -142,13 +177,52 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    private func setupNavgationBar() {
+        
+        if let appearance = navigationController?.navigationBar.standardAppearance {
+            appearance.configureWithTransparentBackground()
+            
+            let color: UIColor = .black
+            appearance.shadowColor = color
+//            appearance.shadowImage = color.image()
+            //априенс бэкБатон как и аринес навБара
+//            appearance.backButtonAppearance
+            
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        }
+//        navigationItem.backButtonTitle = ""
+        navigationItem.backBarButtonItem = .init(title: .init(), image: nil, target: nil, action: nil)
+//        navigationController?.navigationBar.backIndicatorImage = backIndicatorImage
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIndicatorImage
+    }
+    
     @objc
-    func addData() {
-        presenter?.addData()
+    func onNextButtonTap() {
+        presenter?.onNextButtonTap()
+    }
+    
+    @objc
+    func openImagePickerController() {
+        print("ImagePicker is opened!")
+        
+        presenter?.openImagePicker(view: self)
     }
 }
 
-extension AddPhotoViewController: AddPhotoVCProtocol {
+extension AddPhotoViewController: AddPhotoVCProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    func setSelectedImage(model: ImageObjectModel) {
+        imageView.image = model.image
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            imageView.image = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageView.image = originalImage
+        }
+        dismiss(animated: true)
+    }
+    
     
 }

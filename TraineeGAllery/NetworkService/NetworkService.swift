@@ -17,7 +17,7 @@ extension NetworkService: NetworkServiceProtocol {
     
     func getImages(limit: Int,
                    pageToLoad: Int,
-                   mode: SegmentMode) -> Observable<JSONModel> {
+                   mode: SegmentMode) -> Single<JSONModel> {
         let request = URLConfiguration.url + URLConfiguration.api
         var parametrs: Parameters = [
             "page": "\(pageToLoad)",
@@ -31,37 +31,27 @@ extension NetworkService: NetworkServiceProtocol {
         case .popular:
             parametrs["popular"] = "true"
         }
-        ////   return RxAlamofire.data(.get, request, parameters: parametrs)
+//           return RxAlamofire.data(.get, request, parameters: parametrs)
         return RxAlamofire.request(.get, request, parameters: parametrs)
                     .validate(statusCode: 200..<300)
-        //            .data()
-        ////            .flatMap { data -> Observable<JSONModel> in
-        ////            do {
-        ////                let model = try JSONDecoder().decode(JSONModel.self, from: data)
-        ////
-        ////                return .just(model)
-        ////            } catch let error {
-        ////                return .error(error)
-        ////            }
-        ////        }
-            . flatMap { response -> Observable<JSONModel> in
-                print("Status code: \(response.response?.statusCode)")
-                let data = response.data
-                print(data?.description)
-                do {
-                    let model = try JSONDecoder().decode(JSONModel.self, from: data ?? Data())
-                    return Observable.just(model)
-                } catch let error {
-                    return .error(error)
-                }
-            }
-        // печатаешь то что тебе нужно из запроса, берёшь дату, декодируешь ее как прежде и возвращаешь
+                    .responseData()
+                    .asSingle()
+                    .flatMap { response, data -> Single<JSONModel> in
+                        print("Status code: \(response.statusCode)")
+                        do {
+                            let model = try JSONDecoder().decode(JSONModel.self, from: data)
+                            return .just(model)
+                        } catch let error {
+                            return .error(error)
+                        }
+                    }
     }
     
-    func getImageFile(name: String) -> Observable<Data> {
+    func getImageFile(name: String) -> Single<Data> {
         let url = URLConfiguration.url + URLConfiguration.media + name
         
         return RxAlamofire.data(.get, url)
+            .asSingle()
     }
 }
 

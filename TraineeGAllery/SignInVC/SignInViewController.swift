@@ -14,9 +14,27 @@ protocol SignInViewProtocol: AnyObject {
     
 }
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: SignInPresenterProtocol?
+    
+    lazy var scrollView: UIScrollView = {
+        var view = UIScrollView()
+        view = UIScrollView(frame: .zero)
+        view.isScrollEnabled = true
+        view.scrollsToTop = false
+        
+        return view
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .center
+        view.distribution = .fill
+        
+        return view
+    }()
     
     lazy var textFieldsStackView: UIStackView = {
         let view = UIStackView()
@@ -42,7 +60,7 @@ class SignInViewController: UIViewController {
         return view
     }()
     
-    lazy var emailField: CustomTextField = {
+    lazy var emailTextField: CustomTextField = {
         let view = CustomTextField()
         view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
@@ -56,7 +74,7 @@ class SignInViewController: UIViewController {
         return view
     }()
 
-    lazy var passwordField: CustomTextField = {
+    lazy var passwordTextField: CustomTextField = {
         let view = CustomTextField()
         view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
@@ -130,58 +148,78 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {        
         view.backgroundColor = .white
         setupView()
-
+        checkOrientationAndSetLayout()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        checkOrientationAndSetLayout()
+        }
+    
+    func checkOrientationAndSetLayout() {
+        if UIDevice.current.orientation.isLandscape {
+            stackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(50)
+                $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
+            }
+        } else {
+            stackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(188)
+            }
+        }
+    }
+
     func setupView() {
-        view.addSubviews(signInTitle, textFieldsStackView, forgotButton, buttonsStackView)
-        textFieldsStackView.addArrangedSubviews(emailField, passwordField)
+        scrollView.delegate = self
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        stackView.addArrangedSubviews(signInTitle, textFieldsStackView, forgotButton, buttonsStackView)
+        stackView.setCustomSpacing(55, after: signInTitle)
+        textFieldsStackView.addArrangedSubviews(emailTextField, passwordTextField)
         signInTitle.addSubview(titleUnderline)
-        textFieldsStackView.setCustomSpacing(29, after: emailField)
+        textFieldsStackView.setCustomSpacing(29, after: emailTextField)
         
         buttonsStackView.addArrangedSubviews(signInButton, signUpButton)
         buttonsStackView.setCustomSpacing(19, after: signInButton)
 
-        emailField.addSubview(emailImageView)
-        passwordField.addSubview(passwordImageView)
+        emailTextField.addSubview(emailImageView)
+        passwordTextField.addSubview(passwordImageView)
+//
+        scrollView.snp.makeConstraints {
+//            $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
 
-        signInTitle.snp.makeConstraints {
-            $0.top.equalTo(view.snp.top).offset(188)
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.height.equalTo(30)
-            $0.width.equalTo(94)
+        }
+
+        stackView.snp.makeConstraints {
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(188)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
         }
         
         titleUnderline.snp.makeConstraints {
             $0.height.equalTo(2)
             $0.width.equalTo(signInTitle.snp.width)
-            $0.top.equalTo(signInTitle.snp.bottom)
+            $0.bottom.equalTo(signInTitle.snp.bottom).offset(5)
             $0.centerX.equalTo(signInTitle.snp.centerX)
         }
         
         textFieldsStackView.snp.makeConstraints {
-            $0.top.equalTo(signInTitle.snp.bottom).offset(57)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
         
         emailImageView.snp.makeConstraints {
-            $0.centerY.equalTo(emailField.snp.centerY)
-            $0.trailing.equalTo(emailField.snp.trailing).inset(11)
+            $0.centerY.equalTo(emailTextField.snp.centerY)
+            $0.trailing.equalTo(emailTextField.snp.trailing).inset(11)
         }
         passwordImageView.snp.makeConstraints {
-            $0.centerY.equalTo(passwordField.snp.centerY)
-            $0.trailing.equalTo(passwordField.snp.trailing).inset(11)
-        }
-        
-        forgotButton.snp.makeConstraints {
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
-            $0.top.equalTo(passwordField.snp.bottom).offset(10)
-        }
-        
-        buttonsStackView.snp.makeConstraints {
-            $0.top.equalTo(forgotButton.snp.bottom).offset(50)
-            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            $0.centerY.equalTo(passwordTextField.snp.centerY)
+            $0.trailing.equalTo(passwordTextField.snp.trailing).inset(11)
         }
     }
     
@@ -192,5 +230,6 @@ class SignInViewController: UIViewController {
 }
 
 extension SignInViewController: SignInViewProtocol {
+    
     
 }

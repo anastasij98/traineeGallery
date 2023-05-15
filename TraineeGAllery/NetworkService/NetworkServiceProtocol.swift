@@ -20,7 +20,7 @@ protocol NetworkServiceProtocol {
     /// - Returns: возвращаемый идектификатор запроса  (для отмены)
     func getImages(limit: Int,
                    pageToLoad: Int,
-                   mode: SegmentMode) -> Observable<JSONModel>
+                   mode: SegmentMode) -> Single<JSONModel>
 //    func getImages(limit: Int,
 //                   pageToLoad: Int,
 //                   mode: SegmentMode) -> Single<JSONModel>
@@ -30,7 +30,7 @@ protocol NetworkServiceProtocol {
     ///   - name: имя картинки, взятое из модельки 
     ///   - completion: замыкание для обаботки результата
     /// - Returns: возвращаемый идектификатор запроса (для отмены)
-    func getImageFile(name: String) -> Observable<Data>
+    func getImageFile(name: String) -> Single<Data>
 }
 
 /*

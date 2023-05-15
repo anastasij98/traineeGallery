@@ -97,6 +97,12 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate{
         navigationBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavgationBar()
+    }
+    
     func setupLayot() {
         scrollView.delegate = self
         
@@ -160,6 +166,23 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate{
                                           action: #selector(settings))
         rightButton.tintColor = .black
         navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    private func setupNavgationBar() {
+        
+        if let appearance = navigationController?.navigationBar.standardAppearance {
+            appearance.configureWithTransparentBackground()
+            let color: UIColor = .black
+            appearance.shadowColor = color
+//            appearance.shadowImage = color.image()
+            //априенс бэкБатон как и аринес навБара
+//            appearance.backButtonAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        }
+        navigationItem.backBarButtonItem = .init(title: .init(),
+                                                 image: nil,
+                                                 target: nil,
+                                                 action: nil)
     }
     
     @objc

@@ -14,7 +14,7 @@ struct CollectionViewCellModel {
     var imageURL: URL?
 }
 
-class CollectionViewCell: UICollectionViewCell {
+class MainCollectionViewCell: UICollectionViewCell {
     
     var imageInGallery: UIImageView = UIImageView()
     var activityIndicator = UIActivityIndicatorView(style: .large)

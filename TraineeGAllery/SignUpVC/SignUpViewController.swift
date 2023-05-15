@@ -14,11 +14,29 @@ protocol SignUpViewProtocol: AnyObject {
     
 }
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: SignUpPresenterProtocol?
     
+    lazy var scrollView: UIScrollView = {
+        var view = UIScrollView()
+        view = UIScrollView(frame: .zero)
+        view.isScrollEnabled = true
+        view.scrollsToTop = false
+        
+        return view
+    }()
+    
     lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .center
+        view.distribution = .fill
+        
+        return view
+    }()
+    
+    lazy var textFieldStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.distribution = .fill
@@ -192,16 +210,41 @@ class SignUpViewController: UIViewController {
         view.backgroundColor = .white
         
         setupView()
+        checkOrientationAndSetLayout()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        checkOrientationAndSetLayout()
+    }
+    
+    func checkOrientationAndSetLayout() {
+        if UIDevice.current.orientation.isLandscape {
+            stackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(50)
+                $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
+            }
+        } else {
+            stackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(100)
+            }
+        }
     }
     
     func setupView() {
-        view.addSubviews(signInTitle, stackView, buttonsStackView)
+        scrollView.delegate = self
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        stackView.addArrangedSubviews(signInTitle, textFieldStackView, buttonsStackView)
+        stackView.setCustomSpacing(55, after: signInTitle)
+        stackView.setCustomSpacing(50, after: textFieldStackView)
+
         signInTitle.addSubview(titleUnderline)
-        stackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField)
-        stackView.setCustomSpacing(29, after: userNameTextField)
-        stackView.setCustomSpacing(29, after: birthdayTextField)
-        stackView.setCustomSpacing(29, after: emailTextField)
-        stackView.setCustomSpacing(29, after: oldPasswordTextField)
+        
+        textFieldStackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField)
+
+        setupTextFieldsSpacing()
         
         buttonsStackView.addArrangedSubviews(signUpButton, signInButton)
         buttonsStackView.setCustomSpacing(19, after: signUpButton)
@@ -212,22 +255,38 @@ class SignUpViewController: UIViewController {
         oldPasswordTextField.addSubview(oldPasswordImageView)
         confirmPasswordTextField.addSubview(confirmPasswordImageView)
 
-        signInTitle.snp.makeConstraints {
-            $0.top.equalTo(view.snp.top).offset(188)
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.height.equalTo(30)
-            $0.width.equalTo(105)
+        scrollView.snp.makeConstraints {
+//            $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
+
         }
+
+        stackView.snp.makeConstraints {
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(100)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+        }
+        
+//        signInTitle.snp.makeConstraints {
+//            $0.top.equalTo(view.snp.top).offset(188)
+//            $0.centerX.equalTo(view.snp.centerX)
+//            $0.height.equalTo(30)
+//            $0.width.equalTo(105)
+//        }
         
         titleUnderline.snp.makeConstraints {
             $0.height.equalTo(2)
             $0.width.equalTo(signInTitle.snp.width)
-            $0.top.equalTo(signInTitle.snp.bottom)
+            $0.bottom.equalTo(signInTitle.snp.bottom).offset(5)
             $0.centerX.equalTo(signInTitle.snp.centerX)
         }
         
-        stackView.snp.makeConstraints {
-            $0.top.equalTo(signInTitle.snp.bottom).offset(57)
+        textFieldStackView.snp.makeConstraints {
+//            $0.top.equalTo(signInTitle.snp.bottom).offset(57)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
@@ -258,7 +317,7 @@ class SignUpViewController: UIViewController {
         }
         
         buttonsStackView.snp.makeConstraints {
-            $0.top.equalTo(stackView.snp.bottom).offset(50)
+            $0.top.equalTo(textFieldStackView.snp.bottom).offset(50)
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
         }
     }
@@ -266,6 +325,13 @@ class SignUpViewController: UIViewController {
     @objc
     func signIn() {
         presenter?.signIn()
+    }
+    
+    func setupTextFieldsSpacing() {
+        let array = [userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField]
+        array.forEach { textField in
+            textFieldStackView.setCustomSpacing(29, after: textField)
+        }
     }
 }
 
