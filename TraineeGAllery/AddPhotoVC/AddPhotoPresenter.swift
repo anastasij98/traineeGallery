@@ -6,14 +6,19 @@
 //
 
 import Foundation
+import Photos
 
 protocol AddPhotoPresenterProtocol {
     
     func onNextButtonTap()
-    func getItemsCount() -> Int
-    func getItem(withIndex index: Int) -> ImageObjectModel
-    func didSelectItem(withIndex index: Int)
     func openImagePicker(view: AddPhotoViewController)
+    
+    func fetchAssestFromLibrary()
+    
+    func getObjectsCount() -> Int
+    func getObject(withIndex index: Int) -> ImageObjectModel
+    func didSelectObject(withIndex index: Int)
+    func selectedObject(object: Data)
 }
 
 class AddPhotoPresenter {
@@ -21,9 +26,9 @@ class AddPhotoPresenter {
     weak var view: AddPhotoVCProtocol?
     var router: AddPhotoRouterProtocol
     
-    var imageNames: [String] = ["cat1", "cat2", "cat3", "cat4", "cat5", "cat6"]
-    var selectedObject: String?
-    
+    var objectsArray = [Data]()
+    var selectedObject: Data?
+
     init(view: AddPhotoVCProtocol? = nil,
          router: AddPhotoRouterProtocol) {
         self.view = view
@@ -33,27 +38,51 @@ class AddPhotoPresenter {
 
 extension AddPhotoPresenter: AddPhotoPresenterProtocol {
     
-    func getItemsCount() -> Int {
-        imageNames.count
+    func getObjectsCount() -> Int {
+        objectsArray.count
     }
     
-    func getItem(withIndex index: Int) -> ImageObjectModel {
-        ImageObjectModel(imageName: imageNames[index])
+    func getObject(withIndex index: Int) -> ImageObjectModel {
+        ImageObjectModel(imageData: objectsArray[index])
     }
-    
-    func didSelectItem(withIndex index: Int) {
-        let imageName = imageNames[index]
-        view?.setSelectedImage(model: ImageObjectModel(imageName: imageName))
-        selectedObject = imageName
+
+    func didSelectObject(withIndex index: Int) {
+        let object = objectsArray[index]
+        view?.setSelectedObject(model: ImageObjectModel(imageData: object))
+        selectedObject = object
     }
-    
     
     func onNextButtonTap() {
         guard let selectedObject = selectedObject else { return }
-        router.addButtonTapped(imageName: selectedObject)
+        router.onNextButtonTap(imageObject: selectedObject)
     }
-    
+
     func openImagePicker(view: AddPhotoViewController) {
         router.openImagePicker(view: view)
     }
+    
+    func fetchAssestFromLibrary() {
+        
+        let objects = PHAsset.fetchAssets(with: .image, options: nil)
+        print(objects.count)
+        for index in 0..<objects.count {
+            let manager = PHImageManager.default()
+            let option = PHImageRequestOptions()
+            var selfData = Data()
+            option.isSynchronous = true
+            let image = objects.object(at: index)
+            manager.requestImageDataAndOrientation(for: image,
+                                                   options: option) { data, _, _, _ in
+                selfData = data!
+                print(selfData)
+                
+                self.objectsArray.append(data!)
+            }
+        }
+    }
+    
+    func selectedObject(object: Data) {
+        selectedObject = object
+    }
+
 }

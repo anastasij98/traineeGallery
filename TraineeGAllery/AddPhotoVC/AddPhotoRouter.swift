@@ -10,7 +10,7 @@ import UIKit
 
 protocol AddPhotoRouterProtocol {
     
-    func addButtonTapped(imageName: String)
+    func onNextButtonTap(imageObject: Data)
     func openImagePicker(view: AddPhotoViewController)
 }
 
@@ -25,18 +25,15 @@ class AddPhotoRouter {
 
 extension AddPhotoRouter: AddPhotoRouterProtocol {
     
-    func addButtonTapped(imageName: String) {
+    func onNextButtonTap(imageObject: Data) {
         guard let navigationController = self.view?.navigationController else { return }
         AddDataConfigurator.openViewController(navigationController: navigationController,
-                                               imageName: imageName)
+                                               imageObject: imageObject)
     }
     
     func openImagePicker(view: AddPhotoViewController) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = view
         view.present(imagePickerController, animated: true)
-        
     }
-    
-    
 }

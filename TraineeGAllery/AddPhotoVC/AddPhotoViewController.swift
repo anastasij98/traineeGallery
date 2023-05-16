@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 import SnapKit
+import Photos
 
 protocol AddPhotoVCProtocol: AnyObject {
     
-    func setSelectedImage(model: ImageObjectModel)
+    func setSelectedObject(model: ImageObjectModel)
 }
 
 class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
@@ -59,6 +60,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
         view.font = .robotoRegular(ofSize: 15)
         view.textAlignment = .left
         view.text = "Select photo:"
+        
         return view
     }()
     
@@ -75,6 +77,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
             $0.height.equalTo(120)
             $0.width.equalTo(120)
         }
+        
         return view
     }()
     
@@ -89,6 +92,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
         }
         view.setTitle("All photos ", for: UIControl.State.normal)
         view.setTitleColor(.customBlack, for: .normal)
+        
         return view
     }()
     
@@ -100,6 +104,8 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
         navigationBar()
         setNavigationBar()
         setupNavgationBar()
+        
+        presenter?.fetchAssestFromLibrary()
     }
     
     func setNavigationBar() {
@@ -109,7 +115,6 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
             $0.height.equalTo(20)
             $0.center.equalToSuperview()
         }
-        
     }
     
     func navigationBar() {
@@ -169,12 +174,10 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
         }
         
         collectionView.snp.makeConstraints {
-            
             $0.height.equalTo(view.safeAreaLayoutGuide.snp.width)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
         }
-        
     }
     
     private func setupNavgationBar() {
@@ -190,10 +193,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
             
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
         }
-//        navigationItem.backButtonTitle = ""
         navigationItem.backBarButtonItem = .init(title: .init(), image: nil, target: nil, action: nil)
-//        navigationController?.navigationBar.backIndicatorImage = backIndicatorImage
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIndicatorImage
     }
     
     @objc
@@ -210,19 +210,24 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
 }
 
 extension AddPhotoViewController: AddPhotoVCProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    func setSelectedImage(model: ImageObjectModel) {
-        imageView.image = model.image
-    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            imageView.image = editedImage
-        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+
+        if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = originalImage
+            if let data = originalImage.jpegData(compressionQuality: 1) {
+                print(data)
+                presenter?.selectedObject(object: data)
+            }
+
+//            imageView.image = UIImage(data: originalImage)
+//            let data = originalImage as? Data
+//            presenter?.selectedObject(object: data!)
         }
         dismiss(animated: true)
     }
     
-    
+    func setSelectedObject(model: ImageObjectModel) {
+        imageView.image = model.image
+    }
 }

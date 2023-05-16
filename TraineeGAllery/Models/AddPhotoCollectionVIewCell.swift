@@ -9,12 +9,17 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-struct ImageObjectModel {
+struct ImageObjectModel: Decodable {
     
-    let imageName: String
-    
+//    let imageName: String
+//
+//    var image: UIImage? {
+//        UIImage(named: imageName)
+//    }
+
+    let imageData: Data
     var image: UIImage? {
-        UIImage(named: imageName)
+        UIImage(data: imageData)
     }
 }
 
@@ -31,6 +36,20 @@ class AddPhotoCollectionVIewCell: UICollectionViewCell {
     }
 
     func setupImage(model: ImageObjectModel) {
+        if currentImageView.superview == nil {
+            contentView.addSubview(currentImageView)
+            
+            currentImageView.snp.makeConstraints({
+                $0.edges.equalTo(contentView.snp.edges)
+            })
+        }
+        
+        currentImageView.contentMode = .scaleAspectFill
+        currentImageView.clipsToBounds = true
+        currentImageView.image = model.image
+    }
+    
+    func setupObject(model: ImageObjectModel) {
         if currentImageView.superview == nil {
             contentView.addSubview(currentImageView)
             

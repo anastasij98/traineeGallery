@@ -9,9 +9,15 @@ import Foundation
 import UIKit
 import SnapKit
 
+enum TextViews {
+    
+    case nameTextView(UITextView)
+    case descriptionTextView(UITextView)
+}
+
 class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
-    var imageName: String?
+    var imageObject: Data?
     
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -35,8 +41,8 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         let view = UIImageView()
         view.backgroundColor = .customLightGrey
         view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: imageName ?? "")
-         
+        view.image = UIImage(data: imageObject ?? Data())
+
         return view
     }()
     
@@ -47,30 +53,61 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    lazy var nameTextField: UITextField = {
-        let view = UITextField()
+//    lazy var nameTextField: UITextField = {
+//        let view = UITextField()
+//        view.layer.cornerRadius = 4
+//        view.layer.borderWidth = 1
+//        view.layer.borderColor = .mainGrey
+//        view.keyboardType = .default
+//        let placeholderText = NSMutableAttributedString(string: "Name")
+//        placeholderText.addAttribute(.font,
+//                                    value: UIFont.robotoRegular(ofSize: 17),
+//                                    range: NSRange(location: 0, length: placeholderText.length))
+//        view.attributedPlaceholder = placeholderText
+//        return view
+//    }()
+    lazy var nameTextField: UITextView = {
+        let view = UITextView()
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
         view.layer.borderColor = .mainGrey
+        view.keyboardType = .default
         let placeholderText = NSMutableAttributedString(string: "Name")
         placeholderText.addAttribute(.font,
                                     value: UIFont.robotoRegular(ofSize: 17),
                                     range: NSRange(location: 0, length: placeholderText.length))
-        view.attributedPlaceholder = placeholderText
+//        view.attributedPlaceholder = placeholderText
+        view.text = placeholderText.string
         return view
     }()
     
-    lazy var descriptionTextField: UITextField = {
-        let view = UITextField()
+//    lazy var descriptionTextField: UITextField = {
+//        let view = UITextField()
+//        view.layer.cornerRadius = 4
+//        view.layer.borderWidth = 1
+//        view.layer.borderColor = .mainGrey
+//        let placeholderText = NSMutableAttributedString(string: "Description")
+//        placeholderText.addAttribute(.font,
+//                                    value: UIFont.robotoRegular(ofSize: 17),
+//                                    range: NSRange(location: 0, length: placeholderText.length))
+//        view.attributedPlaceholder = placeholderText
+//
+//        return view
+//    }()
+    lazy var descriptionTextField: UITextView = {
+        let view = UITextView()
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 1
         view.layer.borderColor = .mainGrey
-        let placeholderText = NSMutableAttributedString(string: "Description")
-        placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
-                                    range: NSRange(location: 0, length: placeholderText.length))
-        view.attributedPlaceholder = placeholderText
-        
+//        let placeholderText = NSMutableAttributedString(string: "Description")
+//        placeholderText.addAttribute(.font,
+//                                    value: UIFont.robotoRegular(ofSize: 17),
+//                                    range: NSRange(location: 0, length: placeholderText.length))
+//        view.attributedPlaceholder = placeholderText
+        view.textColor = .mainGrey
+        view.font = .robotoRegular(ofSize: 17)
+        view.keyboardType = .default
+        view.text = "Description"
         return view
     }()
     
@@ -79,6 +116,8 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         
         setupLayout()
         navigationBar()
+        nameTextField.delegate = self
+        descriptionTextField.delegate = self
     }
     
     func setupLayout() {
@@ -144,4 +183,56 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     func addData() {
         print("added")
     }
+
+}
+
+extension AddDataViewController: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+}
+
+extension AddDataViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ descriptionTextField: UITextView) {
+        let view = TextViews.nameTextView(nameTextField)
+        switch view {
+        case .nameTextView(let uITextView):
+            if descriptionTextField.text == "Description" {
+                descriptionTextField.text = ""
+                descriptionTextField.textColor = .customBlack
+                descriptionTextField.font = .robotoRegular(ofSize: 17)
+            }
+        case .descriptionTextView(let uITextView):
+            if descriptionTextField.text == "Description" {
+                descriptionTextField.text = ""
+                descriptionTextField.textColor = .customBlack
+                descriptionTextField.font = .robotoRegular(ofSize: 17)
+            }
+        }
+//        if descriptionTextField.text == "Description" {
+//            descriptionTextField.text = ""
+//            descriptionTextField.textColor = .customBlack
+//            descriptionTextField.font = .robotoRegular(ofSize: 17)
+//        }
+    }
+    
+    func textViewDidEndEditing(_ descriptionTextField: UITextView) {
+        if descriptionTextField.text.isEmpty {
+            descriptionTextField.text = "Description"
+            descriptionTextField.textColor = .mainGrey
+            descriptionTextField.font = .robotoRegular(ofSize: 17)
+        }
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+
 }

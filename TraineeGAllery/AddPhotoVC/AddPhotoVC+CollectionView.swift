@@ -12,22 +12,20 @@ extension AddPhotoViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        presenter?.didSelectItem(withIndex: indexPath.item)
+        presenter?.didSelectObject(withIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter?.getItemsCount() ?? 0
+        presenter?.getObjectsCount() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? AddPhotoCollectionVIewCell,
-              let model = presenter?.getItem(withIndex: indexPath.item) else {
+              let model = presenter?.getObject(withIndex: indexPath.item) else {
             return UICollectionViewCell()
         }
-        
-        cell.setupImage(model: model)
-        
+        cell.setupObject(model: model)
         return cell
     }
 }

@@ -11,15 +11,15 @@ import UIKit
 class AddDataConfigurator {
     
     static func openViewController(navigationController: UINavigationController,
-                                   imageName: String) {
-        let viewController = Self.getViewController(imageName: imageName)
+                                   imageObject: Data) {
+        let viewController = Self.getViewController(imageObject: imageObject)
         navigationController.pushViewController(viewController, animated: true)
     }
-    
-    static func getViewController(imageName: String) -> AddDataViewController {
+
+    static func getViewController(imageObject: Data) -> AddDataViewController {
         let viewController = AddDataViewController()
-        viewController.imageName = imageName
-        
+        viewController.imageObject = imageObject
+
         return viewController
     }
 }
