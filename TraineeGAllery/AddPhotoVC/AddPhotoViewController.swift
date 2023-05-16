@@ -15,7 +15,7 @@ protocol AddPhotoVCProtocol: AnyObject {
     func setSelectedObject(model: ImageObjectModel)
 }
 
-class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
+class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: AddPhotoPresenterProtocol?
     var id = "addPhoto"
@@ -98,8 +98,8 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
+        view.backgroundColor = .white
         setupScrollAndStack()
         navigationBar()
         setNavigationBar()
@@ -181,7 +181,6 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
     }
     
     private func setupNavgationBar() {
-        
         if let appearance = navigationController?.navigationBar.standardAppearance {
             appearance.configureWithTransparentBackground()
             
@@ -209,25 +208,23 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate{
     }
 }
 
-extension AddPhotoViewController: AddPhotoVCProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension AddPhotoViewController: AddPhotoVCProtocol{
+    func setSelectedObject(model: ImageObjectModel) {
+        imageView.image = model.image
+    }
+}
+
+extension AddPhotoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
+        
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = originalImage
             if let data = originalImage.jpegData(compressionQuality: 1) {
                 print(data)
                 presenter?.selectedObject(object: data)
             }
-
-//            imageView.image = UIImage(data: originalImage)
-//            let data = originalImage as? Data
-//            presenter?.selectedObject(object: data!)
         }
         dismiss(animated: true)
-    }
-    
-    func setSelectedObject(model: ImageObjectModel) {
-        imageView.image = model.image
     }
 }

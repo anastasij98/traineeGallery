@@ -17,8 +17,6 @@ class TabBarRouter {
     
     weak var view: TabBarVCProtocol?
     
-    
-    
     init(view: TabBarVCProtocol? = nil) {
         self.view = view
     }

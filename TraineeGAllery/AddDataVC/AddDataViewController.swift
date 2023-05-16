@@ -9,12 +9,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-enum TextViews {
-    
-    case nameTextView(UITextView)
-    case descriptionTextView(UITextView)
-}
-
 class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     var imageObject: Data?
@@ -52,83 +46,39 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
-    
-//    lazy var nameTextField: UITextField = {
-//        let view = UITextField()
-//        view.layer.cornerRadius = 4
-//        view.layer.borderWidth = 1
-//        view.layer.borderColor = .mainGrey
-//        view.keyboardType = .default
-//        let placeholderText = NSMutableAttributedString(string: "Name")
-//        placeholderText.addAttribute(.font,
-//                                    value: UIFont.robotoRegular(ofSize: 17),
-//                                    range: NSRange(location: 0, length: placeholderText.length))
-//        view.attributedPlaceholder = placeholderText
-//        return view
-//    }()
-    lazy var nameTextField: UITextView = {
+
+    lazy var nameTextView: UITextView = {
         let view = UITextView()
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
-        view.layer.borderColor = .mainGrey
-        view.keyboardType = .default
-        let placeholderText = NSMutableAttributedString(string: "Name")
-        placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
-                                    range: NSRange(location: 0, length: placeholderText.length))
-//        view.attributedPlaceholder = placeholderText
-        view.text = placeholderText.string
+        view.setupTextView(text: "Name")
+        
         return view
     }()
     
-//    lazy var descriptionTextField: UITextField = {
-//        let view = UITextField()
-//        view.layer.cornerRadius = 4
-//        view.layer.borderWidth = 1
-//        view.layer.borderColor = .mainGrey
-//        let placeholderText = NSMutableAttributedString(string: "Description")
-//        placeholderText.addAttribute(.font,
-//                                    value: UIFont.robotoRegular(ofSize: 17),
-//                                    range: NSRange(location: 0, length: placeholderText.length))
-//        view.attributedPlaceholder = placeholderText
-//
-//        return view
-//    }()
-    lazy var descriptionTextField: UITextView = {
+    lazy var descriptionTextView: UITextView = {
         let view = UITextView()
-        view.layer.cornerRadius = 4
-        view.layer.borderWidth = 1
-        view.layer.borderColor = .mainGrey
-//        let placeholderText = NSMutableAttributedString(string: "Description")
-//        placeholderText.addAttribute(.font,
-//                                    value: UIFont.robotoRegular(ofSize: 17),
-//                                    range: NSRange(location: 0, length: placeholderText.length))
-//        view.attributedPlaceholder = placeholderText
-        view.textColor = .mainGrey
-        view.font = .robotoRegular(ofSize: 17)
-        view.keyboardType = .default
-        view.text = "Description"
+        view.setupTextView(text: "Description")
+        
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
+        setupViewController()
         navigationBar()
-        nameTextField.delegate = self
-        descriptionTextField.delegate = self
     }
     
-    func setupLayout() {
+    func setupViewController() {
         view.backgroundColor = .white
         scrollView.delegate = self
+        nameTextView.delegate = self
+        descriptionTextView.delegate = self
 
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
-        stackView.addArrangedSubviews(imageView, nameTextField, descriptionTextField)
+        stackView.addArrangedSubviews(imageView, nameTextView, descriptionTextView)
         stackView.setCustomSpacing(10, after: imageView)
-        stackView.setCustomSpacing(10, after: nameTextField)
+        stackView.setCustomSpacing(10, after: nameTextView)
 
         imageView.addSubview(underLine)
         
@@ -155,13 +105,13 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
             $0.bottom.equalTo(imageView.snp.bottom)
         }
         
-        nameTextField.snp.makeConstraints {
+        nameTextView.snp.makeConstraints {
             $0.height.equalTo(36)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
         
-        descriptionTextField.snp.makeConstraints {
+        descriptionTextView.snp.makeConstraints {
             $0.height.equalTo(100)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
@@ -183,47 +133,35 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     func addData() {
         print("added")
     }
-
-}
-
-extension AddDataViewController: UITextFieldDelegate {
-    
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
 }
 
 extension AddDataViewController: UITextViewDelegate {
     
-    func textViewDidBeginEditing(_ descriptionTextField: UITextView) {
-        let view = TextViews.nameTextView(nameTextField)
-        switch view {
-        case .nameTextView(let uITextView):
-            if descriptionTextField.text == "Description" {
-                descriptionTextField.text = ""
-                descriptionTextField.textColor = .customBlack
-                descriptionTextField.font = .robotoRegular(ofSize: 17)
-            }
-        case .descriptionTextView(let uITextView):
-            if descriptionTextField.text == "Description" {
-                descriptionTextField.text = ""
-                descriptionTextField.textColor = .customBlack
-                descriptionTextField.font = .robotoRegular(ofSize: 17)
-            }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if self.descriptionTextView.text == "Description" {
+            textView.text = ""
+            textView.textColor = .customBlack
+            textView.font = .robotoRegular(ofSize: 17)
         }
-//        if descriptionTextField.text == "Description" {
-//            descriptionTextField.text = ""
-//            descriptionTextField.textColor = .customBlack
-//            descriptionTextField.font = .robotoRegular(ofSize: 17)
-//        }
+        
+        if self.nameTextView.text == "Name" {
+            textView.text = ""
+            textView.textColor = .customBlack
+            textView.font = .robotoRegular(ofSize: 17)
+        }
     }
     
-    func textViewDidEndEditing(_ descriptionTextField: UITextView) {
-        if descriptionTextField.text.isEmpty {
-            descriptionTextField.text = "Description"
-            descriptionTextField.textColor = .mainGrey
-            descriptionTextField.font = .robotoRegular(ofSize: 17)
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if self.descriptionTextView.text.isEmpty {
+            textView.text = "Description"
+            textView.textColor = .mainGrey
+            textView.font = .robotoRegular(ofSize: 17)
+        }
+        
+        if self.nameTextView.text.isEmpty {
+            textView.text = "Name"
+            textView.textColor = .mainGrey
+            textView.font = .robotoRegular(ofSize: 17)
         }
     }
 
@@ -234,5 +172,4 @@ extension AddDataViewController: UITextViewDelegate {
         }
         return true
     }
-
 }

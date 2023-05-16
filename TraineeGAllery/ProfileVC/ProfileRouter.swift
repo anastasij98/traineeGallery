@@ -28,5 +28,4 @@ extension ProfileRouter: ProfileRouterProtocol {
         guard let viewController = self.view?.navigationController else { return }
         SettingsConfigurator.openViewController(navigationController: viewController)
     }
-
 }

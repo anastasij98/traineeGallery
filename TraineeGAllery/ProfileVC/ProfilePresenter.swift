@@ -29,5 +29,4 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func openSettings() {
         router.openSettings()
     }
-
 }

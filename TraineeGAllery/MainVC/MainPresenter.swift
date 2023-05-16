@@ -123,28 +123,6 @@ class MainPresenter {
         }
     }
     
-    // идентификаторы запросов
-    var newRequestID: String?
-    var popularRequestID: String?
-    var requestID: String? {
-        get {
-            switch mode {
-            case .new:
-                return newRequestID
-            case .popular:
-                return popularRequestID
-            }
-        }
-        set {
-            switch mode {
-            case .new:
-                newRequestID = newValue
-            case .popular:
-                popularRequestID = newValue
-            }
-        }
-    }
-    
     var hasMorePages: Bool {
         currentPage <= currentCountOfPages
     }
@@ -177,7 +155,6 @@ class MainPresenter {
             case .notReachable:
                 self.view?.connectionDidChange(isConnected: false)
                 print("Network Status: \(status)")
-                
             }
         })
     }
@@ -200,10 +177,6 @@ class MainPresenter {
         })
         .subscribe(onSuccess:{ [weak self] data in
             guard let self = self else { return }
-//            data.responseData { response in
-//                print("Status code: \(response.response?.statusCode)")
-//                print("Header: \(response.response?.headers)")
-//            }
             self.requestImages.append(contentsOf: data.data)
             self.view?.updateView(restoreOffset: false)
             guard let count = data.countOfPages else { return }
@@ -214,7 +187,6 @@ class MainPresenter {
         })
             .disposed(by: disposeBag)
     }
-        
 }
 
 extension MainPresenter: MainPresenterProtocol {
@@ -238,7 +210,6 @@ extension MainPresenter: MainPresenterProtocol {
         if requestImages.isEmpty {
             loadMore()
         }
-        
         view?.updateView(restoreOffset: true)
     }
     
@@ -266,7 +237,6 @@ extension MainPresenter: MainPresenterProtocol {
     
     func onRefreshStarted() {
         currentPage = 0
-        requestID = nil
         requestImages.removeAll()
         loadMore()
     }

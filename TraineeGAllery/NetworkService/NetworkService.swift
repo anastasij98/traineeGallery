@@ -17,7 +17,7 @@ extension NetworkService: NetworkServiceProtocol {
     
     func getImages(limit: Int,
                    pageToLoad: Int,
-                   mode: SegmentMode) -> Single<JSONModel> {
+                   mode: SegmentMode) -> Single<ResponseModel> {
         let request = URLConfiguration.url + URLConfiguration.api
         var parametrs: Parameters = [
             "page": "\(pageToLoad)",
@@ -31,15 +31,15 @@ extension NetworkService: NetworkServiceProtocol {
         case .popular:
             parametrs["popular"] = "true"
         }
-//           return RxAlamofire.data(.get, request, parameters: parametrs)
+        
         return RxAlamofire.request(.get, request, parameters: parametrs)
                     .validate(statusCode: 200..<300)
                     .responseData()
                     .asSingle()
-                    .flatMap { response, data -> Single<JSONModel> in
+                    .flatMap { response, data -> Single<ResponseModel> in
                         print("Status code: \(response.statusCode)")
                         do {
-                            let model = try JSONDecoder().decode(JSONModel.self, from: data)
+                            let model = try JSONDecoder().decode(ResponseModel.self, from: data)
                             return .just(model)
                         } catch let error {
                             return .error(error)
@@ -54,5 +54,3 @@ extension NetworkService: NetworkServiceProtocol {
             .asSingle()
     }
 }
-
-

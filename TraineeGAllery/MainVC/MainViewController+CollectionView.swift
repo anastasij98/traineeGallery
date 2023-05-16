@@ -42,7 +42,6 @@ extension MainViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
 //MARK: -  UICollectionViewDelegateFlowLayout
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     

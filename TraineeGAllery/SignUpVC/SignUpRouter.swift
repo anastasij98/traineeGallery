@@ -27,5 +27,4 @@ extension SignUpRouter: SignUpRouterProtocol {
         guard let navigationController = self.view?.navigationController else { return }
         SignInConfigurator.open(navigationController: navigationController)
     }
-
 }

@@ -63,7 +63,6 @@ class DetailedPresenter {
             })
             .disposed(by: disposeBag)
     }
-    
 }
 
 extension DetailedPresenter: DetailedPresenterProtocol {

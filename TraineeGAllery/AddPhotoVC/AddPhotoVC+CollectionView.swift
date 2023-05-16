@@ -8,19 +8,21 @@
 import Foundation
 import UIKit
 
-extension AddPhotoViewController: UICollectionViewDataSource {
+//MARK: - UICollectionViewDelegate
+extension AddPhotoViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.didSelectObject(withIndex: indexPath.item)
     }
-    
+}
+//MARK: - UICollectionViewDataSource
+extension AddPhotoViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter?.getObjectsCount() ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? AddPhotoCollectionVIewCell,
               let model = presenter?.getObject(withIndex: indexPath.item) else {
             return UICollectionViewCell()
@@ -29,11 +31,10 @@ extension AddPhotoViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
+//MARK: - UICollectionViewDelegateFlowLayout
 extension AddPhotoViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         if UIDevice.current.orientation.isLandscape {
             let itemsInRow: CGFloat = 4
             let paddingsInRow: CGFloat = (itemsInRow - 1) * 9

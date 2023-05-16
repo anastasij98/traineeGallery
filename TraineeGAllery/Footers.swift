@@ -32,7 +32,6 @@ class IndicatorFooterView: UICollectionReusableView {
             $0.center.equalTo(self.snp.center)
         })
     }
-    
 }
 
 class ClearFooterView: UICollectionReusableView {

@@ -160,7 +160,6 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     lazy var deleteAccountButton: UIButton = {
         let view = UIButton()
         let text = "You can delete your account"
-//        setupButtonTitle(view: view, text: text, color: .customPink, size: 16)
         let string = NSMutableAttributedString(string: text)
         string.addAttributes([.font : UIFont.robotoRegular(ofSize: 16),
                               .foregroundColor : UIColor.black],
@@ -170,9 +169,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
                               .foregroundColor : UIColor.customPink],
                              range: NSRange(location: 14,
                                             length: 13))
-
         view.setAttributedTitle(string, for: .normal)
-
         view.addTarget(self, action: #selector(deleted), for: .touchUpInside)
         
         return view
@@ -188,6 +185,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         setupLayout()
         navigationBar()
@@ -229,7 +227,6 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         setupSpacings()
 
         scrollView.snp.makeConstraints {
-//            $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -251,8 +248,8 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
             $0.centerX.equalTo(stackView.snp.centerX)
             $0.top.equalTo(stackView.snp.top).offset(21)
         }
+        
         setupLabelsAndButtons()
-
     }
     
     func setupSpacings() {

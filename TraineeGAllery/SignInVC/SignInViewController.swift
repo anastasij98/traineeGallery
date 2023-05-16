@@ -69,7 +69,6 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(36)
         }
         view.placeholder = "Email"
-//        view.setRightImage(imageName: "email")
         
         return view
     }()
@@ -145,7 +144,9 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    override func viewDidLoad() {        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         view.backgroundColor = .white
         setupView()
         checkOrientationAndSetLayout()
@@ -153,8 +154,9 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        
         checkOrientationAndSetLayout()
-        }
+    }
     
     func checkOrientationAndSetLayout() {
         if UIDevice.current.orientation.isLandscape {
@@ -184,14 +186,12 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
 
         emailTextField.addSubview(emailImageView)
         passwordTextField.addSubview(passwordImageView)
-//
+
         scrollView.snp.makeConstraints {
-//            $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
-
         }
 
         stackView.snp.makeConstraints {
@@ -217,6 +217,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.centerY.equalTo(emailTextField.snp.centerY)
             $0.trailing.equalTo(emailTextField.snp.trailing).inset(11)
         }
+        
         passwordImageView.snp.makeConstraints {
             $0.centerY.equalTo(passwordTextField.snp.centerY)
             $0.trailing.equalTo(passwordTextField.snp.trailing).inset(11)

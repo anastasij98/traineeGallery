@@ -97,6 +97,7 @@ class MainViewController: UIViewController {
     
     let noConnectionStackView: NoConnectionStack = {
         let view = NoConnectionStack()
+        
         return view
     }()
     
@@ -108,7 +109,6 @@ class MainViewController: UIViewController {
         presenter?.viewIsReady()
         
         view.backgroundColor = .white
-//        setupNavgationBar()
         setupSegmentedControl()
         setupCollectionView()
         setupCollectionViewLayout()
@@ -121,25 +121,6 @@ class MainViewController: UIViewController {
         
         collectionView.collectionViewLayout.invalidateLayout()
     }
-    
-//    private func setupNavgationBar() {
-//
-//        if let appearance = navigationController?.navigationBar.standardAppearance {
-//            appearance.configureWithTransparentBackground()
-//
-//            let color: UIColor = .black
-//            appearance.shadowColor = color
-////            appearance.shadowImage = color.image()
-//            //априенс бэкБатон как и аринес навБара
-////            appearance.backButtonAppearance
-//
-//            navigationController?.navigationBar.scrollEdgeAppearance = appearance
-//        }
-////        navigationItem.backButtonTitle = ""
-//        navigationItem.backBarButtonItem = .init(title: .init(), image: nil, target: nil, action: nil)
-//        navigationController?.navigationBar.backIndicatorImage = backIndicatorImage
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backIndicatorImage
-//    }
     
     private func setupSegmentedControl() {
         view.addSubview(segmentedControl)

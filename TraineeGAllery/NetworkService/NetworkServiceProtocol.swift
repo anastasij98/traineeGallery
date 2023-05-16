@@ -20,7 +20,7 @@ protocol NetworkServiceProtocol {
     /// - Returns: возвращаемый идектификатор запроса  (для отмены)
     func getImages(limit: Int,
                    pageToLoad: Int,
-                   mode: SegmentMode) -> Single<JSONModel>
+                   mode: SegmentMode) -> Single<ResponseModel>
 //    func getImages(limit: Int,
 //                   pageToLoad: Int,
 //                   mode: SegmentMode) -> Single<JSONModel>

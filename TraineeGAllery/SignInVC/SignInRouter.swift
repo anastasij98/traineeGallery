@@ -28,7 +28,5 @@ extension SignInRouter: SignInRouterProtocol {
         let windowScenes = scenes.first as? UIWindowScene
         let window = windowScenes?.windows.first
         window?.rootViewController = TabBarConfigurator.getViewController()
-//        guard let navigationController = self.view?.navigationController else { return }
-//        TabBarConfigurator.openViewController(navigationController: navigationController)
     }
 }

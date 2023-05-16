@@ -10,12 +10,6 @@ import SnapKit
 import Kingfisher
 
 struct ImageObjectModel: Decodable {
-    
-//    let imageName: String
-//
-//    var image: UIImage? {
-//        UIImage(named: imageName)
-//    }
 
     let imageData: Data
     var image: UIImage? {

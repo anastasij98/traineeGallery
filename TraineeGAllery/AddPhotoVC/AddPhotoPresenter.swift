@@ -12,9 +12,7 @@ protocol AddPhotoPresenterProtocol {
     
     func onNextButtonTap()
     func openImagePicker(view: AddPhotoViewController)
-    
     func fetchAssestFromLibrary()
-    
     func getObjectsCount() -> Int
     func getObject(withIndex index: Int) -> ImageObjectModel
     func didSelectObject(withIndex index: Int)
@@ -62,7 +60,6 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
     }
     
     func fetchAssestFromLibrary() {
-        
         let objects = PHAsset.fetchAssets(with: .image, options: nil)
         print(objects.count)
         for index in 0..<objects.count {
@@ -84,5 +81,4 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
     func selectedObject(object: Data) {
         selectedObject = object
     }
-
 }

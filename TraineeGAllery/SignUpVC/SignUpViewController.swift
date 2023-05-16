@@ -111,7 +111,6 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                                     range: NSRange(location: placeholderText.length - 1, length: 1))
         view.attributedPlaceholder = placeholderText
         view.keyboardType = .emailAddress
-//      view.setRightImage(imageName: "email")
 
         return view
     }()
@@ -161,7 +160,6 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     lazy var emailImageView = UIImageView(image: UIImage(named: "email"))
     lazy var oldPasswordImageView = UIImageView(image: UIImage(named: "password"))
     lazy var confirmPasswordImageView = UIImageView(image: UIImage(named: "password"))
-
     
     lazy var buttonsStackView: UIStackView = {
         let view = UIStackView()
@@ -198,7 +196,6 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(18)
             $0.width.equalTo(103)
         }
-        
         view.addTarget(self,
                        action: #selector(signIn),
                        for: .touchUpInside)
@@ -207,8 +204,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        super.viewDidLoad()
         
+        view.backgroundColor = .white
         setupView()
         checkOrientationAndSetLayout()
     }
@@ -256,12 +254,10 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         confirmPasswordTextField.addSubview(confirmPasswordImageView)
 
         scrollView.snp.makeConstraints {
-//            $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
-
         }
 
         stackView.snp.makeConstraints {
@@ -270,14 +266,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
         }
-        
-//        signInTitle.snp.makeConstraints {
-//            $0.top.equalTo(view.snp.top).offset(188)
-//            $0.centerX.equalTo(view.snp.centerX)
-//            $0.height.equalTo(30)
-//            $0.width.equalTo(105)
-//        }
-        
+
         titleUnderline.snp.makeConstraints {
             $0.height.equalTo(2)
             $0.width.equalTo(signInTitle.snp.width)
@@ -286,7 +275,6 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         }
         
         textFieldStackView.snp.makeConstraints {
-//            $0.top.equalTo(signInTitle.snp.bottom).offset(57)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }

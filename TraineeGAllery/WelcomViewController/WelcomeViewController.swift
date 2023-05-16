@@ -18,7 +18,7 @@ class WelcomeViewController: UIViewController {
     var presenter: WelcomePresenterProtocol?
     
     lazy var welcomeStackView: UIStackView = {
-       let view = UIStackView()
+        let view = UIStackView()
         view.axis = .vertical
         view.distribution = .fill
         
@@ -26,7 +26,7 @@ class WelcomeViewController: UIViewController {
     }()
     
     lazy var welcomeImageView: UIImageView = {
-       let view = UIImageView()
+        let view = UIImageView()
         view.image = UIImage(named: "Intersect 1")
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
@@ -35,7 +35,7 @@ class WelcomeViewController: UIViewController {
     }()
     
     lazy var welcomeLabel: UILabel = {
-       let view = UILabel()
+        let view = UILabel()
         view.text = "Welcome!"
         view.textAlignment = .center
         view.tintColor = .black
@@ -56,6 +56,7 @@ class WelcomeViewController: UIViewController {
         view.addTarget(self,
                        action: #selector(createAnAccount),
                        for: .touchUpInside)
+        
         return view
     }()
     
@@ -72,6 +73,7 @@ class WelcomeViewController: UIViewController {
         view.addTarget(self,
                        action: #selector(signIn),
                        for: .touchUpInside)
+        
         return view
     }()
     
@@ -79,11 +81,9 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-    
         setupStackView()
         setupStatusBar()
     }
-    
     
     func setupStatusBar() {
         navigationController?.navigationBar.isTranslucent = true
@@ -91,9 +91,7 @@ class WelcomeViewController: UIViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
         navigationItem.backButtonTitle = "Cancel"
         navigationController?.navigationBar.tintColor = .customDarkGrey
-        
     }
- 
     
     func setupStackView() {
         view.addSubview(welcomeStackView)

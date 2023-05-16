@@ -25,10 +25,8 @@ class SignUpPresenter {
 }
 
 extension SignUpPresenter: SignUpPresenterProtocol {
- 
+    
     func signIn() {
         router.signIn()
-
     }
-
 }

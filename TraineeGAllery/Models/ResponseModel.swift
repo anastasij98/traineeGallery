@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct JSONModel: Codable {
+struct ResponseModel: Codable {
     var data: [ItemModel]
     var itemsPerPage: Int?
     var countOfPages: Int?

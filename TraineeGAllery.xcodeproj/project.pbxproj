@@ -18,8 +18,9 @@
 		4709BA2429D1BE730035F64F /* UIColor+CGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */; };
 		4709BA2629D1C06F0035F64F /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2529D1C06F0035F64F /* DetailedViewController.swift */; };
 		4709BA2929D1C3EF0035F64F /* AddSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2829D1C3EF0035F64F /* AddSubview.swift */; };
-		4709BA2B29D1E0920035F64F /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2A29D1E0920035F64F /* JSONModel.swift */; };
+		4709BA2B29D1E0920035F64F /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2A29D1E0920035F64F /* ResponseModel.swift */; };
 		4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2C29D1E4690035F64F /* URLConfiguration.swift */; };
+		4741B8EE2A14049900F380C2 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4741B8ED2A14049900F380C2 /* UITextView.swift */; };
 		4758098729DEB54E00BA741E /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758098629DEB54E00BA741E /* UIFont.swift */; };
 		4758098929DFF86900BA741E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758098829DFF86900BA741E /* NetworkService.swift */; };
 		4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758099429E07D9A00BA741E /* NetworkServiceProtocol.swift */; };
@@ -30,7 +31,6 @@
 		475AA78829D6E6B2006B9BC6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */; };
 		475AA78A29D6E7F4006B9BC6 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */; };
 		475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footers.swift */; };
-		47784C3A2A1242C600A96E53 /* SelectAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47784C392A1242C600A96E53 /* SelectAlbumViewController.swift */; };
 		479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */; };
 		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
 		47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */; };
@@ -59,7 +59,7 @@
 		47E515D029F87BD500AB5397 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515CF29F87BD500AB5397 /* SignInPresenter.swift */; };
 		47E515D229F87C0500AB5397 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D129F87C0500AB5397 /* SignInRouter.swift */; };
 		47E515D429F87C3500AB5397 /* SignInConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D329F87C3500AB5397 /* SignInConfigurator.swift */; };
-		47E515D629F8A04200AB5397 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D529F8A04200AB5397 /* TextField.swift */; };
+		47E515D629F8A04200AB5397 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D529F8A04200AB5397 /* UITextField.swift */; };
 		47EEEEBB2A026C7B0075791D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */; };
 		47EEEEBD2A026D210075791D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBC2A026D210075791D /* ProfileViewController.swift */; };
 		47EEEEBF2A026D350075791D /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */; };
@@ -92,8 +92,9 @@
 		4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CGColor.swift"; sourceTree = "<group>"; };
 		4709BA2529D1C06F0035F64F /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		4709BA2829D1C3EF0035F64F /* AddSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubview.swift; sourceTree = "<group>"; };
-		4709BA2A29D1E0920035F64F /* JSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONModel.swift; sourceTree = "<group>"; };
+		4709BA2A29D1E0920035F64F /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		4709BA2C29D1E4690035F64F /* URLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConfiguration.swift; sourceTree = "<group>"; };
+		4741B8ED2A14049900F380C2 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		4758098629DEB54E00BA741E /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		4758098829DFF86900BA741E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4758099429E07D9A00BA741E /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
@@ -104,7 +105,6 @@
 		475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		475AA78D29D744EF006B9BC6 /* Footers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footers.swift; sourceTree = "<group>"; };
-		47784C392A1242C600A96E53 /* SelectAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAlbumViewController.swift; sourceTree = "<group>"; };
 		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		47E515CF29F87BD500AB5397 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		47E515D129F87C0500AB5397 /* SignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
 		47E515D329F87C3500AB5397 /* SignInConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInConfigurator.swift; sourceTree = "<group>"; };
-		47E515D529F8A04200AB5397 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		47E515D529F8A04200AB5397 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		47EEEEBC2A026D210075791D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
@@ -208,7 +208,6 @@
 				47CB5BA929DCB5D3002BB2ED /* MainVC */,
 				47EEEEC12A026F170075791D /* AddPhotoVC */,
 				47EEEED32A02E3B70075791D /* AddDataVC */,
-				47784C382A12428700A96E53 /* SelectAlbumVC */,
 				47EEEEC02A026F010075791D /* ProfileVC */,
 				47EEEED82A0947F60075791D /* SettingsVC */,
 				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
@@ -232,7 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				4709BA2029D1AED70035F64F /* CollectionViewCellModel.swift */,
-				4709BA2A29D1E0920035F64F /* JSONModel.swift */,
+				4709BA2A29D1E0920035F64F /* ResponseModel.swift */,
 				47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */,
 			);
 			path = Models;
@@ -246,7 +245,8 @@
 				4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */,
 				4758098629DEB54E00BA741E /* UIFont.swift */,
 				475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */,
-				47E515D529F8A04200AB5397 /* TextField.swift */,
+				47E515D529F8A04200AB5397 /* UITextField.swift */,
+				4741B8ED2A14049900F380C2 /* UITextView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -260,14 +260,6 @@
 				47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		47784C382A12428700A96E53 /* SelectAlbumVC */ = {
-			isa = PBXGroup;
-			children = (
-				47784C392A1242C600A96E53 /* SelectAlbumViewController.swift */,
-			);
-			path = SelectAlbumVC;
 			sourceTree = "<group>";
 		};
 		479E68CF29ED32E10053E706 /* WelcomViewController */ = {
@@ -560,7 +552,7 @@
 				47EEEEE02A098A0B0075791D /* SettingsConfigurator.swift in Sources */,
 				4709BA0D29D1AC900035F64F /* AppDelegate.swift in Sources */,
 				47E515C629F8601500AB5397 /* SignUpPresenter.swift in Sources */,
-				47E515D629F8A04200AB5397 /* TextField.swift in Sources */,
+				47E515D629F8A04200AB5397 /* UITextField.swift in Sources */,
 				4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,
 				475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */,
@@ -581,9 +573,9 @@
 				47EEEEDC2A09880C0075791D /* ProfileRouter.swift in Sources */,
 				47CB5BB329DCB6E0002BB2ED /* MainRouter.swift in Sources */,
 				47CB5BA329DCB59A002BB2ED /* SampleScreenPresenterImp.swift in Sources */,
-				47784C3A2A1242C600A96E53 /* SelectAlbumViewController.swift in Sources */,
 				4709BA0F29D1AC900035F64F /* SceneDelegate.swift in Sources */,
-				4709BA2B29D1E0920035F64F /* JSONModel.swift in Sources */,
+				4709BA2B29D1E0920035F64F /* ResponseModel.swift in Sources */,
+				4741B8EE2A14049900F380C2 /* UITextView.swift in Sources */,
 				47E515C429F8600900AB5397 /* SignUpViewController.swift in Sources */,
 				4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */,
 				4709BA2129D1AED70035F64F /* CollectionViewCellModel.swift in Sources */,
