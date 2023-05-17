@@ -10,6 +10,8 @@ import UIKit
 
 protocol MainRouterProtocol {
     
+    /// Обращение к конфигуратору для открытия DetailedViewController'a
+    /// - Parameter model: передаваемая модель типа ItemModel
     func openDetailedViewController(model: ItemModel)
 }
 

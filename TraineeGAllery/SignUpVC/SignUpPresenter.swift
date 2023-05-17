@@ -9,7 +9,8 @@ import Foundation
 
 protocol SignUpPresenterProtocol {
     
-    func signIn()
+    /// Обращение к роутеру для открытия экрана SigIn
+    func onSignInButtonTap()
 }
 
 class SignUpPresenter {
@@ -26,7 +27,7 @@ class SignUpPresenter {
 
 extension SignUpPresenter: SignUpPresenterProtocol {
     
-    func signIn() {
-        router.signIn()
+    func onSignInButtonTap() {
+        router.openSignInViewController()
     }
 }

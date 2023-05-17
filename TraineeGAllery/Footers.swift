@@ -26,7 +26,6 @@ class IndicatorFooterView: UICollectionReusableView {
     }
     
     func setupImage() {
-        
         self.addSubview(activity)
         activity.snp.makeConstraints({
             $0.center.equalTo(self.snp.center)

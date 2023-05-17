@@ -197,7 +197,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.width.equalTo(103)
         }
         view.addTarget(self,
-                       action: #selector(signIn),
+                       action: #selector(onSignInButtonTap),
                        for: .touchUpInside)
         
         return view
@@ -311,8 +311,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc
-    func signIn() {
-        presenter?.signIn()
+    func onSignInButtonTap() {
+        presenter?.onSignInButtonTap()
     }
     
     func setupTextFieldsSpacing() {

@@ -27,9 +27,3 @@ class MainConfigurator {
         return viewController
     }
 }
-
-/*
- configurator - собирает все воедино
- view <---> presenter --> router
- router - открывает следующий экран, обращаясь к его (нового экрана) конфигуратору
- */

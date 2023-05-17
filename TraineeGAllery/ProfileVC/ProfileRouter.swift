@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileRouterProtocol {
     
+    /// Обращение к конфигуратору экрана настроек(Settings) для его открытия 
     func openSettings()
 }
 

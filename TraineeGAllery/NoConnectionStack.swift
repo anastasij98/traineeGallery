@@ -19,7 +19,6 @@ class NoConnectionStack: UIView {
         return view
     }()
     
-    
     var noConnectionImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Intersect")

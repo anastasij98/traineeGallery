@@ -10,6 +10,7 @@ import RxSwift
 
 protocol DetailedPresenterProtocol {
     
+    /// <#Description#>
     func viewIsReady()
 }
 

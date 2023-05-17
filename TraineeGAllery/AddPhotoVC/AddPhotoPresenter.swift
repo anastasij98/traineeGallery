@@ -8,17 +8,6 @@
 import Foundation
 import Photos
 
-protocol AddPhotoPresenterProtocol {
-    
-    func onNextButtonTap()
-    func openImagePicker(view: AddPhotoViewController)
-    func fetchAssestFromLibrary()
-    func getObjectsCount() -> Int
-    func getObject(withIndex index: Int) -> ImageObjectModel
-    func didSelectObject(withIndex index: Int)
-    func selectedObject(object: Data)
-}
-
 class AddPhotoPresenter {
     
     weak var view: AddPhotoVCProtocol?
@@ -55,8 +44,8 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
         router.onNextButtonTap(imageObject: selectedObject)
     }
 
-    func openImagePicker(view: AddPhotoViewController) {
-        router.openImagePicker(view: view)
+    func openImagePicker(viewController: AddPhotoViewController) {
+        router.openImagePicker(viewController: viewController)
     }
     
     func fetchAssestFromLibrary() {
@@ -65,15 +54,12 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
         for index in 0..<objects.count {
             let manager = PHImageManager.default()
             let option = PHImageRequestOptions()
-            var selfData = Data()
             option.isSynchronous = true
             let image = objects.object(at: index)
             manager.requestImageDataAndOrientation(for: image,
                                                    options: option) { data, _, _, _ in
-                selfData = data!
-                print(selfData)
-                
-                self.objectsArray.append(data!)
+                guard let data = data else { return }
+                self.objectsArray.append(data)
             }
         }
     }

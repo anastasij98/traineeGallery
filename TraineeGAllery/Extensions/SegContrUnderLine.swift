@@ -22,7 +22,6 @@ class SplitUnderlineView: UIView {
         return view
     }()
     
-    
     func setup(underlinesCount: Int) {
         // очищенеие массива и стека
         arrayOfViews.removeAll()

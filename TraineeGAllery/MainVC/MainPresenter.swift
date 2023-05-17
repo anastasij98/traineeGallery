@@ -9,20 +9,6 @@ import Foundation
 import Alamofire
 import RxSwift
 
-protocol MainPresenterProtocol {
-    
-    var mode: SegmentMode { get set }
-    
-    func didSelectItem(withIndex index: Int)
-    func didSelectSegment(withIndex index: Int)
-    func getItem(index: Int) -> ItemModel
-    func getItemsCount() -> Int
-    func loadMore()
-    func needIndicatorInFooter() -> Bool
-    func onRefreshStarted()
-    func viewIsReady()
-}
-
 class MainPresenter {
 
     weak var view: MainViewControllerProtocol?

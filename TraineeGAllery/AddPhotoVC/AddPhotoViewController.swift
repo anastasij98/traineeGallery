@@ -12,6 +12,8 @@ import Photos
 
 protocol AddPhotoVCProtocol: AnyObject {
     
+    /// Установка выбранного объекта в imageView.image AddPhotoViewController'a
+    /// - Parameter model: модель объекта типа ImageObjectModel
     func setSelectedObject(model: ImageObjectModel)
 }
 
@@ -83,7 +85,9 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var navigationBarButton: UIButton = {
         let view = UIButton(type: .custom) as UIButton
-        view.addTarget(self, action: #selector(openImagePickerController), for: .touchUpInside)
+        view.addTarget(self,
+                       action: #selector(openImagePicker),
+                       for: .touchUpInside)
         let image = UIImageView(image: UIImage(named: "downArrow"))
         view.addSubview(image)
         image.snp.makeConstraints { make in
@@ -201,14 +205,13 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc
-    func openImagePickerController() {
-        print("ImagePicker is opened!")
-        
-        presenter?.openImagePicker(view: self)
+    func openImagePicker() {
+        presenter?.openImagePicker(viewController: self)
     }
 }
 
-extension AddPhotoViewController: AddPhotoVCProtocol{
+extension AddPhotoViewController: AddPhotoVCProtocol {
+    
     func setSelectedObject(model: ImageObjectModel) {
         imageView.image = model.image
     }

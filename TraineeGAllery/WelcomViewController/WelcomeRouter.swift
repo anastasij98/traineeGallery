@@ -10,8 +10,11 @@ import UIKit
 
 protocol WelcomeRouterProtocol {
     
+    /// Открытие экрана SignUp для регистрации пользователя
+    func openSignUpPage()
+    
+    /// Открытие экрана SignIn для авторизации пользователя
     func openSignInPage()
-    func signIn()
 }
 
 class WelcomeRouter {
@@ -24,12 +27,12 @@ class WelcomeRouter {
 
 extension WelcomeRouter: WelcomeRouterProtocol {
     
-    func openSignInPage() {
+    func openSignUpPage() {
         guard let navigationController = self.view?.navigationController else { return }
         SignUpConfigurator.openViewController(navigationController: navigationController)
     }
     
-    func signIn() {
+    func openSignInPage() {
         guard let navigationController = self.view?.navigationController else { return }
         SignInConfigurator.open(navigationController: navigationController)
     }

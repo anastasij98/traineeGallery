@@ -8,6 +8,7 @@
 import Foundation
 
 struct ResponseModel: Codable {
+    
     var data: [ItemModel]
     var itemsPerPage: Int?
     var countOfPages: Int?
@@ -15,6 +16,7 @@ struct ResponseModel: Codable {
 }
 
 struct ItemModel: Codable {
+    
     var id: Int?
     var name: String?
     var description: String?
@@ -31,6 +33,7 @@ struct ItemModel: Codable {
 }
 
 struct ImageModel: Codable {
+    
     var id: Int?
     var name: String?
 }

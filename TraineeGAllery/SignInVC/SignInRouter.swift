@@ -10,7 +10,8 @@ import UIKit
 
 protocol SignInRouterProtocol {
     
-    func openGallery()
+    /// Обращение к роутеру для получения и открытия экрана с TabBarController'ом
+    func openTabBarController()
 }
 
 class SignInRouter {
@@ -23,7 +24,7 @@ class SignInRouter {
 
 extension SignInRouter: SignInRouterProtocol {
     
-    func openGallery() {
+    func openTabBarController() {
         let scenes = UIApplication.shared.connectedScenes
         let windowScenes = scenes.first as? UIWindowScene
         let window = windowScenes?.windows.first

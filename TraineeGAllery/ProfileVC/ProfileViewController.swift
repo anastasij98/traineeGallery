@@ -14,7 +14,7 @@ protocol ProfileVCProtocol: AnyObject {
     
 }
 
-class ProfileViewController: UIViewController, UIScrollViewDelegate{
+class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: ProfilePresenterProtocol?
     

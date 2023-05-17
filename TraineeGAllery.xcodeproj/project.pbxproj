@@ -31,6 +31,8 @@
 		475AA78829D6E6B2006B9BC6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */; };
 		475AA78A29D6E7F4006B9BC6 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */; };
 		475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footers.swift */; };
+		475F1EE42A14D8E1009ED8E0 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */; };
+		475F1EE62A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */; };
 		479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */; };
 		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
 		47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */; };
@@ -105,6 +107,8 @@
 		475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		475AA78D29D744EF006B9BC6 /* Footers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footers.swift; sourceTree = "<group>"; };
+		475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
+		475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoPresenterProtocol.swift; sourceTree = "<group>"; };
 		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
@@ -206,11 +210,11 @@
 				47E515C229F85FD200AB5397 /* SignUpVC */,
 				47EEEEC22A026F430075791D /* TabBarVC */,
 				47CB5BA929DCB5D3002BB2ED /* MainVC */,
+				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
 				47EEEEC12A026F170075791D /* AddPhotoVC */,
 				47EEEED32A02E3B70075791D /* AddDataVC */,
 				47EEEEC02A026F010075791D /* ProfileVC */,
 				47EEEED82A0947F60075791D /* SettingsVC */,
-				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
 				4709BA2729D1C3CC0035F64F /* Extensions */,
 				4709BA2229D1AEFF0035F64F /* Models */,
 				475AA78D29D744EF006B9BC6 /* Footers.swift */,
@@ -299,6 +303,7 @@
 			children = (
 				4709BA1029D1AC900035F64F /* MainViewController.swift */,
 				475AA78429D6E1E1006B9BC6 /* MainViewController+CollectionView.swift */,
+				475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */,
 				47CB5BAE29DCB685002BB2ED /* MainPresenter.swift */,
 				47CB5BB229DCB6E0002BB2ED /* MainRouter.swift */,
 				47CB5BB029DCB6D4002BB2ED /* MainConfigurator.swift */,
@@ -364,6 +369,7 @@
 			children = (
 				47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */,
 				47EEEECD2A02D42A0075791D /* AddPhotoVC+CollectionView.swift */,
+				475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */,
 				47EEEECF2A02E20D0075791D /* AddPhotoPresenter.swift */,
 				47EEEED12A02E21A0075791D /* AddPhotoRouter.swift */,
 				47EEEEC92A0283A90075791D /* AddPhotoConfigurator.swift */,
@@ -530,6 +536,7 @@
 				47EEEED02A02E20D0075791D /* AddPhotoPresenter.swift in Sources */,
 				47CB5BA829DCB59A002BB2ED /* SampleScreenPresenter.swift in Sources */,
 				47CB5BC129DDCF5E002BB2ED /* DetailedRouter.swift in Sources */,
+				475F1EE42A14D8E1009ED8E0 /* MainPresenterProtocol.swift in Sources */,
 				475AA78529D6E1E1006B9BC6 /* MainViewController+CollectionView.swift in Sources */,
 				47CB5BA429DCB59A002BB2ED /* SampleScreenRouter.swift in Sources */,
 				47CB5BA729DCB59A002BB2ED /* SampleScreenView.swift in Sources */,
@@ -549,6 +556,7 @@
 				475AA78029D6DFDB006B9BC6 /* SegContrUnderLine.swift in Sources */,
 				479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */,
 				47EEEED72A02E4AF0075791D /* AddDataConfigurator.swift in Sources */,
+				475F1EE62A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift in Sources */,
 				47EEEEE02A098A0B0075791D /* SettingsConfigurator.swift in Sources */,
 				4709BA0D29D1AC900035F64F /* AppDelegate.swift in Sources */,
 				47E515C629F8601500AB5397 /* SignUpPresenter.swift in Sources */,

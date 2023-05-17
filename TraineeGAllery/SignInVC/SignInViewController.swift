@@ -226,7 +226,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func openGallery() {
-        presenter?.openGallery()
+        presenter?.openTabBar()
     }
 }
 

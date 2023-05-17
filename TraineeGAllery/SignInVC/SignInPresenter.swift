@@ -9,7 +9,8 @@ import Foundation
 
 protocol SignInPresenterProtocol {
     
-    func openGallery()
+    /// Обращение к роутеру для открытия экрана с TabBarController'ом
+    func openTabBar()
 }
 
 class SignInPresenter {
@@ -26,7 +27,7 @@ class SignInPresenter {
 
 extension SignInPresenter: SignInPresenterProtocol {
     
-    func openGallery() {
-        router.openGallery()
+    func openTabBar() {
+        router.openTabBarController()
     }
 }

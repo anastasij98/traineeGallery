@@ -8,6 +8,7 @@
 import Foundation
 
 enum SegmentMode: String, CaseIterable {
+    
     case new = "New"
     case popular = "Popular"
 }

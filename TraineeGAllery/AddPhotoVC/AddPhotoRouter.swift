@@ -10,8 +10,13 @@ import UIKit
 
 protocol AddPhotoRouterProtocol {
     
+    /// Обращение к конфигуратору для открытия AddDataViewController'a
+    /// - Parameter imageObject: передаваемый объект в виде Data
     func onNextButtonTap(imageObject: Data)
-    func openImagePicker(view: AddPhotoViewController)
+    
+    /// Oткрытие ImagePicker'a
+    /// - Parameter viewController: передаваемый viewController
+    func openImagePicker(viewController: AddPhotoViewController)
 }
 
 class AddPhotoRouter {
@@ -31,9 +36,9 @@ extension AddPhotoRouter: AddPhotoRouterProtocol {
                                                imageObject: imageObject)
     }
     
-    func openImagePicker(view: AddPhotoViewController) {
+    func openImagePicker(viewController: AddPhotoViewController) {
         let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = view
-        view.present(imagePickerController, animated: true)
+        imagePickerController.delegate = viewController
+        viewController.present(imagePickerController, animated: true)
     }
 }

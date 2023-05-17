@@ -9,6 +9,7 @@ import Foundation
 
 protocol ProfilePresenterProtocol {
     
+    /// Обращение к роутеру для открытия экрана настроек(Settings)
     func openSettings()
 }
 

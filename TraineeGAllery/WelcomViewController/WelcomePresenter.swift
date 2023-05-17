@@ -9,8 +9,11 @@ import Foundation
 
 protocol WelcomePresenterProtocol {
     
-    func createAnAccount()
-    func signIn()
+    /// Открытие экрана SignUp для регистрации пользователя
+    func onSignUpButtonTap()
+    
+    /// Открытие экрана SignIn для авторизации пользователя
+    func onSignInButtonTap()
 }
 
 class WelcomePresenter {
@@ -27,11 +30,11 @@ class WelcomePresenter {
 
 extension WelcomePresenter: WelcomePresenterProtocol {
     
-    func createAnAccount() {
-        router.openSignInPage()
+    func onSignUpButtonTap() {
+        router.openSignUpPage()
     }
     
-    func signIn() {
-        router.signIn()
+    func onSignInButtonTap() {
+        router.openSignInPage()
     }
 }

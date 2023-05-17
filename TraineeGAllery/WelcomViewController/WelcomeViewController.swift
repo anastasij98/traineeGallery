@@ -54,7 +54,7 @@ class WelcomeViewController: UIViewController {
             make.height.equalTo(36)
         }
         view.addTarget(self,
-                       action: #selector(createAnAccount),
+                       action: #selector(onSignUpButtonTap),
                        for: .touchUpInside)
         
         return view
@@ -71,7 +71,7 @@ class WelcomeViewController: UIViewController {
             make.height.equalTo(36)
         }
         view.addTarget(self,
-                       action: #selector(signIn),
+                       action: #selector(onSignInButtonTap),
                        for: .touchUpInside)
         
         return view
@@ -108,13 +108,13 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc
-    func createAnAccount() {
-        presenter?.createAnAccount()
+    func onSignUpButtonTap() {
+        presenter?.onSignUpButtonTap()
     }
     
     @objc
-    func signIn() {
-        presenter?.signIn()
+    func onSignInButtonTap() {
+        presenter?.onSignInButtonTap()
     }
 }
 

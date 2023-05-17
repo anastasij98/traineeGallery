@@ -11,11 +11,21 @@ import SnapKit
 
 protocol DetailedViewControllerProtocol: AnyObject {
     
+    /// Установка информации о выбранной картинке в галерее
+    /// - Parameters:
+    ///   - name: имя картинки
+    ///   - user: имя пользователя
+    ///   - description: описание картинки
+    ///   - date: дата добавления картинки
+    ///   - viewsCount: колиечство просмотров
     func setupView(name: String,
                    user: String,
                    description: String,
                    date: String,
                    viewsCount: String)
+    
+    /// Установка изображения выбранной картинке в галерее
+    /// - Parameter data: картинка в виде Data
     func setImage(data: Data)
 }
 

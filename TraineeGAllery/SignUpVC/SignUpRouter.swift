@@ -10,7 +10,8 @@ import UIKit
 
 protocol SignUpRouterProtocol {
     
-    func signIn()
+    /// Обращение к роутеру для получения и открытия экрана SignIn
+    func openSignInViewController()
 }
 
 class SignUpRouter {
@@ -23,7 +24,7 @@ class SignUpRouter {
 
 extension SignUpRouter: SignUpRouterProtocol {
     
-    func signIn() {
+    func openSignInViewController() {
         guard let navigationController = self.view?.navigationController else { return }
         SignInConfigurator.open(navigationController: navigationController)
     }

@@ -11,6 +11,7 @@ import SnapKit
 import Kingfisher
 
 struct CollectionViewCellModel {
+    
     var imageURL: URL?
 }
 
