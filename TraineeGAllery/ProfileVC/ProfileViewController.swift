@@ -94,13 +94,16 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         
         view.backgroundColor = .white
         setupLayot()
-        navigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupNavgationBar()
+        setupRightNavBarButton()
+        setupNavigationBar(customBackButton: .init(title: "Cancel",
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(onCancelButtonTap)))
     }
     
     func setupLayot() {
@@ -159,83 +162,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func navigationBar() {
+    func         setupRightNavBarButton() {
         let rightButton = UIBarButtonItem(image: UIImage(named: "settings"),
                                           style: .plain,
                                           target: self,
                                           action: #selector(settings))
         rightButton.tintColor = .black
         navigationItem.rightBarButtonItem = rightButton
-        
-        let leftButton = UIBarButtonItem(title: "Cancel",
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(onCancelButtonTap))
-        leftButton.tintColor = .customDarkGrey
-        navigationItem.leftBarButtonItem = leftButton
-    }
-    
-    private func setupNavgationBar() {
-//        if let appearance = navigationController?.navigationBar.standardAppearance {
-//            appearance.configureWithTransparentBackground()
-//            let color: UIColor = .black
-//            appearance.shadowColor = color
-////            appearance.shadowImage = color.image()
-//            //априенс бэкБатон как и аринес навБара
-////            appearance.backButtonAppearance
-//            navigationController?.navigationBar.scrollEdgeAppearance = appearance
-//        }
-
-
-//        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.backIndicatorImage = nil
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
-//        navigationController?.navigationBar.tintColor = .customDarkGrey
-//        navigationItem.backBarButtonItem = .init(title: "Work",
-//                                                         image: UIImage(named: "Vector"),
-//                                                         target: nil,
-//                                                         action: nil)
-//
-        let backItem = UIBarButtonItem(image: nil,
-                                       style: .done,
-                                       target: nil,
-                                       action: nil)
-      
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.backItem?.backBarButtonItem = backItem
-
-        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.backIndicatorImage = nil
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "downArrow"),
-//                                                               for: .top,
-//                                                               barMetrics: .default)
-//        navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
-//        navigationController?.navigationBar.tintColor = .customDarkGrey
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "downArrow"),
-//                                                               for: .default)
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "downArrow")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "downArrow")
-
-//        navigationItem.backButtonTitle = "lkjhgfd"
-//        navigationItem.backAction?.image = UIImage(named: "downArrow")
-//        navigationItem.backBarButtonItem?.image = UIImage(named: "downArrow")
-//        navigationItem.backBarButtonItem?.setBackgroundImage(UIImage(named: "downArrow"),
-//                                                             for: .normal,
-//                                                             barMetrics: .default)
-//        navigationItem.backBarButtonItem?.setBackButtonBackgroundImage(UIImage(named: "downArrow"),
-//                                                                       for: .normal,
-//                                                                       barMetrics: .default)
-//        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "downArrow")
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "downArrow")
-//
-//        navigationController?.navigationBar.topItem?.backBarButtonItem?.image = UIImage(named: "downArrow")
-        if let navigationController = navigationController {
-            let appearance = navigationController.navigationBar.standardAppearance
-                navigationController.underlineAppereance(appearance: appearance,
-                                                         navController: navigationController,
-                                                         color: .mainGrey)
-        }
     }
     
     @objc
@@ -249,19 +182,55 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
-extension UINavigationController {
+extension UIViewController {
     
-    func underlineAppereance(appearance: UINavigationBarAppearance,
-                             navController: UINavigationController,
-                             color selectedColor: UIColor) {
-        appearance.configureWithTransparentBackground()
-            let color: UIColor = selectedColor
-        appearance.shadowColor = color
-//            appearance.shadowImage = color.image()
-            //априенс бэкБатон как и аринес навБара
-//            appearance.backButtonAppearance
-            navController.navigationBar.scrollEdgeAppearance = appearance
+    private func setupNavigationBar(underlineColor: UIColor = .mainGrey,
+                            backButtonTitle: String?,
+                            customBackButton: UIBarButtonItem?) {
+        guard let appearance = navigationController?.navigationBar.standardAppearance else {
+            return
         }
+        
+        appearance.configureWithDefaultBackground()
+        appearance.shadowColor = underlineColor
+        
+        let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
+        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.backButtonAppearance = backButtonAppearance
+        appearance.buttonAppearance = backButtonAppearance
+        
+        if let customBackButton = customBackButton {
+            navigationController?.navigationBar.topItem?.leftBarButtonItems = [customBackButton]
+        } else {
+            let backItem = UIBarButtonItem(title: backButtonTitle,
+                                           style: .plain,
+                                           target: nil,
+                                           action: nil)
+            navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
+            let backButtonImage = UIImage(named: "Vector")
+            appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
+        }
+        
+        appearance.backgroundColor = .systemBackground
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isOpaque = false
+    }
+    
+    func setupNavigationBar(underlineColor: UIColor = .mainGrey,
+                            backButtonTitle: String = .init()) {
+        setupNavigationBar(underlineColor: underlineColor,
+                           backButtonTitle: backButtonTitle,
+                           customBackButton: nil)
+    }
+    
+    func setupNavigationBar(underlineColor: UIColor = .mainGrey,
+                            customBackButton: UIBarButtonItem) {
+        setupNavigationBar(underlineColor: underlineColor,
+                           backButtonTitle: nil,
+                           customBackButton: customBackButton)
+    }
 }
 
 extension ProfileViewController: ProfileVCProtocol {

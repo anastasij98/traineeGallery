@@ -105,14 +105,17 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         
         view.backgroundColor = .white
         setupScrollAndStack()
-        navigationBar()
-        setNavigationBar()
-        setupNavgationBar()
+        setupRightNavBarButton()
+                setupCenterNavBarButton()
+        setupNavigationBar(customBackButton: .init(image: UIImage(named: "Vector"),
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(onBackButtonTap)))
         
         presenter?.fetchAssestFromLibrary()
     }
     
-    func setNavigationBar() {
+    func         setupCenterNavBarButton() {
         self.navigationItem.titleView = buttonView
         buttonView.addSubview(navigationBarButton)
         navigationBarButton.snp.makeConstraints {
@@ -121,7 +124,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func navigationBar() {
+    func setupRightNavBarButton() {
         let rightButton = UIBarButtonItem(title: "Next",
                                           style: .plain,
                                           target: self,
@@ -130,13 +133,6 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
                                             .foregroundColor : UIColor.customPink],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
-        
-        let leftButton = UIBarButtonItem(image: UIImage(named: "Vector"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(onBackButtonTap))
-        
-        navigationItem.leftBarButtonItem = leftButton
     }
     
     func setupScrollAndStack() {
@@ -188,15 +184,6 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(view.safeAreaLayoutGuide.snp.width)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-        }
-    }
-    
-    private func setupNavgationBar() {
-        if let navigationController = navigationController {
-            let appearance = navigationController.navigationBar.standardAppearance
-                navigationController.underlineAppereance(appearance: appearance,
-                                                         navController: navigationController,
-                                                         color: .mainGrey)
         }
     }
     

@@ -188,10 +188,16 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         setupLayout()
-        navigationBar()
     }
     
-    func navigationBar() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavigationBar()
+        setupRightNavBarButton()
+    }
+    
+    func setupRightNavBarButton() {
         let rightButton = UIBarButtonItem(title: "Save",
                                           style: .plain,
                                           target: self,
