@@ -20,18 +20,18 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let homeVC = UINavigationController()
+        let mainVC = UINavigationController()
         let addPhotoVC = UINavigationController()
         let profileVC = UINavigationController()
 
-        self.setViewControllers([homeVC, addPhotoVC, profileVC], animated: true)
+        self.setViewControllers([mainVC, addPhotoVC, profileVC], animated: true)
         
-        MainConfigurator.open(navigationController: homeVC)
+        MainConfigurator.open(navigationController: mainVC)
         AddPhotoConfigurator.openViewController(navigationController: addPhotoVC)
         ProfileConfigurator.openViewController(navigationController: profileVC)
-
+        
         guard let items = tabBar.items else { return }
-        let images = ["home", "photo", "profile"]
+        let images = ["main", "photo", "profile"]
 
         for index in 0..<images.count {
             items[index].image = UIImage(named: images[index])

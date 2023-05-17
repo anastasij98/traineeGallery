@@ -11,6 +11,8 @@ protocol ProfilePresenterProtocol {
     
     /// Обращение к роутеру для открытия экрана настроек(Settings)
     func openSettings()
+    
+    func openTabBarViewController(index: Int)
 }
 
 class ProfilePresenter {
@@ -29,5 +31,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func openSettings() {
         router.openSettings()
+    }
+    
+    func openTabBarViewController(index: Int) {
+        router.openTabBarViewController(index: index)
     }
 }

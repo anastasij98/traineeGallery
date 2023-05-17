@@ -107,9 +107,7 @@ class MainViewController: UIViewController {
         
         return view
     }()
-    
-    let backIndicatorImage = UIImage(named: "Vector")
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

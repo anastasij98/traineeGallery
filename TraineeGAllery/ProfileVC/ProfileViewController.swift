@@ -166,29 +166,102 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
                                           action: #selector(settings))
         rightButton.tintColor = .black
         navigationItem.rightBarButtonItem = rightButton
+        
+        let leftButton = UIBarButtonItem(title: "Cancel",
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(onCancelButtonTap))
+        leftButton.tintColor = .customDarkGrey
+        navigationItem.leftBarButtonItem = leftButton
     }
     
     private func setupNavgationBar() {
-        
-        if let appearance = navigationController?.navigationBar.standardAppearance {
-            appearance.configureWithTransparentBackground()
-            let color: UIColor = .black
-            appearance.shadowColor = color
-//            appearance.shadowImage = color.image()
-            //априенс бэкБатон как и аринес навБара
-//            appearance.backButtonAppearance
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        if let appearance = navigationController?.navigationBar.standardAppearance {
+//            appearance.configureWithTransparentBackground()
+//            let color: UIColor = .black
+//            appearance.shadowColor = color
+////            appearance.shadowImage = color.image()
+//            //априенс бэкБатон как и аринес навБара
+////            appearance.backButtonAppearance
+//            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        }
+
+
+//        navigationController?.navigationBar.isTranslucent = true
+//        navigationController?.navigationBar.backIndicatorImage = nil
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
+//        navigationController?.navigationBar.tintColor = .customDarkGrey
+//        navigationItem.backBarButtonItem = .init(title: "Work",
+//                                                         image: UIImage(named: "Vector"),
+//                                                         target: nil,
+//                                                         action: nil)
+//
+        let backItem = UIBarButtonItem(image: nil,
+                                       style: .done,
+                                       target: nil,
+                                       action: nil)
+      
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.backItem?.backBarButtonItem = backItem
+
+        navigationController?.navigationBar.isTranslucent = true
+//        navigationController?.navigationBar.backIndicatorImage = nil
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "downArrow"),
+//                                                               for: .top,
+//                                                               barMetrics: .default)
+//        navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
+//        navigationController?.navigationBar.tintColor = .customDarkGrey
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "downArrow"),
+//                                                               for: .default)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "downArrow")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "downArrow")
+
+//        navigationItem.backButtonTitle = "lkjhgfd"
+//        navigationItem.backAction?.image = UIImage(named: "downArrow")
+//        navigationItem.backBarButtonItem?.image = UIImage(named: "downArrow")
+//        navigationItem.backBarButtonItem?.setBackgroundImage(UIImage(named: "downArrow"),
+//                                                             for: .normal,
+//                                                             barMetrics: .default)
+//        navigationItem.backBarButtonItem?.setBackButtonBackgroundImage(UIImage(named: "downArrow"),
+//                                                                       for: .normal,
+//                                                                       barMetrics: .default)
+//        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "downArrow")
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "downArrow")
+//
+//        navigationController?.navigationBar.topItem?.backBarButtonItem?.image = UIImage(named: "downArrow")
+        if let navigationController = navigationController {
+            let appearance = navigationController.navigationBar.standardAppearance
+                navigationController.underlineAppereance(appearance: appearance,
+                                                         navController: navigationController,
+                                                         color: .mainGrey)
         }
-        navigationItem.backBarButtonItem = .init(title: .init(),
-                                                 image: nil,
-                                                 target: nil,
-                                                 action: nil)
     }
     
     @objc
     func settings() {
         presenter?.openSettings()
     }
+    
+    @objc
+    func onCancelButtonTap() {
+        presenter?.openTabBarViewController(index: 0)
+    }
+}
+
+extension UINavigationController {
+    
+    func underlineAppereance(appearance: UINavigationBarAppearance,
+                             navController: UINavigationController,
+                             color selectedColor: UIColor) {
+        appearance.configureWithTransparentBackground()
+            let color: UIColor = selectedColor
+        appearance.shadowColor = color
+//            appearance.shadowImage = color.image()
+            //априенс бэкБатон как и аринес навБара
+//            appearance.backButtonAppearance
+            navController.navigationBar.scrollEdgeAppearance = appearance
+        }
 }
 
 extension ProfileViewController: ProfileVCProtocol {

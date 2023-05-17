@@ -12,6 +12,8 @@ protocol ProfileRouterProtocol {
     
     /// Обращение к конфигуратору экрана настроек(Settings) для его открытия 
     func openSettings()
+    
+    func openTabBarViewController(index: Int)
 }
 
 class ProfileRouter {
@@ -28,5 +30,9 @@ extension ProfileRouter: ProfileRouterProtocol {
     func openSettings() {
         guard let viewController = self.view?.navigationController else { return }
         SettingsConfigurator.openViewController(navigationController: viewController)
+    }
+    
+    func openTabBarViewController(index: Int) {
+        self.view?.tabBarController?.selectedIndex = index
     }
 }

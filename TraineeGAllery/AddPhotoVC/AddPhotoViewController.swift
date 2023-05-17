@@ -130,6 +130,13 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
                                             .foregroundColor : UIColor.customPink],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
+        
+        let leftButton = UIBarButtonItem(image: UIImage(named: "Vector"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(onBackButtonTap))
+        
+        navigationItem.leftBarButtonItem = leftButton
     }
     
     func setupScrollAndStack() {
@@ -185,18 +192,12 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func setupNavgationBar() {
-        if let appearance = navigationController?.navigationBar.standardAppearance {
-            appearance.configureWithTransparentBackground()
-            
-            let color: UIColor = .black
-            appearance.shadowColor = color
-//            appearance.shadowImage = color.image()
-            //априенс бэкБатон как и аринес навБара
-//            appearance.backButtonAppearance
-            
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        if let navigationController = navigationController {
+            let appearance = navigationController.navigationBar.standardAppearance
+                navigationController.underlineAppereance(appearance: appearance,
+                                                         navController: navigationController,
+                                                         color: .mainGrey)
         }
-        navigationItem.backBarButtonItem = .init(title: .init(), image: nil, target: nil, action: nil)
     }
     
     @objc
@@ -207,6 +208,11 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     @objc
     func openImagePicker() {
         presenter?.openImagePicker(viewController: self)
+    }
+    
+    @objc
+    func onBackButtonTap() {
+        presenter?.openTabBarViewController(index: 0)
     }
 }
 

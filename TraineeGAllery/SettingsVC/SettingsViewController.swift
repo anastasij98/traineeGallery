@@ -65,7 +65,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     lazy var uploadPhotoButton: UIButton = {
         let view = UIButton()
         let text = "Upload photo"
-        setupButtonTitle(view: view, text: text, color: .lightGray, size: 12)
+        view.setupButtonTitle(view: view, text: text, color: .lightGray, size: 12)
         
         return view
     }()
@@ -178,7 +178,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     lazy var signOutButton: UIButton = {
         let view = UIButton()
         let text = "Sign Out"
-        setupButtonTitle(view: view, text: text, color: .customPink, size: 16)
+        view.setupButtonTitle(view: view, text: text, color: .customPink, size: 16)
         view.addTarget(self, action: #selector(signOut), for: .touchUpInside)
         
         return view
@@ -200,6 +200,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
                                             .foregroundColor : UIColor.customPink],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
+        
     }
     
     func setupLayout() {
@@ -288,14 +289,6 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func setupButtonTitle(view: UIButton, text: String, color: UIColor, size: CGFloat) {
-        let string = NSMutableAttributedString(string: text)
-        string.addAttributes([.font : UIFont.robotoRegular(ofSize: size),
-                              .foregroundColor : color],
-                             range: NSRange(location: 0, length: string.length))
-        view.setAttributedTitle(string, for: .normal)
-    }
-    
     @objc
     func save() {
         print("saved")
@@ -309,5 +302,16 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     @objc
     func signOut() {
         print("signOut")
+    }
+}
+
+extension UIButton {
+    
+    func setupButtonTitle(view: UIButton, text: String, color: UIColor, size: CGFloat) {
+        let string = NSMutableAttributedString(string: text)
+        string.addAttributes([.font : UIFont.robotoRegular(ofSize: size),
+                              .foregroundColor : color],
+                             range: NSRange(location: 0, length: string.length))
+        view.setAttributedTitle(string, for: .normal)
     }
 }

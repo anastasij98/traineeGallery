@@ -67,4 +67,8 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
     func selectedObject(object: Data) {
         selectedObject = object
     }
+    
+    func openTabBarViewController(index: Int) {
+        router.openTabBarViewController(index: index)
+    }
 }
