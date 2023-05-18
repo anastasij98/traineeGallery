@@ -10,10 +10,18 @@ import UIKit
 
 extension UIViewController {
     
-    private func setupNavigationBar(underlineColor: UIColor = .mainGrey,
-                            backButtonTitle: String?,
-                            customBackButton: UIBarButtonItem?,
-                                    image: UIImage) {
+    private func setupNavigationBar(isHidden: Bool?,
+                                    underlineColor: UIColor = .mainGrey,
+                                    backButtonTitle: String?,
+                                    customBackButton: UIBarButtonItem?) {
+        if let isHidden = isHidden {
+            navigationController?.setNavigationBarHidden(isHidden,
+                                                         animated: true)
+            if isHidden {
+                return
+            }
+        }
+        
         guard let appearance = navigationController?.navigationBar.standardAppearance else {
             return
         }
@@ -30,7 +38,7 @@ extension UIViewController {
             customBackButton.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 15),
                                                 .foregroundColor : UIColor.customDarkGrey],
                                                for: .normal)
-            navigationController?.navigationBar.topItem?.leftBarButtonItems = [customBackButton]
+            navigationItem.leftBarButtonItems = [customBackButton]
         } else {
             let backItem = UIBarButtonItem(title: backButtonTitle,
                                            style: .plain,
@@ -42,10 +50,8 @@ extension UIViewController {
                                                for: .normal)
             
             navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
-//            let backButtonImage = UIImage(named: "Vector")
-//            let backButtonImage = UIColor.clear.image(CGSize(width: 0.1, height: 0.1))
-            let backButtonImage = image
-            appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
+            let backButtonImage = R.image.vector()
+                appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         }
         
         appearance.backgroundColor = .systemBackground
@@ -55,21 +61,21 @@ extension UIViewController {
         navigationController?.navigationBar.isOpaque = false
     }
     
-    func setupNavigationBar(underlineColor: UIColor = .mainGrey,
-                            backButtonTitle: String = .init(),
-                            image: UIImage = .init()) {
-        setupNavigationBar(underlineColor: underlineColor,
+    func setupNavigationBar(isHidden: Bool? = nil,
+                            underlineColor: UIColor = .mainGrey,
+                            backButtonTitle: String = .init()) {
+        setupNavigationBar(isHidden: isHidden,
+                           underlineColor: underlineColor,
                            backButtonTitle: backButtonTitle,
-                           customBackButton: nil,
-                           image: image)
+                           customBackButton: nil)
     }
     
-    func setupNavigationBar(underlineColor: UIColor = .mainGrey,
-                            customBackButton: UIBarButtonItem,
-                            image: UIImage = .init()) {
-        setupNavigationBar(underlineColor: underlineColor,
+    func setupNavigationBar(isHidden: Bool? = nil,
+                            underlineColor: UIColor = .mainGrey,
+                            customBackButton: UIBarButtonItem) {
+        setupNavigationBar(isHidden: isHidden,
+                           underlineColor: underlineColor,
                            backButtonTitle: nil,
-                           customBackButton: customBackButton,
-                           image: image)
+                           customBackButton: customBackButton)
     }
 }
