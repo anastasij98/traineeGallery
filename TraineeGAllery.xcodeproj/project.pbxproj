@@ -33,6 +33,10 @@
 		475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footers.swift */; };
 		475F1EE42A14D8E1009ED8E0 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */; };
 		475F1EE62A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */; };
+		476BAF5A2A161E12002F6F6E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476BAF592A161E12002F6F6E /* UIViewController.swift */; };
+		476BAF5D2A169E90002F6F6E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476BAF5C2A169E90002F6F6E /* R.generated.swift */; };
+		476BAF5F2A169F17002F6F6E /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 476BAF5E2A169F17002F6F6E /* Localization.strings */; };
+		476BAF612A16C2FC002F6F6E /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476BAF602A16C2FC002F6F6E /* UIButton.swift */; };
 		479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */; };
 		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
 		47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */; };
@@ -109,6 +113,10 @@
 		475AA78D29D744EF006B9BC6 /* Footers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footers.swift; sourceTree = "<group>"; };
 		475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
 		475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoPresenterProtocol.swift; sourceTree = "<group>"; };
+		476BAF592A161E12002F6F6E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		476BAF5C2A169E90002F6F6E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		476BAF5E2A169F17002F6F6E /* Localization.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localization.strings; sourceTree = "<group>"; };
+		476BAF602A16C2FC002F6F6E /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
@@ -204,6 +212,7 @@
 			children = (
 				4709BA0C29D1AC900035F64F /* AppDelegate.swift */,
 				4709BA0E29D1AC900035F64F /* SceneDelegate.swift */,
+				476BAF5C2A169E90002F6F6E /* R.generated.swift */,
 				47D72DAF29E49B4E00E37909 /* NetworkService */,
 				479E68CF29ED32E10053E706 /* WelcomViewController */,
 				47E515CC29F87AC600AB5397 /* SignInVC */,
@@ -227,6 +236,7 @@
 				4709BA1529D1AC910035F64F /* Assets.xcassets */,
 				4709BA1729D1AC910035F64F /* LaunchScreen.storyboard */,
 				4709BA1A29D1AC910035F64F /* Info.plist */,
+				476BAF5E2A169F17002F6F6E /* Localization.strings */,
 			);
 			path = TraineeGAllery;
 			sourceTree = "<group>";
@@ -248,9 +258,11 @@
 				475AA77F29D6DFDB006B9BC6 /* SegContrUnderLine.swift */,
 				4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */,
 				4758098629DEB54E00BA741E /* UIFont.swift */,
-				475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */,
 				47E515D529F8A04200AB5397 /* UITextField.swift */,
 				4741B8ED2A14049900F380C2 /* UITextView.swift */,
+				475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */,
+				476BAF592A161E12002F6F6E /* UIViewController.swift */,
+				476BAF602A16C2FC002F6F6E /* UIButton.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -422,6 +434,7 @@
 			buildConfigurationList = 4709BA1D29D1AC910035F64F /* Build configuration list for PBXNativeTarget "TraineeGAllery" */;
 			buildPhases = (
 				ED2AFE86F0384A9D1AA0A141 /* [CP] Check Pods Manifest.lock */,
+				476BAF5B2A169D5D002F6F6E /* ShellScript */,
 				4709BA0529D1AC900035F64F /* Sources */,
 				4709BA0629D1AC900035F64F /* Frameworks */,
 				4709BA0729D1AC900035F64F /* Resources */,
@@ -479,6 +492,7 @@
 				4709BA1629D1AC910035F64F /* Assets.xcassets in Resources */,
 				47CB5B9A29DB3556002BB2ED /* ApplicationStrings.strings in Resources */,
 				475AA78A29D6E7F4006B9BC6 /* Roboto-Light.ttf in Resources */,
+				476BAF5F2A169F17002F6F6E /* Localization.strings in Resources */,
 				475AA78829D6E6B2006B9BC6 /* Roboto-Regular.ttf in Resources */,
 				4709BA1429D1AC900035F64F /* Main.storyboard in Resources */,
 			);
@@ -487,6 +501,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		476BAF5B2A169D5D002F6F6E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
 		9CA5EE2F326237DC984A1F54 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -564,6 +597,7 @@
 				4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,
 				475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */,
+				476BAF612A16C2FC002F6F6E /* UIButton.swift in Sources */,
 				47CB5BBF29DDCF4C002BB2ED /* DetailedConfigurator.swift in Sources */,
 				47CB5BA629DCB59A002BB2ED /* SampleScreenConfigurator.swift in Sources */,
 				47E515D429F87C3500AB5397 /* SignInConfigurator.swift in Sources */,
@@ -586,12 +620,14 @@
 				4741B8EE2A14049900F380C2 /* UITextView.swift in Sources */,
 				47E515C429F8600900AB5397 /* SignUpViewController.swift in Sources */,
 				4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */,
+				476BAF5D2A169E90002F6F6E /* R.generated.swift in Sources */,
 				4709BA2129D1AED70035F64F /* CollectionViewCellModel.swift in Sources */,
 				4758098729DEB54E00BA741E /* UIFont.swift in Sources */,
 				475AA77C29D31F2D006B9BC6 /* SegmentMode.swift in Sources */,
 				47EEEEC62A0270BD0075791D /* TabBarRouter.swift in Sources */,
 				47CB5BA529DCB59A002BB2ED /* SampleScreenViewController.swift in Sources */,
 				47EEEEC42A0270B00075791D /* TabBarPresenter.swift in Sources */,
+				476BAF5A2A161E12002F6F6E /* UIViewController.swift in Sources */,
 				47EEEEBD2A026D210075791D /* ProfileViewController.swift in Sources */,
 				47EEEEC82A0270CF0075791D /* TabBarConfigurator.swift in Sources */,
 				47E515CA29F8602F00AB5397 /* SignUpConfigurator.swift in Sources */,

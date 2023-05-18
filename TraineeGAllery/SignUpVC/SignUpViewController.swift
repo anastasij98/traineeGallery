@@ -206,9 +206,18 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         setupView()
         checkOrientationAndSetLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavigationBar(isHidden: false,
+                           customBackButton: UIBarButtonItem(title: "Cancel",
+                                                             style: .plain,
+                                                             target: self,
+                                                             action: #selector(popViewController)))
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -216,7 +225,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         
         checkOrientationAndSetLayout()
     }
-    
+
     func checkOrientationAndSetLayout() {
         if UIDevice.current.orientation.isLandscape {
             stackView.snp.remakeConstraints {
@@ -231,6 +240,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupView() {
+        view.backgroundColor = .white
         scrollView.delegate = self
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -310,16 +320,21 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    @objc
-    func onSignInButtonTap() {
-        presenter?.onSignInButtonTap()
-    }
-    
     func setupTextFieldsSpacing() {
         let array = [userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField]
         array.forEach { textField in
             textFieldStackView.setCustomSpacing(29, after: textField)
         }
+    }
+    
+    @objc
+    func popViewController() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func onSignInButtonTap() {
+        presenter?.onSignInButtonTap()
     }
 }
 

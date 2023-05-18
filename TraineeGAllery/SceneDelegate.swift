@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let isAuthorized = true
+        let isAuthorized = false
         let welcome = WelcomeConfigurator.getViewController()
         let navigationController = UINavigationController(rootViewController: welcome)
 
@@ -28,6 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
+        window?.backgroundColor = .white
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

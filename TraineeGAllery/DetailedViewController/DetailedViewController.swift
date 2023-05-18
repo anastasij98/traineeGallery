@@ -134,7 +134,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -145,10 +145,11 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
      override func viewWillAppear(_ animated: Bool) {
          super.viewWillAppear(animated)
          
-         view.backgroundColor = .white
+         setupNavigationBar()
     }
-    
+
    func setupScrollView() {
+       view.backgroundColor = .white
        scrollView.delegate = self
        
        view.addSubview(scrollView)

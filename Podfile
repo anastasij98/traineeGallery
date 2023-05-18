@@ -12,4 +12,6 @@ target 'TraineeGAllery' do
   pod 'RxSwift', '6.5.0'
   pod 'RxAlamofire'
 
+  pod 'R.swift', '6.1.0'
+
 end

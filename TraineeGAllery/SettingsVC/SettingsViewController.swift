@@ -95,7 +95,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.atributedString(text: text)
         view.setupBorder()
         view.setupIcon(name: "birthday")
-
+        
         return view
     }()
     
@@ -114,7 +114,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.atributedString(text: text)
         view.setupBorder()
         view.setupIcon(name: "email")
-
+        
         return view
     }()
     
@@ -133,7 +133,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.atributedString(text: text)
         view.setupBorder()
         view.setupIcon(name: password)
-
+        
         return view
     }()
     
@@ -143,7 +143,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.atributedString(text: text)
         view.setupBorder()
         view.setupIcon(name: password)
-
+        
         return view
     }()
     
@@ -153,7 +153,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.atributedString(text: text)
         view.setupBorder()
         view.setupIcon(name: password)
-
+        
         return view
     }()
     
@@ -170,7 +170,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
                              range: NSRange(location: 14,
                                             length: 13))
         view.setAttributedTitle(string, for: .normal)
-        view.addTarget(self, action: #selector(deleted), for: .touchUpInside)
+        view.addTarget(self, action: #selector(onDeleteButtonTap), for: .touchUpInside)
         
         return view
     }()
@@ -179,7 +179,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let view = UIButton()
         let text = "Sign Out"
         view.setupButtonTitle(view: view, text: text, color: .customPink, size: 16)
-        view.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+        view.addTarget(self, action: #selector(onSignOutButtonTap), for: .touchUpInside)
         
         return view
     }()
@@ -188,19 +188,27 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         setupLayout()
-        navigationBar()
     }
     
-    func navigationBar() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupRightNavBarButton()
+        setupNavigationBar(customBackButton: UIBarButtonItem(title: "Cancel",
+                                                             style: .plain,
+                                                             target: self,
+                                                             action: #selector(popViewController)))
+    }
+    
+    func setupRightNavBarButton() {
         let rightButton = UIBarButtonItem(title: "Save",
                                           style: .plain,
                                           target: self,
-                                          action: #selector(save))
+                                          action: #selector(onSaveButtonTap))
         rightButton.setTitleTextAttributes([.font : UIFont.robotoBold(ofSize: 15),
                                             .foregroundColor : UIColor.customPink],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
-        
     }
     
     func setupLayout() {
@@ -214,19 +222,19 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         imageStackView.addArrangedSubviews(userPhotoImageView,
                                            uploadPhotoButton)
         infoStackView.addArrangedSubviews(personalDataLabel,
-                                      userNameTextField,
-                                      birthdayTextField,
-                                      emailLabel,
-                                      emailTextField,
-                                      passwordLabel,
-                                      oldPasswordTextField,
-                                      newPasswordTextField,
-                                      confirmPasswordTextField,
-                                      deleteAccountButton,
-                                      signOutButton)
+                                          userNameTextField,
+                                          birthdayTextField,
+                                          emailLabel,
+                                          emailTextField,
+                                          passwordLabel,
+                                          oldPasswordTextField,
+                                          newPasswordTextField,
+                                          confirmPasswordTextField,
+                                          deleteAccountButton,
+                                          signOutButton)
         
         setupSpacings()
-
+        
         scrollView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
@@ -289,29 +297,24 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    
     @objc
-    func save() {
+    func popViewController() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func onSaveButtonTap() {
         print("saved")
     }
     
     @objc
-    func deleted() {
+    func onDeleteButtonTap() {
         print("deleted")
     }
     
     @objc
-    func signOut() {
+    func onSignOutButtonTap() {
         print("signOut")
-    }
-}
-
-extension UIButton {
-    
-    func setupButtonTitle(view: UIButton, text: String, color: UIColor, size: CGFloat) {
-        let string = NSMutableAttributedString(string: text)
-        string.addAttributes([.font : UIFont.robotoRegular(ofSize: size),
-                              .foregroundColor : color],
-                             range: NSRange(location: 0, length: string.length))
-        view.setAttributedTitle(string, for: .normal)
     }
 }

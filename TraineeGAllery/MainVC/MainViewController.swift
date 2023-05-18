@@ -112,8 +112,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         presenter?.viewIsReady()
-        
-        view.backgroundColor = .white
         setupSegmentedControl()
         setupCollectionView()
         setupCollectionViewLayout()
@@ -153,6 +151,7 @@ class MainViewController: UIViewController {
     }
     
     private func setupCollectionView() {
+        view.backgroundColor = .white
         view.addSubview(collectionView)
         
         collectionView.delegate = self
@@ -203,7 +202,6 @@ class MainViewController: UIViewController {
     
         presenter?.didSelectSegment(withIndex: segmentedControl.selectedSegmentIndex)
     }
-
 }
 
 extension MainViewController: MainViewControllerProtocol {

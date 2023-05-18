@@ -76,24 +76,21 @@ class WelcomeViewController: UIViewController {
         
         return view
     }()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         setupStackView()
-        setupStatusBar()
     }
     
-    func setupStatusBar() {
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.backIndicatorImage = UIImage()
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
-        navigationItem.backButtonTitle = "Cancel"
-        navigationController?.navigationBar.tintColor = .customDarkGrey
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavigationBar(isHidden: true)
     }
     
     func setupStackView() {
+        view.backgroundColor = .white
         view.addSubview(welcomeStackView)
         welcomeStackView.addArrangedSubviews(welcomeImageView, welcomeLabel, createAccountButton, haveAccountButton)
         welcomeStackView.setCustomSpacing(40, after: welcomeImageView)
