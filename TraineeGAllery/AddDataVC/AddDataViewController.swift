@@ -66,7 +66,11 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         
         setupViewController()
         navigationBar()
-        setupNavigationBar(image: UIImage(named: "Vector")!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        setupNavigationBar(image: UIImage(named: "Vector")!)
+        setupNavigationBar()
     }
     
     func setupViewController() {

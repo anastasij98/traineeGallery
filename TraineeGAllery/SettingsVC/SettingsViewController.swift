@@ -195,9 +195,17 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        setupNavigationBar(backButtonTitle: "Cancel", image: backButtonImage)
+
+        setupNavigationBar(customBackButton: .init(title: "Cancel",
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(popViewController)))
         setupRightNavBarButton()
+    }
+    
+    @objc
+    func popViewController() {
+        navigationController?.popViewController(animated: true)
     }
     
     func setupRightNavBarButton() {

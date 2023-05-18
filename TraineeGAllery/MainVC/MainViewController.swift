@@ -130,6 +130,7 @@ class MainViewController: UIViewController {
     
     private func setupSearchBar() {
         let seacrhController = UISearchController (searchResultsController: nil)
+        seacrhController.navigationItem.preferredSearchBarPlacement = .stacked
         navigationItem.searchController = seacrhController
     }
     

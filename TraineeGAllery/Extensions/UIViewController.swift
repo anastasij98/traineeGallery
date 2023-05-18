@@ -11,9 +11,9 @@ import UIKit
 extension UIViewController {
     
     private func setupNavigationBar(underlineColor: UIColor = .mainGrey,
-                            backButtonTitle: String?,
-                            customBackButton: UIBarButtonItem?,
-                                    image: UIImage) {
+                                    backButtonTitle: String?,
+                                    customBackButton: UIBarButtonItem?,
+                                    image: UIImage?) {
         guard let appearance = navigationController?.navigationBar.standardAppearance else {
             return
         }
@@ -42,9 +42,7 @@ extension UIViewController {
                                                for: .normal)
             
             navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
-//            let backButtonImage = UIImage(named: "Vector")
-//            let backButtonImage = UIColor.clear.image(CGSize(width: 0.1, height: 0.1))
-            let backButtonImage = image
+            let backButtonImage = UIImage(named: "Vector")
             appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         }
         

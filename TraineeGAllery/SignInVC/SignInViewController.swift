@@ -156,10 +156,22 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
                            image: backButtonImage)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar(customBackButton: .init(title: "Cancel",
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(popViewController)))
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         checkOrientationAndSetLayout()
+    }
+    
+    @objc
+    func popViewController() {
+        navigationController?.popViewController(animated: true)
     }
     
     func checkOrientationAndSetLayout() {
