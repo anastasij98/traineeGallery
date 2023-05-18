@@ -72,7 +72,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
-
+    
     lazy var passwordTextField: CustomTextField = {
         let view = CustomTextField()
         view.layer.borderColor = .mainGrey
@@ -82,7 +82,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(36)
         }
         view.placeholder = "Password"
-
+        
         return view
     }()
     
@@ -143,24 +143,22 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
-    
-    let backButtonImage = UIColor.clear.image(CGSize(width: 0.1, height: 0.1))
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         setupView()
         checkOrientationAndSetLayout()
-        setupNavigationBar(backButtonTitle: "Cancel",
-                           image: backButtonImage)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setupNavigationBar(customBackButton: .init(title: "Cancel",
-                                                   style: .plain,
-                                                   target: self,
-                                                   action: #selector(popViewController)))
+        super.viewWillAppear(animated)
+        
+        setupNavigationBar(isHidden: false,
+                           customBackButton: UIBarButtonItem(title: "Cancel",
+                                                             style: .plain,
+                                                             target: self,
+                                                             action: #selector(popViewController)))
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -186,10 +184,11 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-
+    
     func setupView() {
-        scrollView.delegate = self
+        view.backgroundColor = .white
         view.addSubview(scrollView)
+        scrollView.delegate = self
         scrollView.addSubview(stackView)
         stackView.addArrangedSubviews(signInTitle, textFieldsStackView, forgotButton, buttonsStackView)
         stackView.setCustomSpacing(55, after: signInTitle)
@@ -199,17 +198,17 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         
         buttonsStackView.addArrangedSubviews(signInButton, signUpButton)
         buttonsStackView.setCustomSpacing(19, after: signInButton)
-
+        
         emailTextField.addSubview(emailImageView)
         passwordTextField.addSubview(passwordImageView)
-
+        
         scrollView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
         }
-
+        
         stackView.snp.makeConstraints {
             $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(188)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)

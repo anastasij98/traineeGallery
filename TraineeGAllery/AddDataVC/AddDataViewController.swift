@@ -36,7 +36,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = .customLightGrey
         view.contentMode = .scaleAspectFit
         view.image = UIImage(data: imageObject ?? Data())
-
+        
         return view
     }()
     
@@ -46,7 +46,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
-
+    
     lazy var nameTextView: UITextView = {
         let view = UITextView()
         view.setupTextView(text: "Name")
@@ -56,7 +56,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var descriptionTextView: UITextView = {
         let view = UITextView()
-        view.setupTextView(text: "Description")
+        view.setupTextView(text: R.string.localization.addDataDescriptionPlaceholderText())
         
         return view
     }()
@@ -69,7 +69,8 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        setupNavigationBar(image: UIImage(named: "Vector")!)
+        super.viewWillAppear(animated)
+        
         setupNavigationBar()
     }
     
@@ -78,19 +79,19 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         nameTextView.delegate = self
         descriptionTextView.delegate = self
-
+        
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         stackView.addArrangedSubviews(imageView, nameTextView, descriptionTextView)
         stackView.setCustomSpacing(10, after: imageView)
         stackView.setCustomSpacing(10, after: nameTextView)
-
+        
         imageView.addSubview(underLine)
         
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
-
+        
         stackView.snp.makeConstraints {
             $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
@@ -127,7 +128,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         let rightButton = UIBarButtonItem(title: "Add",
                                           style: .plain,
                                           target: self,
-                                          action: #selector(addData))
+                                          action: #selector(onAddDataButtonTap))
         rightButton.setTitleTextAttributes([.font : UIFont.robotoBold(ofSize: 15),
                                             .foregroundColor : UIColor.customPink],
                                            for: .normal)
@@ -135,7 +136,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc
-    func addData() {
+    func onAddDataButtonTap() {
         print("added")
     }
 }
@@ -169,7 +170,7 @@ extension AddDataViewController: UITextViewDelegate {
             textView.font = .robotoRegular(ofSize: 17)
         }
     }
-
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()

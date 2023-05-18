@@ -86,7 +86,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     lazy var navigationBarButton: UIButton = {
         let view = UIButton(type: .custom) as UIButton
         view.addTarget(self,
-                       action: #selector(openImagePicker),
+                       action: #selector(onImagePickerTap),
                        for: .touchUpInside)
         let image = UIImageView(image: UIImage(named: "downArrow"))
         view.addSubview(image)
@@ -103,15 +103,19 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         setupScrollAndStack()
         setupRightNavBarButton()
         setupCenterNavBarButton()
+        presenter?.fetchAssestFromLibrary()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         setupNavigationBar(customBackButton: .init(title: "Cancel",
                                                    style: .plain,
                                                    target: self,
                                                    action: #selector(onBackButtonTap)))
-        presenter?.fetchAssestFromLibrary()
     }
     
     func setupCenterNavBarButton() {
@@ -135,6 +139,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupScrollAndStack() {
+        view.backgroundColor = .white
         scrollView.delegate = self
         
         collectionView.delegate = self
@@ -192,7 +197,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc
-    func openImagePicker() {
+    func onImagePickerTap() {
         presenter?.openImagePicker(viewController: self)
     }
     

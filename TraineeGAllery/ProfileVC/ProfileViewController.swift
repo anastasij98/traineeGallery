@@ -92,7 +92,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         setupLayot()
     }
     
@@ -107,6 +106,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupLayot() {
+        view.backgroundColor = .white
         scrollView.delegate = self
         
         view.addSubview(scrollView)
@@ -166,13 +166,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         let rightButton = UIBarButtonItem(image: UIImage(named: "settings"),
                                           style: .plain,
                                           target: self,
-                                          action: #selector(settings))
+                                          action: #selector(onSettingsButtonTap))
         rightButton.tintColor = .black
         navigationItem.rightBarButtonItem = rightButton
     }
     
     @objc
-    func settings() {
+    func onSettingsButtonTap() {
         presenter?.openSettings()
     }
     

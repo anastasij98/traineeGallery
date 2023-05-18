@@ -112,26 +112,17 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         presenter?.viewIsReady()
-        
-        view.backgroundColor = .white
         setupSegmentedControl()
         setupCollectionView()
         setupCollectionViewLayout()
         updateUnderlineVisibility(hiddenValue: false)
         setupNoConnectionStackView()
-        setupSearchBar()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    private func setupSearchBar() {
-        let seacrhController = UISearchController (searchResultsController: nil)
-        seacrhController.navigationItem.preferredSearchBarPlacement = .stacked
-        navigationItem.searchController = seacrhController
     }
     
     private func setupSegmentedControl() {
@@ -160,6 +151,7 @@ class MainViewController: UIViewController {
     }
     
     private func setupCollectionView() {
+        view.backgroundColor = .white
         view.addSubview(collectionView)
         
         collectionView.delegate = self
@@ -210,7 +202,6 @@ class MainViewController: UIViewController {
     
         presenter?.didSelectSegment(withIndex: segmentedControl.selectedSegmentIndex)
     }
-
 }
 
 extension MainViewController: MainViewControllerProtocol {
