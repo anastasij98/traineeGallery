@@ -134,12 +134,13 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupScrollView()
         presenter?.viewIsReady()
+        setupNavigationBar(image: UIImage(named: "Vector")!)
     }
   
      override func viewWillAppear(_ animated: Bool) {
@@ -147,7 +148,7 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
          
          view.backgroundColor = .white
     }
-    
+
    func setupScrollView() {
        scrollView.delegate = self
        

@@ -100,7 +100,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillAppear(animated)
         
         setupRightNavBarButton()
-        setupNavigationBar(customBackButton: .init(title: "Cancel",
+        setupNavigationBar(customBackButton: .init(image: UIImage(named: "Vector"),
                                                    style: .plain,
                                                    target: self,
                                                    action: #selector(onCancelButtonTap)))
@@ -162,7 +162,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func         setupRightNavBarButton() {
+    func setupRightNavBarButton() {
         let rightButton = UIBarButtonItem(image: UIImage(named: "settings"),
                                           style: .plain,
                                           target: self,
@@ -179,57 +179,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     @objc
     func onCancelButtonTap() {
         presenter?.openTabBarViewController(index: 0)
-    }
-}
-
-extension UIViewController {
-    
-    private func setupNavigationBar(underlineColor: UIColor = .mainGrey,
-                            backButtonTitle: String?,
-                            customBackButton: UIBarButtonItem?) {
-        guard let appearance = navigationController?.navigationBar.standardAppearance else {
-            return
-        }
-        
-        appearance.configureWithDefaultBackground()
-        appearance.shadowColor = underlineColor
-        
-        let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
-        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.backButtonAppearance = backButtonAppearance
-        appearance.buttonAppearance = backButtonAppearance
-        
-        if let customBackButton = customBackButton {
-            navigationController?.navigationBar.topItem?.leftBarButtonItems = [customBackButton]
-        } else {
-            let backItem = UIBarButtonItem(title: backButtonTitle,
-                                           style: .plain,
-                                           target: nil,
-                                           action: nil)
-            navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
-            let backButtonImage = UIImage(named: "Vector")
-            appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
-        }
-        
-        appearance.backgroundColor = .systemBackground
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.isOpaque = false
-    }
-    
-    func setupNavigationBar(underlineColor: UIColor = .mainGrey,
-                            backButtonTitle: String = .init()) {
-        setupNavigationBar(underlineColor: underlineColor,
-                           backButtonTitle: backButtonTitle,
-                           customBackButton: nil)
-    }
-    
-    func setupNavigationBar(underlineColor: UIColor = .mainGrey,
-                            customBackButton: UIBarButtonItem) {
-        setupNavigationBar(underlineColor: underlineColor,
-                           backButtonTitle: nil,
-                           customBackButton: customBackButton)
     }
 }
 

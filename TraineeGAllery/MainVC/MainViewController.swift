@@ -119,12 +119,18 @@ class MainViewController: UIViewController {
         setupCollectionViewLayout()
         updateUnderlineVisibility(hiddenValue: false)
         setupNoConnectionStackView()
+        setupSearchBar()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    private func setupSearchBar() {
+        let seacrhController = UISearchController (searchResultsController: nil)
+        navigationItem.searchController = seacrhController
     }
     
     private func setupSegmentedControl() {

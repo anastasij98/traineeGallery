@@ -144,12 +144,16 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
+    let backButtonImage = UIColor.clear.image(CGSize(width: 0.1, height: 0.1))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         setupView()
         checkOrientationAndSetLayout()
+        setupNavigationBar(backButtonTitle: "Cancel",
+                           image: backButtonImage)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

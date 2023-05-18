@@ -33,6 +33,7 @@
 		475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78D29D744EF006B9BC6 /* Footers.swift */; };
 		475F1EE42A14D8E1009ED8E0 /* MainPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */; };
 		475F1EE62A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */; };
+		476BAF5A2A161E12002F6F6E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476BAF592A161E12002F6F6E /* UIViewController.swift */; };
 		479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */; };
 		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
 		47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */; };
@@ -109,6 +110,7 @@
 		475AA78D29D744EF006B9BC6 /* Footers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footers.swift; sourceTree = "<group>"; };
 		475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
 		475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoPresenterProtocol.swift; sourceTree = "<group>"; };
+		476BAF592A161E12002F6F6E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
@@ -248,9 +250,10 @@
 				475AA77F29D6DFDB006B9BC6 /* SegContrUnderLine.swift */,
 				4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */,
 				4758098629DEB54E00BA741E /* UIFont.swift */,
-				475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */,
 				47E515D529F8A04200AB5397 /* UITextField.swift */,
 				4741B8ED2A14049900F380C2 /* UITextView.swift */,
+				475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */,
+				476BAF592A161E12002F6F6E /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				47EEEEC62A0270BD0075791D /* TabBarRouter.swift in Sources */,
 				47CB5BA529DCB59A002BB2ED /* SampleScreenViewController.swift in Sources */,
 				47EEEEC42A0270B00075791D /* TabBarPresenter.swift in Sources */,
+				476BAF5A2A161E12002F6F6E /* UIViewController.swift in Sources */,
 				47EEEEBD2A026D210075791D /* ProfileViewController.swift in Sources */,
 				47EEEEC82A0270CF0075791D /* TabBarConfigurator.swift in Sources */,
 				47E515CA29F8602F00AB5397 /* SignUpConfigurator.swift in Sources */,

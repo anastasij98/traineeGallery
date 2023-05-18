@@ -184,6 +184,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
+    let backButtonImage = UIColor.clear.image(CGSize(width: 0.1, height: 0.1))
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -193,7 +196,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupNavigationBar()
+        setupNavigationBar(backButtonTitle: "Cancel", image: backButtonImage)
         setupRightNavBarButton()
     }
     
@@ -206,7 +209,6 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
                                             .foregroundColor : UIColor.customPink],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
-        
     }
     
     func setupLayout() {

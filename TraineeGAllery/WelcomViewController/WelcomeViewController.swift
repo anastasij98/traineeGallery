@@ -77,20 +77,15 @@ class WelcomeViewController: UIViewController {
         return view
     }()
     
+    let backButtonImage = UIColor.clear.image(CGSize(width: 0.1, height: 0.1))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         setupStackView()
-        setupStatusBar()
-    }
-    
-    func setupStatusBar() {
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.backIndicatorImage = UIImage()
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
-        navigationItem.backButtonTitle = "Cancel"
-        navigationController?.navigationBar.tintColor = .customDarkGrey
+        setupNavigationBar(backButtonTitle: "Cancel",
+                           image: backButtonImage)
     }
     
     func setupStackView() {

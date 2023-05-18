@@ -106,16 +106,15 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = .white
         setupScrollAndStack()
         setupRightNavBarButton()
-                setupCenterNavBarButton()
-        setupNavigationBar(customBackButton: .init(image: UIImage(named: "Vector"),
+        setupCenterNavBarButton()
+        setupNavigationBar(customBackButton: .init(title: "Cancel",
                                                    style: .plain,
                                                    target: self,
                                                    action: #selector(onBackButtonTap)))
-        
         presenter?.fetchAssestFromLibrary()
     }
     
-    func         setupCenterNavBarButton() {
+    func setupCenterNavBarButton() {
         self.navigationItem.titleView = buttonView
         buttonView.addSubview(navigationBarButton)
         navigationBarButton.snp.makeConstraints {
