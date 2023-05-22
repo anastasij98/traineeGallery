@@ -31,7 +31,45 @@ extension NetworkService: NetworkServiceProtocol {
         case .popular:
             parametrs["popular"] = "true"
         }
+
+        return RxAlamofire.request(.get, request, parameters: parametrs)
+                    .validate(statusCode: 200..<300)
+                    .responseData()
+                    .asSingle()
+                    .flatMap { response, data -> Single<ResponseModel> in
+                        print("Status code: \(response.statusCode)")
+                        do {
+                            let model = try JSONDecoder().decode(ResponseModel.self, from: data)
+                            return .just(model)
+                        } catch let error {
+                            return .error(error)
+                        }
+                    }
+    }
+    
+    func getImagesForSearchBar(limit: Int,
+                   pageToLoad: Int,
+                   mode: SegmentMode,
+                   searchText: String?) -> Single<ResponseModel> {
+        let request = URLConfiguration.url + URLConfiguration.api
+        var parametrs: Parameters = [
+            "page": "\(pageToLoad)",
+            "limit": "\(limit)"
+        ]
         
+        switch mode {
+        case .new:
+            parametrs["new"] = "true"
+            
+        case .popular:
+            parametrs["popular"] = "true"
+        }
+        
+        if let searchText = searchText?.lowercased() {
+            parametrs["name"] = searchText
+            print("@@@@@@@@" + searchText)
+            print(parametrs)
+        }
         return RxAlamofire.request(.get, request, parameters: parametrs)
                     .validate(statusCode: 200..<300)
                     .responseData()

@@ -19,6 +19,8 @@ class MainPresenter {
     
     var disposeBag = DisposeBag()
 
+    
+    var searchbarImages = [ItemModel]()
     // загруженные картинки
     var newImages = [ItemModel]()
     var popularImages = [ItemModel]()
@@ -231,4 +233,37 @@ extension MainPresenter: MainPresenterProtocol {
         setupReachibilityManager()
         loadMore()
     }
+    
+    func removeAlImages() {
+        requestImages.removeAll()
+    }
+    
+    func getImagesForSearchBar(searchText: String) {
+        network.getImagesForSearchBar(limit: 10,
+                                      pageToLoad: pageToLoad,
+                                      mode: mode,
+                                      searchText: searchText)
+        .debug()
+        .do(onSubscribe: { [weak self] in
+            guard let self = self else { return }
+            
+            self.isLoading = true
+        }, onDispose: { [weak self]  in
+            guard let self = self else { return }
+            self.isLoading = false
+            self.view?.hideRefreshControll()
+        })
+            .subscribe(onSuccess:{ [weak self] data in
+                guard let self = self else { return }
+                self.requestImages.append(contentsOf: data.data)
+                self.view?.updateView(restoreOffset: false)
+                guard let count = data.countOfPages else { return }
+                self.currentCountOfPages = count
+                self.currentPage = self.pageToLoad
+            }, onFailure: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
+    }
+
 }

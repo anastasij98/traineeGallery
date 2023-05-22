@@ -21,6 +21,11 @@ protocol NetworkServiceProtocol {
                    pageToLoad: Int,
                    mode: SegmentMode) -> Single<ResponseModel>
     
+    func getImagesForSearchBar(limit: Int,
+                   pageToLoad: Int,
+                   mode: SegmentMode,
+                   searchText: String?) -> Single<ResponseModel>
+    
     /// Загрузка картинки на детальный экран
     /// - Parameters:
     ///   - name: имя картинки, взятое из модельки 

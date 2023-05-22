@@ -41,4 +41,7 @@ protocol MainPresenterProtocol {
     
     /// Метод показывающий, что view готово к отображению
     func viewIsReady()
+    
+    func getImagesForSearchBar(searchText: String)
+    func removeAlImages() 
 }

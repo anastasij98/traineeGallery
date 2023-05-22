@@ -164,13 +164,13 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
             $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.top.equalTo(scrollView.contentLayoutGuide.snp.top)
-            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
         }
         
         imageView.snp.makeConstraints {
-            $0.height.equalTo(view.snp.width)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.height.equalTo(scrollView.contentLayoutGuide.snp.width)
+            $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
+            $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
         }
         
         underLine.snp.makeConstraints {
