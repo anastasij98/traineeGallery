@@ -9,10 +9,13 @@ import Foundation
 
 protocol MainPresenterProtocol {
     
+    /// Текст, который вводится в searchBar'e
+    var searchedText: String { get set }
+    
     /// Режим SegmentedControll'a
     var mode: SegmentMode { get set }
     
-    /// Выбор item'a соответствующего индекса в галереи
+    /// Выбор item'a соответствующего индекса из галереи
     /// - Parameter index: индекс item'a галереи
     func didSelectItem(withIndex index: Int)
     
@@ -28,8 +31,18 @@ protocol MainPresenterProtocol {
     /// Получение количетсва элементов из массива, в котором хранятся загруженные картинки
     /// - Returns: количество элементов в массиве
     func getItemsCount() -> Int
+
+    /// Подгрузка новых данных(картинок) в зависимости от вводимого текста в SearchBar'e
+    /// - Parameter searchText: б
+    func loadMoreSearched(searchText: String)
     
-    /// Подгрузка новых данных(картинок)
+    /// Обнуление страниц для осуществления запроса
+    func resetValues()
+    
+    /// Очищение массива с картинками, которые ищутся в SearchBar'e
+    func removeAllSearchedImages()
+
+    /// Подгрузка новых данных(картинок) в основной массив для отображения в стартовой галерее
     func loadMore()
     
     /// Необходимость отображения footer'a внизу галереи

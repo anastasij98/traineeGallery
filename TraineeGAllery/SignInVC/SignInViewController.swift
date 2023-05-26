@@ -154,6 +154,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        checkOrientationAndSetLayout()
         setupNavigationBar(isHidden: false,
                            customBackButton: UIBarButtonItem(title: "Cancel",
                                                              style: .plain,

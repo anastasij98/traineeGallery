@@ -22,7 +22,7 @@ protocol MainViewControllerProtocol: AnyObject {
     func updateView(restoreOffset: Bool)
 }
 
-class MainViewController: UIViewController {
+class MainViewController: UISearchController {
     
     enum Identifiers {
         static let cellId = "cell"
@@ -107,6 +107,13 @@ class MainViewController: UIViewController {
         
         return view
     }()
+    
+    lazy var searchController: UISearchBar = {
+       let view = UISearchBar()
+        view.tintColor = .customDarkGrey
+
+        return view
+    }()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,12 +124,20 @@ class MainViewController: UIViewController {
         setupCollectionViewLayout()
         updateUnderlineVisibility(hiddenValue: false)
         setupNoConnectionStackView()
+        
+        setupSearchBar()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    private func setupSearchBar() {
+        searchController.delegate = self
+        self.hidesNavigationBarDuringPresentation = false
+        self.navigationItem.titleView = searchController
     }
     
     private func setupSegmentedControl() {
@@ -174,11 +189,17 @@ class MainViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
+    
     private func setupNoConnectionStackView() {
         view.addSubview(noConnectionStackView)
         noConnectionStackView.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
         }
+    }
+    
+    private func updateUnderlineVisibility(hiddenValue: Bool) {
+        splitLeftUnderlineView.isHidden = hiddenValue
+        splitRightUnderlineView.isHidden = !hiddenValue
     }
 
     @objc
@@ -186,11 +207,6 @@ class MainViewController: UIViewController {
         savedCollectionViewOffset = .zero
         presenter?.onRefreshStarted()
         collectionView.reloadData()
-    }
-    
-    func updateUnderlineVisibility(hiddenValue: Bool) {
-        splitLeftUnderlineView.isHidden = hiddenValue
-        splitRightUnderlineView.isHidden = !hiddenValue
     }
     
     @objc

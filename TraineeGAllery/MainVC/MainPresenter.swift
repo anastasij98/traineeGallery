@@ -15,10 +15,12 @@ class MainPresenter {
     var router: MainRouterProtocol
     var network: NetworkServiceProtocol
     
+    var searchedText: String = .init()
     var mode: SegmentMode = .new
     
     var disposeBag = DisposeBag()
 
+    
     // загруженные картинки
     var newImages = [ItemModel]()
     var popularImages = [ItemModel]()
@@ -49,7 +51,6 @@ class MainPresenter {
             switch mode {
             case .new:
                 return countOfNewPages
-                
             case .popular:
                 return countOfPopularPages
             }
@@ -58,7 +59,6 @@ class MainPresenter {
             switch mode {
             case .new:
                 countOfNewPages = newValue
-                
             case .popular:
                 countOfPopularPages = newValue
             }
@@ -150,7 +150,9 @@ class MainPresenter {
         pageToLoad = currentPage + 1
         network.getImages(limit: 10,
                           pageToLoad: pageToLoad,
-                          mode: mode)
+                          mode: mode,
+                          searchText: nil)
+        .observe(on: MainScheduler.instance)
         .debug()
         .do(onSubscribe: { [weak self] in
             guard let self = self else { return }
@@ -171,7 +173,40 @@ class MainPresenter {
         }, onFailure: { error in
             print(error)
         })
-            .disposed(by: disposeBag)
+        .disposed(by: disposeBag)
+    }
+    
+    @objc
+    func getSearchData(searchText: String?) {
+        disposeBag = DisposeBag()
+        pageToLoad = currentPage + 1
+
+        network.getImages(limit: 10,
+                          pageToLoad: pageToLoad,
+                          mode: mode,
+                          searchText: searchText)
+        .observe(on: MainScheduler.instance)
+        .debug()
+        .do(onSubscribe: { [weak self] in
+            guard let self = self else { return }
+            self.isLoading = true
+        }, onDispose: { [weak self]  in
+            guard let self = self else { return }
+            self.isLoading = false
+            self.view?.hideRefreshControll()
+        })
+        .delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
+        .subscribe(onSuccess:{ [weak self] data in
+            guard let self = self else { return }
+            self.requestImages.append(contentsOf: data.data)
+            self.view?.updateView(restoreOffset: false)
+            guard let count = data.countOfPages else { return }
+            self.currentCountOfPages = count
+            self.currentPage = self.pageToLoad
+        }, onFailure: { error in
+            print(error)
+        })
+        .disposed(by: disposeBag)
     }
 }
 
@@ -209,16 +244,37 @@ extension MainPresenter: MainPresenterProtocol {
     
     func loadMore() {
         guard !isLoading, hasMorePages else {
-            #if DEBUG
+#if DEBUG
             print("All images are loaded")
-            #endif
+#endif
             return
         }
         getData()
     }
     
+    func loadMoreSearched(searchText: String) {
+        guard !isLoading, hasMorePages else {
+
+#if DEBUG
+            print("All images are loaded")
+#endif
+            return
+        }
+        getSearchData(searchText: searchText)
+    }
+
     func needIndicatorInFooter() -> Bool {
-        hasMorePages && getItemsCount() != 0
+        if searchedText.isEmpty  {
+            return hasMorePages && getItemsCount() != 0
+        } else {
+            if hasMorePages && getItemsCount() == 10 {
+                return true
+            } else if getItemsCount() <= 10 {
+                return false
+            } else {
+                return false
+            }
+        }
     }
     
     func onRefreshStarted() {
@@ -226,9 +282,19 @@ extension MainPresenter: MainPresenterProtocol {
         requestImages.removeAll()
         loadMore()
     }
-
+    
     func viewIsReady() {
         setupReachibilityManager()
         loadMore()
+    }
+    
+    func resetValues() {
+        pageToLoad = 0
+        currentPage = 0
+        currentCountOfPages = 0
+    }
+    
+    func removeAllSearchedImages() {
+        requestImages.removeAll()
     }
 }

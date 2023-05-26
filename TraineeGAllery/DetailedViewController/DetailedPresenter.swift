@@ -10,7 +10,7 @@ import RxSwift
 
 protocol DetailedPresenterProtocol {
     
-    /// <#Description#>
+    /// Метод показывающий, что view готово к отображению
     func viewIsReady()
 }
 
@@ -55,6 +55,7 @@ class DetailedPresenter {
             return
         }
         networkService.getImageFile(name: imageName)
+            .observe(on: MainScheduler.instance)
             .debug()
             .subscribe(onSuccess: { [weak self] data in
                 guard let self = self else { return }

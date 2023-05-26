@@ -234,7 +234,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             }
         } else {
             stackView.snp.remakeConstraints {
-                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(100)
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(70)
             }
         }
     }
@@ -271,7 +271,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         }
 
         stackView.snp.makeConstraints {
-            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(100)
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(70)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)

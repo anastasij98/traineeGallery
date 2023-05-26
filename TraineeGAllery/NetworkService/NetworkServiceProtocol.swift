@@ -13,17 +13,20 @@ protocol NetworkServiceProtocol {
     
     /// Загрузка картинок(Response Мodel)
     /// - Parameters:
-    ///   - limit: количество элементов в подгружаемой странице
-    ///   - pageToLoad: подгружаемая страница
-    ///   - mode: выбранный режим (new/popular)
-    /// - Returns: возвращает Single типа ResponseModel
+    ///   - limit: количество элементов вна запрашиваемой странице
+    ///   - pageToLoad: запрашиваемая страница
+    ///   - mode: выбранный режим (New/Popular)
+    ///   - searchText: введённый текст в поле SearchBar'a
+    /// - Returns: возвращает Single, содержащий один объект типа ResponseModel
     func getImages(limit: Int,
-                   pageToLoad: Int,
-                   mode: SegmentMode) -> Single<ResponseModel>
+                         pageToLoad: Int,
+                         mode: SegmentMode?,
+                         searchText: String?) -> Single<ResponseModel>
     
     /// Загрузка картинки на детальный экран
     /// - Parameters:
     ///   - name: имя картинки, взятое из модельки 
-    /// - Returns: возвращает Single типа Data
+    /// - Returns: возвращает Single, содержащий один объект типа Data
     func getImageFile(name: String) -> Single<Data>
 }
+
