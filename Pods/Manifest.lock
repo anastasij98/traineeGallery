@@ -1,6 +1,6 @@
 PODS:
-  - Alamofire (5.6.4)
-  - Kingfisher (7.6.2)
+  - Alamofire (5.7.1)
+  - Kingfisher (7.7.0)
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
@@ -9,15 +9,20 @@ PODS:
   - RxAlamofire/Core (6.1.1):
     - Alamofire (~> 5.4)
     - RxSwift (~> 6.0)
-  - RxSwift (6.5.0)
+  - RxNetworkApiClient (0.1.5):
+    - RxSwift (~> 6.2.0)
+    - SwiftyJSON
+  - RxSwift (6.2.0)
   - SnapKit (5.6.0)
+  - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
   - Kingfisher (~> 7.0)
   - R.swift (= 6.1.0)
   - RxAlamofire
-  - RxSwift (= 6.5.0)
+  - "RxNetworkApiClient (from `git@github.com:Cheeezcake/RxNetworkApiClient.git`)"
+  - RxSwift
   - SnapKit (~> 5.6.0)
 
 SPEC REPOS:
@@ -29,16 +34,28 @@ SPEC REPOS:
     - RxAlamofire
     - RxSwift
     - SnapKit
+    - SwiftyJSON
+
+EXTERNAL SOURCES:
+  RxNetworkApiClient:
+    :git: "git@github.com:Cheeezcake/RxNetworkApiClient.git"
+
+CHECKOUT OPTIONS:
+  RxNetworkApiClient:
+    :commit: 543bbb471ef07faf8cb85383136660e6634f7047
+    :git: "git@github.com:Cheeezcake/RxNetworkApiClient.git"
 
 SPEC CHECKSUMS:
-  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxNetworkApiClient: fb28a02794b863f28d4cee8400398e347b98feea
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 3c93fc0c06755824f0915ce12349d36c5155a20b
+PODFILE CHECKSUM: 1e78c4bd2df39791a92ea5dc5659da8cbc80980e
 
 COCOAPODS: 1.11.3

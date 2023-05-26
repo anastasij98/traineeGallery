@@ -5,11 +5,13 @@
 //  Created by LUNNOPARK on 07.04.23.
 
 import Foundation
-import Alamofire
 import RxSwift
-import RxAlamofire
+import RxNetworkApiClient
 
 class NetworkService {
+    
+    private let apiClient: ApiClient = ApiClientImp.defaultInstance(host: "https://gallery.prod1.webant.ru/")
+    private let apiClientForOneImage: ApiClient = ApiClientImp.modifiedInstance(host: "https://gallery.prod1.webant.ru/")
     
 }
 
@@ -17,78 +19,39 @@ extension NetworkService: NetworkServiceProtocol {
     
     func getImages(limit: Int,
                    pageToLoad: Int,
-                   mode: SegmentMode) -> Single<ResponseModel> {
-        let request = URLConfiguration.url + URLConfiguration.api
-        var parametrs: Parameters = [
-            "page": "\(pageToLoad)",
-            "limit": "\(limit)"
-        ]
-        
-        switch mode {
-        case .new:
-            parametrs["new"] = "true"
-            
-        case .popular:
-            parametrs["popular"] = "true"
-        }
-
-        return RxAlamofire.request(.get, request, parameters: parametrs)
-                    .validate(statusCode: 200..<300)
-                    .responseData()
-                    .asSingle()
-                    .flatMap { response, data -> Single<ResponseModel> in
-                        print("Status code: \(response.statusCode)")
-                        do {
-                            let model = try JSONDecoder().decode(ResponseModel.self, from: data)
-                            return .just(model)
-                        } catch let error {
-                            return .error(error)
-                        }
-                    }
-    }
-    
-    func getImagesForSearchBar(limit: Int,
-                   pageToLoad: Int,
-                   mode: SegmentMode,
+                   mode: SegmentMode?,
                    searchText: String?) -> Single<ResponseModel> {
-        let request = URLConfiguration.url + URLConfiguration.api
-        var parametrs: Parameters = [
-            "page": "\(pageToLoad)",
-            "limit": "\(limit)"
-        ]
         
-        switch mode {
-        case .new:
-            parametrs["new"] = "true"
+        var searchedText = String()
+        var switched: (String, String) = ("","")
+        if let mode = mode {
+            switch mode {
+            case .new:
+                switched = ("new", "true")
+                if let searchText {
+                    searchedText = searchText
+                }
+            case .popular:
+                switched = ("popular", "true")
+                if let searchText {
+                    searchedText = searchText
+                }
+            }
+        }
+            let request: ApiRequest<ResponseModel> = .request(path: "api/photos/",
+                                                              method: .get,
+                                                              query: switched,
+                                                              ("limit", "\(limit)"),
+                                                              ("page", "\(pageToLoad)"),
+                                                              ("name", searchedText))
             
-        case .popular:
-            parametrs["popular"] = "true"
+            return apiClient.execute(request: request)
         }
         
-        if let searchText = searchText?.lowercased() {
-            parametrs["name"] = searchText
-            print("@@@@@@@@" + searchText)
-            print(parametrs)
+        func getImageFile(name: String) -> Single<Data> {
+            let request: ApiRequest<Data> = .request(path: "media/\(name)",
+                                                     method: .get)
+            
+            return apiClientForOneImage.execute(request: request)
         }
-        return RxAlamofire.request(.get, request, parameters: parametrs)
-                    .validate(statusCode: 200..<300)
-                    .responseData()
-                    .asSingle()
-                    .flatMap { response, data -> Single<ResponseModel> in
-                        print("Status code: \(response.statusCode)")
-                        do {
-                            let model = try JSONDecoder().decode(ResponseModel.self, from: data)
-                            return .just(model)
-                        } catch let error {
-                            return .error(error)
-                        }
-                    }
     }
-    
-    func getImageFile(name: String) -> Single<Data> {
-        let url = URLConfiguration.url + URLConfiguration.media + name
-        
-        return RxAlamofire.data(.get, url)
-            .asSingle()
-    }
-}

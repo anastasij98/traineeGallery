@@ -19,7 +19,7 @@ extension MainViewController: UICollectionViewDelegate {
         guard let itemsCount = presenter?.getItemsCount() else { return }
         let lastItemIndex = itemsCount - 1
         if indexPath.item == lastItemIndex {
-            presenter?.loadMore()
+            presenter?.loadMoreSearched(searchText: presenter?.searchedText ?? "")
         }
     }
 }
@@ -33,7 +33,6 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.cellId, for: indexPath) as? MainCollectionViewCell,
               let item = presenter?.getItem(index: indexPath.item) else { return UICollectionViewCell() }
-        
         let request = URLConfiguration.url + URLConfiguration.media + (item.image?.name ?? "")
         let model = CollectionViewCellModel(imageURL: URL(string: request))
         cell.setupCollectionItem(model: model)

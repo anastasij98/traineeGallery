@@ -8,22 +8,18 @@
 import Foundation
 import UIKit
 
-//MARK: - UICollectionViewDelegate
+//MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
         
-       
+        presenter?.searchedText = searchText
 //        if searchText.count >= 3 {
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.5,
-                                             repeats: false) { [weak self] (_) in
-                self?.presenter?.removeAlImages()
-
-                self?.presenter?.getImagesForSearchBar(searchText: searchText)
-            }
-           
+        presenter?.resetValues()
+        presenter?.removeAllSearchedImages()
+        presenter?.loadMoreSearched(searchText: searchText)
 //        }
-        
+        updateView(restoreOffset: true)
     }
 }

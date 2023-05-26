@@ -110,9 +110,7 @@ class MainViewController: UISearchController {
     
     lazy var searchController: UISearchBar = {
        let view = UISearchBar()
-//        view.hidesNavigationBarDuringPresentation = false
         view.tintColor = .customDarkGrey
-        view.setValue("CANCEL", forKey: "cancelButtonText")
 
         return view
     }()

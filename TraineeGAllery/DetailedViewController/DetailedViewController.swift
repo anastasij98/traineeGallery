@@ -29,7 +29,7 @@ protocol DetailedViewControllerProtocol: AnyObject {
     func setImage(data: Data)
 }
 
-class DetailedViewController: UIViewController, UIScrollViewDelegate {
+class DetailedViewController: UIViewController {
     
     var presenter: DetailedPresenterProtocol?
     
@@ -38,7 +38,9 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
         view = UIScrollView(frame: .zero)
         view.isScrollEnabled = true
         view.scrollsToTop = false
-
+        view.minimumZoomScale = 1
+        view.maximumZoomScale = 10
+        
         return view
     }()
     
@@ -137,74 +139,115 @@ class DetailedViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupScrollView()
         presenter?.viewIsReady()
     }
-  
-     override func viewWillAppear(_ animated: Bool) {
-         super.viewWillAppear(animated)
-         
-         setupNavigationBar()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavigationBar()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        //        checkOrientationAndSetLayout()
+    }
+    
+    func checkOrientationAndSetLayout() {
+        if UIDevice.current.orientation.isLandscape {
+            totalStackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(180)
+                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+                $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+            }
+            
+            selectedImage.snp.remakeConstraints {
+                $0.height.equalTo(180)
+                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            }
+        } else {
+            totalStackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(251)
+                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+                $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
 
-   func setupScrollView() {
-       view.backgroundColor = .white
-       scrollView.delegate = self
-       
-       view.addSubview(scrollView)
-       scrollView.addSubviews(totalStackView)
-       upperStackView.addArrangedSubviews(imageTitle, viewsCount, eyeImage)
-       lowerStackView.addArrangedSubviews(usersLabel, downloadDate)
-       totalStackView.addArrangedSubviews(selectedImage, upperStackView, lowerStackView, imageDescription)
-       
-       totalStackView.setCustomSpacing(11.0, after: selectedImage)
-       totalStackView.setCustomSpacing(10.0, after: upperStackView)
-       totalStackView.setCustomSpacing(20.0, after: lowerStackView)
-
-       scrollView.snp.makeConstraints {
-           $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
-       }
-       
-       totalStackView.snp.makeConstraints {
-           $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(20)
-           $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
-           $0.top.equalTo(scrollView.contentLayoutGuide.snp.top)
-           $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
-       }
-       
-       selectedImage.snp.makeConstraints {
-            $0.height.equalTo(251)
-            $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
-            $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
+            }
+            
+            selectedImage.snp.remakeConstraints {
+                $0.height.equalTo(251)
+                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            }
         }
-       
-       upperStackView.snp.makeConstraints {
-           $0.leading.equalTo(totalStackView.snp.leading)
-           $0.trailing.equalTo(totalStackView.snp.trailing)
-       }
-       
-       imageDescription.snp.makeConstraints {
-           $0.leading.equalTo(totalStackView.snp.leading)
-           $0.trailing.equalTo(totalStackView.snp.trailing)
-       }
-       
-       eyeImage.snp.makeConstraints {
-           $0.width.equalTo(13)
-           $0.height.equalTo(13)
-       }
-       
-       downloadDate.snp.makeConstraints {
-           $0.width.equalTo(100)
-       }
-       
-       lowerStackView.snp.makeConstraints {
-           $0.leading.equalTo(totalStackView.snp.leading)
-           $0.trailing.equalTo(totalStackView.snp.trailing)
-       }
+    }
+    
+    func setupScrollView() {
+        view.backgroundColor = .white
+        scrollView.delegate = self
+//        scrollView.contentSize = view.safeAreaLayoutGuide.layoutFrame.size
+        
+        view.addSubview(scrollView)
+//        scrollView.addSubviews(totalStackView, selectedImage)
+        scrollView.addSubview(totalStackView)
+        upperStackView.addArrangedSubviews(imageTitle, viewsCount, eyeImage)
+        lowerStackView.addArrangedSubviews(usersLabel, downloadDate)
+//        totalStackView.addArrangedSubviews(upperStackView, lowerStackView, imageDescription)
+        totalStackView.addArrangedSubviews(selectedImage ,upperStackView, lowerStackView, imageDescription)
+        
+        totalStackView.setCustomSpacing(10.0, after: selectedImage)
+        totalStackView.setCustomSpacing(10.0, after: upperStackView)
+        totalStackView.setCustomSpacing(20.0, after: lowerStackView)
+        
+        scrollView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
+        }
+        
+        selectedImage.snp.makeConstraints {
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top)
+            $0.height.equalTo(251)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+        }
+        
+        totalStackView.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(251)
+            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+        }
+        
+        upperStackView.snp.makeConstraints {
+            $0.leading.equalTo(totalStackView.snp.leading)
+            $0.trailing.equalTo(totalStackView.snp.trailing)
+        }
+        
+        imageDescription.snp.makeConstraints {
+            $0.leading.equalTo(totalStackView.snp.leading)
+            $0.trailing.equalTo(totalStackView.snp.trailing)
+        }
+        
+        eyeImage.snp.makeConstraints {
+            $0.width.equalTo(13)
+            $0.height.equalTo(13)
+        }
+        
+        downloadDate.snp.makeConstraints {
+            $0.width.equalTo(100)
+        }
+        
+        lowerStackView.snp.makeConstraints {
+            $0.leading.equalTo(totalStackView.snp.leading)
+            $0.trailing.equalTo(totalStackView.snp.trailing)
+        }
     }
 }
-
+//MARK: - DetailedViewControllerProtocol
 extension DetailedViewController: DetailedViewControllerProtocol {
     
     func setupView(name: String,
@@ -223,5 +266,17 @@ extension DetailedViewController: DetailedViewControllerProtocol {
         DispatchQueue.main.async {
             self.selectedImage.image = UIImage(data: data)
         }
+    }
+}
+//MARK: - UIScrollViewDelegate
+extension DetailedViewController: UIScrollViewDelegate  {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        selectedImage
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+//        selectedImage.transform = CGAffineTransform.identity
+        scrollView.setZoomScale(1.0, animated: true)
     }
 }
