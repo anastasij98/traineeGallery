@@ -232,9 +232,10 @@ extension MainViewController: MainViewControllerProtocol {
     }
     
     func updateView(restoreOffset: Bool) {
-        UIView.performWithoutAnimation {
-            collectionView.reloadSections([0])
-        }
+//        UIView.performWithoutAnimation {
+//            collectionView.reloadSections([0])
+//        }
+        collectionView.reloadData()
         
         if restoreOffset {
             collectionView.setContentOffset(savedCollectionViewOffset,

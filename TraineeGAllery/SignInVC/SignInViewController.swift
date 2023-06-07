@@ -68,8 +68,8 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-        view.placeholder = "Email"
-        
+//        view.placeholder = "Email"
+        view.text = "basetest@ios.webant"
         return view
     }()
     
@@ -81,7 +81,8 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-        view.placeholder = "Password"
+//        view.placeholder = "Password"
+        view.text = "111111"
         
         return view
     }()
@@ -122,7 +123,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.width.equalTo(120)
         }
         view.addTarget(self,
-                       action: #selector(openGallery),
+                       action: #selector(signInButtonTap),
                        for: .touchUpInside)
         
         return view
@@ -241,8 +242,16 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc
-    func openGallery() {
-        presenter?.openTabBar()
+    func signInButtonTap() {
+        //        presenter?.openTabBar()
+        if let email = emailTextField.text,
+           let password = passwordTextField.text {
+            if !email.isEmpty && !password.isEmpty {
+                presenter?.signInButtonTap(userName: email, password: password)
+            } else {
+                print("Fields are empty")
+            }
+        }
     }
 }
 

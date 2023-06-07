@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ProfilePresenterProtocol {
     
@@ -13,17 +14,25 @@ protocol ProfilePresenterProtocol {
     func openSettings()
     
     func openTabBarViewController(index: Int)
+    
+    func viewIsReady()
 }
 
 class ProfilePresenter {
     
     weak var view: ProfileVCProtocol?
     var router: ProfileRouterProtocol
+    var network:NetworkServiceProtocol
+    var userDef: UserDefaultsServiceProtocol
     
     init(view: ProfileVCProtocol? = nil,
-         router: ProfileRouterProtocol) {
+         router: ProfileRouterProtocol,
+         network: NetworkServiceProtocol,
+         userDef: UserDefaultsServiceProtocol) {
         self.view = view
         self.router = router
+        self.network = network
+        self.userDef = userDef
     }
 }
 
@@ -35,5 +44,10 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func openTabBarViewController(index: Int) {
         router.openTabBarViewController(index: index)
+    }
+    
+    func viewIsReady() {
+        view?.setupView(userName: userDef.getUsersInfo().name,
+                        birthday: userDef.getUsersInfo().birthday)
     }
 }

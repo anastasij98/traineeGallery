@@ -17,9 +17,13 @@ class SignInConfigurator {
     
     static func getViewController() -> SignInViewController {
         let viewController = SignInViewController()
+        let network = NetworkService()
+        let userDefaultsService = UserDefaultsService()
         let router = SignInRouter(view: viewController)
         let presenter = SignInPresenter(view: viewController,
-                                        router: router)
+                                        router: router,
+                                        network: network,
+                                        userDefaultsService: userDefaultsService)
         viewController.presenter = presenter
         
         return viewController

@@ -19,14 +19,41 @@ protocol NetworkServiceProtocol {
     ///   - searchText: введённый текст в поле SearchBar'a
     /// - Returns: возвращает Single, содержащий один объект типа ResponseModel
     func getImages(limit: Int,
-                         pageToLoad: Int,
-                         mode: SegmentMode?,
-                         searchText: String?) -> Single<ResponseModel>
+                   pageToLoad: Int,
+                   mode: SegmentMode?,
+                   searchText: String?) -> Single<ResponseModel>
     
     /// Загрузка картинки на детальный экран
     /// - Parameters:
-    ///   - name: имя картинки, взятое из модельки 
+    ///   - name: имя картинки, взятое из модельки
     /// - Returns: возвращает Single, содержащий один объект типа Data
     func getImageFile(name: String) -> Single<Data>
+    
+    /// Запрос на авторизацию пользователя
+    func authorizationRequest(userName: String, password: String) -> Single<AuthorizationModel>
+    
+    /// Запрос для получения информации о поьзователе
+    /// - Returns: возвращает информацию о пользователе в виде UserModel
+    func getCurrentUser() -> Single<CurrentUserModel>
+    
+    /// Запрос регистрации нового пользователя
+    /// - Parameters:
+    ///   - emailTextField: email пользователя
+    ///   - phoneTextField: номер телефона
+    ///   - fullNameTextField: полное имя пользователя
+    ///   - passwordTextField: пароль
+    ///   - usernameTextField: имя пользователя
+    ///   - birthdayTextField: день рождения
+    ///   - rolesTextField: ?
+    /// - Returns: <#description#>
+    func registerUser(email: String,
+                      password: String,
+                      phone: String,
+                      fullName: String,
+                      username: String,
+                      birthday: String,
+                      roles: [String]) -> Single<ResponseRegisterModel>
+    
+    func deleteUser(id: Int) -> Single<Data>
 }
 

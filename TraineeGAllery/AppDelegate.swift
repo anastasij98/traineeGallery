@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DBDebugToolkit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let shakeTrigger = DBShakeTrigger()
+        DBDebugToolkit.setup(with: [shakeTrigger])
+
         return true
     }
 

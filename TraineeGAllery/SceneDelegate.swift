@@ -18,10 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let isAuthorized = true
+        let isAuthorized = false
+        
         let welcome = WelcomeConfigurator.getViewController()
         let navigationController = UINavigationController(rootViewController: welcome)
 
+//        let vc = isUserAuthorized()
         let vc = isAuthorized
         ? TabBarConfigurator.getViewController()
         : navigationController
@@ -59,6 +61,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    func isUserAuthorized() -> Bool {
+        var isAuthorized: Bool
+        if UserDefaults.standard.string(forKey: "accessToken") != nil {
+            isAuthorized = true
+        } else {
+            isAuthorized = false
+        }
 
+        return isAuthorized
+    }
 }
 

@@ -9,7 +9,17 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol SettingsVCProtocol {
+    
+    func setupView(userName: String,
+                   birthday: String,
+                   email: String)
+    func textForSaving(completion: (_ userName: String, _ birthday: String, _ email: String)  -> Void)
+}
+
 class SettingsViewController: UIViewController, UIScrollViewDelegate {
+    
+    var presenter: SettingsPresenterProtocol?
     
     var password = "password"
     
@@ -92,6 +102,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     lazy var birthdayTextField: CustomTextField = {
         let view = CustomTextField()
         let text = "Birthday"
+        view.keyboardType = .numbersAndPunctuation
         view.atributedString(text: text)
         view.setupBorder()
         view.setupIcon(name: "birthday")
@@ -188,16 +199,18 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         setupLayout()
+        presenter?.viewIsReady()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        presenter?.viewIsReady()
         setupRightNavBarButton()
         setupNavigationBar(customBackButton: UIBarButtonItem(title: "Cancel",
                                                              style: .plain,
                                                              target: self,
-                                                             action: #selector(popViewController)))
+                                                             action: #selector(onCancelButtonTap)))
     }
     
     func setupRightNavBarButton() {
@@ -297,24 +310,58 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    func setAlertController() {
+        let alert = UIAlertController(title: "Confirmation",
+                                      message: "Are you sure you want to exit?\nThe entered data will be lost",
+                                      preferredStyle: UIAlertController.Style.alert)
+        let exit = UIAlertAction(title: "Exit", style: UIAlertAction.Style.default, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+        
+        alert.addAction(exit)
+        alert.addAction(cancel)
+        alert.preferredAction = cancel
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @objc
-    func popViewController() {
-        navigationController?.popViewController(animated: true)
+    func onCancelButtonTap() {
+        presenter?.popViewController(viewController: self)
     }
     
     @objc
     func onSaveButtonTap() {
         print("saved")
+        
+        presenter?.saveNotes()
     }
     
     @objc
     func onDeleteButtonTap() {
         print("deleted")
+        presenter?.deleteUser()
     }
     
     @objc
     func onSignOutButtonTap() {
         print("signOut")
+        setAlertController()
+    }
+}
+
+extension SettingsViewController: SettingsVCProtocol {
+
+    func setupView(userName: String,
+                   birthday: String,
+                   email: String) {
+        userNameTextField.text = userName
+        birthdayTextField.text = birthday
+        emailTextField.text = email
+    }
+
+    func textForSaving(completion: (_ userName: String, _ birthday: String, _ email: String) -> Void) {
+        guard let userName =  userNameTextField.text,
+              let birthday = birthdayTextField.text,
+              let email = emailTextField.text else { return }
+        completion( userName, birthday, email)
     }
 }

@@ -11,7 +11,8 @@ import SnapKit
 
 protocol ProfileVCProtocol: AnyObject {
     
-    
+    func setupView(userName: String,
+                   birthday: String) 
 }
 
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
@@ -53,7 +54,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         let view = UILabel()
         view.textColor = .black
         view.font = .robotoRegular(ofSize: 17)
-        view.text = "User Name"
+        view.textAlignment = .center
+        view.adjustsFontSizeToFitWidth = true
         
         return view
     }()
@@ -62,7 +64,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         let view = UILabel()
         view.textColor = .mainGrey
         view.font = .robotoRegular(ofSize: 12)
-        view.text = "20.01.2000"
+        view.textAlignment = .center
+        view.adjustsFontSizeToFitWidth = true
         
         return view
     }()
@@ -93,11 +96,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         setupLayot()
+//        presenter?.viewIsReady()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        presenter?.viewIsReady()
         setupRightNavBarButton()
         setupNavigationBar(customBackButton: .init(image: UIImage(named: "Vector"),
                                                    style: .plain,
@@ -138,13 +143,11 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         
         userNameLabel.snp.makeConstraints {
             $0.height.equalTo(17)
-            $0.width.equalTo(85)
             $0.centerX.equalTo(stackView.snp.centerX)
         }
         
         birthdayLabel.snp.makeConstraints {
             $0.height.equalTo(12)
-            $0.width.equalTo(61)
             $0.centerX.equalTo(stackView.snp.centerX)
         }
         
@@ -184,5 +187,9 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
 
 extension ProfileViewController: ProfileVCProtocol {
     
-    
+    func setupView(userName: String,
+                   birthday: String) {
+        userNameLabel.text = userName
+        birthdayLabel.text = birthday
+    }
 }

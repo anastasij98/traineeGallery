@@ -17,4 +17,6 @@ platform :ios, '13.0'
 
   pod 'RxNetworkApiClient', :git => 'git@github.com:Cheeezcake/RxNetworkApiClient.git'
 
+  pod "DBDebugToolkit"
+
 end

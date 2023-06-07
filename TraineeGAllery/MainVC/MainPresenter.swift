@@ -109,8 +109,15 @@ class MainPresenter {
         }
     }
     
+//    var wasResultProcessed = false
+//
+//    var hasMorePages: Bool {
+//        print("||", currentPage, currentCountOfPages)
+//        return (currentPage <= currentCountOfPages) || !wasResultProcessed
+//    }
+
     var hasMorePages: Bool {
-        currentPage <= currentCountOfPages
+        return currentPage <= currentCountOfPages
     }
     
     var isLoading = false
@@ -119,7 +126,7 @@ class MainPresenter {
     
     init(view: MainViewControllerProtocol? = nil,
          router: MainRouterProtocol,
-         network: NetworkService) {
+         network: NetworkServiceProtocol) {
         self.view = view
         self.router = router
         self.network = network
@@ -165,11 +172,14 @@ class MainPresenter {
         })
         .subscribe(onSuccess:{ [weak self] data in
             guard let self = self else { return }
+//            self.wasResultProcessed = true
             self.requestImages.append(contentsOf: data.data)
-            self.view?.updateView(restoreOffset: false)
-            guard let count = data.countOfPages else { return }
+            guard let count = data.countOfPages else {
+                return
+            }
             self.currentCountOfPages = count
             self.currentPage = self.pageToLoad
+            self.view?.updateView(restoreOffset: false)
         }, onFailure: { error in
             print(error)
         })
@@ -198,6 +208,7 @@ class MainPresenter {
         .delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
         .subscribe(onSuccess:{ [weak self] data in
             guard let self = self else { return }
+//            self.wasResultProcessed = true
             self.requestImages.append(contentsOf: data.data)
             self.view?.updateView(restoreOffset: false)
             guard let count = data.countOfPages else { return }
@@ -264,7 +275,19 @@ extension MainPresenter: MainPresenterProtocol {
     }
 
     func needIndicatorInFooter() -> Bool {
-        if searchedText.isEmpty  {
+////        if searchedText.isEmpty  {
+//        print("||", hasMorePages)
+//            return hasMorePages && getItemsCount() != 0
+////        } else {
+////            if hasMorePages && getItemsCount() == 10 {
+////                return true
+////            } else if getItemsCount() <= 10 {
+////                return false
+////            } else {
+////                return false
+////            }
+////        }
+    if searchedText.isEmpty  {
             return hasMorePages && getItemsCount() != 0
         } else {
             if hasMorePages && getItemsCount() == 10 {

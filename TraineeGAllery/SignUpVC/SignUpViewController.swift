@@ -68,14 +68,15 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-        let placeholderText = NSMutableAttributedString(string: "User Name*")
-        placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
-                                    range: NSRange(location: 0, length: placeholderText.length))
-        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
-                                    range: NSRange(location: placeholderText.length - 1, length: 1))
-        view.attributedPlaceholder = placeholderText
+//        let placeholderText = NSMutableAttributedString(string: "User Name*")
+//        placeholderText.addAttribute(.font,
+//                                    value: UIFont.robotoRegular(ofSize: 17),
+//                                    range: NSRange(location: 0, length: placeholderText.length))
+//        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
+//                                    value: UIColor.customRed,
+//                                    range: NSRange(location: placeholderText.length - 1, length: 1))
+//        view.attributedPlaceholder = placeholderText
+        view.text = "123123"
         
         return view
     }()
@@ -88,7 +89,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-        view.placeholder = "Birthday"
+//        view.placeholder = "Birthday"
+        view.text = "11.01.1991"
         view.keyboardType = .numbersAndPunctuation
 
         return view
@@ -102,15 +104,16 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-        let placeholderText = NSMutableAttributedString(string: "Email*")
-        placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
-                                    range: NSRange(location: 0, length: placeholderText.length))
-        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
-                                    range: NSRange(location: placeholderText.length - 1, length: 1))
-        view.attributedPlaceholder = placeholderText
-        view.keyboardType = .emailAddress
+//        let placeholderText = NSMutableAttributedString(string: "Email*")
+//        placeholderText.addAttribute(.font,
+//                                    value: UIFont.robotoRegular(ofSize: 17),
+//                                    range: NSRange(location: 0, length: placeholderText.length))
+//        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
+//                                    value: UIColor.customRed,
+//                                    range: NSRange(location: placeholderText.length - 1, length: 1))
+//        view.attributedPlaceholder = placeholderText
+//        view.keyboardType = .emailAddress
+        view.text = "111@foo.com"
 
         return view
     }()
@@ -123,15 +126,16 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-        let placeholderText = NSMutableAttributedString(string: "Old password*")
-        placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
-                                    range: NSRange(location: 0, length: placeholderText.length))
-        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
-                                    range: NSRange(location: placeholderText.length - 1, length: 1))
-        view.attributedPlaceholder = placeholderText
-        
+//        let placeholderText = NSMutableAttributedString(string: "Old password*")
+//        placeholderText.addAttribute(.font,
+//                                    value: UIFont.robotoRegular(ofSize: 17),
+//                                    range: NSRange(location: 0, length: placeholderText.length))
+//        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
+//                                    value: UIColor.customRed,
+//                                    range: NSRange(location: placeholderText.length - 1, length: 1))
+//        view.attributedPlaceholder = placeholderText
+        view.text = "12344321"
+
         return view
     }()
     
@@ -143,14 +147,15 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-        let placeholderText = NSMutableAttributedString(string: "Confirm password*")
-        placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
-                                    range: NSRange(location: 0, length: placeholderText.length))
-        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
-                                    range: NSRange(location: placeholderText.length - 1, length: 1))
-        view.attributedPlaceholder = placeholderText
+//        let placeholderText = NSMutableAttributedString(string: "Confirm password*")
+//        placeholderText.addAttribute(.font,
+//                                    value: UIFont.robotoRegular(ofSize: 17),
+//                                    range: NSRange(location: 0, length: placeholderText.length))
+//        placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
+//                                    value: UIColor.customRed,
+//                                    range: NSRange(location: placeholderText.length - 1, length: 1))
+//        view.attributedPlaceholder = placeholderText
+        view.text = "12344321"
 
         return view
     }()
@@ -180,6 +185,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(36)
             $0.width.equalTo(120)
         }
+        view.addTarget(self,
+                       action: #selector(onSignUpButtonTap),
+                       for: .touchUpInside)
         
         return view
     }()
@@ -335,6 +343,17 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     @objc
     func onSignInButtonTap() {
         presenter?.onSignInButtonTap()
+    }
+    
+    @objc
+    func onSignUpButtonTap() {
+        presenter?.registerNewUser(email: emailTextField.text ?? "",
+                                   phone: "",
+                                   fullName: userNameTextField.text ?? "",
+                                   password: confirmPasswordTextField.text ?? "",
+                                   username: userNameTextField.text ?? "",
+                                   birthday: birthdayTextField.text ?? "",
+                                   roles: [])
     }
 }
 

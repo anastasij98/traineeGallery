@@ -2,11 +2,12 @@
 //  ModifiedInterceptor.swift
 //  TraineeGAllery
 //
-//  Created by LUNNOPARK on 25.05.23.
+//  Created by LUNNOPARK on 01.06.23.
 //
 
 import Foundation
 import RxNetworkApiClient
+import RxSwift
 
 /// Позволяет логировать в консоль совершаемые http запросы.
 open class ModifiedInterceptor: Interceptor {
@@ -34,9 +35,8 @@ open class ModifiedInterceptor: Interceptor {
     public func handle<T: Codable>(request: ApiRequest<T>, response: NetworkResponse) {
         if let urlResponse = response.urlResponse {
             var responseBody = ""
-            if let data = response.data {
-//                responseBody = "Body: \(String(data: data, encoding: .utf8)!)"
-                responseBody = "Body: \(data)"
+            if let _ = response.data {
+                responseBody = "Body: \(response)"
 
             }
             guard let httpUrlResponse = urlResponse as? HTTPURLResponse else {
@@ -69,7 +69,6 @@ extension ApiClientImp {
     public static func modifiedInstance(host: String) -> ApiClientImp {
         ApiEndpoint.baseEndpoint = ApiEndpoint(host)
         let apiClient = ApiClientImp(urlSession: URLSession.shared)
-        apiClient.interceptors.append(ModifiedInterceptor())
         apiClient.responseHandlersQueue.append(JsonResponseHandler())
         return apiClient
     }
