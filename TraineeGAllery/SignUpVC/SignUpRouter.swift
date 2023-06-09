@@ -13,6 +13,7 @@ protocol SignUpRouterProtocol {
     /// Обращение к роутеру для получения и открытия экрана SignIn
     func openSignInViewController()
     
+    /// Обращение к роутеру для открытия TabBarController'a
     func openTabBarController()
 }
 
@@ -30,7 +31,6 @@ extension SignUpRouter: SignUpRouterProtocol {
         guard let navigationController = self.view?.navigationController else { return }
         SignInConfigurator.open(navigationController: navigationController)
     }
-    
     
     func openTabBarController() {
         let scenes = UIApplication.shared.connectedScenes

@@ -11,9 +11,16 @@ import SnapKit
 
 protocol SettingsVCProtocol {
     
+    /// <#Description#>
+    /// - Parameters:
+    ///   - userName: <#userName description#>
+    ///   - birthday: <#birthday description#>
+    ///   - email: <#email description#>
     func setupView(userName: String,
                    birthday: String,
                    email: String)
+    /// <#Description#>
+    /// - Parameter completion: <#completion description#>
     func textForSaving(completion: (_ userName: String, _ birthday: String, _ email: String)  -> Void)
 }
 
@@ -22,6 +29,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     var presenter: SettingsPresenterProtocol?
     
     var password = "password"
+    var alertCases = AlertCases.cancel
     
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -310,43 +318,56 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func setAlertController() {
+    func setAlertController(mode: AlertCases) {
         let alert = UIAlertController(title: "Confirmation",
-                                      message: "Are you sure you want to exit?\nThe entered data will be lost",
+                                      message: mode.rawValue,
                                       preferredStyle: UIAlertController.Style.alert)
-        let exit = UIAlertAction(title: "Exit", style: UIAlertAction.Style.default, handler: nil)
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
         
-        alert.addAction(exit)
-        alert.addAction(cancel)
-        alert.preferredAction = cancel
+        var leftButton = UIAlertAction()
+        switch mode {
+        case .delete:
+            leftButton = UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: deleteUser)
+        case .cancel:
+            leftButton = UIAlertAction(title: "Exit", style: UIAlertAction.Style.default, handler: popViewController)
+        }
+        
+        let rigthButton = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+        
+        alert.addAction(leftButton)
+        alert.addAction(rigthButton)
+        alert.preferredAction = rigthButton
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     @objc
     func onCancelButtonTap() {
+        setAlertController(mode: .cancel)
+    }
+    
+    func popViewController(action: UIAlertAction) {
         presenter?.popViewController(viewController: self)
     }
     
     @objc
-    func onSaveButtonTap() {
-        print("saved")
-        
-        presenter?.saveNotes()
+    func onDeleteButtonTap() {
+        setAlertController(mode: .delete)
     }
     
-    @objc
-    func onDeleteButtonTap() {
-        print("deleted")
+    func deleteUser(action: UIAlertAction) {
         presenter?.deleteUser()
+    }
+
+    @objc
+    func onSaveButtonTap() {
+        presenter?.saveUsersChanges()
     }
     
     @objc
     func onSignOutButtonTap() {
-        print("signOut")
-        setAlertController()
+        presenter?.signOut()
     }
 }
+
 
 extension SettingsViewController: SettingsVCProtocol {
 

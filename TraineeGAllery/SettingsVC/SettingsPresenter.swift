@@ -10,10 +10,21 @@ import RxSwift
 
 protocol SettingsPresenterProtocol {
     
+    /// Закрытие экрана Settings
+    /// - Parameter viewController: viewController, который надо закрыть
     func popViewController(viewController: SettingsViewController)
+    
+    /// ViewController готов к отображению
     func viewIsReady()
-    func saveNotes()
+    
+    /// Сохранение данных, которые изменил пользователь
+    func saveUsersChanges()
+    
+    /// Метод, отправляющий запрос на удаление пользователя
     func deleteUser()
+    
+    /// Метод, позволяющий выйти пользователю из своего профиля
+    func signOut()
 }
 
 class SettingsPresenter {
@@ -49,8 +60,7 @@ extension SettingsPresenter: SettingsPresenterProtocol {
                         email: userDef.getUsersInfo().email)
     }
     
-    
-    func saveNotes() {
+    func saveUsersChanges() {
         view?.textForSaving(completion: { userName, birthday, email in
             userDef.saveUsersInfo(name: userName, birthday: birthday, email: email)
         })
@@ -68,5 +78,10 @@ extension SettingsPresenter: SettingsPresenterProtocol {
                 self?.router.returnToWelcomeViewController()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func signOut() {
+        userDef.removeTokensAndUsersInfo()
+        router.returnToWelcomeViewController()
     }
 }

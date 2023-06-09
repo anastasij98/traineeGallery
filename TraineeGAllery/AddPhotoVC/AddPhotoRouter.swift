@@ -18,6 +18,8 @@ protocol AddPhotoRouterProtocol {
     /// - Parameter viewController: передаваемый viewController
     func openImagePicker(viewController: AddPhotoViewController)
     
+    /// Открытие TabBarController'a
+    /// - Parameter index: индекс выбранного экрана
     func openTabBarViewController(index: Int)
 }
 

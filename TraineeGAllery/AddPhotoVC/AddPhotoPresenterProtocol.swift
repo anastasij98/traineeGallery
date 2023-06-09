@@ -36,5 +36,7 @@ protocol AddPhotoPresenterProtocol {
     /// - Parameter object: объект в виде Dat'ы
     func selectedObject(object: Data)
     
+    /// Открытие TabBarController'a
+    /// - Parameter index: индекс выбранного экрана 
     func openTabBarViewController(index: Int)
 }

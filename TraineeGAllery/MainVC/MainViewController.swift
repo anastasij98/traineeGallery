@@ -37,7 +37,6 @@ class MainViewController: UISearchController {
                                     collectionViewLayout: UICollectionViewFlowLayout())
         return view
     }()
-   
     
     //положение галлереи
     var newCollectionViewOffset: CGPoint = CGPoint()

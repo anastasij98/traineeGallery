@@ -10,16 +10,10 @@ import RxNetworkApiClient
 
 class NetworkService {
     
-    //    private let interceptor = AuthInterceptor(UserDefaultsService())
-    //    private let apiClient: ApiClient = ApiClientImp.modifiedInstance(host: "https://gallery.prod1.webant.ru/")
-    //    private let apiClient: ApiClient = ApiClientImp.authInstance(host: "https://gallery.prod1.webant.ru/")
     private var apiClient: ApiClient = {
-        //        ApiEndpoint.baseEndpoint = ApiEndpoint("https://gallery.prod1.webant.ru/")
-        //        let apiClient = ApiClientImp(urlSession: URLSession.shared)
         let apiClient = ApiClientImp.authInstance(host: "https://gallery.prod1.webant.ru/")
         apiClient.interceptors.append(ModifiedInterceptor())
-        //        apiClient.interceptors.append(AuthInterceptor(UserDefaultsService()))
-        //        apiClient.responseHandlersQueue.append(JsonResponseHandler())
+        
         return apiClient
     }()
 }
@@ -116,7 +110,7 @@ extension NetworkService: NetworkServiceProtocol {
         let request: ApiRequest<Data> = .request(path: "api/users/\(id)",
                                                  method: .delete,
                                                  headers: [header])
-        
+
         return apiClient.execute(request: request)
     }
 }

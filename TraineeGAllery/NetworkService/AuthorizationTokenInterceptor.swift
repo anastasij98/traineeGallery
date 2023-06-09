@@ -20,7 +20,7 @@ class AuthInterceptor: Interceptor {
     
     func prepare<T: Codable>(request: ApiRequest<T>) {
         guard let path = request.path,
-              !path.contains("oauth/v2/token") && !path.contains("api/users")
+              !path.contains("oauth/v2/token") && path != ("api/users")
         else { return }
         guard let accessToken = userDef?.getAccessToken() else { return }
                 let hasAuthHeader = request.headers?.contains(where: { header in

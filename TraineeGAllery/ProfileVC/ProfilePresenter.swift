@@ -13,8 +13,11 @@ protocol ProfilePresenterProtocol {
     /// Обращение к роутеру для открытия экрана настроек(Settings)
     func openSettings()
     
+    /// Открытие TabBarController'a
+    /// - Parameter index: индекс выбранного экрана 
     func openTabBarViewController(index: Int)
     
+    /// View готово к отображению
     func viewIsReady()
 }
 

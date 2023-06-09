@@ -75,6 +75,8 @@
 		47E966B12A2A32FB007536AB /* FormattedDateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B02A2A32FB007536AB /* FormattedDateString.swift */; };
 		47E966B32A2E3150007536AB /* RequestRegisterUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B22A2E3150007536AB /* RequestRegisterUserModel.swift */; };
 		47E966B52A2F59B6007536AB /* RegisterUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B42A2F59B6007536AB /* RegisterUserModel.swift */; };
+		47E966B72A332319007536AB /* AlertActionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B62A332319007536AB /* AlertActionMode.swift */; };
+		47E966B92A33571B007536AB /* UserDefaultsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B82A33571B007536AB /* UserDefaultsServiceProtocol.swift */; };
 		47EEEEBB2A026C7B0075791D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */; };
 		47EEEEBD2A026D210075791D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBC2A026D210075791D /* ProfileViewController.swift */; };
 		47EEEEBF2A026D350075791D /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */; };
@@ -168,6 +170,8 @@
 		47E966B02A2A32FB007536AB /* FormattedDateString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedDateString.swift; sourceTree = "<group>"; };
 		47E966B22A2E3150007536AB /* RequestRegisterUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegisterUserModel.swift; sourceTree = "<group>"; };
 		47E966B42A2F59B6007536AB /* RegisterUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserModel.swift; sourceTree = "<group>"; };
+		47E966B62A332319007536AB /* AlertActionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertActionMode.swift; sourceTree = "<group>"; };
+		47E966B82A33571B007536AB /* UserDefaultsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceProtocol.swift; sourceTree = "<group>"; };
 		47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		47EEEEBC2A026D210075791D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 				47E966A52A275BFD007536AB /* UserModel.swift */,
 				47E966B22A2E3150007536AB /* RequestRegisterUserModel.swift */,
 				47E966B42A2F59B6007536AB /* RegisterUserModel.swift */,
+				47E966B62A332319007536AB /* AlertActionMode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 		47E966A72A27813F007536AB /* UserDefaultsService */ = {
 			isa = PBXGroup;
 			children = (
+				47E966B82A33571B007536AB /* UserDefaultsServiceProtocol.swift */,
 				47E966A82A278158007536AB /* UserDefaultsService.swift */,
 			);
 			path = UserDefaultsService;
@@ -649,6 +655,7 @@
 				47E515D629F8A04200AB5397 /* UITextField.swift in Sources */,
 				4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */,
 				476BAF632A1776E3002F6F6E /* MainVC+SearchBar.swift in Sources */,
+				47E966B92A33571B007536AB /* UserDefaultsServiceProtocol.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,
 				475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */,
 				476BAF612A16C2FC002F6F6E /* UIButton.swift in Sources */,
@@ -661,6 +668,7 @@
 				47CB5BB129DCB6D4002BB2ED /* MainConfigurator.swift in Sources */,
 				47E515C829F8602000AB5397 /* SignUpRouter.swift in Sources */,
 				47CB5BBD29DDCF3D002BB2ED /* DetailedPresenter.swift in Sources */,
+				47E966B72A332319007536AB /* AlertActionMode.swift in Sources */,
 				47E515D029F87BD500AB5397 /* SignInPresenter.swift in Sources */,
 				47E966AF2A28B817007536AB /* ModifiedInterceptor.swift in Sources */,
 				47E966A62A275BFD007536AB /* UserModel.swift in Sources */,

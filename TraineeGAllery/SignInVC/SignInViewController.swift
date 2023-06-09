@@ -68,8 +68,8 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-//        view.placeholder = "Email"
-        view.text = "basetest@ios.webant"
+        view.placeholder = "Email"
+        
         return view
     }()
     
@@ -81,8 +81,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.snp.makeConstraints {
             $0.height.equalTo(36)
         }
-//        view.placeholder = "Password"
-        view.text = "111111"
+        view.placeholder = "Password"
         
         return view
     }()
@@ -144,13 +143,6 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupView()
-        checkOrientationAndSetLayout()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -161,6 +153,13 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
                                                              style: .plain,
                                                              target: self,
                                                              action: #selector(popViewController)))
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupView()
+        checkOrientationAndSetLayout()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -243,7 +242,6 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func signInButtonTap() {
-        //        presenter?.openTabBar()
         if let email = emailTextField.text,
            let password = passwordTextField.text {
             if !email.isEmpty && !password.isEmpty {

@@ -7,31 +7,6 @@
 
 import Foundation
 
-protocol UserDefaultsServiceProtocol {
-    
-    /// saveAccessToken - метод, сохраняющий accessToken в userDefaults
-    /// - Parameters:
-    ///   - token: передаваемый token для кодирования и сохранения в userDefults
-    func saveAccessToken(token: String)
-    
-    /// getAccessToken - метод, возвращающий accessToken из userDefaults
-    func getAccessToken() -> String
-    
-    /// <#Description#>
-    /// - Parameters:
-    ///   - name: <#name description#>
-    ///   - birthday: <#birthday description#>
-    ///   - email: <#email description#>
-    func saveUsersInfo(name: String, birthday: String, email: String)
-    /// <#Description#>
-    /// - Returns: <#description#>
-    func getUsersInfo() -> (name: String, birthday: String, email: String)
-    func getSavedUsersInfo() -> (name: String, birthday: String, email: String)
-    
-    func saveUsersId(id: Int)
-    func getUsersId() -> Int
-}
-
 class UserDefaultsService {
     
     var accessTokenKey = "accessToken"
@@ -68,15 +43,6 @@ extension UserDefaultsService: UserDefaultsServiceProtocol {
         return (name, birthday, email)
     }
     
-    func getSavedUsersInfo() -> (name: String, birthday: String, email: String) {
-        guard let name = UserDefaults.standard.string(forKey: nameKey),
-              let birthday = UserDefaults.standard.string(forKey: birthdayKey),
-              let email = UserDefaults.standard.string(forKey: emailKey) else {
-            return ("Visitor","01.01.1901","email@adress.com") }
-        
-        return (name, birthday, email)
-    }
-    
     func saveUsersId(id:Int) {
         UserDefaults.standard.set(id, forKey: usersId)
     }
@@ -84,5 +50,12 @@ extension UserDefaultsService: UserDefaultsServiceProtocol {
     func getUsersId() -> Int {
         let id = UserDefaults.standard.integer(forKey: usersId)
         return id
+    }
+    
+    func removeTokensAndUsersInfo() {
+        var usersInfo = [accessTokenKey, nameKey, birthdayKey, usersId, emailKey]
+        usersInfo.forEach { key in
+            UserDefaults.standard.removeObject(forKey: key)
+        }
     }
 }

@@ -38,14 +38,14 @@ protocol NetworkServiceProtocol {
     
     /// Запрос регистрации нового пользователя
     /// - Parameters:
-    ///   - emailTextField: email пользователя
-    ///   - phoneTextField: номер телефона
-    ///   - fullNameTextField: полное имя пользователя
-    ///   - passwordTextField: пароль
-    ///   - usernameTextField: имя пользователя
-    ///   - birthdayTextField: день рождения
-    ///   - rolesTextField: ?
-    /// - Returns: <#description#>
+    ///   - email: email пользователя
+    ///   - phone: номер телефона
+    ///   - fullName: полное имя пользователя
+    ///   - password: пароль
+    ///   - username: имя пользователя
+    ///   - birthday: дата рождения
+    ///   - roles: ?
+    /// - Returns: при успешном запросе, возвращает информацию о пользователе в виде UserModel
     func registerUser(email: String,
                       password: String,
                       phone: String,
@@ -54,6 +54,9 @@ protocol NetworkServiceProtocol {
                       birthday: String,
                       roles: [String]) -> Single<ResponseRegisterModel>
     
+    /// Запрос на удаление текущего пользователя
+    /// - Parameter id: id пользователя
+    /// - Returns: возвращает Single, содержащий один объект типа Data
     func deleteUser(id: Int) -> Single<Data>
 }
 

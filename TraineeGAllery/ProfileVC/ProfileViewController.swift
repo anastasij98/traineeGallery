@@ -11,6 +11,10 @@ import SnapKit
 
 protocol ProfileVCProtocol: AnyObject {
     
+    /// Установка view ViewControler'a
+    /// - Parameters:
+    ///   - userName: имя пользователя
+    ///   - birthday: дата рождения пользователя 
     func setupView(userName: String,
                    birthday: String) 
 }
