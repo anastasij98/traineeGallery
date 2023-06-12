@@ -60,15 +60,16 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
                                                    options: option) { data, _, _, _ in
                 guard let data = data else { return }
                 self.objectsArray.append(data)
+                DispatchQueue.main.async {
+                    let firstImage = self.objectsArray[0]
+                    self.view?.setupImageView(image: firstImage)
+                    self.selectedObject = firstImage
+                }
             }
         }
     }
     
     func selectedObject(object: Data) {
         selectedObject = object
-    }
-    
-    func openTabBarViewController(index: Int) {
-        router.openTabBarViewController(index: index)
     }
 }

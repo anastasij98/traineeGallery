@@ -18,6 +18,10 @@ class AddDataConfigurator {
 
     static func getViewController(imageObject: Data) -> AddDataViewController {
         let viewController = AddDataViewController()
+        let router = AddDataRouter(view: viewController)
+        let presenter = AddDataPresenter(view: viewController,
+                                         router: router)
+        viewController.presenter = presenter
         viewController.imageObject = imageObject
 
         return viewController

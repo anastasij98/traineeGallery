@@ -77,6 +77,9 @@
 		47E966B52A2F59B6007536AB /* RegisterUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B42A2F59B6007536AB /* RegisterUserModel.swift */; };
 		47E966B72A332319007536AB /* AlertActionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B62A332319007536AB /* AlertActionMode.swift */; };
 		47E966B92A33571B007536AB /* UserDefaultsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966B82A33571B007536AB /* UserDefaultsServiceProtocol.swift */; };
+		47E966BB2A35CC0D007536AB /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47E966BA2A35CC0D007536AB /* Roboto-Medium.ttf */; };
+		47E966BD2A364A42007536AB /* AddDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966BC2A364A42007536AB /* AddDataPresenter.swift */; };
+		47E966BF2A364A95007536AB /* AddDataRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966BE2A364A95007536AB /* AddDataRouter.swift */; };
 		47EEEEBB2A026C7B0075791D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */; };
 		47EEEEBD2A026D210075791D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBC2A026D210075791D /* ProfileViewController.swift */; };
 		47EEEEBF2A026D350075791D /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */; };
@@ -172,6 +175,9 @@
 		47E966B42A2F59B6007536AB /* RegisterUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserModel.swift; sourceTree = "<group>"; };
 		47E966B62A332319007536AB /* AlertActionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertActionMode.swift; sourceTree = "<group>"; };
 		47E966B82A33571B007536AB /* UserDefaultsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceProtocol.swift; sourceTree = "<group>"; };
+		47E966BA2A35CC0D007536AB /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		47E966BC2A364A42007536AB /* AddDataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataPresenter.swift; sourceTree = "<group>"; };
+		47E966BE2A364A95007536AB /* AddDataRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataRouter.swift; sourceTree = "<group>"; };
 		47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		47EEEEBC2A026D210075791D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
@@ -313,6 +319,7 @@
 			children = (
 				479E68D029ED39150053E706 /* Roboto-Bold.ttf */,
 				475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */,
+				47E966BA2A35CC0D007536AB /* Roboto-Medium.ttf */,
 				475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */,
 				47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */,
 			);
@@ -457,6 +464,8 @@
 			isa = PBXGroup;
 			children = (
 				47EEEED42A02E49F0075791D /* AddDataViewController.swift */,
+				47E966BC2A364A42007536AB /* AddDataPresenter.swift */,
+				47E966BE2A364A95007536AB /* AddDataRouter.swift */,
 				47EEEED62A02E4AF0075791D /* AddDataConfigurator.swift */,
 			);
 			path = AddDataVC;
@@ -550,6 +559,7 @@
 				476BAF5F2A169F17002F6F6E /* Localization.strings in Resources */,
 				475AA78829D6E6B2006B9BC6 /* Roboto-Regular.ttf in Resources */,
 				4709BA1429D1AC900035F64F /* Main.storyboard in Resources */,
+				47E966BB2A35CC0D007536AB /* Roboto-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +653,7 @@
 				47E515C129F85BEC00AB5397 /* WelcomeRouter.swift in Sources */,
 				47EEEED22A02E21A0075791D /* AddPhotoRouter.swift in Sources */,
 				47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */,
+				47E966BD2A364A42007536AB /* AddDataPresenter.swift in Sources */,
 				47CB5BAF29DCB685002BB2ED /* MainPresenter.swift in Sources */,
 				47EEEECA2A0283A90075791D /* AddPhotoConfigurator.swift in Sources */,
 				475AA78029D6DFDB006B9BC6 /* SegContrUnderLine.swift in Sources */,
@@ -654,6 +665,7 @@
 				47E515C629F8601500AB5397 /* SignUpPresenter.swift in Sources */,
 				47E515D629F8A04200AB5397 /* UITextField.swift in Sources */,
 				4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */,
+				47E966BF2A364A95007536AB /* AddDataRouter.swift in Sources */,
 				476BAF632A1776E3002F6F6E /* MainVC+SearchBar.swift in Sources */,
 				47E966B92A33571B007536AB /* UserDefaultsServiceProtocol.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,
@@ -857,6 +869,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -887,6 +900,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

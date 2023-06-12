@@ -35,8 +35,4 @@ protocol AddPhotoPresenterProtocol {
     /// Выбранный объект в imagePicker'e,показываемый в imageView АddPhotoViewController и передаваемый в AddDataViewController в виде Data
     /// - Parameter object: объект в виде Dat'ы
     func selectedObject(object: Data)
-    
-    /// Открытие TabBarController'a
-    /// - Parameter index: индекс выбранного экрана 
-    func openTabBarViewController(index: Int)
 }

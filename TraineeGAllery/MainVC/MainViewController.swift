@@ -68,11 +68,11 @@ class MainViewController: UISearchController {
         view.clipsToBounds = false
         view.addTarget(self, action: #selector(changeScreen), for: .valueChanged)
         view.backgroundColor = .white
-        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 17),
-                                     .foregroundColor : UIColor.black],
+        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 18),
+                                     .foregroundColor : UIColor.galleryBlack],
                                     for: .selected)
-        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 17),
-                                     .foregroundColor : UIColor.mainGrey],
+        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 18),
+                                     .foregroundColor : UIColor.galleryGrey],
                                     for: .normal)
         
         return view
@@ -80,22 +80,22 @@ class MainViewController: UISearchController {
     
     lazy var splitLeftUnderlineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customPink
+        view.backgroundColor = .galleryMain
         
         return view
     }()
     
     lazy var splitRightUnderlineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customPink
+        view.backgroundColor = .galleryMain
         
         return view
     }()
     
     lazy var refreshControl: UIRefreshControl = {
         let view = UIRefreshControl()
-        view.attributedTitle = NSAttributedString(string: "")
-        view.tintColor = .systemMint
+        view.attributedTitle = NSAttributedString(string: .init())
+        view.tintColor = .galleryBlue
         view.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
         
         return view
@@ -109,7 +109,8 @@ class MainViewController: UISearchController {
     
     lazy var searchController: UISearchBar = {
        let view = UISearchBar()
-        view.tintColor = .customDarkGrey
+        view.tintColor = .galleryGrey
+        view.placeholder = "Search"
 
         return view
     }()
@@ -121,9 +122,9 @@ class MainViewController: UISearchController {
         setupSegmentedControl()
         setupCollectionView()
         setupCollectionViewLayout()
-        updateUnderlineVisibility(hiddenValue: false)
+        updateUnderlineVisibility(hiddenValue: true)
         setupNoConnectionStackView()
-        
+        setupNavigationBar(underlineColor: .clear)
         setupSearchBar()
     }
 
@@ -197,8 +198,13 @@ class MainViewController: UISearchController {
     }
     
     private func updateUnderlineVisibility(hiddenValue: Bool) {
-        splitLeftUnderlineView.isHidden = hiddenValue
-        splitRightUnderlineView.isHidden = !hiddenValue
+        if hiddenValue {
+            splitLeftUnderlineView.backgroundColor = .galleryMain
+            splitRightUnderlineView.backgroundColor = .galleryLightGrey
+        } else {
+            splitLeftUnderlineView.backgroundColor = .galleryLightGrey
+            splitRightUnderlineView.backgroundColor = .galleryMain
+        }
     }
 
     @objc
@@ -212,8 +218,8 @@ class MainViewController: UISearchController {
     func changeScreen(_ sender: UISegmentedControl) {
         savedCollectionViewOffset = collectionView.contentOffset
         segmentedControl.selectedSegmentIndex == 0
-            ? updateUnderlineVisibility(hiddenValue: false)
-            : updateUnderlineVisibility(hiddenValue: true)
+            ? updateUnderlineVisibility(hiddenValue: true)
+            : updateUnderlineVisibility(hiddenValue: false)
     
         presenter?.didSelectSegment(withIndex: segmentedControl.selectedSegmentIndex)
     }

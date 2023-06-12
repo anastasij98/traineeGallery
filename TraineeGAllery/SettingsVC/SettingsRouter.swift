@@ -34,7 +34,11 @@ extension SettingsRouter: SettingsRouterProtocol {
     }
     
     func returnToWelcomeViewController() {
-        guard let navigationController = self.view?.navigationController else { return }
-        WelcomeConfigurator.openViewController(navigationController: navigationController)
+        let welcomeViewController = WelcomeConfigurator.getViewController()
+        let navigationController = UINavigationController(rootViewController: welcomeViewController)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = navigationController
     }
 }

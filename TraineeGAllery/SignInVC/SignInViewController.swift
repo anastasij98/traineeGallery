@@ -55,7 +55,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var titleUnderline: UIView = {
         let view = UIView()
-        view.backgroundColor = .customPink
+        view.backgroundColor = .galleryMain
         
         return view
     }()
@@ -69,7 +69,8 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(36)
         }
         view.placeholder = "Email"
-        
+        view.setupIcon(name: "email")
+
         return view
     }()
     
@@ -82,25 +83,11 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(36)
         }
         view.placeholder = "Password"
-        
+        view.setupIcon(name: "password")
+
         return view
     }()
-    
-    lazy var emailImageView = UIImageView(image: UIImage(named: "email"))
-    lazy var passwordImageView = UIImageView(image: UIImage(named: "password"))
-    
-    lazy var forgotButton: UIButton = {
-        let view = UIButton()
-        view.setTitle("Forgot login or password?",
-                      for: .normal)
-        view.setTitleColor(.mainGrey,
-                           for: .normal)
-        view.titleLabel?.font = .robotoRegular(ofSize: 13)
-        view.layer.borderColor = UIColor.white.cgColor
-        view.backgroundColor = .white
-        
-        return view
-    }()
+
     
     lazy var buttonsStackView: UIStackView = {
         let view = UIStackView()
@@ -114,12 +101,11 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         let view = UIButton()
         view.setTitle("Sign In",
                       for: .normal)
-        view.titleLabel?.font = .robotoBold(ofSize: 17)
-        view.backgroundColor = .customBlack
-        view.layer.cornerRadius = 4
+        view.titleLabel?.font = .robotoMedium(ofSize: 16)
+        view.backgroundColor = .galleryBlack
+        view.layer.cornerRadius = 10
         view.snp.makeConstraints {
-            $0.height.equalTo(36)
-            $0.width.equalTo(120)
+            $0.height.equalTo(40)
         }
         view.addTarget(self,
                        action: #selector(signInButtonTap),
@@ -134,13 +120,21 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
                       for: .normal)
         view.setTitleColor(.black,
                            for: .normal)
-        view.titleLabel?.font = .robotoRegular(ofSize: 17)
+        view.titleLabel?.font = .robotoMedium(ofSize: 16)
         view.backgroundColor = .white
         view.snp.makeConstraints {
-            $0.height.equalTo(18)
-            $0.width.equalTo(103)
+            $0.height.equalTo(40)
         }
         
+        return view
+    }()
+    
+    lazy var leftBarButton: UIButton = {
+        let view = UIButton.leftBarBut(title: "Cancel")
+        view.addTarget(self,
+                       action: #selector(popViewController),
+                       for: .touchUpInside)
+
         return view
     }()
     
@@ -148,11 +142,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillAppear(animated)
         
         checkOrientationAndSetLayout()
-        setupNavigationBar(isHidden: false,
-                           customBackButton: UIBarButtonItem(title: "Cancel",
-                                                             style: .plain,
-                                                             target: self,
-                                                             action: #selector(popViewController)))
+        setupNavigationBar(isHidden: false, customBackButton: UIBarButtonItem(customView: leftBarButton))
     }
     
     override func viewDidLoad() {
@@ -170,7 +160,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func popViewController() {
-        navigationController?.popViewController(animated: true)
+        presenter?.popViewController(viewController: self)
     }
     
     func checkOrientationAndSetLayout() {
@@ -181,7 +171,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             }
         } else {
             stackView.snp.remakeConstraints {
-                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(188)
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(120)
             }
         }
     }
@@ -191,17 +181,15 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView)
         scrollView.delegate = self
         scrollView.addSubview(stackView)
-        stackView.addArrangedSubviews(signInTitle, textFieldsStackView, forgotButton, buttonsStackView)
+        stackView.addArrangedSubviews(signInTitle, textFieldsStackView, buttonsStackView)
         stackView.setCustomSpacing(55, after: signInTitle)
+        stackView.setCustomSpacing(60, after: textFieldsStackView)
         textFieldsStackView.addArrangedSubviews(emailTextField, passwordTextField)
         signInTitle.addSubview(titleUnderline)
-        textFieldsStackView.setCustomSpacing(29, after: emailTextField)
+        textFieldsStackView.setCustomSpacing(20, after: emailTextField)
         
         buttonsStackView.addArrangedSubviews(signInButton, signUpButton)
-        buttonsStackView.setCustomSpacing(19, after: signInButton)
-        
-        emailTextField.addSubview(emailImageView)
-        passwordTextField.addSubview(passwordImageView)
+        buttonsStackView.setCustomSpacing(10, after: signInButton)
         
         scrollView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -211,7 +199,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         }
         
         stackView.snp.makeConstraints {
-            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(188)
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(120)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
             $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
@@ -229,14 +217,14 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
         
-        emailImageView.snp.makeConstraints {
-            $0.centerY.equalTo(emailTextField.snp.centerY)
-            $0.trailing.equalTo(emailTextField.snp.trailing).inset(11)
+        signInButton.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).inset(106)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(106)
         }
         
-        passwordImageView.snp.makeConstraints {
-            $0.centerY.equalTo(passwordTextField.snp.centerY)
-            $0.trailing.equalTo(passwordTextField.snp.trailing).inset(11)
+        signUpButton.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(106)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(106)
         }
     }
     

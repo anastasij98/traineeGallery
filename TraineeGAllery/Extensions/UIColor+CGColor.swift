@@ -10,28 +10,30 @@ import UIKit
 
 extension UIColor {
     
-    static var customBlack: UIColor {
+    static var galleryBlack: UIColor {
         #colorLiteral(red: 0.1516073942, green: 0.1516073942, blue: 0.1516073942, alpha: 1)
     }
     
-    static var customDarkGrey: UIColor {
-        #colorLiteral(red: 0.3725490196, green: 0.3725490196, blue: 0.3725490196, alpha: 1)
+    static var galleryGrey: UIColor {
+        #colorLiteral(red: 0.737254902, green: 0.737254902, blue: 0.737254902, alpha: 1)
     }
     
-    static var mainGrey: UIColor {
-        #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+    static var galleryLightGrey: UIColor {
+        #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.937254902, alpha: 1)
     }
     
-    static var customPink: UIColor {
-        #colorLiteral(red: 0.855356276, green: 0.3845037818, blue: 0.5663366914, alpha: 1)
+    
+    static var galleryMain: UIColor {
+        #colorLiteral(red: 0.8117647059, green: 0.2862745098, blue: 0.4941176471, alpha: 1)
     }
 
-    static var customRed: UIColor {
+    static var galleryErrorRed: UIColor {
         #colorLiteral(red: 0.9098039216, green: 0, blue: 0, alpha: 1)
     }
     
-    static var customLightGrey: UIColor {
-        #colorLiteral(red: 0.9529411765, green: 0.9529411765, blue: 0.9529411765, alpha: 1)
+    static var galleryBlue: UIColor {
+        #colorLiteral(red: 0.3040042818, green: 0.6906013489, blue: 1, alpha: 1)
+        
     }
 }
 

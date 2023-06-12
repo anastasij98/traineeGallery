@@ -74,8 +74,7 @@ extension DetailedPresenter: DetailedPresenterProtocol {
         view?.setupView(name: model.name ?? .init(),
                         user: model.user ?? "",
                         description: model.description ?? String(),
-                        date: getFormattedDateString(),
-                        viewsCount: String(model.id ?? 0))
+                        date: getFormattedDateString())
         // Начинаем загрузку картинки
         downloadImageFile()
     }

@@ -15,6 +15,10 @@ protocol SignInPresenterProtocol {
     
     /// Обращение к networkServic'y для отправки запроса на авторизацию
     func signInButtonTap(userName: String, password: String)
+    
+    /// Обращение к роутеру для закрытия экрана SignIn
+    /// - Parameter viewController: экран SignIn
+    func popViewController(viewController: SignInViewController)
 }
 
 class SignInPresenter {
@@ -81,5 +85,9 @@ extension SignInPresenter: SignInPresenterProtocol {
                 print(error)
             })
             .disposed(by: userDisposeBag)
+    }
+    
+    func popViewController(viewController: SignInViewController) {
+        router.popViewController(viewController: viewController)
     }
 }

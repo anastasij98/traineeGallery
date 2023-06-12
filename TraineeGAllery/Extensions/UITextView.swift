@@ -14,7 +14,7 @@ extension UITextView {
         self.layer.cornerRadius = 4
         self.layer.borderWidth = 1
         self.layer.borderColor = .mainGrey
-        self.textColor = .mainGrey
+        self.textColor = .galleryGrey
         self.font = .robotoRegular(ofSize: 17)
         self.keyboardType = .default
         self.text = text

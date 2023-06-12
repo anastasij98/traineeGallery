@@ -159,12 +159,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 3 files.
+  /// This `R.file` struct is generated, and contains static references to 4 files.
   struct file {
     /// Resource file `Roboto-Bold.ttf`.
     static let robotoBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Bold", pathExtension: "ttf")
     /// Resource file `Roboto-Light.ttf`.
     static let robotoLightTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Light", pathExtension: "ttf")
+    /// Resource file `Roboto-Medium.ttf`.
+    static let robotoMediumTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Medium", pathExtension: "ttf")
     /// Resource file `Roboto-Regular.ttf`.
     static let robotoRegularTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Regular", pathExtension: "ttf")
 
@@ -180,6 +182,12 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
+    /// `bundle.url(forResource: "Roboto-Medium", withExtension: "ttf")`
+    static func robotoMediumTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoMediumTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
     /// `bundle.url(forResource: "Roboto-Regular", withExtension: "ttf")`
     static func robotoRegularTtf(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.robotoRegularTtf
@@ -189,12 +197,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.font` struct is generated, and contains static references to 3 fonts.
+  /// This `R.font` struct is generated, and contains static references to 4 fonts.
   struct font: Rswift.Validatable {
     /// Font `Roboto-Bold`.
     static let robotoBold = Rswift.FontResource(fontName: "Roboto-Bold")
     /// Font `Roboto-Light`.
     static let robotoLight = Rswift.FontResource(fontName: "Roboto-Light")
+    /// Font `Roboto-Medium`.
+    static let robotoMedium = Rswift.FontResource(fontName: "Roboto-Medium")
     /// Font `Roboto-Regular`.
     static let robotoRegular = Rswift.FontResource(fontName: "Roboto-Regular")
 
@@ -208,6 +218,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIFont(resource: robotoLight, size: size)
     }
 
+    /// `UIFont(name: "Roboto-Medium", size: ...)`
+    static func robotoMedium(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoMedium, size: size)
+    }
+
     /// `UIFont(name: "Roboto-Regular", size: ...)`
     static func robotoRegular(size: CGFloat) -> UIKit.UIFont? {
       return UIKit.UIFont(resource: robotoRegular, size: size)
@@ -216,13 +231,14 @@ struct R: Rswift.Validatable {
     static func validate() throws {
       if R.font.robotoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Bold' could not be loaded, is 'Roboto-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.robotoLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Light' could not be loaded, is 'Roboto-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Medium' could not be loaded, is 'Roboto-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.robotoRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Regular' could not be loaded, is 'Roboto-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 22 images.
+  /// This `R.image` struct is generated, and contains static references to 18 images.
   struct image {
     /// Image `Ellipse`.
     static let ellipse = Rswift.ImageResource(bundle: R.hostingBundle, name: "Ellipse")
@@ -230,12 +246,8 @@ struct R: Rswift.Validatable {
     static let intersect1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Intersect 1")
     /// Image `Intersect`.
     static let intersect = Rswift.ImageResource(bundle: R.hostingBundle, name: "Intersect")
-    /// Image `Logo`.
-    static let logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "Logo")
-    /// Image `Mask`.
-    static let mask = Rswift.ImageResource(bundle: R.hostingBundle, name: "Mask")
-    /// Image `Vector`.
-    static let vector = Rswift.ImageResource(bundle: R.hostingBundle, name: "Vector")
+    /// Image `Logo-2`.
+    static let logo2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Logo-2")
     /// Image `birthday`.
     static let birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "birthday")
     /// Image `cat1`.
@@ -250,8 +262,6 @@ struct R: Rswift.Validatable {
     static let cat5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "cat5")
     /// Image `cat6`.
     static let cat6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "cat6")
-    /// Image `downArrow`.
-    static let downArrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "downArrow")
     /// Image `email`.
     static let email = Rswift.ImageResource(bundle: R.hostingBundle, name: "email")
     /// Image `main`.
@@ -264,8 +274,6 @@ struct R: Rswift.Validatable {
     static let profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile")
     /// Image `settings`.
     static let settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "settings")
-    /// Image `userCamera`.
-    static let userCamera = Rswift.ImageResource(bundle: R.hostingBundle, name: "userCamera")
     /// Image `user`.
     static let user = Rswift.ImageResource(bundle: R.hostingBundle, name: "user")
 
@@ -291,23 +299,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Logo", bundle: ..., traitCollection: ...)`
-    static func logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.logo, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Mask", bundle: ..., traitCollection: ...)`
-    static func mask(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.mask, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Vector", bundle: ..., traitCollection: ...)`
-    static func vector(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.vector, compatibleWith: traitCollection)
+    /// `UIImage(named: "Logo-2", bundle: ..., traitCollection: ...)`
+    static func logo2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.logo2, compatibleWith: traitCollection)
     }
     #endif
 
@@ -361,13 +355,6 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "downArrow", bundle: ..., traitCollection: ...)`
-    static func downArrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.downArrow, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "email", bundle: ..., traitCollection: ...)`
     static func email(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.email, compatibleWith: traitCollection)
@@ -413,13 +400,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "user", bundle: ..., traitCollection: ...)`
     static func user(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.user, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "userCamera", bundle: ..., traitCollection: ...)`
-    static func userCamera(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.userCamera, compatibleWith: traitCollection)
     }
     #endif
 

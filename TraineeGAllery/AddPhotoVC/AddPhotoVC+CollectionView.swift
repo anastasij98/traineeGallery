@@ -60,6 +60,6 @@ extension AddPhotoViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
+        return UIEdgeInsets(top: 0, left: 16, bottom: 20, right: 16)
     }
 }

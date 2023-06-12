@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     
     private func setupNavigationBar(isHidden: Bool?,
-                                    underlineColor: UIColor = .mainGrey,
+                                    underlineColor: UIColor = .galleryGrey,
                                     backButtonTitle: String?,
                                     customBackButton: UIBarButtonItem?) {
         if let isHidden = isHidden {
@@ -30,13 +30,13 @@ extension UIViewController {
         appearance.shadowColor = underlineColor
         
         let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
-        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.galleryBlue]
         appearance.backButtonAppearance = backButtonAppearance
         appearance.buttonAppearance = backButtonAppearance
         
         if let customBackButton = customBackButton {
-            customBackButton.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 15),
-                                                .foregroundColor : UIColor.customDarkGrey],
+            customBackButton.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 17),
+                                                .foregroundColor : UIColor.galleryBlue],
                                                for: .normal)
             navigationItem.leftBarButtonItems = [customBackButton]
         } else {
@@ -44,25 +44,23 @@ extension UIViewController {
                                            style: .plain,
                                            target: nil,
                                            action: nil)
-            
-            backItem.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 15),
-                                                .foregroundColor : UIColor.customDarkGrey],
+            backItem.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 17),
+                                                .foregroundColor : UIColor.galleryBlue],
                                                for: .normal)
-            
+            let backButtonImage = UIImage(systemName: "chevron.left")
+            appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
             navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
-            let backButtonImage = R.image.vector()
-                appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         }
         
         appearance.backgroundColor = .systemBackground
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .galleryBlue
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.isOpaque = false
     }
     
     func setupNavigationBar(isHidden: Bool? = nil,
-                            underlineColor: UIColor = .mainGrey,
+                            underlineColor: UIColor = .galleryGrey,
                             backButtonTitle: String = .init()) {
         setupNavigationBar(isHidden: isHidden,
                            underlineColor: underlineColor,
@@ -71,7 +69,7 @@ extension UIViewController {
     }
     
     func setupNavigationBar(isHidden: Bool? = nil,
-                            underlineColor: UIColor = .mainGrey,
+                            underlineColor: UIColor = .galleryGrey,
                             customBackButton: UIBarButtonItem) {
         setupNavigationBar(isHidden: isHidden,
                            underlineColor: underlineColor,

@@ -29,7 +29,8 @@ class TabBarViewController: UITabBarController {
         MainConfigurator.open(navigationController: mainVC)
         AddPhotoConfigurator.openViewController(navigationController: addPhotoVC)
         ProfileConfigurator.openViewController(navigationController: profileVC)
-        
+        tabBar.tintColor = .galleryMain
+
         guard let items = tabBar.items else { return }
         let images = ["main", "photo", "profile"]
 

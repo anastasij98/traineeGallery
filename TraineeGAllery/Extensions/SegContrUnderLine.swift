@@ -79,7 +79,7 @@ extension UISegmentedControl {
         
         let deviderLine = UIImage.getSegmentedControlRectangle(color: UIColor.white.cgColor, andSize: CGSize(width: 1.0, height: 5))
         self.setDividerImage(deviderLine, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
-        self.setTitleTextAttributes([.foregroundColor: UIColor.mainGrey,
+        self.setTitleTextAttributes([.foregroundColor: UIColor.galleryGrey,
                                      .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .normal)
         self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black,
                                      .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .selected)

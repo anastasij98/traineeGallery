@@ -36,10 +36,10 @@ class WelcomeViewController: UIViewController {
     
     lazy var welcomeLabel: UILabel = {
         let view = UILabel()
-        view.text = "Welcome!"
+        view.text = "Welcome to Gallery!"
         view.textAlignment = .center
         view.tintColor = .black
-        view.font = .robotoBold(ofSize: 25)
+        view.font = .robotoBold(ofSize: 30)
         
         return view
     }()
@@ -47,11 +47,12 @@ class WelcomeViewController: UIViewController {
     lazy var createAccountButton: UIButton = {
         let view = UIButton()
         view.setTitle("Create an account", for: .normal)
+        view.titleLabel?.font = .robotoMedium(ofSize: 16)
         view.setTitleColor(.white, for: .normal)
-        view.backgroundColor = .customBlack
-        view.layer.cornerRadius = 4
+        view.backgroundColor = .galleryBlack
+        view.layer.cornerRadius = 10
         view.snp.makeConstraints { make in
-            make.height.equalTo(36)
+            make.height.equalTo(40)
         }
         view.addTarget(self,
                        action: #selector(onSignUpButtonTap),
@@ -64,11 +65,12 @@ class WelcomeViewController: UIViewController {
         let view = UIButton()
         view.setTitle("I already have an account", for: .normal)
         view.setTitleColor(.black, for: .normal)
+        view.titleLabel?.font = .robotoMedium(ofSize: 16)
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
-        view.layer.cornerRadius = 4
+        view.layer.cornerRadius = 10
         view.snp.makeConstraints { make in
-            make.height.equalTo(36)
+            make.height.equalTo(40)
         }
         view.addTarget(self,
                        action: #selector(onSignInButtonTap),
@@ -93,9 +95,9 @@ class WelcomeViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(welcomeStackView)
         welcomeStackView.addArrangedSubviews(welcomeImageView, welcomeLabel, createAccountButton, haveAccountButton)
-        welcomeStackView.setCustomSpacing(40, after: welcomeImageView)
-        welcomeStackView.setCustomSpacing(40, after: welcomeLabel)
-        welcomeStackView.setCustomSpacing(10, after: createAccountButton)
+        welcomeStackView.setCustomSpacing(36, after: welcomeImageView)
+        welcomeStackView.setCustomSpacing(80, after: welcomeLabel)
+        welcomeStackView.setCustomSpacing(20, after: createAccountButton)
         
         welcomeStackView.snp.makeConstraints {
             $0.centerY.equalTo(view.snp.centerY)

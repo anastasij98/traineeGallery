@@ -44,18 +44,19 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    lazy var signInTitle: UILabel = {
+    lazy var signUpTitle: UILabel = {
         let view = UILabel()
         view.text = "Sign Up"
         view.textAlignment = .center
         view.font = .robotoBold(ofSize: 30)
+        view.textColor = .galleryBlack
         
         return view
     }()
     
     lazy var titleUnderline: UIView = {
         let view = UIView()
-        view.backgroundColor = .customPink
+        view.backgroundColor = .galleryMain
         
         return view
     }()
@@ -66,17 +67,18 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
-            $0.height.equalTo(36)
+            $0.height.equalTo(40)
         }
-        let placeholderText = NSMutableAttributedString(string: "User Name*")
+        let placeholderText = NSMutableAttributedString(string: "User Name *")
         placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
+                                    value: UIFont.robotoRegular(ofSize: 16),
                                     range: NSRange(location: 0, length: placeholderText.length))
         placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
+                                    value: UIColor.galleryMain,
                                     range: NSRange(location: placeholderText.length - 1, length: 1))
         view.attributedPlaceholder = placeholderText
-        
+        view.setupIcon(name: "user")
+
         return view
     }()
     
@@ -86,10 +88,11 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
-            $0.height.equalTo(36)
+            $0.height.equalTo(40)
         }
         view.placeholder = "Birthday"
         view.keyboardType = .numbersAndPunctuation
+        view.setupIcon(name: "birthday")
 
         return view
     }()
@@ -100,37 +103,39 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
-            $0.height.equalTo(36)
+            $0.height.equalTo(40)
         }
-        let placeholderText = NSMutableAttributedString(string: "Email*")
+        let placeholderText = NSMutableAttributedString(string: "Email *")
         placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
+                                    value: UIFont.robotoRegular(ofSize: 16),
                                     range: NSRange(location: 0, length: placeholderText.length))
         placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
+                                    value: UIColor.galleryMain,
                                     range: NSRange(location: placeholderText.length - 1, length: 1))
         view.attributedPlaceholder = placeholderText
         view.keyboardType = .emailAddress
+        view.setupIcon(name: "email")
 
         return view
     }()
 
-    lazy var oldPasswordTextField: CustomTextField = {
+    lazy var passwordTextField: CustomTextField = {
         let view = CustomTextField()
         view.layer.borderColor = .mainGrey
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
-            $0.height.equalTo(36)
+            $0.height.equalTo(40)
         }
-        let placeholderText = NSMutableAttributedString(string: "Old password*")
+        let placeholderText = NSMutableAttributedString(string: "Password *")
         placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
+                                    value: UIFont.robotoRegular(ofSize: 16),
                                     range: NSRange(location: 0, length: placeholderText.length))
         placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
+                                    value: UIColor.galleryMain,
                                     range: NSRange(location: placeholderText.length - 1, length: 1))
         view.attributedPlaceholder = placeholderText
+        view.setupIcon(name: "password")
 
         return view
     }()
@@ -141,25 +146,20 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 4
         view.snp.makeConstraints {
-            $0.height.equalTo(36)
+            $0.height.equalTo(40)
         }
-        let placeholderText = NSMutableAttributedString(string: "Confirm password*")
+        let placeholderText = NSMutableAttributedString(string: "Confirm password *")
         placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: 17),
+                                    value: UIFont.robotoRegular(ofSize: 16),
                                     range: NSRange(location: 0, length: placeholderText.length))
         placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
-                                    value: UIColor.customRed,
+                                    value: UIColor.galleryMain,
                                     range: NSRange(location: placeholderText.length - 1, length: 1))
         view.attributedPlaceholder = placeholderText
+        view.setupIcon(name: "password")
 
         return view
     }()
-    
-    lazy var userImageView = UIImageView(image: UIImage(named: "user"))
-    lazy var birthdayImageView = UIImageView(image: UIImage(named: "birthday"))
-    lazy var emailImageView = UIImageView(image: UIImage(named: "email"))
-    lazy var oldPasswordImageView = UIImageView(image: UIImage(named: "password"))
-    lazy var confirmPasswordImageView = UIImageView(image: UIImage(named: "password"))
     
     lazy var buttonsStackView: UIStackView = {
         let view = UIStackView()
@@ -174,11 +174,10 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.setTitle("Sign Up",
                       for: .normal)
         view.titleLabel?.font = .robotoBold(ofSize: 17)
-        view.backgroundColor = .customBlack
-        view.layer.cornerRadius = 4
+        view.backgroundColor = .galleryBlack
+        view.layer.cornerRadius = 10
         view.snp.makeConstraints {
-            $0.height.equalTo(36)
-            $0.width.equalTo(120)
+            $0.height.equalTo(40)
         }
         view.addTarget(self,
                        action: #selector(onSignUpButtonTap),
@@ -196,8 +195,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.titleLabel?.font = .robotoRegular(ofSize: 17)
         view.backgroundColor = .white
         view.snp.makeConstraints {
-            $0.height.equalTo(18)
-            $0.width.equalTo(103)
+            $0.height.equalTo(40)
         }
         view.addTarget(self,
                        action: #selector(onSignInButtonTap),
@@ -205,15 +203,20 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
+    
+    lazy var leftBarButton: UIButton = {
+        let view = UIButton.leftBarBut(title: "Cancel")
+        view.addTarget(self,
+                       action: #selector(popViewController),
+                       for: .touchUpInside)
+
+        return view
+    }()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupNavigationBar(isHidden: false,
-                           customBackButton: UIBarButtonItem(title: "Cancel",
-                                                             style: .plain,
-                                                             target: self,
-                                                             action: #selector(popViewController)))
+        setupNavigationBar(isHidden: false, customBackButton: UIBarButtonItem(customView: leftBarButton))
     }
     
     override func viewDidLoad() {
@@ -247,24 +250,18 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
-        stackView.addArrangedSubviews(signInTitle, textFieldStackView, buttonsStackView)
-        stackView.setCustomSpacing(55, after: signInTitle)
-        stackView.setCustomSpacing(50, after: textFieldStackView)
+        stackView.addArrangedSubviews(signUpTitle, textFieldStackView, buttonsStackView)
+        stackView.setCustomSpacing(55, after: signUpTitle)
+        stackView.setCustomSpacing(60, after: textFieldStackView)
 
-        signInTitle.addSubview(titleUnderline)
+        signUpTitle.addSubview(titleUnderline)
         
-        textFieldStackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField)
+        textFieldStackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField, passwordTextField, confirmPasswordTextField)
 
         setupTextFieldsSpacing()
         
         buttonsStackView.addArrangedSubviews(signUpButton, signInButton)
-        buttonsStackView.setCustomSpacing(19, after: signUpButton)
-
-        userNameTextField.addSubview(userImageView)
-        birthdayTextField.addSubview(birthdayImageView)
-        emailTextField.addSubview(emailImageView)
-        oldPasswordTextField.addSubview(oldPasswordImageView)
-        confirmPasswordTextField.addSubview(confirmPasswordImageView)
+        buttonsStackView.setCustomSpacing(10, after: signUpButton)
 
         scrollView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -282,9 +279,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
 
         titleUnderline.snp.makeConstraints {
             $0.height.equalTo(2)
-            $0.width.equalTo(signInTitle.snp.width)
-            $0.bottom.equalTo(signInTitle.snp.bottom).offset(5)
-            $0.centerX.equalTo(signInTitle.snp.centerX)
+            $0.width.equalTo(signUpTitle.snp.width)
+            $0.bottom.equalTo(signUpTitle.snp.bottom).offset(5)
+            $0.centerX.equalTo(signUpTitle.snp.centerX)
         }
         
         textFieldStackView.snp.makeConstraints {
@@ -292,47 +289,32 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
         
-        userImageView.snp.makeConstraints {
-            $0.centerY.equalTo(userNameTextField.snp.centerY)
-            $0.trailing.equalTo(userNameTextField.snp.trailing).inset(11)
-        }
-        
-        birthdayImageView.snp.makeConstraints {
-            $0.centerY.equalTo(birthdayTextField.snp.centerY)
-            $0.trailing.equalTo(birthdayTextField.snp.trailing).inset(11)
-        }
-        
-        emailImageView.snp.makeConstraints {
-            $0.centerY.equalTo(emailTextField.snp.centerY)
-            $0.trailing.equalTo(emailTextField.snp.trailing).inset(11)
-        }
-        
-        oldPasswordImageView.snp.makeConstraints {
-            $0.centerY.equalTo(oldPasswordTextField.snp.centerY)
-            $0.trailing.equalTo(oldPasswordTextField.snp.trailing).inset(11)
-        }
-        
-        confirmPasswordImageView.snp.makeConstraints {
-            $0.centerY.equalTo(confirmPasswordTextField.snp.centerY)
-            $0.trailing.equalTo(confirmPasswordTextField.snp.trailing).inset(11)
-        }
-        
         buttonsStackView.snp.makeConstraints {
             $0.top.equalTo(textFieldStackView.snp.bottom).offset(50)
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
         }
+        
+        signInButton.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).inset(106)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(106)
+        }
+        
+        signUpButton.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(106)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(106)
+        }
     }
     
     func setupTextFieldsSpacing() {
-        let array = [userNameTextField, birthdayTextField, emailTextField, oldPasswordTextField, confirmPasswordTextField]
+        let array = [userNameTextField, birthdayTextField, emailTextField, passwordTextField, confirmPasswordTextField]
         array.forEach { textField in
-            textFieldStackView.setCustomSpacing(29, after: textField)
+            textFieldStackView.setCustomSpacing(20, after: textField)
         }
     }
     
     @objc
     func popViewController() {
-        navigationController?.popViewController(animated: true)
+        presenter?.popViewController(viewController: self)
     }
     
     @objc

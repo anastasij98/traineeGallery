@@ -36,7 +36,7 @@ extension MainViewController: UICollectionViewDataSource {
         let request = URLConfiguration.url + URLConfiguration.media + (item.image?.name ?? "")
         let model = CollectionViewCellModel(imageURL: URL(string: request))
         cell.setupCollectionItem(model: model)
-        cell.backgroundColor = .mainGrey
+        cell.backgroundColor = .galleryGrey
         
         return cell
     }

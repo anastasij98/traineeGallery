@@ -30,7 +30,7 @@ class NoConnectionStack: UIView {
         let view = UILabel()
         view.font = .robotoRegular(ofSize: 17)
         view.textAlignment = .center
-        view.textColor = .mainGrey
+        view.textColor = .galleryGrey
         view.text = "Sorry!"
         
         return view
@@ -39,7 +39,7 @@ class NoConnectionStack: UIView {
     var noConnectionDescription: UILabel = {
         let view = UILabel()
         view.font = .robotoRegular(ofSize: 12)
-        view.textColor = .mainGrey
+        view.textColor = .galleryGrey
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
         view.textAlignment = .center

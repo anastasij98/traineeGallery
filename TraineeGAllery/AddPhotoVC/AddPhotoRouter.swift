@@ -17,10 +17,6 @@ protocol AddPhotoRouterProtocol {
     /// Oткрытие ImagePicker'a
     /// - Parameter viewController: передаваемый viewController
     func openImagePicker(viewController: AddPhotoViewController)
-    
-    /// Открытие TabBarController'a
-    /// - Parameter index: индекс выбранного экрана
-    func openTabBarViewController(index: Int)
 }
 
 class AddPhotoRouter {
@@ -44,9 +40,5 @@ extension AddPhotoRouter: AddPhotoRouterProtocol {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = viewController
         viewController.present(imagePickerController, animated: true)
-    }
-    
-    func openTabBarViewController(index: Int) {
-        self.view?.tabBarController?.selectedIndex = index
     }
 }

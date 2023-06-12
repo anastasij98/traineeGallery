@@ -11,16 +11,17 @@ import SnapKit
 
 protocol SettingsVCProtocol {
     
-    /// <#Description#>
+    /// Установка данных пользователя в соответсвующие поля
     /// - Parameters:
-    ///   - userName: <#userName description#>
-    ///   - birthday: <#birthday description#>
-    ///   - email: <#email description#>
+    ///   - userName: имя пользователя
+    ///   - birthday: дата рождения пользователя
+    ///   - email: email пользователя
     func setupView(userName: String,
                    birthday: String,
                    email: String)
-    /// <#Description#>
-    /// - Parameter completion: <#completion description#>
+    
+    /// Данные, которые нужно сохрнаить в usedrDefaults и передать на экран ProfileVC
+    /// - Parameter completion: completion handler
     func textForSaving(completion: (_ userName: String, _ birthday: String, _ email: String)  -> Void)
 }
 
@@ -49,7 +50,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    lazy var imageStackView: UIStackView = {
+    lazy var buttonsStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .center
@@ -63,27 +64,6 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.axis = .vertical
         view.alignment = .leading
         view.distribution = .fill
-        
-        return view
-    }()
-    
-    var userPhotoImageView: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .center
-        view.image = UIImage(named: "userCamera")
-        view.layer.cornerRadius = 50
-        view.clipsToBounds = true
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.mainGrey.cgColor
-        
-        return view
-    }()
-    
-    lazy var uploadPhotoButton: UIButton = {
-        let view = UIButton()
-        let text = "Upload photo"
-        view.setupButtonTitle(view: view, text: text, color: .lightGray, size: 12)
         
         return view
     }()
@@ -185,7 +165,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
                              range: NSRange(location: 0,
                                             length: 16))
         string.addAttributes([.font : UIFont.robotoRegular(ofSize: 16),
-                              .foregroundColor : UIColor.customPink],
+                              .foregroundColor : UIColor.galleryMain],
                              range: NSRange(location: 14,
                                             length: 13))
         view.setAttributedTitle(string, for: .normal)
@@ -197,9 +177,18 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     lazy var signOutButton: UIButton = {
         let view = UIButton()
         let text = "Sign Out"
-        view.setupButtonTitle(view: view, text: text, color: .customPink, size: 16)
+        view.setupButtonTitle(view: view, text: text, color: .galleryMain, size: 16)
         view.addTarget(self, action: #selector(onSignOutButtonTap), for: .touchUpInside)
         
+        return view
+    }()
+    
+    lazy var leftBarButton: UIButton = {
+        let view = UIButton.leftBarBut(title: "Cancel")
+        view.addTarget(self,
+                       action: #selector(onCancelButtonTap),
+                       for: .touchUpInside)
+
         return view
     }()
     
@@ -213,12 +202,8 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.viewIsReady()
         setupRightNavBarButton()
-        setupNavigationBar(customBackButton: UIBarButtonItem(title: "Cancel",
-                                                             style: .plain,
-                                                             target: self,
-                                                             action: #selector(onCancelButtonTap)))
+        setupNavigationBar(isHidden: false, customBackButton: UIBarButtonItem(customView: leftBarButton))
     }
     
     func setupRightNavBarButton() {
@@ -227,7 +212,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
                                           target: self,
                                           action: #selector(onSaveButtonTap))
         rightButton.setTitleTextAttributes([.font : UIFont.robotoBold(ofSize: 15),
-                                            .foregroundColor : UIColor.customPink],
+                                            .foregroundColor : UIColor.galleryMain],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
     }
@@ -239,9 +224,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
-        stackView.addArrangedSubviews(imageStackView, infoStackView)
-        imageStackView.addArrangedSubviews(userPhotoImageView,
-                                           uploadPhotoButton)
+        stackView.addArrangedSubviews(infoStackView, buttonsStackView)
         infoStackView.addArrangedSubviews(personalDataLabel,
                                           userNameTextField,
                                           birthdayTextField,
@@ -250,9 +233,10 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
                                           passwordLabel,
                                           oldPasswordTextField,
                                           newPasswordTextField,
-                                          confirmPasswordTextField,
-                                          deleteAccountButton,
-                                          signOutButton)
+                                          confirmPasswordTextField)
+        
+        buttonsStackView.addArrangedSubviews(deleteAccountButton,
+                                             signOutButton)
         
         setupSpacings()
         
@@ -260,41 +244,39 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
         stackView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
-            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top)
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(20)
             $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
         }
         
-        setupTextFields()
-        
-        userPhotoImageView.snp.makeConstraints {
-            $0.height.equalTo(100)
-            $0.width.equalTo(100)
+        buttonsStackView.snp.makeConstraints {
             $0.centerX.equalTo(stackView.snp.centerX)
-            $0.top.equalTo(stackView.snp.top).offset(21)
+
         }
+        
+        setupTextFields()
         
         setupLabelsAndButtons()
     }
     
     func setupSpacings() {
-        imageStackView.setCustomSpacing(10, after: userPhotoImageView)
-        stackView.setCustomSpacing(20, after: imageStackView)
-        infoStackView.setCustomSpacing(20, after: personalDataLabel)
-        infoStackView.setCustomSpacing(29, after: userNameTextField)
-        infoStackView.setCustomSpacing(39, after: birthdayTextField)
-        infoStackView.setCustomSpacing(20, after: emailLabel)
-        infoStackView.setCustomSpacing(39, after: emailTextField)
-        infoStackView.setCustomSpacing(20, after: passwordLabel)
-        infoStackView.setCustomSpacing(29, after: oldPasswordTextField)
-        infoStackView.setCustomSpacing(29, after: newPasswordTextField)
-        infoStackView.setCustomSpacing(39, after: confirmPasswordTextField)
-        infoStackView.setCustomSpacing(20, after: deleteAccountButton)
+        stackView.setCustomSpacing(40, after: infoStackView)
+        
+        infoStackView.setCustomSpacing(14, after: personalDataLabel)
+        infoStackView.setCustomSpacing(20, after: userNameTextField)
+        infoStackView.setCustomSpacing(40, after: birthdayTextField)
+        infoStackView.setCustomSpacing(14, after: emailLabel)
+        infoStackView.setCustomSpacing(40, after: emailTextField)
+        infoStackView.setCustomSpacing(14, after: passwordLabel)
+        infoStackView.setCustomSpacing(20, after: oldPasswordTextField)
+        infoStackView.setCustomSpacing(20, after: newPasswordTextField)
+        
+        buttonsStackView.setCustomSpacing(14, after: deleteAccountButton)
     }
     
     func setupTextFields() {
@@ -310,10 +292,10 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupLabelsAndButtons() {
-        let array = [uploadPhotoButton, personalDataLabel, emailLabel, passwordLabel, deleteAccountButton, signOutButton]
+        let array = [personalDataLabel, emailLabel, passwordLabel, deleteAccountButton, signOutButton]
         array.forEach { view in
             view.snp.makeConstraints {
-                $0.height.equalTo(16)
+                $0.height.equalTo(22)
             }
         }
     }
@@ -364,7 +346,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func onSignOutButtonTap() {
-        presenter?.signOut()
+        if let viewWindow = view.window {
+            presenter?.signOut()
+        }
     }
 }
 

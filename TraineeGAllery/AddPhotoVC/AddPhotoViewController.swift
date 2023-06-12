@@ -15,6 +15,10 @@ protocol AddPhotoVCProtocol: AnyObject {
     /// Установка выбранного объекта в imageView.image AddPhotoViewController'a
     /// - Parameter model: модель объекта типа ImageObjectModel
     func setSelectedObject(model: ImageObjectModel)
+    
+    /// Установка картинки в imageView
+    /// - Parameter image: картинка в формате Data
+    func setupImageView(image: Data)
 }
 
 class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
@@ -44,14 +48,14 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .customLightGrey
+        view.backgroundColor = .galleryLightGrey
         
         return view
     }()
     
     lazy var underLine: UIView = {
         let view = UIView()
-        view.backgroundColor = .mainGrey
+        view.backgroundColor = .galleryGrey
         
         return view
     }()
@@ -88,14 +92,8 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         view.addTarget(self,
                        action: #selector(onImagePickerTap),
                        for: .touchUpInside)
-        let image = UIImageView(image: UIImage(named: "downArrow"))
-        view.addSubview(image)
-        image.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(view.snp.trailing).offset(5)
-        }
-        view.setTitle("All photos ", for: UIControl.State.normal)
-        view.setTitleColor(.customBlack, for: .normal)
+        view.setTitle("All photos", for: UIControl.State.normal)
+        view.setTitleColor(.galleryBlack, for: .normal)
         
         return view
     }()
@@ -108,16 +106,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         setupCenterNavBarButton()
         presenter?.fetchAssestFromLibrary()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setupNavigationBar(customBackButton: .init(title: "Cancel",
-                                                   style: .plain,
-                                                   target: self,
-                                                   action: #selector(onBackButtonTap)))
-    }
-    
+   
     func setupCenterNavBarButton() {
         self.navigationItem.titleView = buttonView
         buttonView.addSubview(navigationBarButton)
@@ -132,8 +121,8 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
                                           style: .plain,
                                           target: self,
                                           action: #selector(onNextButtonTap))
-        rightButton.setTitleTextAttributes([.font : UIFont.robotoBold(ofSize: 15),
-                                            .foregroundColor : UIColor.customPink],
+        rightButton.setTitleTextAttributes([.font : UIFont.robotoMedium(ofSize: 17),
+                                            .foregroundColor : UIColor.galleryMain],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
     }
@@ -200,11 +189,6 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     func onImagePickerTap() {
         presenter?.openImagePicker(viewController: self)
     }
-    
-    @objc
-    func onBackButtonTap() {
-        presenter?.openTabBarViewController(index: 0)
-    }
 }
 
 extension AddPhotoViewController: AddPhotoVCProtocol {
@@ -226,5 +210,9 @@ extension AddPhotoViewController: UIImagePickerControllerDelegate, UINavigationC
             }
         }
         dismiss(animated: true)
+    }
+    
+    func setupImageView(image: Data) {
+        imageView.image = UIImage(data: image)
     }
 }

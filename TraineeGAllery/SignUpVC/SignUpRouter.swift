@@ -10,11 +10,15 @@ import UIKit
 
 protocol SignUpRouterProtocol {
     
-    /// Обращение к роутеру для получения и открытия экрана SignIn
+    /// Получение и открытие экрана SignIn
     func openSignInViewController()
     
-    /// Обращение к роутеру для открытия TabBarController'a
+    /// Открытие TabBarController'a
     func openTabBarController()
+    
+    /// Закрытие экрана SignUp
+    /// - Parameter viewController: экран SignUp
+    func popViewController(viewController: SignUpViewController)
 }
 
 class SignUpRouter {
@@ -37,5 +41,9 @@ extension SignUpRouter: SignUpRouterProtocol {
         let windowScenes = scenes.first as? UIWindowScene
         let window = windowScenes?.windows.first
         window?.rootViewController = TabBarConfigurator.getViewController()
+    }
+    
+    func popViewController(viewController: SignUpViewController) {
+        viewController.navigationController?.popViewController(animated: true)
     }
 }

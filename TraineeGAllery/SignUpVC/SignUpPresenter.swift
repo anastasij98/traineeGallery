@@ -29,6 +29,10 @@ protocol SignUpPresenterProtocol {
                          username: String,
                          birthday: String,
                          roles: [String])
+    
+    /// Обращение к роутеру для закрытия экрана SignUp
+    /// - Parameter viewController: экран SignUp
+    func popViewController(viewController: SignUpViewController)
 }
 
 class SignUpPresenter {
@@ -120,5 +124,9 @@ extension SignUpPresenter: SignUpPresenterProtocol {
             print(error)
         })
         .disposed(by: disposeBag)
+    }
+    
+    func popViewController(viewController: SignUpViewController) {
+        router.popViewController(viewController: viewController)
     }
 }

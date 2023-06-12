@@ -34,30 +34,39 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var stackView: UIStackView = {
         let view = UIStackView()
-        view.axis = .vertical
+        view.axis = .horizontal
         view.alignment = .center
-        view.distribution = .fill
+        view.distribution = .equalSpacing
+        view.spacing = 20
         
         return view
     }()
     
-    var userPhotoImageView: UIImageView = {
+    lazy var infoStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .center
+        view.distribution = .equalSpacing
+        view.spacing = 4
+        
+        return view
+    }()
+    
+    lazy var userPhotoImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .center
-        view.image = UIImage(named: "userCamera")
-        view.layer.cornerRadius = 50
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "Logo-2")
         view.clipsToBounds = true
         view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.mainGrey.cgColor
+        view.layer.borderColor = UIColor.galleryGrey.cgColor
 
         return view
     }()
     
     lazy var userNameLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .black
-        view.font = .robotoRegular(ofSize: 17)
+        view.textColor = .galleryBlack
+        view.font = .robotoRegular(ofSize: 18)
         view.textAlignment = .center
         view.adjustsFontSizeToFitWidth = true
         
@@ -66,32 +75,17 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var birthdayLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .mainGrey
-        view.font = .robotoRegular(ofSize: 12)
+        view.textColor = .galleryGrey
+        view.font = .robotoRegular(ofSize: 16)
         view.textAlignment = .center
         view.adjustsFontSizeToFitWidth = true
-        
-        return view
-    }()
-    
-    lazy var viewsLabel: UILabel = {
-        let view = UILabel()
-        view.font = .robotoRegular(ofSize: 12)
-        let string = NSMutableAttributedString(string: "Views: ")
-        string.addAttribute(NSAttributedString.Key.foregroundColor,
-                          value: UIColor.black,
-                          range: NSRange(location: 0, length: 5))
-        string.addAttribute(NSAttributedString.Key.foregroundColor,
-                          value: UIColor.mainGrey,
-                          range: NSRange(location: 6, length: string.length - 6))
-        view.attributedText = string
-        
+
         return view
     }()
     
     lazy var underLine: UIView = {
         let view = UIView()
-        view.backgroundColor = .mainGrey
+        view.backgroundColor = .galleryMain
         
         return view
     }()
@@ -100,7 +94,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         setupLayot()
-//        presenter?.viewIsReady()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,10 +101,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         
         presenter?.viewIsReady()
         setupRightNavBarButton()
-        setupNavigationBar(customBackButton: .init(image: UIImage(named: "Vector"),
-                                                   style: .plain,
-                                                   target: self,
-                                                   action: #selector(onCancelButtonTap)))
+        setupNavigationBar(isHidden: false)
     }
     
     func setupLayot() {
@@ -119,53 +109,41 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         
         view.addSubview(scrollView)
-        scrollView.addSubview(stackView)
-        stackView.addArrangedSubviews(userPhotoImageView, userNameLabel, birthdayLabel, viewsLabel)
-        stackView.setCustomSpacing(10, after: userPhotoImageView)
-        stackView.setCustomSpacing(8, after: userNameLabel)
-        stackView.setCustomSpacing(27, after: birthdayLabel)
-        
-        viewsLabel.addSubview(underLine)
-        
+        scrollView.addSubviews(stackView, underLine)
+        infoStackView.addArrangedSubviews(userNameLabel, birthdayLabel)
+        stackView.addArrangedSubviews(userPhotoImageView, infoStackView)
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
         
         stackView.snp.makeConstraints {
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
-            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top)
-            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+            $0.height.equalTo(130)
+            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
         }
         
         userPhotoImageView.snp.makeConstraints {
-            $0.height.equalTo(100)
-            $0.width.equalTo(100)
-            $0.centerX.equalTo(stackView.snp.centerX)
-            $0.top.equalTo(stackView.snp.top).offset(21)
+            $0.width.equalTo(80)
+            $0.height.equalTo(80)
+
+        }
+
+        infoStackView.snp.makeConstraints {
+            $0.height.equalTo(50)
         }
         
         userNameLabel.snp.makeConstraints {
-            $0.height.equalTo(17)
-            $0.centerX.equalTo(stackView.snp.centerX)
+            $0.height.equalTo(24)
         }
         
         birthdayLabel.snp.makeConstraints {
-            $0.height.equalTo(12)
-            $0.centerX.equalTo(stackView.snp.centerX)
-        }
-        
-        viewsLabel.snp.makeConstraints {
-            $0.height.equalTo(12)
-            $0.width.equalTo(66)
-            $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(16)
+            $0.height.equalTo(22)
         }
         
         underLine.snp.makeConstraints {
             $0.height.equalTo(1)
-            $0.top.equalTo(viewsLabel.snp.bottom).offset(10)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.top.equalTo(stackView.snp.bottom).offset(10)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
     }
     

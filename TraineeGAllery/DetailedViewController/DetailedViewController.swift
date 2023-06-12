@@ -17,12 +17,10 @@ protocol DetailedViewControllerProtocol: AnyObject {
     ///   - user: имя пользователя
     ///   - description: описание картинки
     ///   - date: дата добавления картинки
-    ///   - viewsCount: колиечство просмотров
     func setupView(name: String,
                    user: String,
                    description: String,
-                   date: String,
-                   viewsCount: String)
+                   date: String)
     
     /// Установка изображения выбранной картинке в галерее
     /// - Parameter data: картинка в виде Data
@@ -75,7 +73,7 @@ class DetailedViewController: UIViewController {
         var view = UIImageView()
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .mainGrey
+        view.backgroundColor = .galleryGrey
 
         return view
     }()
@@ -91,7 +89,7 @@ class DetailedViewController: UIViewController {
     
     var usersLabel: UILabel = {
         var view = UILabel()
-        view.textColor = .mainGrey
+        view.textColor = .galleryGrey
         view.font = .robotoRegular(ofSize: 15)
         view.textAlignment = .left
         
@@ -109,27 +107,9 @@ class DetailedViewController: UIViewController {
         return view
     }()
     
-    var viewsCount: UILabel = {
-        var view = UILabel()
-        view.textColor = .mainGrey
-        view.font = .robotoRegular(ofSize: 12)
-        view.textAlignment = .right
-        view.numberOfLines = 0
-        
-        return view
-    }()
-    
-    var eyeImage: UIImageView = {
-        var view = UIImageView()
-        view.image = UIImage(systemName: "eye")?.withTintColor(.mainGrey,
-                                                               renderingMode: .alwaysOriginal)
-
-        return view
-    }()
-    
     var downloadDate: UILabel = {
         var view = UILabel()
-        view.textColor = .mainGrey
+        view.textColor = .galleryGrey
         view.font = .robotoRegular(ofSize: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
@@ -147,7 +127,7 @@ class DetailedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupNavigationBar()
+        setupNavigationBar(backButtonTitle: "Back")
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -195,7 +175,7 @@ class DetailedViewController: UIViewController {
         view.addSubview(scrollView)
 //        scrollView.addSubviews(totalStackView, selectedImage)
         scrollView.addSubview(totalStackView)
-        upperStackView.addArrangedSubviews(imageTitle, viewsCount, eyeImage)
+        upperStackView.addArrangedSubviews(imageTitle)
         lowerStackView.addArrangedSubviews(usersLabel, downloadDate)
 //        totalStackView.addArrangedSubviews(upperStackView, lowerStackView, imageDescription)
         totalStackView.addArrangedSubviews(selectedImage ,upperStackView, lowerStackView, imageDescription)
@@ -232,11 +212,6 @@ class DetailedViewController: UIViewController {
             $0.trailing.equalTo(totalStackView.snp.trailing)
         }
         
-        eyeImage.snp.makeConstraints {
-            $0.width.equalTo(13)
-            $0.height.equalTo(13)
-        }
-        
         downloadDate.snp.makeConstraints {
             $0.width.equalTo(100)
         }
@@ -253,13 +228,11 @@ extension DetailedViewController: DetailedViewControllerProtocol {
     func setupView(name: String,
                    user: String,
                    description: String,
-                   date: String,
-                   viewsCount: String) {
+                   date: String) {
         imageTitle.text = name
         usersLabel.text = user
         imageDescription.text = description
         downloadDate.text = date
-        self.viewsCount.text = viewsCount
     }
     
     func setImage(data: Data) {
