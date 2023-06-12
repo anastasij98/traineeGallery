@@ -22,6 +22,13 @@ protocol ProfileVCProtocol: AnyObject {
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: ProfilePresenterProtocol?
+    var cellId = "cellId"
+    
+    var collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero,
+                                    collectionViewLayout: UICollectionViewFlowLayout())
+        return view
+    }()
     
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -94,6 +101,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         setupLayot()
+        setupCollectionView()
+        setupCollectionViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,14 +118,16 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         
         view.addSubview(scrollView)
-        scrollView.addSubviews(stackView, underLine)
+        scrollView.addSubviews(stackView, underLine, collectionView)
         infoStackView.addArrangedSubviews(userNameLabel, birthdayLabel)
         stackView.addArrangedSubviews(userPhotoImageView, infoStackView)
+        
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
         
         stackView.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.top)
             $0.height.equalTo(130)
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
         }
@@ -144,6 +155,27 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
             $0.top.equalTo(stackView.snp.bottom).offset(10)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+        }
+    }
+    
+    private func setupCollectionView() {
+        view.backgroundColor = .white
+        view.addSubview(collectionView)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.register(UICollectionViewCell.self,
+                                forCellWithReuseIdentifier: cellId)
+    }
+    
+    private func setupCollectionViewLayout() {
+        
+        collectionView.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.top.equalTo(stackView.snp.bottom).offset(26)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     

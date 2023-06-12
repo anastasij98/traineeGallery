@@ -80,6 +80,7 @@
 		47E966BB2A35CC0D007536AB /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47E966BA2A35CC0D007536AB /* Roboto-Medium.ttf */; };
 		47E966BD2A364A42007536AB /* AddDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966BC2A364A42007536AB /* AddDataPresenter.swift */; };
 		47E966BF2A364A95007536AB /* AddDataRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966BE2A364A95007536AB /* AddDataRouter.swift */; };
+		47E966C12A37AF78007536AB /* ProfileVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966C02A37AF78007536AB /* ProfileVC+CollectionView.swift */; };
 		47EEEEBB2A026C7B0075791D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */; };
 		47EEEEBD2A026D210075791D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBC2A026D210075791D /* ProfileViewController.swift */; };
 		47EEEEBF2A026D350075791D /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */; };
@@ -178,6 +179,7 @@
 		47E966BA2A35CC0D007536AB /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		47E966BC2A364A42007536AB /* AddDataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataPresenter.swift; sourceTree = "<group>"; };
 		47E966BE2A364A95007536AB /* AddDataRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataRouter.swift; sourceTree = "<group>"; };
+		47E966C02A37AF78007536AB /* ProfileVC+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileVC+CollectionView.swift"; sourceTree = "<group>"; };
 		47EEEEBA2A026C7B0075791D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		47EEEEBC2A026D210075791D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		47EEEEBE2A026D350075791D /* AddPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				47EEEEBC2A026D210075791D /* ProfileViewController.swift */,
+				47E966C02A37AF78007536AB /* ProfileVC+CollectionView.swift */,
 				47EEEED92A0988020075791D /* ProfilePresenter.swift */,
 				47EEEEDB2A09880C0075791D /* ProfileRouter.swift */,
 				47EEEECB2A0283B60075791D /* ProfileConfigurator.swift */,
@@ -631,6 +634,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E966C12A37AF78007536AB /* ProfileVC+CollectionView.swift in Sources */,
 				47EEEED02A02E20D0075791D /* AddPhotoPresenter.swift in Sources */,
 				47CB5BA829DCB59A002BB2ED /* SampleScreenPresenter.swift in Sources */,
 				47CB5BC129DDCF5E002BB2ED /* DetailedRouter.swift in Sources */,
