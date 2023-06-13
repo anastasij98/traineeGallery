@@ -83,7 +83,18 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(36)
         }
         view.placeholder = "Password"
-        view.setupIcon(name: "password")
+        view.addButton(button: eyeButton)
+        view.isSecureTextEntry = true
+
+        return view
+    }()
+    
+    lazy var eyeButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(named: "passwordOff"), for: .normal)
+        view.addTarget(self,
+                       action: #selector(eyeButtonTapped),
+                       for: .touchUpInside)
 
         return view
     }()
@@ -156,6 +167,16 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillTransition(to: size, with: coordinator)
         
         checkOrientationAndSetLayout()
+    }
+    
+    @objc
+    func eyeButtonTapped() {
+        passwordTextField.isSecureTextEntry.toggle()
+        if passwordTextField.isSecureTextEntry {
+            eyeButton.setImage(UIImage(named: "passwordOff"), for: .normal)
+        } else {
+            eyeButton.setImage(UIImage(named: "password"), for: .normal)            
+        }
     }
     
     @objc

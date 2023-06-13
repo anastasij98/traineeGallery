@@ -55,4 +55,13 @@ extension UITextField {
             $0.trailing.equalTo(self.snp.trailing).inset(11)
         }
     }
+    
+    func addButton(button: UIView) {
+        self.addSubview(button)
+        
+        button.snp.makeConstraints {
+            $0.centerY.equalTo(self.snp.centerY)
+            $0.trailing.equalTo(self.snp.trailing).inset(11)
+        }
+    }
 }

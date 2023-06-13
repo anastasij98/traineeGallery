@@ -115,6 +115,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.attributedPlaceholder = placeholderText
         view.keyboardType = .emailAddress
         view.setupIcon(name: "email")
+        view.addSubview(emailErrorLabel)
+        view.addTarget(self, action: #selector(emailTextFieldChanging), for: .editingChanged)
 
         return view
     }()
@@ -135,7 +137,10 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                                     value: UIColor.galleryMain,
                                     range: NSRange(location: placeholderText.length - 1, length: 1))
         view.attributedPlaceholder = placeholderText
-        view.setupIcon(name: "password")
+        view.isSecureTextEntry = true
+        view.addButton(button: eyeButton)
+        view.addSubview(passwordErrorLabel)
+        view.addTarget(self, action: #selector(passwordTextFieldChanging), for: .editingChanged)
 
         return view
     }()
@@ -156,8 +161,31 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                                     value: UIColor.galleryMain,
                                     range: NSRange(location: placeholderText.length - 1, length: 1))
         view.attributedPlaceholder = placeholderText
-        view.setupIcon(name: "password")
+        view.isSecureTextEntry = true
+        view.addButton(button: confirmEyeButton)
+        view.addSubview(matchPasswordsLabel)
+        view.addTarget(self, action: #selector(passwordsMatching), for: .editingChanged)
 
+        return view
+    }()
+    
+    lazy var eyeButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(named: "passwordOff"), for: .normal)
+        view.addTarget(self,
+                       action: #selector(eyeButtonTapped),
+                       for: .touchUpInside)
+        
+        return view
+    }()
+    
+    lazy var confirmEyeButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(named: "passwordOff"), for: .normal)
+        view.addTarget(self,
+                       action: #selector(confirmEyeButtonTapped),
+                       for: .touchUpInside)
+        
         return view
     }()
     
@@ -212,6 +240,37 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
 
         return view
     }()
+    
+    var emailErrorLabel: UILabel = {
+       let view = UILabel()
+        view.text = "Invalid e-mail adress"
+        view.font = .robotoRegular(ofSize: 12)
+        view.textColor = .galleryErrorRed
+        view.isHidden = true
+        
+       return view
+    }()
+    
+    var passwordErrorLabel: UILabel = {
+       let view = UILabel()
+        view.text = "Invalid password. 1 uppercase, 1 lowercase letter, 1 number"
+        view.font = .robotoRegular(ofSize: 12)
+        view.numberOfLines = 0
+        view.textColor = .galleryErrorRed
+        view.isHidden = true
+        
+       return view
+    }()
+    
+    var matchPasswordsLabel: UILabel = {
+       let view = UILabel()
+        view.text = "Passwords don't match"
+        view.font = .robotoRegular(ofSize: 12)
+        view.textColor = .galleryErrorRed
+        view.isHidden = true
+        
+       return view
+    }()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -256,7 +315,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
 
         signUpTitle.addSubview(titleUnderline)
         
-        textFieldStackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField, passwordTextField, confirmPasswordTextField)
+        textFieldStackView.addArrangedSubviews(userNameTextField, birthdayTextField, emailTextField,  passwordTextField, confirmPasswordTextField)
 
         setupTextFieldsSpacing()
         
@@ -303,6 +362,27 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(106)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(106)
         }
+        
+        emailErrorLabel.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+            $0.top.equalTo(emailTextField.snp.bottom).offset(5)
+            $0.height.equalTo(10)
+        }
+        
+        passwordErrorLabel.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(5)
+            $0.height.equalTo(10)
+        }
+        
+        matchPasswordsLabel.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+            $0.top.equalTo(confirmPasswordTextField.snp.bottom).offset(5)
+            $0.height.equalTo(10)
+        }
     }
     
     func setupTextFieldsSpacing() {
@@ -331,6 +411,75 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                                    username: userNameTextField.text ?? "",
                                    birthday: birthdayTextField.text ?? "",
                                    roles: [])
+    }
+    
+    @objc
+    func eyeButtonTapped() {
+        passwordTextField.isSecureTextEntry.toggle()
+        if passwordTextField.isSecureTextEntry {
+            eyeButton.setImage(UIImage(named: "passwordOff"), for: .normal)
+        } else {
+            eyeButton.setImage(UIImage(named: "password"), for: .normal)
+        }
+    }
+    
+    @objc
+    func confirmEyeButtonTapped() {
+        confirmPasswordTextField.isSecureTextEntry.toggle()
+        if arePaswordsEqual() {
+            if confirmPasswordTextField.isSecureTextEntry {
+                confirmEyeButton.setImage(UIImage(named: "passwordOff"), for: .normal)
+            } else {
+                confirmEyeButton.setImage(UIImage(named: "password"), for: .normal)
+            }
+        } else {
+            confirmEyeButton.setImage(UIImage(named: "warning"), for: .normal)
+        }
+    }
+    
+    func arePaswordsEqual() -> Bool {
+        passwordTextField.text == confirmPasswordTextField.text
+    }
+    
+    @objc
+    func emailTextFieldChanging() {
+        if !emailTextField.text!.isEmpty {
+            emailErrorLabel.isHidden = emailTextField.text!.isEmailValid ? true : false
+            emailTextField.layer.borderColor = emailTextField.text!.isEmailValid ? .mainGrey : UIColor.red.cgColor
+        } else {
+            emailErrorLabel.isHidden = true
+            emailTextField.layer.borderColor = .mainGrey
+        }
+    }
+    
+    @objc
+    func passwordTextFieldChanging() {
+        if !passwordTextField.text!.isEmpty {
+            passwordErrorLabel.isHidden = passwordTextField.text!.isPasswordValid ? true : false
+            passwordTextField.layer.borderColor = passwordTextField.text!.isPasswordValid ? .mainGrey : UIColor.red.cgColor
+        } else {
+            passwordErrorLabel.isHidden = true
+            passwordTextField.layer.borderColor = .mainGrey
+        }
+    }
+    
+    @objc
+    func passwordsMatching() {
+        if !confirmPasswordTextField.text!.isEmpty {
+            matchPasswordsLabel.isHidden = arePaswordsEqual() ? true : false
+            confirmPasswordTextField.layer.borderColor = arePaswordsEqual() ? .mainGrey : UIColor.red.cgColor
+            confirmEyeButton.setImage(UIImage(named: "warning"), for: .normal)
+        } else {
+            matchPasswordsLabel.isHidden = true
+            confirmPasswordTextField.layer.borderColor = .mainGrey
+            if confirmPasswordTextField.isSecureTextEntry {
+                confirmEyeButton.setImage(UIImage(named: "passwordOff"), for: .normal)
+                
+            } else {
+                confirmEyeButton.setImage(UIImage(named: "password"), for: .normal)
+                
+            }
+        }
     }
 }
 
