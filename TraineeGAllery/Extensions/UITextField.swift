@@ -10,16 +10,36 @@ import UIKit
 
 class CustomTextField: UITextField {
     
+    override var isSecureTextEntry: Bool {
+        didSet {
+            if isFirstResponder {
+                _ = becomeFirstResponder()
+            }
+        }
+    }
+    
     let padding = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 31)
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
+    
     override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
+    
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
+    
+    open override func becomeFirstResponder() -> Bool {
+           super.becomeFirstResponder()
+
+           if !isSecureTextEntry { return true  }
+
+           if let currentText = text { insertText(currentText) }
+
+           return true
+       }
 }
 
 extension UITextField {
@@ -40,10 +60,10 @@ extension UITextField {
         self.attributedPlaceholder = string
     }
     
-    func setupBorder() {
-        self.layer.borderColor = .mainGrey
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 10
+    func setupBorder(color: CGColor,borderWidth width: CGFloat, cornerRadius radius: CGFloat) {
+        self.layer.borderColor = color
+        self.layer.borderWidth = width
+        self.layer.cornerRadius = radius
     }
     
     func setupIcon(name: String) {
@@ -62,6 +82,12 @@ extension UITextField {
         button.snp.makeConstraints {
             $0.centerY.equalTo(self.snp.centerY)
             $0.trailing.equalTo(self.snp.trailing).inset(11)
+        }
+    }
+    
+    func setupTextFieldHeight(height: Int) {
+        self.snp.makeConstraints {
+            $0.height.equalTo(height)
         }
     }
 }

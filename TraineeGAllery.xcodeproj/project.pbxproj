@@ -68,6 +68,7 @@
 		47E515D429F87C3500AB5397 /* SignInConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D329F87C3500AB5397 /* SignInConfigurator.swift */; };
 		47E515D629F8A04200AB5397 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D529F8A04200AB5397 /* UITextField.swift */; };
 		47E5EE472A388C23008D619F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E5EE462A388C23008D619F /* String.swift */; };
+		47E5EE492A3AEE31008D619F /* PostImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E5EE482A3AEE31008D619F /* PostImageModel.swift */; };
 		47E966A22A25D944007536AB /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966A12A25D944007536AB /* AuthorizationModel.swift */; };
 		47E966A42A2663C3007536AB /* AuthorizationTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966A32A2663C3007536AB /* AuthorizationTokenInterceptor.swift */; };
 		47E966A62A275BFD007536AB /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966A52A275BFD007536AB /* UserModel.swift */; };
@@ -168,6 +169,7 @@
 		47E515D329F87C3500AB5397 /* SignInConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInConfigurator.swift; sourceTree = "<group>"; };
 		47E515D529F8A04200AB5397 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		47E5EE462A388C23008D619F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		47E5EE482A3AEE31008D619F /* PostImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageModel.swift; sourceTree = "<group>"; };
 		47E966A12A25D944007536AB /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
 		47E966A32A2663C3007536AB /* AuthorizationTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTokenInterceptor.swift; sourceTree = "<group>"; };
 		47E966A52A275BFD007536AB /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				47E966B22A2E3150007536AB /* RequestRegisterUserModel.swift */,
 				47E966B42A2F59B6007536AB /* RegisterUserModel.swift */,
 				47E966B62A332319007536AB /* AlertActionMode.swift */,
+				47E5EE482A3AEE31008D619F /* PostImageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -712,6 +715,7 @@
 				475AA77C29D31F2D006B9BC6 /* SegmentMode.swift in Sources */,
 				47EEEEC62A0270BD0075791D /* TabBarRouter.swift in Sources */,
 				47CB5BA529DCB59A002BB2ED /* SampleScreenViewController.swift in Sources */,
+				47E5EE492A3AEE31008D619F /* PostImageModel.swift in Sources */,
 				47EEEEC42A0270B00075791D /* TabBarPresenter.swift in Sources */,
 				476BAF5A2A161E12002F6F6E /* UIViewController.swift in Sources */,
 				47EEEEBD2A026D210075791D /* ProfileViewController.swift in Sources */,

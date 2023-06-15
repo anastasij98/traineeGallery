@@ -81,7 +81,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let view = CustomTextField()
         let text = "User Name"
         view.atributedString(text: text)
-        view.setupBorder()
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
         view.setupIcon(name: "user")
         
         return view
@@ -92,7 +92,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = "Birthday"
         view.keyboardType = .numbersAndPunctuation
         view.atributedString(text: text)
-        view.setupBorder()
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
         view.setupIcon(name: "birthday")
         
         return view
@@ -111,7 +111,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let view = CustomTextField()
         let text = "E-mail adress"
         view.atributedString(text: text)
-        view.setupBorder()
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
         view.setupIcon(name: "email")
         
         return view
@@ -130,7 +130,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let view = CustomTextField()
         let text = "Old \(password)"
         view.atributedString(text: text)
-        view.setupBorder()
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
         view.setupIcon(name: password)
         
         return view
@@ -140,7 +140,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let view = CustomTextField()
         let text = "New \(password)"
         view.atributedString(text: text)
-        view.setupBorder()
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
         view.setupIcon(name: password)
         
         return view
@@ -150,7 +150,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let view = CustomTextField()
         let text = "Confirm \(password)"
         view.atributedString(text: text)
-        view.setupBorder()
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
         view.setupIcon(name: password)
         
         return view

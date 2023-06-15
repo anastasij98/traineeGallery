@@ -13,7 +13,7 @@ extension UITextView {
     func setupTextView(text: String) {
         self.layer.cornerRadius = 4
         self.layer.borderWidth = 1
-        self.layer.borderColor = .mainGrey
+        self.layer.borderColor = .galleryGrey
         self.textColor = .galleryGrey
         self.font = .robotoRegular(ofSize: 17)
         self.keyboardType = .default

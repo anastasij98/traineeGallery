@@ -49,7 +49,7 @@ extension UIColor {
 
 extension CGColor {
     
-    static var mainGrey: CGColor {
+    static var galleryGrey: CGColor {
         #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
     }
     

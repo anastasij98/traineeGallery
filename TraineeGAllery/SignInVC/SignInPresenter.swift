@@ -28,9 +28,7 @@ class SignInPresenter {
     var network: NetworkServiceProtocol
     var userDefaultsService: UserDefaultsServiceProtocol
     
-    var disposeBag = DisposeBag()
-    var userDisposeBag = DisposeBag()
-    
+    var disposeBag = DisposeBag()    
     
     init(view: SignInViewProtocol? = nil,
          router: SignInRouterProtocol,
@@ -53,38 +51,34 @@ extension SignInPresenter: SignInPresenterProtocol {
         network.authorizationRequest(userName: userName, password: password)
             .observe(on: MainScheduler.instance)
             .debug()
-            .subscribe (onSuccess: { [weak self] data in
-                guard let accessToken = data.access_token else { return }
-                self?.userDefaultsService.saveAccessToken(token: accessToken)
-                self?.getCurrent()
+            .flatMap({ [weak self] (authModel) -> Single<CurrentUserModel> in
+                guard let self = self,
+                      let accessToken = authModel.access_token else {
+                    return .error(NSError(domain: "", code: 0, userInfo: nil)) }
+                self.userDefaultsService.saveAccessToken(token: accessToken)
+                
+                return self.network.getCurrentUser()
+            })
+            .subscribe (onSuccess: { [weak self] currentUserModel in
+                guard let self = self,
+                      let fullName = currentUserModel.fullName,
+                      let birthday = currentUserModel.birthday,
+                      let email = currentUserModel.email,
+                      let usersId = currentUserModel.id else { return }
+                
+                let formattedDate =  FormattedDateString.getFormattedDateString(string: birthday)
+                self.userDefaultsService.saveUsersInfo(name: fullName,
+                                                       birthday: formattedDate,
+                                                       email: email)
+                self.userDefaultsService.saveUsersId(id: usersId)
+                DispatchQueue.main.async {
+                    self.router.openTabBarController()
+                }
+                print(currentUserModel)
             }, onFailure: { error in
                 print(error)
             })
             .disposed(by: disposeBag)
-    }
-    
-    func getCurrent() {
-        network.getCurrentUser()
-            .observe(on: MainScheduler.instance)
-            .debug()
-            .subscribe (onSuccess: { [weak self] data in
-                guard let fullName = data.fullName,
-                      let birthday = data.birthday,
-                      let email = data.email,
-                      let usersId = data.id else { return }
-                let formattedDate =  FormattedDateString.getFormattedDateString(string: birthday)
-                self?.userDefaultsService.saveUsersInfo(name: fullName,
-                                                        birthday: formattedDate,
-                                                        email: email)
-                self?.userDefaultsService.saveUsersId(id: usersId)
-                self?.router.openTabBarController()
-                
-                print(usersId)
-                print(data)
-            }, onFailure: { error in
-                print(error)
-            })
-            .disposed(by: userDisposeBag)
     }
     
     func popViewController(viewController: SignInViewController) {

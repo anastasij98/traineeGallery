@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 extension UIButton {
     
@@ -64,4 +65,9 @@ extension UIButton {
          return leftBarButton
      }
 
+    func setupButtonHeight(height: Int) {
+        self.snp.makeConstraints {
+            $0.height.equalTo(height)
+        }
+    }
 }

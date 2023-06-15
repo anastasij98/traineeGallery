@@ -62,27 +62,20 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var emailTextField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .mainGrey
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 4
-        view.snp.makeConstraints {
-            $0.height.equalTo(36)
-        }
         view.placeholder = "Email"
+        view.autocapitalizationType = .none
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupTextFieldHeight(height: 40)
         view.setupIcon(name: "email")
-
+        
         return view
     }()
     
     lazy var passwordTextField: CustomTextField = {
         let view = CustomTextField()
-        view.layer.borderColor = .mainGrey
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 4
-        view.snp.makeConstraints {
-            $0.height.equalTo(36)
-        }
         view.placeholder = "Password"
+        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupTextFieldHeight(height: 40)
         view.addButton(button: eyeButton)
         view.isSecureTextEntry = true
 
@@ -115,13 +108,11 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.titleLabel?.font = .robotoMedium(ofSize: 16)
         view.backgroundColor = .galleryBlack
         view.layer.cornerRadius = 10
-        view.snp.makeConstraints {
-            $0.height.equalTo(40)
-        }
         view.addTarget(self,
                        action: #selector(signInButtonTap),
                        for: .touchUpInside)
-        
+        view.setupButtonHeight(height: 40)
+
         return view
     }()
     
@@ -133,10 +124,8 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
                            for: .normal)
         view.titleLabel?.font = .robotoMedium(ofSize: 16)
         view.backgroundColor = .white
-        view.snp.makeConstraints {
-            $0.height.equalTo(40)
-        }
-        
+        view.setupButtonHeight(height: 40)
+
         return view
     }()
     
