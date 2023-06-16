@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxNetworkApiClient
 
 struct ResponseModel: Codable {
     
@@ -15,7 +16,7 @@ struct ResponseModel: Codable {
     var totalItems: Int?
 }
 
-struct ItemModel: Codable {
+struct ItemModel: JsonBodyConvertible {
     
     var id: Int?
     var name: String?
@@ -34,6 +35,7 @@ struct ItemModel: Codable {
 
 struct ImageModel: Codable {
     
+    var file: String?
     var id: Int?
     var name: String?
 }

@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import RxNetworkApiClient
 
-struct PostImageModel: Codable {
-    
+struct FileEntity: JsonBodyConvertible {
+
+    var file: String?
     var name: String?
-    var dateCreate: Date?
-    var description: String?
-    var new: Bool?
-    var popular: Bool?
-    var image: Data?
 }
+
+//struct FileEntity: JsonBodyConvertible {
+//    
+//    var file: Data?
+//    var name: String?
+//}

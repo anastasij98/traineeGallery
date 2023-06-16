@@ -110,7 +110,35 @@ extension NetworkService: NetworkServiceProtocol {
         let request: ApiRequest<Data> = .request(path: "api/users/\(id)",
                                                  method: .delete,
                                                  headers: [header])
-
+        
+        return apiClient.execute(request: request)
+    }
+    
+    func postImageFile(name: String,
+                       dateCreate: String,
+                       description: String,
+                       new: Bool,
+                       popular: Bool,
+                       image: ImageModel) -> Single<ItemModel> {
+        let header: Header = Header("Content-Type", "application/json")
+        let imageModel = ItemModel(name: name,
+                                   description: description, date: dateCreate,
+                                   new: new,
+                                   popular: popular,
+                                   image: image)
+        let request: ApiRequest<ItemModel> = .request(path: "api/photos",
+                                                      method: .post,
+                                                      headers: [header],
+                                                      body: imageModel)
+        
+        return apiClient.execute(request: request)
+    }
+    
+    func postMediaObject(file: Data, name: String) -> Single<ImageModel> {
+        let uploadFile = UploadFile("file", file, "image")
+        let request: ApiRequest<ImageModel> = .request(path: "api/media_objects",
+                                                       method: .post,
+                                                       files: [uploadFile])
         return apiClient.execute(request: request)
     }
 }
