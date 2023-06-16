@@ -174,24 +174,15 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func onAddDataButtonTap() {
-        print("added")
-//        guard let image = imageObject,
-        guard let imageV = imageView.image?.jpegData(compressionQuality: 80),
+        guard let image = imageView.image?.jpegData(compressionQuality: 80),
               let dateCreate = presenter?.getCurrentDate() else { return }
         presenter?.mediaObject(name: nameTextView.text,
-                               file: imageV)
-//            presenter?.postImage(name: nameTextView.text,
-//                                 dateCreate: dateCreate,
-//                                 description: descriptionTextView.text,
-//                                 new: true,
-//                                 popular: true,
-//                                 image: ImageModel(file: "",
-//                                                   id: nil,
-//                                                   name: nil))
-        
+                               file: image,
+                               dateCreate: dateCreate,
+                               description: descriptionTextView.text,
+                               new: true,
+                               popular: Bool.random())
     }
-    
-    
 }
 
 extension AddDataViewController: UITextViewDelegate {

@@ -95,21 +95,19 @@ extension NetworkService: NetworkServiceProtocol {
                                         password: password,
                                         username: username,
                                         birthday: birthday,
-                                        roles: roles)
-        let header: Header = Header("Content-Type", "application/json")
+                                        roles: roles)        
         let request: ApiRequest<ResponseRegisterModel> = .request(path: "api/users",
                                                                   method: .post,
-                                                                  headers: [header],
+                                                                  headers: [Header.contentJson],
                                                                   body: body)
         
         return apiClient.execute(request: request)
     }
     
     func deleteUser(id: Int) -> Single<Data> {
-        let header: Header = Header("Content-Type", "application/json")
         let request: ApiRequest<Data> = .request(path: "api/users/\(id)",
                                                  method: .delete,
-                                                 headers: [header])
+                                                 headers: [Header.contentJson])
         
         return apiClient.execute(request: request)
     }
@@ -119,16 +117,17 @@ extension NetworkService: NetworkServiceProtocol {
                        description: String,
                        new: Bool,
                        popular: Bool,
-                       image: ImageModel) -> Single<ItemModel> {
-        let header: Header = Header("Content-Type", "application/json")
-        let imageModel = ItemModel(name: name,
-                                   description: description, date: dateCreate,
-                                   new: new,
-                                   popular: popular,
-                                   image: image)
-        let request: ApiRequest<ItemModel> = .request(path: "api/photos",
+                       iriId: Int) -> Single<PostImageModel> {
+        let iri = "api/media_objects/\(iriId)"
+        let imageModel = PostImageModel(name: name,
+                                        description: description,
+                                        date: dateCreate,
+                                        new: new,
+                                        popular: popular,
+                                        image: iri)
+        let request: ApiRequest<PostImageModel> = .request(path: "api/photos",
                                                       method: .post,
-                                                      headers: [header],
+                                                      headers: [Header.contentJson],
                                                       body: imageModel)
         
         return apiClient.execute(request: request)

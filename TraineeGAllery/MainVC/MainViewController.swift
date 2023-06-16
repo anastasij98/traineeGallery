@@ -124,8 +124,13 @@ class MainViewController: UISearchController {
         setupCollectionViewLayout()
         updateUnderlineVisibility(hiddenValue: true)
         setupNoConnectionStackView()
-        setupNavigationBar(underlineColor: .clear)
         setupSearchBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavigationBar(underlineColor: .clear)
     }
 
     override func viewWillLayoutSubviews() {

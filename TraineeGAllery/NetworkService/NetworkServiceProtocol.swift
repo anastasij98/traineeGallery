@@ -59,16 +59,28 @@ protocol NetworkServiceProtocol {
     /// - Returns: возвращает Single, содержащий один объект типа Data
     func deleteUser(id: Int) -> Single<Data>
     
+    ///  Запрос на создание медиа объекта
+    /// - Parameters:
+    ///   - file: объект в формате Data
+    ///   - name: "file""
+    /// - Returns: возвращается объект типа ImageModel
+    func postMediaObject(file: Data,
+                         name: String) -> Single<ImageModel>
+    
+    /// Запрос на создание фото с описанием
+    /// - Parameters:
+    ///   - name: имя картинки
+    ///   - dateCreate: дата создания
+    ///   - description: описание картиники
+    ///   - new: тэг new
+    ///   - popular: тэг popular
+    ///   - iriId: iri путь к картинке
+    /// - Returns: возвращается объект типа PostImageModel
     func postImageFile(name: String,
                        dateCreate: String,
                        description: String,
                        new: Bool,
                        popular: Bool,
-                       image: ImageModel) -> Single<ItemModel> 
-    
-//    func postMediaObject(file: String,
-//                       name: String) -> Single<ImageModel>
-    
-    func postMediaObject(file: Data,
-                         name: String) -> Single<ImageModel>
+                       iriId: Int) -> Single<PostImageModel>
+
 }
