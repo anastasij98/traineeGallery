@@ -58,3 +58,8 @@ struct PostImageModel: JsonBodyConvertible {
         case date = "dateCreate"
     }
 }
+
+struct ErrorModel: Codable {
+    
+    var detail: String?
+}

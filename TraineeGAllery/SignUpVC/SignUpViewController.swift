@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol SignUpViewProtocol: AnyObject {
+protocol SignUpViewProtocol: AnyObject, AlertMessageProtocol {
     
     
 }
@@ -381,17 +381,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                                        birthday: birthdayTextField.text ?? "",
                                        roles: [])
         } else {
-            setAlertController()
+            setAlertController(title: "Invalid output",
+                               message: "Please, check the entered data")
         }
-    }
-    
-    private func setAlertController() {
-        let alert = UIAlertController(title: "Invalid input",
-                                      message: "Please, check the entered data",
-                                      preferredStyle: UIAlertController.Style.alert)
-        var buttonn = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-        alert.addAction(buttonn)
-        self.present(alert, animated: true, completion: nil)
     }
     
     @objc

@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxNetworkApiClient
 
 protocol SignUpPresenterProtocol {
     
@@ -72,7 +73,7 @@ extension SignUpPresenter: SignUpPresenterProtocol {
         let formattedBirthday = FormattedDateString.setFormattedDateString(string: birthday)
         network.registerUser(email: email,
                              password: password,
-                             phone: "89513478921",
+                             phone: "\(Int.random(in: 1000..<9999))",
                              fullName: fullName,
                              username: username,
                              birthday: formattedBirthday,
@@ -114,6 +115,8 @@ extension SignUpPresenter: SignUpPresenterProtocol {
             print(currentUserModel)
         }, onFailure: { error in
             print(error)
+            
+            self.view?.setAlertController(title: "Error", message: "\(error.localizedDescription)")
         })
         .disposed(by: disposeBag)
     }

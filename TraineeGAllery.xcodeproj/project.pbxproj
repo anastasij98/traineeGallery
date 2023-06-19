@@ -69,6 +69,7 @@
 		47E515D629F8A04200AB5397 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E515D529F8A04200AB5397 /* UITextField.swift */; };
 		47E5EE472A388C23008D619F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E5EE462A388C23008D619F /* String.swift */; };
 		47E5EE492A3AEE31008D619F /* PostImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E5EE482A3AEE31008D619F /* PostImageModel.swift */; };
+		47E5EE4B2A403D20008D619F /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E5EE4A2A403D20008D619F /* ErrorHandler.swift */; };
 		47E966A22A25D944007536AB /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966A12A25D944007536AB /* AuthorizationModel.swift */; };
 		47E966A42A2663C3007536AB /* AuthorizationTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966A32A2663C3007536AB /* AuthorizationTokenInterceptor.swift */; };
 		47E966A62A275BFD007536AB /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E966A52A275BFD007536AB /* UserModel.swift */; };
@@ -170,6 +171,7 @@
 		47E515D529F8A04200AB5397 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		47E5EE462A388C23008D619F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		47E5EE482A3AEE31008D619F /* PostImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageModel.swift; sourceTree = "<group>"; };
+		47E5EE4A2A403D20008D619F /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		47E966A12A25D944007536AB /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
 		47E966A32A2663C3007536AB /* AuthorizationTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTokenInterceptor.swift; sourceTree = "<group>"; };
 		47E966A52A275BFD007536AB /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				4758098829DFF86900BA741E /* NetworkService.swift */,
 				47E966A32A2663C3007536AB /* AuthorizationTokenInterceptor.swift */,
 				47E966AE2A28B817007536AB /* ModifiedInterceptor.swift */,
+				47E5EE4A2A403D20008D619F /* ErrorHandler.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -691,6 +694,7 @@
 				47CB5BB129DCB6D4002BB2ED /* MainConfigurator.swift in Sources */,
 				47E515C829F8602000AB5397 /* SignUpRouter.swift in Sources */,
 				47CB5BBD29DDCF3D002BB2ED /* DetailedPresenter.swift in Sources */,
+				47E5EE4B2A403D20008D619F /* ErrorHandler.swift in Sources */,
 				47E966B72A332319007536AB /* AlertActionMode.swift in Sources */,
 				47E515D029F87BD500AB5397 /* SignInPresenter.swift in Sources */,
 				47E966AF2A28B817007536AB /* ModifiedInterceptor.swift in Sources */,

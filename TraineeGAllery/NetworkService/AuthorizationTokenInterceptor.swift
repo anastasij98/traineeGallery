@@ -58,6 +58,7 @@ extension ApiClientImp {
         let apiClient = ApiClientImp(urlSession: URLSession.shared)
         apiClient.interceptors.append(AuthInterceptor(UserDefaultsService()))
         apiClient.responseHandlersQueue.append(JsonResponseHandler())
+        apiClient.responseHandlersQueue.insert(ErrorResponseHandler(), at: 0)
         return apiClient
     }
 }

@@ -77,3 +77,34 @@ extension UIViewController {
                            customBackButton: customBackButton)
     }
 }
+
+protocol AlertMessageProtocol {
+    
+    func setAlertController(title: String, message: String)
+    func alertControllerWithLeftButton(title: String, message: String, leftButtonTitle: String, leftButtonAction: @escaping (UIAlertAction) -> Void)
+}
+
+extension UIViewController: AlertMessageProtocol {
+    
+    func setAlertController(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        let button = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(button)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func alertControllerWithLeftButton(title: String, message: String, leftButtonTitle: String, leftButtonAction: @escaping (UIAlertAction) -> Void) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        let leftButton = UIAlertAction(title: leftButtonTitle, style: UIAlertAction.Style.default, handler: leftButtonAction)
+        let rigthButton = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(leftButton)
+        alert.addAction(rigthButton)
+        self.present(alert, animated: true, completion: nil)
+    }
+}

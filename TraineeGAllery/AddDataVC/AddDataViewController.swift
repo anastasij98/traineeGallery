@@ -72,7 +72,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     lazy var leftBarButton: UIButton = {
         let view = UIButton.leftBarBut(title: "Back")
         view.addTarget(self,
-                       action: #selector(setAlertController),
+                       action: #selector(alertController),
                        for: .touchUpInside)
 
         return view
@@ -97,18 +97,11 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     
     @objc
-    func setAlertController() {
-        let alert = UIAlertController(title: "Confirmation",
+    func alertController() {
+        alertControllerWithLeftButton(title: "Confirmation",
                                       message: "Are you sure you want to exit?\nThe entered data will be lost",
-                                      preferredStyle: UIAlertController.Style.alert)
-        
-        let leftButton = UIAlertAction(title: "Exit", style: UIAlertAction.Style.default, handler: popViewController)
-        let rigthButton = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
-        
-        alert.addAction(leftButton)
-        alert.addAction(rigthButton)
-        alert.preferredAction = rigthButton
-        self.present(alert, animated: true, completion: nil)
+                                      leftButtonTitle: "Exit",
+                                      leftButtonAction: popViewController(action:))
     }
     
     func setupViewController() {
