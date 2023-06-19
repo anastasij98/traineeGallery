@@ -72,7 +72,7 @@ extension SignUpPresenter: SignUpPresenterProtocol {
         let formattedBirthday = FormattedDateString.setFormattedDateString(string: birthday)
         network.registerUser(email: email,
                              password: password,
-                             phone: "\(Int.random(in: 2000..<9999))",
+                             phone: "89513478921",
                              fullName: fullName,
                              username: username,
                              birthday: formattedBirthday,

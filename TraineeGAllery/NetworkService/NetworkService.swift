@@ -88,7 +88,7 @@ extension NetworkService: NetworkServiceProtocol {
                       username: String,
                       birthday: String,
                       roles: [String]) -> Single<ResponseRegisterModel> {
-        
+        let header: Header = Header("Content-Type", "application/json")
         let body = RequestRegisterModel(email: email,
                                         phone: phone,
                                         fullName: fullName,
@@ -98,7 +98,7 @@ extension NetworkService: NetworkServiceProtocol {
                                         roles: roles)        
         let request: ApiRequest<ResponseRegisterModel> = .request(path: "api/users",
                                                                   method: .post,
-                                                                  headers: [Header.contentJson],
+                                                                  headers: [header],
                                                                   body: body)
         
         return apiClient.execute(request: request)
@@ -138,6 +138,15 @@ extension NetworkService: NetworkServiceProtocol {
         let request: ApiRequest<ImageModel> = .request(path: "api/media_objects",
                                                        method: .post,
                                                        files: [uploadFile])
+        return apiClient.execute(request: request)
+    }
+    
+    func getUsersImages(userId: Int) -> Single<ResponseModel> {
+
+        let request: ApiRequest<ResponseModel> = .request(path: "api/photos",
+                                                          method: .get,
+                                                          query: ("user.id", "\(userId)"))
+        
         return apiClient.execute(request: request)
     }
 }

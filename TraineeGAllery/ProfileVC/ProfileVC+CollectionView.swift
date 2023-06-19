@@ -23,15 +23,18 @@ extension ProfileViewController: UICollectionViewDelegate {
 extension ProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return presenter?.getItemsCount() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: userImagesID, for: indexPath) as? MainCollectionViewCell,
+              let item = presenter?.getItem(index: indexPath.item) else { return UICollectionViewCell() }
+        let request = URLConfiguration.url + URLConfiguration.media + (item.image?.name ?? "")
+        let model = CollectionViewCellModel(imageURL: URL(string: request))
+        cell.setupCollectionItem(model: model)
         cell.backgroundColor = .galleryGrey
-        cell.backgroundView = UIImageView(image: UIImage(named: "cat2"))
-        cell.backgroundView?.contentMode = .scaleAspectFit
-
+        
         return cell
     }
 }

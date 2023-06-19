@@ -82,5 +82,7 @@ protocol NetworkServiceProtocol {
                        new: Bool,
                        popular: Bool,
                        iriId: Int) -> Single<PostImageModel>
+    
+    func getUsersImages(userId: Int) -> Single<ResponseModel>
 
 }

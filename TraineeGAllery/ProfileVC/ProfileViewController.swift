@@ -16,13 +16,15 @@ protocol ProfileVCProtocol: AnyObject {
     ///   - userName: имя пользователя
     ///   - birthday: дата рождения пользователя 
     func setupView(userName: String,
-                   birthday: String) 
+                   birthday: String)
+    func updateCollectionView() 
 }
 
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: ProfilePresenterProtocol?
     var cellId = "cellId"
+    var userImagesID = "userImages"
     
     var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero,
@@ -103,12 +105,12 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         setupLayot()
         setupCollectionView()
         setupCollectionViewLayout()
+        presenter?.viewIsReady()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.viewIsReady()
         setupRightNavBarButton()
         setupNavigationBar(isHidden: false)
     }
@@ -167,6 +169,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         
         collectionView.register(UICollectionViewCell.self,
                                 forCellWithReuseIdentifier: cellId)
+        collectionView.register(MainCollectionViewCell.self,
+                                forCellWithReuseIdentifier: userImagesID)
     }
     
     private func setupCollectionViewLayout() {
@@ -205,5 +209,9 @@ extension ProfileViewController: ProfileVCProtocol {
                    birthday: String) {
         userNameLabel.text = userName
         birthdayLabel.text = birthday
+    }
+    
+    func updateCollectionView() {
+        collectionView.reloadData()
     }
 }
