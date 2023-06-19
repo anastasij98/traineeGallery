@@ -85,4 +85,11 @@ protocol NetworkServiceProtocol {
     
     func getUsersImages(userId: Int) -> Single<ResponseModel>
 
+    func updateUsersInfo(usersId: Int,
+                         email: String,
+                         phone: String,
+                         fullName: String,
+                         username: String,
+                         birthday: String,
+                         roles: [String]) -> Single<ResponseRegisterModel>
 }

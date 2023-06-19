@@ -19,4 +19,6 @@ platform :ios, '13.0'
 
   pod "DBDebugToolkit"
 
+  pod "TTGSnackbar"
+
 end

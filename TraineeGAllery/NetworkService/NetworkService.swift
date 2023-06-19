@@ -149,4 +149,28 @@ extension NetworkService: NetworkServiceProtocol {
         
         return apiClient.execute(request: request)
     }
+    
+    func updateUsersInfo(usersId: Int,
+                         email: String,
+                         phone: String,
+                         fullName: String,
+                         username: String,
+                         birthday: String,
+                         roles: [String]) -> Single<ResponseRegisterModel> {
+
+        let body = RequestRegisterModel(email: email,
+                                        phone: phone,
+                                        fullName: fullName,
+                                        username: username,
+                                        birthday: birthday,
+                                        roles: roles)
+        
+        let request: ApiRequest<ResponseRegisterModel> = .request(path: "api/users/\(usersId)",
+                                                                  method: .put,
+                                                                  headers: [Header.contentJson],
+                                                                  body: body)
+        
+        
+        return apiClient.execute(request: request)
+    }
 }

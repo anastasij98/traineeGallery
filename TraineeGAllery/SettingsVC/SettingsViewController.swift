@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol SettingsVCProtocol {
+protocol SettingsVCProtocol: AnyObject, AlertMessageProtocol {
     
     /// Установка данных пользователя в соответсвующие поля
     /// - Parameters:
@@ -23,6 +23,8 @@ protocol SettingsVCProtocol {
     /// Данные, которые нужно сохрнаить в usedrDefaults и передать на экран ProfileVC
     /// - Parameter completion: completion handler
     func textForSaving(completion: (_ userName: String, _ birthday: String, _ email: String)  -> Void)
+    func deleteUser(action: UIAlertAction)
+    func popViewController(action: UIAlertAction)
 }
 
 class SettingsViewController: UIViewController, UIScrollViewDelegate {
@@ -30,7 +32,6 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     var presenter: SettingsPresenterProtocol?
     
     var password = "password"
-    var alertCases = AlertCases.cancel
     
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -188,7 +189,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.addTarget(self,
                        action: #selector(onCancelButtonTap),
                        for: .touchUpInside)
-
+        
         return view
     }()
     
@@ -256,7 +257,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         
         buttonsStackView.snp.makeConstraints {
             $0.centerX.equalTo(stackView.snp.centerX)
-
+            
         }
         
         setupTextFields()
@@ -300,48 +301,25 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func setAlertController(mode: AlertCases) {
-        let alert = UIAlertController(title: "Confirmation",
-                                      message: mode.rawValue,
-                                      preferredStyle: UIAlertController.Style.alert)
-        
-        var leftButton = UIAlertAction()
-        switch mode {
-        case .delete:
-            leftButton = UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: deleteUser)
-        case .cancel:
-            leftButton = UIAlertAction(title: "Exit", style: UIAlertAction.Style.default, handler: popViewController)
-        }
-        
-        let rigthButton = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
-        
-        alert.addAction(leftButton)
-        alert.addAction(rigthButton)
-        alert.preferredAction = rigthButton
-        self.present(alert, animated: true, completion: nil)
+    @objc
+    func onCancelButtonTap() {
+        presenter?.setCancelAlertController()
     }
 
     @objc
-    func onCancelButtonTap() {
-        setAlertController(mode: .cancel)
-    }
-    
-    func popViewController(action: UIAlertAction) {
-        presenter?.popViewController(viewController: self)
-    }
-    
-    @objc
     func onDeleteButtonTap() {
-        setAlertController(mode: .delete)
-    }
-    
-    func deleteUser(action: UIAlertAction) {
-        presenter?.deleteUser()
+        presenter?.setDeleteAlertController()
     }
 
     @objc
     func onSaveButtonTap() {
-        presenter?.saveUsersChanges()
+        guard let email = emailTextField.text,
+              let userName = userNameTextField.text,
+              let birthday = birthdayTextField.text else { return }
+        presenter?.saveUsersChanges(email: email,
+                                    phone: "45674321",
+                                    username: userName,
+                                    birthday: birthday)
     }
     
     @objc
@@ -369,4 +347,13 @@ extension SettingsViewController: SettingsVCProtocol {
               let email = emailTextField.text else { return }
         completion( userName, birthday, email)
     }
+    
+    func deleteUser(action: UIAlertAction) {
+        presenter?.deleteUser()
+    }
+    
+    func popViewController(action: UIAlertAction) {
+        presenter?.popViewController(viewController: self)
+    }
+    
 }
