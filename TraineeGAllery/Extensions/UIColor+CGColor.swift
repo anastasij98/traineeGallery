@@ -18,6 +18,10 @@ extension UIColor {
         #colorLiteral(red: 0.737254902, green: 0.737254902, blue: 0.737254902, alpha: 1)
     }
     
+    static var galleryDarkGrey: UIColor {
+        #colorLiteral(red: 0.5180020332, green: 0.5180020332, blue: 0.5180020332, alpha: 1)
+    }
+    
     static var galleryLightGrey: UIColor {
         #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.937254902, alpha: 1)
     }

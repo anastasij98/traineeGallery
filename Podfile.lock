@@ -16,6 +16,7 @@ PODS:
   - RxSwift (6.2.0)
   - SnapKit (5.6.0)
   - SwiftyJSON (5.0.1)
+  - TTGSnackbar (1.11.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - "RxNetworkApiClient (from `git@github.com:Cheeezcake/RxNetworkApiClient.git`)"
   - RxSwift
   - SnapKit (~> 5.6.0)
+  - TTGSnackbar
 
 SPEC REPOS:
   trunk:
@@ -38,6 +40,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SwiftyJSON
+    - TTGSnackbar
 
 EXTERNAL SOURCES:
   RxNetworkApiClient:
@@ -59,7 +62,8 @@ SPEC CHECKSUMS:
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  TTGSnackbar: fea91c62637b5662f808a4c3b55f7631cb7e1ef7
 
-PODFILE CHECKSUM: bef6d1730f0af5f65e79de8c5af609762909b52e
+PODFILE CHECKSUM: c8bf1e8ac86e3893d19c0aaa5640b331203b00e2
 
 COCOAPODS: 1.11.3

@@ -81,7 +81,7 @@ protocol NetworkServiceProtocol {
                        description: String,
                        new: Bool,
                        popular: Bool,
-                       iriId: Int) -> Single<PostImageModel>
+                       iriId: Int) -> Single<ItemModel>
     
     func getUsersImages(userId: Int) -> Single<ResponseModel>
 

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TTGSnackbar
 
 extension UIViewController {
     
@@ -82,6 +83,7 @@ protocol AlertMessageProtocol {
     
     func setAlertController(title: String, message: String)
     func alertControllerWithLeftButton(title: String, message: String, leftButtonTitle: String, leftButtonAction: @escaping (UIAlertAction) -> Void)
+    func showSnackBar()
 }
 
 extension UIViewController: AlertMessageProtocol {
@@ -106,5 +108,25 @@ extension UIViewController: AlertMessageProtocol {
         alert.addAction(leftButton)
         alert.addAction(rigthButton)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+     var snackBar: TTGSnackbar {
+        let view = TTGSnackbar(message: "Photo uploaded successfully", duration: .middle)
+        view.bottomMargin = (self.tabBarController?.tabBar.frame.size.height ?? 10) + 10
+        view.leftMargin = 16
+        view.rightMargin = 16
+        view.cornerRadius = 10
+        view.animationDuration = 5
+        view.animationType = .fadeInFadeOut
+        view.icon = UIImage(named: "Info")
+        view.messageTextFont = .robotoRegular(ofSize: 18)
+        view.backgroundColor = .galleryDarkGrey
+        view.tintColor = .white
+        
+        return view
+    }
+
+    func showSnackBar() {
+        snackBar.show()
     }
 }

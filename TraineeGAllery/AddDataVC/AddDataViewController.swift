@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol AddDataVCProtocol: AnyObject {
+protocol AddDataVCProtocol: AnyObject, AlertMessageProtocol {
     
     
 }

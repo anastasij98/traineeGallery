@@ -117,7 +117,7 @@ extension NetworkService: NetworkServiceProtocol {
                        description: String,
                        new: Bool,
                        popular: Bool,
-                       iriId: Int) -> Single<PostImageModel> {
+                       iriId: Int) -> Single<ItemModel> {
         let iri = "api/media_objects/\(iriId)"
         let imageModel = PostImageModel(name: name,
                                         description: description,
@@ -125,7 +125,7 @@ extension NetworkService: NetworkServiceProtocol {
                                         new: new,
                                         popular: popular,
                                         image: iri)
-        let request: ApiRequest<PostImageModel> = .request(path: "api/photos",
+        let request: ApiRequest<ItemModel> = .request(path: "api/photos",
                                                       method: .post,
                                                       headers: [Header.contentJson],
                                                       body: imageModel)

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol MainViewControllerProtocol: AnyObject {
+protocol MainViewControllerProtocol: AnyObject, AlertMessageProtocol {
     
     /// В зависимоти от состояния сети показывается либо галерея, либо информация об отсутсвтии сети
     /// - Parameter isConnected: параметр, показывающий наличие/отсутсвие сети
@@ -131,6 +131,7 @@ class MainViewController: UISearchController {
         super.viewWillAppear(animated)
         
         setupNavigationBar(underlineColor: .clear)
+//        setSnackBar()
     }
 
     override func viewWillLayoutSubviews() {

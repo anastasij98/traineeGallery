@@ -11,6 +11,7 @@ import UIKit
 protocol AddDataRouterProtocol {
     
     func popViewController(viewController: AddDataViewController)
+    func openTabBarController(index: Int)
 }
 
 class AddDataRouter {
@@ -26,5 +27,9 @@ extension AddDataRouter: AddDataRouterProtocol {
     
     func popViewController(viewController: AddDataViewController) {
         viewController.navigationController?.popViewController(animated: true)
+    }
+    
+    func openTabBarController(index: Int) {
+        self.view?.tabBarController?.selectedIndex = index
     }
 }

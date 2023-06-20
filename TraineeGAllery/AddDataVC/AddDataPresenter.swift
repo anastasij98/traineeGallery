@@ -29,6 +29,7 @@ class AddDataPresenter {
     
     init(view: AddDataVCProtocol? = nil,
          router: AddDataRouterProtocol,
+         mainView: MainViewControllerProtocol? = nil,
          network: NetworkServiceProtocol) {
         self.view = view
         self.router = router
@@ -51,7 +52,7 @@ extension AddDataPresenter: AddDataPresenterProtocol {
         network.postMediaObject(file: file,
                                 name: name)
         .observe(on: MainScheduler.instance)
-        .flatMap({ [weak self] (imageModel) -> Single<PostImageModel> in
+        .flatMap({ [weak self] (imageModel) -> Single<ItemModel> in
             guard let self = self,
             let iriId = imageModel.id else {
                 return .error(NSError(domain: "", code: 0, userInfo: nil)) }
@@ -64,9 +65,17 @@ extension AddDataPresenter: AddDataPresenterProtocol {
                                               iriId: iriId)
         })
         .subscribe(onSuccess: { [weak self] (itemModel) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                print(itemModel)
+                self.router.openTabBarController(index: 0)
+                self.view?.showSnackBar()
+            }
+        }, onFailure: { error in
+            print(error)
+        }, onDisposed: {
         })
         .disposed(by: disposeBag)
-        
     }
 
     func getCurrentDate() -> String {
