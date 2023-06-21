@@ -21,4 +21,5 @@ platform :ios, '13.0'
 
   pod "TTGSnackbar"
 
+  pod 'PKHUD', '~> 5.0'
 end

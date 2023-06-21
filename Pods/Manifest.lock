@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.7.1)
   - DBDebugToolkit (0.9.0)
   - Kingfisher (7.7.0)
+  - PKHUD (5.3.0)
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
@@ -22,6 +23,7 @@ DEPENDENCIES:
   - Alamofire
   - DBDebugToolkit
   - Kingfisher (~> 7.0)
+  - PKHUD (~> 5.0)
   - R.swift (= 6.1.0)
   - RxAlamofire
   - "RxNetworkApiClient (from `git@github.com:Cheeezcake/RxNetworkApiClient.git`)"
@@ -34,6 +36,7 @@ SPEC REPOS:
     - Alamofire
     - DBDebugToolkit
     - Kingfisher
+    - PKHUD
     - R.swift
     - R.swift.Library
     - RxAlamofire
@@ -55,6 +58,7 @@ SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   DBDebugToolkit: 41663a36673c919dfe665003f159ea5621aee0db
   Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
+  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
@@ -64,6 +68,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   TTGSnackbar: fea91c62637b5662f808a4c3b55f7631cb7e1ef7
 
-PODFILE CHECKSUM: c8bf1e8ac86e3893d19c0aaa5640b331203b00e2
+PODFILE CHECKSUM: 73fc6bb140683dd4e9cbc309a3b6234c05c955e6
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
