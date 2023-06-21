@@ -102,9 +102,11 @@
 		47EEEEE02A098A0B0075791D /* SettingsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEEEDF2A098A0B0075791D /* SettingsConfigurator.swift */; };
 		47FC65D32A21194600F14B63 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC65D22A21194600F14B63 /* SettingsPresenter.swift */; };
 		47FC65D52A21195500F14B63 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FC65D42A21195500F14B63 /* SettingsRouter.swift */; };
+		840C1D413850B5AE7942BF90 /* Pods_TraineeGAllery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC387CD43533A775390008 /* Pods_TraineeGAllery.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23EC387CD43533A775390008 /* Pods_TraineeGAllery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TraineeGAllery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4709BA0929D1AC900035F64F /* TraineeGAllery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraineeGAllery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4709BA0C29D1AC900035F64F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4709BA0E29D1AC900035F64F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +204,8 @@
 		47EEEEDF2A098A0B0075791D /* SettingsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfigurator.swift; sourceTree = "<group>"; };
 		47FC65D22A21194600F14B63 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		47FC65D42A21195500F14B63 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
+		6BF9ACA870957573818CC096 /* Pods-TraineeGAllery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraineeGAllery.debug.xcconfig"; path = "Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery.debug.xcconfig"; sourceTree = "<group>"; };
+		BC0B232891E4264838795F3F /* Pods-TraineeGAllery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TraineeGAllery.release.xcconfig"; path = "Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840C1D413850B5AE7942BF90 /* Pods_TraineeGAllery.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +223,8 @@
 		27533053DC3527FE556C6321 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				6BF9ACA870957573818CC096 /* Pods-TraineeGAllery.debug.xcconfig */,
+				BC0B232891E4264838795F3F /* Pods-TraineeGAllery.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -228,6 +235,7 @@
 				4709BA0B29D1AC900035F64F /* TraineeGAllery */,
 				4709BA0A29D1AC900035F64F /* Products */,
 				27533053DC3527FE556C6321 /* Pods */,
+				4C16577A18314C295EFFAF2D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -486,6 +494,14 @@
 			path = SettingsVC;
 			sourceTree = "<group>";
 		};
+		4C16577A18314C295EFFAF2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23EC387CD43533A775390008 /* Pods_TraineeGAllery.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -493,10 +509,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4709BA1D29D1AC910035F64F /* Build configuration list for PBXNativeTarget "TraineeGAllery" */;
 			buildPhases = (
+				25BF9D07547CC6D3929061D5 /* [CP] Check Pods Manifest.lock */,
 				476BAF5B2A169D5D002F6F6E /* ShellScript */,
 				4709BA0529D1AC900035F64F /* Sources */,
 				4709BA0629D1AC900035F64F /* Frameworks */,
 				4709BA0729D1AC900035F64F /* Resources */,
+				C0ED00DC0F6CCE4BB47CB875 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -560,6 +578,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		25BF9D07547CC6D3929061D5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TraineeGAllery-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		476BAF5B2A169D5D002F6F6E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -578,6 +618,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
+		C0ED00DC0F6CCE4BB47CB875 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TraineeGAllery/Pods-TraineeGAllery-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -813,6 +870,7 @@
 		};
 		4709BA1E29D1AC910035F64F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BF9ACA870957573818CC096 /* Pods-TraineeGAllery.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -844,6 +902,7 @@
 		};
 		4709BA1F29D1AC910035F64F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC0B232891E4264838795F3F /* Pods-TraineeGAllery.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
