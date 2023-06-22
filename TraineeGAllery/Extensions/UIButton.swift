@@ -70,4 +70,8 @@ extension UIButton {
             $0.height.equalTo(height)
         }
     }
+    
+    func setWarningImage() {
+        self.setImage(UIImage(named: "warning"), for: .normal)
+    }
 }

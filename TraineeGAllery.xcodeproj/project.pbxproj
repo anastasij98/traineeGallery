@@ -19,6 +19,7 @@
 		4709BA2929D1C3EF0035F64F /* AddSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2829D1C3EF0035F64F /* AddSubview.swift */; };
 		4709BA2B29D1E0920035F64F /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2A29D1E0920035F64F /* ResponseModel.swift */; };
 		4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2C29D1E4690035F64F /* URLConfiguration.swift */; };
+		47332C4D2A447D11009565FB /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47332C4C2A447D11009565FB /* UIImageView.swift */; };
 		4741B8EE2A14049900F380C2 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4741B8ED2A14049900F380C2 /* UITextView.swift */; };
 		4758098729DEB54E00BA741E /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758098629DEB54E00BA741E /* UIFont.swift */; };
 		4758098929DFF86900BA741E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758098829DFF86900BA741E /* NetworkService.swift */; };
@@ -121,6 +122,7 @@
 		4709BA2829D1C3EF0035F64F /* AddSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubview.swift; sourceTree = "<group>"; };
 		4709BA2A29D1E0920035F64F /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		4709BA2C29D1E4690035F64F /* URLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConfiguration.swift; sourceTree = "<group>"; };
+		47332C4C2A447D11009565FB /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4741B8ED2A14049900F380C2 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		4758098629DEB54E00BA741E /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		4758098829DFF86900BA741E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				475AA77F29D6DFDB006B9BC6 /* SegContrUnderLine.swift */,
 				4709BA2329D1BE730035F64F /* UIColor+CGColor.swift */,
 				4758098629DEB54E00BA741E /* UIFont.swift */,
+				47332C4C2A447D11009565FB /* UIImageView.swift */,
 				47E515D529F8A04200AB5397 /* UITextField.swift */,
 				4741B8ED2A14049900F380C2 /* UITextView.swift */,
 				475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */,
@@ -613,7 +616,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -704,6 +707,7 @@
 				47EEEEBF2A026D350075791D /* AddPhotoViewController.swift in Sources */,
 				47E515BD29F8588C00AB5397 /* WelcomePresenter.swift in Sources */,
 				47EEEEDC2A09880C0075791D /* ProfileRouter.swift in Sources */,
+				47332C4D2A447D11009565FB /* UIImageView.swift in Sources */,
 				47CB5BB329DCB6E0002BB2ED /* MainRouter.swift in Sources */,
 				47CB5BA329DCB59A002BB2ED /* SampleScreenPresenterImp.swift in Sources */,
 				4709BA0F29D1AC900035F64F /* SceneDelegate.swift in Sources */,

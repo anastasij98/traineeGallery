@@ -32,14 +32,25 @@ class CustomTextField: UITextField {
     }
     
     open override func becomeFirstResponder() -> Bool {
-           super.becomeFirstResponder()
-
-           if !isSecureTextEntry { return true  }
-
-           if let currentText = text { insertText(currentText) }
-
-           return true
-       }
+        super.becomeFirstResponder()
+        
+        if !isSecureTextEntry { return true  }
+        
+        if let currentText = text { insertText(currentText) }
+        
+        return true
+    }
+    
+    func textFieldisChanging(label: UILabel, color: CGColor, imageView: UIImageView, imageName: String) {
+        label.isHidden = true
+        self.layer.borderColor = color
+        imageView.image = UIImage(named: imageName)
+    }
+    
+    func textFieldisChangingButton(label: UILabel, color: CGColor) {
+        label.isHidden = true
+        self.layer.borderColor = color
+    }
 }
 
 extension UITextField {

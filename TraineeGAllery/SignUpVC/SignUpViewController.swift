@@ -65,9 +65,10 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         let view = CustomTextField()
         view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
         view.autocapitalizationType = .none
+        view.addSubview(userNameErrorLabel)
         let attributedString = "User Name *"
         view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16, fontColor: .galleryMain)
-        view.setupIcon(name: "user")
+        view.addTarget(self, action: #selector(userNameTextFieldChanging), for: .editingChanged)
         view.setupTextFieldHeight(height: 40)
         
         return view
@@ -76,9 +77,10 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     lazy var birthdayTextField: CustomTextField = {
         let view = CustomTextField()
         view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.addSubview(birthdayErrorLabel)
         view.placeholder = "Birthday"
         view.keyboardType = .decimalPad
-        view.setupIcon(name: "birthday")
+        view.addTarget(self, action: #selector(birthdayTextFieldChanging), for: .editingChanged)
         view.setupTextFieldHeight(height: 40)
         
         return view
@@ -120,8 +122,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         let attributedString = "Confirm password *"
         view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16, fontColor: .galleryMain)
         view.textContentType = .oneTimeCode
-        view.addSubview(matchPasswordsLabel)
-        view.addTarget(self, action: #selector(passwordsMatching), for: .editingChanged)
+        view.addSubview(confirmPasswordErrorLabel)
+        view.addTarget(self, action: #selector(confirmPasswordTextFieldChanging), for: .editingChanged)
         view.isSecureTextEntry = true
         view.addButton(button: confirmEyeButton)
         
@@ -206,6 +208,26 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
+    lazy var userNameErrorLabel: UILabel = {
+        let view = UILabel()
+        view.text = "Invalid user Name"
+        view.font = .robotoRegular(ofSize: 12)
+        view.textColor = .galleryErrorRed
+        view.isHidden = true
+        
+        return view
+    }()
+    
+    lazy var birthdayErrorLabel: UILabel = {
+        let view = UILabel()
+        view.text = "Invalid birthday"
+        view.font = .robotoRegular(ofSize: 12)
+        view.textColor = .galleryErrorRed
+        view.isHidden = true
+        
+        return view
+    }()
+    
     lazy var passwordErrorLabel: UILabel = {
         let view = UILabel()
         view.text = "Invalid password. 1 uppercase, 1 lowercase letter, 1 number"
@@ -216,7 +238,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    lazy var matchPasswordsLabel: UILabel = {
+    lazy var confirmPasswordErrorLabel: UILabel = {
         let view = UILabel()
         view.text = "Passwords don't match"
         view.font = .robotoRegular(ofSize: 12)
@@ -232,6 +254,21 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         
         return view
     }()
+    
+    lazy var userImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "user")
+        
+        return view
+    }()
+    
+    lazy var birthdayImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "birthday")
+        
+        return view
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -250,20 +287,143 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         
         checkOrientationAndSetLayout()
     }
+  
+    @objc
+    func popViewController() {
+        presenter?.popViewController(viewController: self)
+    }
     
-    func checkOrientationAndSetLayout() {
-        if UIDevice.current.orientation.isLandscape {
-            stackView.snp.remakeConstraints {
-                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(50)
-                $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
-            }
+    @objc
+    func onSignInButtonTap() {
+        presenter?.onSignInButtonTap()
+    }
+    
+    @objc
+    func onSignUpButtonTap() {
+        guard let emailText = emailTextField.text,
+              let userText = userNameTextField.text,
+              let birthdayText = birthdayTextField.text,
+              let passwordText = passwordTextField.text,
+              let confirmPasswordText = confirmPasswordTextField.text else {
+                  return }
+        
+        if emailText.isEmpty || !emailText.isEmailValid {
+            emailErrorLabel.isHidden = false
+            emailTextField.layer.borderColor = .galleryErrorRed
+            emailImageView.setupWarningImage()
+        }
+        
+        if userText.isEmpty {
+            userNameErrorLabel.isHidden = false
+            userNameTextField.layer.borderColor = .galleryErrorRed
+            userImageView.setupWarningImage()
+        }
+        
+        if birthdayText.isEmpty {
+            birthdayErrorLabel.isHidden = false
+            birthdayTextField.layer.borderColor = .galleryErrorRed
+            birthdayImageView.setupWarningImage()
+        }
+        
+        if passwordText.isEmpty || !passwordText.isPasswordValid {
+            passwordErrorLabel.isHidden = false
+            passwordTextField.layer.borderColor = .galleryErrorRed
+            eyeButton.setWarningImage()
+        }
+        
+        if confirmPasswordText.isEmpty || !arePaswordsEqual() {
+            confirmPasswordErrorLabel.isHidden = false
+            confirmPasswordTextField.layer.borderColor = .galleryErrorRed
+            confirmEyeButton.setWarningImage()
+        }
+
+        if emailText.isEmailValid && passwordText.isPasswordValid && arePaswordsEqual() && countOfFilledTextFields() == 5 {
+            presenter?.registerNewUser(email: emailTextField.text ?? "",
+                                       phone: "",
+                                       fullName: userNameTextField.text ?? "",
+                                       password: confirmPasswordTextField.text ?? "",
+                                       username: userNameTextField.text ?? "",
+                                       birthday: birthdayTextField.text ?? "",
+                                       roles: [])
         } else {
-            stackView.snp.remakeConstraints {
-                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(70)
-            }
+            setAlertController(title: "Invalid output",
+                               message: "Please, check the entered data")
         }
     }
     
+    func countOfFilledTextFields() -> Int {
+        guard let confirmText = confirmPasswordTextField.text,
+              let passwordText = passwordTextField.text,
+              let emailText = emailTextField.text,
+              let userNameText = userNameTextField.text,
+              let birthdayText = birthdayTextField.text else { return 0 }
+        var count = 0
+        let array = [confirmText, passwordText, emailText, userNameText, birthdayText]
+        array.forEach { text in
+            if !text.isEmpty {
+                count += 1
+            }
+        }
+       return count
+    }
+    
+    @objc
+    func eyeButtonTapped() {
+        passwordTextField.isSecureTextEntry.toggle()
+        changeEyeButtonImage(textField: passwordTextField, button: eyeButton)
+    }
+    
+    @objc
+    func confirmEyeButtonTapped() {
+        confirmPasswordTextField.isSecureTextEntry.toggle()
+        changeEyeButtonImage(textField: confirmPasswordTextField, button: confirmEyeButton)
+    }
+
+    @objc
+    func userNameTextFieldChanging() {
+        userNameTextField.textFieldisChanging(label: userNameErrorLabel,
+                                              color: .galleryGrey,
+                                              imageView: userImageView,
+                                              imageName: "user")
+    }
+    
+    @objc
+    func birthdayTextFieldChanging() {
+        birthdayTextField.textFieldisChanging(label: birthdayErrorLabel,
+                                              color: .galleryGrey,
+                                              imageView: birthdayImageView,
+                                              imageName: "birthday")
+    }
+    
+    @objc
+    func emailTextFieldChanging() {
+        emailTextField.textFieldisChanging(label: emailErrorLabel,
+                                           color: .galleryGrey,
+                                           imageView: emailImageView,
+                                           imageName: "email")
+    }
+    
+    @objc
+    func passwordTextFieldChanging() {
+        passwordTextField.textFieldisChangingButton(label: passwordErrorLabel,
+                                                    color: .galleryGrey)
+        changeEyeButtonImage(textField: passwordTextField, button: eyeButton)
+    }
+    
+    @objc
+    func confirmPasswordTextFieldChanging() {
+        confirmPasswordTextField.textFieldisChangingButton(label: confirmPasswordErrorLabel,
+                                                           color: .galleryGrey)
+        changeEyeButtonImage(textField: confirmPasswordTextField, button: confirmEyeButton)
+    }
+    
+    @objc
+    func passwordsMatching() {
+        passwordTextField.textFieldisChangingButton(label: confirmPasswordErrorLabel,
+                                                    color: .galleryGrey)
+        changeEyeButtonImage(textField: confirmPasswordTextField, button: confirmEyeButton)
+    }
+
     private func setupView() {
         view.backgroundColor = .white
         scrollView.delegate = self
@@ -282,6 +442,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         buttonsStackView.setCustomSpacing(10, after: signUpButton)
         
         emailTextField.addSubview(emailImageView)
+        userNameTextField.addSubview(userImageView)
+        birthdayTextField.addSubview(birthdayImageView)
         
         scrollView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -314,6 +476,16 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.trailing.equalTo(emailTextField.snp.trailing).inset(11)
         }
         
+        userImageView.snp.makeConstraints {
+            $0.centerY.equalTo(userNameTextField.snp.centerY)
+            $0.trailing.equalTo(userNameTextField.snp.trailing).inset(11)
+        }
+        
+        birthdayImageView.snp.makeConstraints {
+            $0.centerY.equalTo(birthdayTextField.snp.centerY)
+            $0.trailing.equalTo(birthdayTextField.snp.trailing).inset(11)
+        }
+        
         buttonsStackView.snp.makeConstraints {
             $0.top.equalTo(textFieldStackView.snp.bottom).offset(50)
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
@@ -327,6 +499,20 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         signUpButton.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(106)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(106)
+        }
+        
+        userNameErrorLabel.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+            $0.top.equalTo(userNameTextField.snp.bottom).offset(5)
+            $0.height.equalTo(10)
+        }
+        
+        birthdayErrorLabel.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+            $0.top.equalTo(birthdayTextField.snp.bottom).offset(5)
+            $0.height.equalTo(10)
         }
         
         emailErrorLabel.snp.makeConstraints {
@@ -343,11 +529,24 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
             $0.height.equalTo(10)
         }
         
-        matchPasswordsLabel.snp.makeConstraints {
+        confirmPasswordErrorLabel.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
             $0.top.equalTo(confirmPasswordTextField.snp.bottom).offset(5)
             $0.height.equalTo(10)
+        }
+    }
+    
+    func checkOrientationAndSetLayout() {
+        if UIDevice.current.orientation.isLandscape {
+            stackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(50)
+                $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
+            }
+        } else {
+            stackView.snp.remakeConstraints {
+                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(70)
+            }
         }
     }
     
@@ -358,120 +557,18 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    @objc
-    func popViewController() {
-        presenter?.popViewController(viewController: self)
-    }
-    
-    @objc
-    func onSignInButtonTap() {
-        presenter?.onSignInButtonTap()
-    }
-    
-    @objc
-    func onSignUpButtonTap() {
-        guard let emailText = emailTextField.text else { return }
-
-        if emailText.isEmailValid && arePaswordsEqual() {
-            presenter?.registerNewUser(email: emailTextField.text ?? "",
-                                       phone: "",
-                                       fullName: userNameTextField.text ?? "",
-                                       password: confirmPasswordTextField.text ?? "",
-                                       username: userNameTextField.text ?? "",
-                                       birthday: birthdayTextField.text ?? "",
-                                       roles: [])
+    private func changeEyeButtonImage(textField: UITextField, button: UIButton) {
+        if textField.isSecureTextEntry {
+            button.setImage(UIImage(named: "passwordOff"), for: .normal)
         } else {
-            setAlertController(title: "Invalid output",
-                               message: "Please, check the entered data")
+            button.setImage(UIImage(named: "password"), for: .normal)
         }
-    }
-    
-    @objc
-    func eyeButtonTapped() {
-        passwordTextField.isSecureTextEntry.toggle()
-        changeEyeButtonImage()
-    }
-    
-    @objc
-    func confirmEyeButtonTapped() {
-        confirmPasswordTextField.isSecureTextEntry.toggle()
-        changeConfirmEyeButtonImage()
     }
     
     private func arePaswordsEqual() -> Bool {
         passwordTextField.text == confirmPasswordTextField.text
     }
     
-    @objc
-    func emailTextFieldChanging() {
-        guard let emailText = emailTextField.text else { return }
- 
-        if !emailText.isEmpty {
-            emailErrorLabel.isHidden = emailText.isEmailValid ? true : false
-            emailTextField.layer.borderColor = emailText.isEmailValid ? .galleryGrey : UIColor.red.cgColor
-            emailImageView.image = emailText.isEmailValid ? (UIImage(named: "email")) : (UIImage(named: "warning"))
-        } else {
-            emailErrorLabel.isHidden = true
-            emailTextField.layer.borderColor = .galleryGrey
-            emailImageView.image = UIImage(named: "email")
-        }
-    }
-    
-    @objc
-    func passwordTextFieldChanging() {
-        guard let passwordText = passwordTextField.text else { return }
-        
-        changeEyeButtonImage()
-        if !passwordText.isEmpty {
-            passwordErrorLabel.isHidden = passwordText.isPasswordValid ? true : false
-            passwordTextField.layer.borderColor = passwordText.isPasswordValid ? .galleryGrey : UIColor.red.cgColor
-        } else {
-            passwordErrorLabel.isHidden = true
-            passwordTextField.layer.borderColor = .galleryGrey
-        }
-    }
-    
-    @objc
-    func passwordsMatching() {
-        guard let passwordText = confirmPasswordTextField.text else { return }
-        
-        changeConfirmEyeButtonImage()
-        if !passwordText.isEmpty {
-            matchPasswordsLabel.isHidden = arePaswordsEqual() ? true : false
-            confirmPasswordTextField.layer.borderColor = arePaswordsEqual() ? .galleryGrey : UIColor.red.cgColor
-        } else {
-            matchPasswordsLabel.isHidden = true
-            confirmPasswordTextField.layer.borderColor = .galleryGrey
-        }
-    }
-    
-    private func changeConfirmEyeButtonImage() {
-        if arePaswordsEqual() || confirmPasswordTextField.text!.isEmpty {
-            if confirmPasswordTextField.isSecureTextEntry {
-                confirmEyeButton.setImage(UIImage(named: "passwordOff"), for: .normal)
-            } else {
-                confirmEyeButton.setImage(UIImage(named: "password"), for: .normal)
-            }
-        } else {
-            confirmEyeButton.setImage(UIImage(named: "warning"), for: .normal)
-            confirmEyeButton.setImage(UIImage(named: "warning"), for: .selected)
-        }
-    }
-    
-    private func changeEyeButtonImage() {
-        guard let passwordText = passwordTextField.text else { return }
-
-        if passwordText.isPasswordValid || passwordText.isEmpty {
-            if passwordTextField.isSecureTextEntry {
-                eyeButton.setImage(UIImage(named: "passwordOff"), for: .normal)
-            } else {
-                eyeButton.setImage(UIImage(named: "password"), for: .normal)
-            }
-        } else {
-            eyeButton.setImage(UIImage(named: "warning"), for: .normal)
-            eyeButton.setImage(UIImage(named: "warning"), for: .selected)
-        }
-    }
 }
 
 extension SignUpViewController: SignUpViewProtocol {
