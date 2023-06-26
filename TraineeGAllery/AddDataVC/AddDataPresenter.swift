@@ -17,7 +17,8 @@ protocol AddDataPresenterProtocol {
                      dateCreate: String,
                      description: String,
                      new: Bool,
-                     popular: Bool)
+                     popular: Bool,
+                     viewController: AddDataViewController)
 }
 
 class AddDataPresenter {
@@ -48,15 +49,18 @@ extension AddDataPresenter: AddDataPresenterProtocol {
                      dateCreate: String,
                      description: String,
                      new: Bool,
-                     popular: Bool) {
+                     popular: Bool,
+                     viewController: AddDataViewController) {
+        
+        self.view?.showProgressHUD()
         network.postMediaObject(file: file,
                                 name: name)
         .observe(on: MainScheduler.instance)
         .flatMap({ [weak self] (imageModel) -> Single<ItemModel> in
             guard let self = self,
-            let iriId = imageModel.id else {
+                  let iriId = imageModel.id else {
                 return .error(NSError(domain: "", code: 0, userInfo: nil)) }
-
+            
             return self.network.postImageFile(name: name,
                                               dateCreate: dateCreate,
                                               description: description,
@@ -68,17 +72,21 @@ extension AddDataPresenter: AddDataPresenterProtocol {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 print(itemModel)
-                self.router.openTabBarController(index: 0)
-                self.view?.showSnackBar()
+                self.view?.showSuccessHUD(completion: { _ in
+                    self.router.openTabBarController(index: 0)
+                    self.view?.showSnackBar()
+                    self.popViewController(viewController: viewController)
+                })
             }
-        }, onFailure: { error in
-            print(error)
-        }, onDisposed: {
         })
-        .disposed(by: disposeBag)
     }
-
+    
     func getCurrentDate() -> String {
         return FormattedDateString.getCurrentDate()
     }
 }
+        
+//{
+//  "error" : "invalid_grant",
+//  "error_description" : "The access token provided has expired."
+//}

@@ -46,10 +46,10 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var signInTitle: UILabel = {
         let view = UILabel()
-        view.text = "Sign In"
         view.textAlignment = .center
-        view.font = .robotoBold(ofSize: 30)
-        
+        view.text = R.string.localization.signInTitle()
+        view.font = R.font.robotoBold(size: 30)
+
         return view
     }()
     
@@ -62,19 +62,19 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var emailTextField: CustomTextField = {
         let view = CustomTextField()
-        view.placeholder = "Email"
+        view.placeholder = R.string.localization.email()
         view.autocapitalizationType = .none
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupBorder()
         view.setupTextFieldHeight(height: 40)
-        view.setupIcon(name: "email")
+        view.setupRIcon(image: R.image.email())
         
         return view
     }()
     
     lazy var passwordTextField: CustomTextField = {
         let view = CustomTextField()
-        view.placeholder = "Password"
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.placeholder = R.string.localization.password()
+        view.setupBorder()
         view.setupTextFieldHeight(height: 40)
         view.addButton(button: eyeButton)
         view.isSecureTextEntry = true
@@ -84,7 +84,8 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var eyeButton: UIButton = {
         let view = UIButton()
-        view.setImage(UIImage(named: "passwordOff"), for: .normal)
+        view.setImage(R.image.passwordOff(),
+                      for: .normal)
         view.addTarget(self,
                        action: #selector(eyeButtonTapped),
                        for: .touchUpInside)
@@ -103,9 +104,9 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var signInButton: UIButton = {
         let view = UIButton()
-        view.setTitle("Sign In",
+        view.setTitle(R.string.localization.signInTitle(),
                       for: .normal)
-        view.titleLabel?.font = .robotoMedium(ofSize: 16)
+        view.titleLabel?.font = R.font.robotoMedium(size: 16)
         view.backgroundColor = .galleryBlack
         view.layer.cornerRadius = 10
         view.addTarget(self,
@@ -118,11 +119,11 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var signUpButton: UIButton = {
         let view = UIButton()
-        view.setTitle("Sign Up",
+        view.setTitle(R.string.localization.signUpTitle(),
                       for: .normal)
         view.setTitleColor(.black,
                            for: .normal)
-        view.titleLabel?.font = .robotoMedium(ofSize: 16)
+        view.titleLabel?.font = R.font.robotoMedium(size: 16)
         view.backgroundColor = .white
         view.setupButtonHeight(height: 40)
 
@@ -130,7 +131,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     lazy var leftBarButton: UIButton = {
-        let view = UIButton.leftBarBut(title: "Cancel")
+        let view = UIButton.leftBarBut(title: R.string.localization.cancelTitle())
         view.addTarget(self,
                        action: #selector(popViewController),
                        for: .touchUpInside)
@@ -162,9 +163,9 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     func eyeButtonTapped() {
         passwordTextField.isSecureTextEntry.toggle()
         if passwordTextField.isSecureTextEntry {
-            eyeButton.setImage(UIImage(named: "passwordOff"), for: .normal)
+            eyeButton.setImage(R.image.passwordOff(), for: .normal)
         } else {
-            eyeButton.setImage(UIImage(named: "password"), for: .normal)            
+            eyeButton.setImage(R.image.password(), for: .normal)
         }
     }
     
@@ -173,6 +174,18 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         presenter?.popViewController(viewController: self)
     }
     
+    @objc
+    func signInButtonTap() {
+        if let email = emailTextField.text,
+           let password = passwordTextField.text {
+            if !email.isEmpty && !password.isEmpty {
+                presenter?.signInButtonTap(userName: email, password: password)
+            } else {
+                print(R.string.localization.emptyFields())
+            }
+        }
+    }
+
     func checkOrientationAndSetLayout() {
         if UIDevice.current.orientation.isLandscape {
             stackView.snp.remakeConstraints {
@@ -235,18 +248,6 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         signUpButton.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(106)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(106)
-        }
-    }
-    
-    @objc
-    func signInButtonTap() {
-        if let email = emailTextField.text,
-           let password = passwordTextField.text {
-            if !email.isEmpty && !password.isEmpty {
-                presenter?.signInButtonTap(userName: email, password: password)
-            } else {
-                print("Fields are empty")
-            }
         }
     }
 }

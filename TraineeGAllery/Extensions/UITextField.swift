@@ -18,7 +18,7 @@ class CustomTextField: UITextField {
         }
     }
     
-    let padding = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 31)
+    let padding = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 40)
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
@@ -47,6 +47,13 @@ class CustomTextField: UITextField {
         imageView.image = UIImage(named: imageName)
     }
     
+    func textFieldisChangingR(label: UILabel, color: CGColor, imageView: UIImageView, image: UIImage?) {
+        guard let image = image else { return }
+        label.isHidden = true
+        self.layer.borderColor = color
+        imageView.image = image
+    }
+    
     func textFieldisChangingButton(label: UILabel, color: CGColor) {
         label.isHidden = true
         self.layer.borderColor = color
@@ -71,14 +78,32 @@ extension UITextField {
         self.attributedPlaceholder = string
     }
     
-    func setupBorder(color: CGColor,borderWidth width: CGFloat, cornerRadius radius: CGFloat) {
-        self.layer.borderColor = color
-        self.layer.borderWidth = width
-        self.layer.cornerRadius = radius
+//    func setupBorder(color: CGColor,borderWidth width: CGFloat, cornerRadius radius: CGFloat) {
+//        self.layer.borderColor = color
+//        self.layer.borderWidth = width
+//        self.layer.cornerRadius = radius
+//    }
+    
+    /// Настраивает границу поля textField: с borderColor = .galleryGrey , borderWidth = 1 и cornerRadius = 10
+    func setupBorder() {
+        self.layer.borderColor = .galleryGrey
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 10
     }
     
     func setupIcon(name: String) {
         let imageView = UIImageView(image: UIImage(named: name))
+        self.addSubview(imageView)
+
+        imageView.snp.makeConstraints {
+            $0.centerY.equalTo(self.snp.centerY)
+            $0.trailing.equalTo(self.snp.trailing).inset(11)
+        }
+    }
+    
+    func setupRIcon(image: UIImage?) {
+        guard let image = image else { return }
+        let imageView = UIImageView(image: image)
         self.addSubview(imageView)
         
         imageView.snp.makeConstraints {

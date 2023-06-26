@@ -33,21 +33,9 @@ class DetailedPresenter {
     }
     
     func getFormattedDateString() -> String {
-        guard let text = model.date else {
-            return "nil"
-        }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let date = dateFormatter.date(from: text) else {
-            return ""
-        }
-        
-        let neededDate = DateFormatter()
-        neededDate.dateFormat = "dd.MM.yyyy"
-        let dateString = neededDate.string(from: date)
-        
-        return dateString
+        guard let date = model.date else {
+            return "" }
+        return FormattedDateString.getFormattedDateString(string: date)
     }
     
     func downloadImageFile() {

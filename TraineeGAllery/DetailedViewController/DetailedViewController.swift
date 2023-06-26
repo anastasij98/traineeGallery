@@ -81,7 +81,7 @@ class DetailedViewController: UIViewController {
     var imageTitle: UILabel = {
         var view = UILabel()
         view.textColor = .black
-        view.font = .robotoRegular(ofSize: 20)
+        view.font = R.font.robotoRegular(size: 22)
         view.numberOfLines = 0
         
         return view
@@ -90,7 +90,7 @@ class DetailedViewController: UIViewController {
     var usersLabel: UILabel = {
         var view = UILabel()
         view.textColor = .galleryGrey
-        view.font = .robotoRegular(ofSize: 15)
+        view.font = R.font.robotoRegular(size: 16)
         view.textAlignment = .left
         
         return view
@@ -99,7 +99,7 @@ class DetailedViewController: UIViewController {
     var imageDescription: UILabel = {
         var view = UILabel()
         view.textColor = .black
-        view.font = .robotoLight(ofSize: 15)
+        view.font = R.font.robotoRegular(size: 16)
         view.lineBreakMode = .byWordWrapping
         view.numberOfLines = 0
         view.textAlignment = .justified
@@ -110,7 +110,7 @@ class DetailedViewController: UIViewController {
     var downloadDate: UILabel = {
         var view = UILabel()
         view.textColor = .galleryGrey
-        view.font = .robotoRegular(ofSize: 12)
+        view.font = R.font.robotoRegular(size: 12)
         view.textAlignment = .right
         view.numberOfLines = 0
         
@@ -127,7 +127,7 @@ class DetailedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupNavigationBar(backButtonTitle: "Back")
+        setupNavigationBar(backButtonTitle: R.string.localization.backButtonTitle())
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

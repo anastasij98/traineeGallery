@@ -137,11 +137,11 @@
 		475F1EE32A14D8E1009ED8E0 /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
 		475F1EE52A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoPresenterProtocol.swift; sourceTree = "<group>"; };
 		476BAF592A161E12002F6F6E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
-		476BAF5C2A169E90002F6F6E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = TraineeGAllery/Resources/R.generated.swift; sourceTree = SOURCE_ROOT; };
-		476BAF5E2A169F17002F6F6E /* Localization.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localization.strings; sourceTree = "<group>"; };
+		476BAF5C2A169E90002F6F6E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		476BAF5E2A169F17002F6F6E /* Localization.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localization.strings; path = TraineeGAllery/Localization.strings; sourceTree = SOURCE_ROOT; };
 		476BAF602A16C2FC002F6F6E /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		476BAF622A1776E3002F6F6E /* MainVC+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+SearchBar.swift"; sourceTree = "<group>"; };
-		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = TraineeGAllery/WelcomViewController/WelcomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
 		47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionStack.swift; sourceTree = "<group>"; };
@@ -254,6 +254,7 @@
 			children = (
 				4709BA0C29D1AC900035F64F /* AppDelegate.swift */,
 				4709BA0E29D1AC900035F64F /* SceneDelegate.swift */,
+				476BAF5C2A169E90002F6F6E /* R.generated.swift */,
 				47E966A72A27813F007536AB /* UserDefaultsService */,
 				47D72DAF29E49B4E00E37909 /* NetworkService */,
 				479E68CF29ED32E10053E706 /* WelcomViewController */,
@@ -322,7 +323,6 @@
 				47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */,
 				475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */,
 				4709BA2C29D1E4690035F64F /* URLConfiguration.swift */,
-				476BAF5C2A169E90002F6F6E /* R.generated.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/TraineeGAllery/R.generated.swift\"\n";
 		};
 		C0ED00DC0F6CCE4BB47CB875 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

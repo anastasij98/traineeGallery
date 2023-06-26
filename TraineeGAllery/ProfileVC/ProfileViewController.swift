@@ -23,8 +23,8 @@ protocol ProfileVCProtocol: AnyObject {
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: ProfilePresenterProtocol?
-    var cellId = "cellId"
-    var userImagesID = "userImages"
+    var profileCellId = R.string.localization.profileCellId()
+    var userImagesID = R.string.localization.userImagesID()
     
     var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero,
@@ -64,7 +64,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     lazy var userPhotoImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "Logo-2")
+        view.image = R.image.logo2()
         view.clipsToBounds = true
         view.layer.masksToBounds = true
         view.layer.borderColor = UIColor.galleryGrey.cgColor
@@ -75,7 +75,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     lazy var userNameLabel: UILabel = {
         let view = UILabel()
         view.textColor = .galleryBlack
-        view.font = .robotoRegular(ofSize: 18)
+        view.font = R.font.robotoRegular(size: 18)
         view.textAlignment = .center
         view.adjustsFontSizeToFitWidth = true
         
@@ -85,7 +85,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     lazy var birthdayLabel: UILabel = {
         let view = UILabel()
         view.textColor = .galleryGrey
-        view.font = .robotoRegular(ofSize: 16)
+        view.font = R.font.robotoRegular(size: 16)
         view.textAlignment = .center
         view.adjustsFontSizeToFitWidth = true
 
@@ -137,7 +137,6 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         userPhotoImageView.snp.makeConstraints {
             $0.width.equalTo(80)
             $0.height.equalTo(80)
-
         }
 
         infoStackView.snp.makeConstraints {
@@ -168,13 +167,12 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         collectionView.dataSource = self
         
         collectionView.register(UICollectionViewCell.self,
-                                forCellWithReuseIdentifier: cellId)
+                                forCellWithReuseIdentifier: profileCellId)
         collectionView.register(MainCollectionViewCell.self,
                                 forCellWithReuseIdentifier: userImagesID)
     }
     
     private func setupCollectionViewLayout() {
-        
         collectionView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
@@ -184,7 +182,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupRightNavBarButton() {
-        let rightButton = UIBarButtonItem(image: UIImage(named: "settings"),
+        let rightButton = UIBarButtonItem(image: R.image.settings(),
                                           style: .plain,
                                           target: self,
                                           action: #selector(onSettingsButtonTap))

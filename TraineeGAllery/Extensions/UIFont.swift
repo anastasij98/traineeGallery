@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+@available(*, deprecated)
 extension UIFont {
     
     class func robotoBold(ofSize size: CGFloat) -> UIFont {

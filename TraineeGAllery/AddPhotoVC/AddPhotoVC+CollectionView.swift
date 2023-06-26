@@ -23,7 +23,7 @@ extension AddPhotoViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? AddPhotoCollectionVIewCell,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addPhotoId, for: indexPath) as? AddPhotoCollectionVIewCell,
               let model = presenter?.getObject(withIndex: indexPath.item) else {
             return UICollectionViewCell()
         }

@@ -27,7 +27,7 @@ class WelcomeViewController: UIViewController {
     
     lazy var welcomeImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Intersect 1")
+        view.image = R.image.intersect1()
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         
@@ -36,18 +36,18 @@ class WelcomeViewController: UIViewController {
     
     lazy var welcomeLabel: UILabel = {
         let view = UILabel()
-        view.text = "Welcome to Gallery!"
+        view.text = R.string.localization.welcomeText()
         view.textAlignment = .center
         view.tintColor = .black
-        view.font = .robotoBold(ofSize: 30)
+        view.font = R.font.robotoBold(size: 30)
         
         return view
     }()
     
     lazy var createAccountButton: UIButton = {
         let view = UIButton()
-        view.setTitle("Create an account", for: .normal)
-        view.titleLabel?.font = .robotoMedium(ofSize: 16)
+        view.setTitle(R.string.localization.createAccountButton(), for: .normal)
+        view.titleLabel?.font = R.font.robotoMedium(size: 16)
         view.setTitleColor(.white, for: .normal)
         view.backgroundColor = .galleryBlack
         view.layer.cornerRadius = 10
@@ -63,9 +63,9 @@ class WelcomeViewController: UIViewController {
     
     lazy var haveAccountButton: UIButton = {
         let view = UIButton()
-        view.setTitle("I already have an account", for: .normal)
+        view.setTitle(R.string.localization.haveAccountButton(), for: .normal)
         view.setTitleColor(.black, for: .normal)
-        view.titleLabel?.font = .robotoMedium(ofSize: 16)
+        view.titleLabel?.font = R.font.robotoMedium(size: 16)
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.cornerRadius = 10

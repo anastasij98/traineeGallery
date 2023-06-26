@@ -14,7 +14,8 @@ protocol SignInPresenterProtocol {
     func openTabBar()
     
     /// Обращение к networkServic'y для отправки запроса на авторизацию
-    func signInButtonTap(userName: String, password: String)
+    func signInButtonTap(userName: String,
+                         password: String)
     
     /// Обращение к роутеру для закрытия экрана SignIn
     /// - Parameter viewController: экран SignIn
@@ -47,7 +48,8 @@ extension SignInPresenter: SignInPresenterProtocol {
         router.openTabBarController()
     }
     
-    func signInButtonTap(userName: String, password: String) {
+    func signInButtonTap(userName: String,
+                         password: String) {
         network.authorizationRequest(userName: userName, password: password)
             .observe(on: MainScheduler.instance)
             .debug()
@@ -71,9 +73,7 @@ extension SignInPresenter: SignInPresenterProtocol {
                                                        birthday: formattedDate,
                                                        email: email)
                 self.userDefaultsService.saveUsersId(id: usersId)
-                DispatchQueue.main.async {
-                    self.router.openTabBarController()
-                }
+                self.openTabBar()
                 print(currentUserModel)
             }, onFailure: { error in
                 print(error)

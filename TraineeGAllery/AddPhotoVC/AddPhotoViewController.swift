@@ -24,8 +24,8 @@ protocol AddPhotoVCProtocol: AnyObject {
 class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: AddPhotoPresenterProtocol?
-    var id = "addPhoto"
-    var identifier = "addPhoto"
+    var cellId = R.string.localization.cellIdAddPhoto()
+    var addPhotoId = R.string.localization.addPhotoId()
     
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -63,9 +63,9 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     lazy var selectPhotoLabel: UILabel = {
         let view = UILabel()
         view.textColor = .black
-        view.font = .robotoRegular(ofSize: 15)
+        view.font = R.font.robotoRegular(size: 15)
         view.textAlignment = .left
-        view.text = "Select photo:"
+        view.text = R.string.localization.selectPhoto()
         
         return view
     }()
@@ -92,7 +92,8 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         view.addTarget(self,
                        action: #selector(onImagePickerTap),
                        for: .touchUpInside)
-        view.setTitle("All photos", for: UIControl.State.normal)
+        view.setTitle(R.string.localization.allPhotos(),
+                      for: UIControl.State.normal)
         view.setTitleColor(.galleryBlack, for: .normal)
         
         return view
@@ -117,11 +118,11 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupRightNavBarButton() {
-        let rightButton = UIBarButtonItem(title: "Next",
+        let rightButton = UIBarButtonItem(title: R.string.localization.nextButtonTitle(),
                                           style: .plain,
                                           target: self,
                                           action: #selector(onNextButtonTap))
-        rightButton.setTitleTextAttributes([.font : UIFont.robotoMedium(ofSize: 17),
+        rightButton.setTitleTextAttributes([.font : R.font.robotoMedium(size: 17),
                                             .foregroundColor : UIColor.galleryMain],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
@@ -135,9 +136,9 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         collectionView.dataSource = self
         
         collectionView.register(UICollectionViewCell.self,
-                                forCellWithReuseIdentifier: id)
+                                forCellWithReuseIdentifier: cellId)
         collectionView.register(AddPhotoCollectionVIewCell.self,
-                                forCellWithReuseIdentifier: identifier)
+                                forCellWithReuseIdentifier: addPhotoId)
         
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)

@@ -55,7 +55,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var nameTextView: UITextView = {
         let view = UITextView()
-        view.setupTextView(text: "Name")
+        view.setupTextView(text: R.string.localization.addDataNameText())
         view.layer.cornerRadius = 10
         
         return view
@@ -63,14 +63,14 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var descriptionTextView: UITextView = {
         let view = UITextView()
-        view.setupTextView(text: R.string.localization.addDataDescriptionPlaceholderText())
+        view.setupTextView(text: R.string.localization.addDataDescriptionText())
         view.layer.cornerRadius = 10
 
         return view
     }()
     
     lazy var leftBarButton: UIButton = {
-        let view = UIButton.leftBarBut(title: "Back")
+        let view = UIButton.leftBarBut(title:R.string.localization.backButtonTitle())
         view.addTarget(self,
                        action: #selector(alertController),
                        for: .touchUpInside)
@@ -98,9 +98,9 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func alertController() {
-        alertControllerWithLeftButton(title: "Confirmation",
-                                      message: "Are you sure you want to exit?\nThe entered data will be lost",
-                                      leftButtonTitle: "Exit",
+        alertControllerWithLeftButton(title: R.string.localization.alertTitleAddData(),
+                                      message: R.string.localization.alertMessageAddData(),
+                                      leftButtonTitle: R.string.localization.leftBarButtonAddData(),
                                       leftButtonAction: popViewController(action:))
     }
     
@@ -155,7 +155,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func navigationBar() {
-        let rightButton = UIBarButtonItem(title: "Add",
+        let rightButton = UIBarButtonItem(title: R.string.localization.addTitle(),
                                           style: .plain,
                                           target: self,
                                           action: #selector(onAddDataButtonTap))
@@ -174,42 +174,43 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
                                dateCreate: dateCreate,
                                description: descriptionTextView.text,
                                new: true,
-                               popular: Bool.random())
+                               popular: Bool.random(),
+                               viewController: self)
     }
 }
 
 extension AddDataViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if self.descriptionTextView.text == "Description" {
+        if self.descriptionTextView.text == R.string.localization.addDataDescriptionText() {
             textView.text = ""
             textView.textColor = .galleryBlack
-            textView.font = .robotoRegular(ofSize: 17)
+            textView.font = R.font.robotoRegular(size: 17)
         }
         
-        if self.nameTextView.text == "Name" {
+        if self.nameTextView.text == R.string.localization.addDataNameText() {
             textView.text = ""
             textView.textColor = .galleryBlack
-            textView.font = .robotoRegular(ofSize: 17)
+            textView.font = R.font.robotoRegular(size: 17)
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if self.descriptionTextView.text.isEmpty {
-            textView.text = "Description"
+            textView.text = R.string.localization.addDataDescriptionText()
             textView.textColor = .galleryGrey
-            textView.font = .robotoRegular(ofSize: 17)
+            textView.font = R.font.robotoRegular(size: 17)
         }
         
         if self.nameTextView.text.isEmpty {
-            textView.text = "Name"
+            textView.text = R.string.localization.addDataNameText()
             textView.textColor = .galleryGrey
-            textView.font = .robotoRegular(ofSize: 17)
+            textView.font = R.font.robotoRegular(size: 17)
         }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
+        if(text == R.string.localization.newLine()) {
             textView.resignFirstResponder()
             return false
         }

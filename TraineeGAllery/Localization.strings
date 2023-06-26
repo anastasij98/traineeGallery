@@ -1,2 +1,72 @@
+"newLine" = "\n";
+
+// MARK: - WelcomeVC
+"welcomeText" = "Welcome to Gallery!";
+"createAccountButton" = "Create an account";
+"haveAccountButton" = "I already have an account";
+
+// MARK: - SignInViewController
+"signInTitle" = "Sign In";
+"signUpTitle" = "Sign Up";
+"email" = "Email";
+"password" = "Password";
+"cancelTitle" = "Cancel";
+"emptyFields" = "Fields are empty";
+
+//MARK: - SignUpViewController
+"attributedUserName" = "User Name *";
+"birthday" = "Birthday";
+"attributedEmail" = "Email *";
+"attributedPassword" = "Password *";
+"attributedConfirmPassword" = "Confirm password *";
+"invalidEmail" = "Invalid e-mail adress";
+"invalidUserName" = "Invalid User Name";
+"invalidBirthday" = "Invalid birthday";
+"invalidPassword" = "Invalid password. 1 uppercase, 1 lowercase letter, 1 number";
+"passwordsDontMatch" = "Passwords don't match";
+"invalidInput" = "Invalid intput";
+"checkData" = "Please, check the entered data";
+
+// MARK: - MainViewController
+"cellIdMain" = "cell";
+"indicatorId" = "indicator";
+"clearReuseId" = "clear";
+"search" = "Search";
+
+// MARK: - DetailedViewController
+"backButtonTitle" = "Back";
+
+// MARK: - AddPhotoViewController
+"cellIdAddPhoto" = "id";
+"addPhotoId" = "addPhoto";
+"selectPhoto" = "Select photo:";
+"allPhotos" = "All photos";
+"nextButtonTitle" = "Next";
+
 // MARK: - AddData
-"addDataDescriptionPlaceholderText" = "Description";
+"addDataDescriptionText" = "Description";
+"addDataNameText" = "Name";
+"leftBarButtonAddData" = "Back";
+"alertTitleAddData" = "Confirmation";
+"alertMessageAddData" = "Are you sure you want to exit?\nThe entered data will be lost";
+"alertLeftButton" = "Exit";
+"addTitle" = "Add";
+
+// MARK: - ProfileViewController
+"profileCellId" = "profileCellId";
+"userImagesID" = "userImages";
+
+// MARK: - SettingsViewController
+"password" = "password";
+
+"saveButtonTitle" = "Save";
+"cancelButtonTitle" = "Cancel";
+"signOutButtonTitle" = "Sign Out";
+"deleteAccountButtonTitle" = "You can delete your account";
+"oldPasswordTitle" = "Old password";
+"newPasswordTitle" = "New password";
+"confirmPasswordTitle" = "Confirm password";
+"settingsEmailAdress" = "E-mail adress";
+"settingsBirthday" = "Birthday";
+"settingsUserName" = "User Name";
+"settingsPersonalData" = "Personal data";

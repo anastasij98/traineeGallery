@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import TTGSnackbar
+import PKHUD
 
 extension UIViewController {
     
@@ -84,6 +85,8 @@ protocol AlertMessageProtocol {
     func setAlertController(title: String, message: String)
     func alertControllerWithLeftButton(title: String, message: String, leftButtonTitle: String, leftButtonAction: @escaping (UIAlertAction) -> Void)
     func showSnackBar()
+    func showProgressHUD()
+    func showSuccessHUD(completion: @escaping (Bool) -> Void)
 }
 
 extension UIViewController: AlertMessageProtocol {
@@ -110,7 +113,7 @@ extension UIViewController: AlertMessageProtocol {
         self.present(alert, animated: true, completion: nil)
     }
     
-     var snackBar: TTGSnackbar {
+    var snackBar: TTGSnackbar {
         let view = TTGSnackbar(message: "Photo uploaded successfully", duration: .middle)
         view.bottomMargin = (self.tabBarController?.tabBar.frame.size.height ?? 10) + 10
         view.leftMargin = 16
@@ -125,8 +128,18 @@ extension UIViewController: AlertMessageProtocol {
         
         return view
     }
-
+    
     func showSnackBar() {
         snackBar.show()
+    }
+
+    func showProgressHUD() {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+    }
+    
+    func showSuccessHUD(completion: @escaping (Bool) -> Void) {
+        PKHUD.sharedHUD.contentView = PKHUDSuccessView()
+        PKHUD.sharedHUD.hide(afterDelay: 0.5, completion: completion)
     }
 }

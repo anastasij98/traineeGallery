@@ -25,9 +25,9 @@ protocol MainViewControllerProtocol: AnyObject, AlertMessageProtocol {
 class MainViewController: UISearchController {
     
     enum Identifiers {
-        static let cellId = "cell"
-        static let indicatorReuseIdentifier = "indicator"
-        static let clearReuseIdentifier = "clear"
+        static let cellId = R.string.localization.cellIdMain()
+        static let indicatorReuseIdentifier = R.string.localization.indicatorId()
+        static let clearReuseIdentifier = R.string.localization.clearReuseId()
     }
     
     var presenter: MainPresenterProtocol?
@@ -66,12 +66,14 @@ class MainViewController: UISearchController {
         view.removeBorder()
         view.selectedSegmentIndex = 0
         view.clipsToBounds = false
-        view.addTarget(self, action: #selector(changeScreen), for: .valueChanged)
+        view.addTarget(self,
+                       action: #selector(changeScreen),
+                       for: .valueChanged)
         view.backgroundColor = .white
-        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 18),
+        view.setTitleTextAttributes([.font : R.font.robotoRegular(size: 18),
                                      .foregroundColor : UIColor.galleryBlack],
                                     for: .selected)
-        view.setTitleTextAttributes([.font : UIFont.robotoRegular(ofSize: 18),
+        view.setTitleTextAttributes([.font : R.font.robotoRegular(size: 18),
                                      .foregroundColor : UIColor.galleryGrey],
                                     for: .normal)
         
@@ -96,7 +98,9 @@ class MainViewController: UISearchController {
         let view = UIRefreshControl()
         view.attributedTitle = NSAttributedString(string: .init())
         view.tintColor = .galleryBlue
-        view.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
+        view.addTarget(self,
+                       action: #selector(refreshCollectionView),
+                       for: .valueChanged)
         
         return view
     }()
@@ -110,7 +114,7 @@ class MainViewController: UISearchController {
     lazy var searchController: UISearchBar = {
        let view = UISearchBar()
         view.tintColor = .galleryGrey
-        view.placeholder = "Search"
+        view.placeholder = R.string.localization.search()
 
         return view
     }()
@@ -131,7 +135,6 @@ class MainViewController: UISearchController {
         super.viewWillAppear(animated)
         
         setupNavigationBar(underlineColor: .clear)
-//        setSnackBar()
     }
 
     override func viewWillLayoutSubviews() {

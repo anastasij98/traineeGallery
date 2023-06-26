@@ -46,9 +46,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var signUpTitle: UILabel = {
         let view = UILabel()
-        view.text = "Sign Up"
         view.textAlignment = .center
-        view.font = .robotoBold(ofSize: 30)
+        view.text = R.string.localization.signUpTitle()
+        view.font = R.font.robotoBold(size: 30)
         view.textColor = .galleryBlack
         
         return view
@@ -63,12 +63,15 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var userNameTextField: CustomTextField = {
         let view = CustomTextField()
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupBorder()
         view.autocapitalizationType = .none
         view.addSubview(userNameErrorLabel)
-        let attributedString = "User Name *"
-        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16, fontColor: .galleryMain)
-        view.addTarget(self, action: #selector(userNameTextFieldChanging), for: .editingChanged)
+        let attributedString = R.string.localization.attributedUserName()
+        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16,
+                                                                      fontColor: .galleryMain)
+        view.addTarget(self,
+                       action: #selector(userNameTextFieldChanging),
+                       for: .editingChanged)
         view.setupTextFieldHeight(height: 40)
         
         return view
@@ -76,11 +79,13 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var birthdayTextField: CustomTextField = {
         let view = CustomTextField()
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupBorder()
         view.addSubview(birthdayErrorLabel)
-        view.placeholder = "Birthday"
+        view.placeholder = R.string.localization.birthday()
         view.keyboardType = .decimalPad
-        view.addTarget(self, action: #selector(birthdayTextFieldChanging), for: .editingChanged)
+        view.addTarget(self,
+                       action: #selector(birthdayTextFieldChanging),
+                       for: .editingChanged)
         view.setupTextFieldHeight(height: 40)
         
         return view
@@ -88,13 +93,16 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var emailTextField: CustomTextField = {
         let view = CustomTextField()
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupBorder()
         view.keyboardType = .emailAddress
         view.addSubview(emailErrorLabel)
-        view.addTarget(self, action: #selector(emailTextFieldChanging), for: .editingChanged)
+        view.addTarget(self,
+                       action: #selector(emailTextFieldChanging),
+                       for: .editingChanged)
         view.autocapitalizationType = .none
-        let attributedString = "Email *"
-        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16, fontColor: .galleryMain)
+        let attributedString = R.string.localization.attributedEmail()
+        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16,
+                                                                      fontColor: .galleryMain)
         view.setupTextFieldHeight(height: 40)
         
         return view
@@ -102,11 +110,14 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var passwordTextField: CustomTextField = {
         let view = CustomTextField()
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupBorder()
         view.addSubview(passwordErrorLabel)
-        view.addTarget(self, action: #selector(passwordTextFieldChanging), for: .editingChanged)
-        let attributedString = "Password *"
-        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16, fontColor: .galleryMain)
+        view.addTarget(self,
+                       action: #selector(passwordTextFieldChanging),
+                       for: .editingChanged)
+        let attributedString = R.string.localization.attributedPassword()
+        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16,
+                                                                      fontColor: .galleryMain)
         view.textContentType = .oneTimeCode
         view.isSecureTextEntry = true
         view.addButton(button: eyeButton)
@@ -117,10 +128,11 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var confirmPasswordTextField: CustomTextField = {
         let view = CustomTextField()
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 4)
+        view.setupBorder()
         view.setupTextFieldHeight(height: 40)
-        let attributedString = "Confirm password *"
-        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16, fontColor: .galleryMain)
+        let attributedString = R.string.localization.attributedConfirmPassword()
+        view.attributedPlaceholder = attributedString.placeholderText(fontSize: 16,
+                                                                      fontColor: .galleryMain)
         view.textContentType = .oneTimeCode
         view.addSubview(confirmPasswordErrorLabel)
         view.addTarget(self, action: #selector(confirmPasswordTextFieldChanging), for: .editingChanged)
@@ -132,7 +144,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var eyeButton: UIButton = {
         let view = UIButton()
-        view.setImage(UIImage(named: "passwordOff"), for: .normal)
+        view.setImage(R.image.passwordOff(), for: .normal)
         view.addTarget(self,
                        action: #selector(eyeButtonTapped),
                        for: .touchUpInside)
@@ -142,7 +154,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var confirmEyeButton: UIButton = {
         let view = UIButton()
-        view.setImage(UIImage(named: "passwordOff"), for: .normal)
+        view.setImage(R.image.passwordOff(), for: .normal)
         view.addTarget(self,
                        action: #selector(confirmEyeButtonTapped),
                        for: .touchUpInside)
@@ -160,9 +172,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var signUpButton: UIButton = {
         let view = UIButton()
-        view.setTitle("Sign Up",
+        view.setTitle(R.string.localization.signUpTitle(),
                       for: .normal)
-        view.titleLabel?.font = .robotoBold(ofSize: 17)
+        view.titleLabel?.font = R.font.robotoBold(size: 17)
         view.backgroundColor = .galleryBlack
         view.layer.cornerRadius = 10
         view.setupButtonHeight(height: 40)
@@ -175,11 +187,11 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var signInButton: UIButton = {
         let view = UIButton()
-        view.setTitle("Sign In",
+        view.setTitle(R.string.localization.signInTitle(),
                       for: .normal)
         view.setTitleColor(.black,
                            for: .normal)
-        view.titleLabel?.font = .robotoRegular(ofSize: 17)
+        view.titleLabel?.font = R.font.robotoBold(size: 17)
         view.backgroundColor = .white
         view.setupButtonHeight(height: 40)
         view.addTarget(self,
@@ -190,7 +202,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     lazy var leftBarButton: UIButton = {
-        let view = UIButton.leftBarBut(title: "Cancel")
+        let view = UIButton.leftBarBut(title: R.string.localization.cancelTitle())
         view.addTarget(self,
                        action: #selector(popViewController),
                        for: .touchUpInside)
@@ -200,8 +212,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var emailErrorLabel: UILabel = {
         let view = UILabel()
-        view.text = "Invalid e-mail adress"
-        view.font = .robotoRegular(ofSize: 12)
+        view.text = R.string.localization.invalidEmail()
+        view.font = R.font.robotoRegular(size: 12)
         view.textColor = .galleryErrorRed
         view.isHidden = true
         
@@ -210,8 +222,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var userNameErrorLabel: UILabel = {
         let view = UILabel()
-        view.text = "Invalid user Name"
-        view.font = .robotoRegular(ofSize: 12)
+        view.text = R.string.localization.invalidUserName()
+        view.font = R.font.robotoRegular(size: 12)
         view.textColor = .galleryErrorRed
         view.isHidden = true
         
@@ -220,18 +232,17 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var birthdayErrorLabel: UILabel = {
         let view = UILabel()
-        view.text = "Invalid birthday"
-        view.font = .robotoRegular(ofSize: 12)
+        view.text = R.string.localization.invalidBirthday()
+        view.font = R.font.robotoRegular(size: 12)
         view.textColor = .galleryErrorRed
         view.isHidden = true
-        
         return view
     }()
     
     lazy var passwordErrorLabel: UILabel = {
         let view = UILabel()
-        view.text = "Invalid password. 1 uppercase, 1 lowercase letter, 1 number"
-        view.font = .robotoRegular(ofSize: 12)
+        view.text = R.string.localization.invalidPassword()
+        view.font = R.font.robotoRegular(size: 12)
         view.textColor = .galleryErrorRed
         view.isHidden = true
         
@@ -240,8 +251,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var confirmPasswordErrorLabel: UILabel = {
         let view = UILabel()
-        view.text = "Passwords don't match"
-        view.font = .robotoRegular(ofSize: 12)
+        view.text = R.string.localization.passwordsDontMatch()
+        view.font = R.font.robotoRegular(size: 12)
         view.textColor = .galleryErrorRed
         view.isHidden = true
         
@@ -250,22 +261,22 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var emailImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "email")
+        view.image = R.image.email()
         
         return view
     }()
     
     lazy var userImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "user")
-        
+        view.image = R.image.user()
+
         return view
     }()
     
     lazy var birthdayImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "birthday")
-        
+        view.image = R.image.birthday()
+
         return view
     }()
     
@@ -346,8 +357,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                                        birthday: birthdayTextField.text ?? "",
                                        roles: [])
         } else {
-            setAlertController(title: "Invalid output",
-                               message: "Please, check the entered data")
+            setAlertController(title: R.string.localization.invalidInput(),
+                               message: R.string.localization.checkData())
         }
     }
     
@@ -381,47 +392,50 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
 
     @objc
     func userNameTextFieldChanging() {
-        userNameTextField.textFieldisChanging(label: userNameErrorLabel,
-                                              color: .galleryGrey,
-                                              imageView: userImageView,
-                                              imageName: "user")
+        userNameTextField.textFieldisChangingR(label: userNameErrorLabel,
+                                               color: .galleryGrey,
+                                               imageView: userImageView,
+                                               image: R.image.user())
     }
     
     @objc
     func birthdayTextFieldChanging() {
-        birthdayTextField.textFieldisChanging(label: birthdayErrorLabel,
-                                              color: .galleryGrey,
-                                              imageView: birthdayImageView,
-                                              imageName: "birthday")
+        birthdayTextField.textFieldisChangingR(label: birthdayErrorLabel,
+                                               color: .galleryGrey,
+                                               imageView: birthdayImageView,
+                                               image: R.image.birthday())
     }
     
     @objc
     func emailTextFieldChanging() {
-        emailTextField.textFieldisChanging(label: emailErrorLabel,
-                                           color: .galleryGrey,
-                                           imageView: emailImageView,
-                                           imageName: "email")
+        emailTextField.textFieldisChangingR(label: emailErrorLabel,
+                                            color: .galleryGrey,
+                                            imageView: emailImageView,
+                                            image: R.image.email())
     }
     
     @objc
     func passwordTextFieldChanging() {
         passwordTextField.textFieldisChangingButton(label: passwordErrorLabel,
                                                     color: .galleryGrey)
-        changeEyeButtonImage(textField: passwordTextField, button: eyeButton)
+        changeEyeButtonImage(textField: passwordTextField,
+                             button: eyeButton)
     }
     
     @objc
     func confirmPasswordTextFieldChanging() {
         confirmPasswordTextField.textFieldisChangingButton(label: confirmPasswordErrorLabel,
                                                            color: .galleryGrey)
-        changeEyeButtonImage(textField: confirmPasswordTextField, button: confirmEyeButton)
+        changeEyeButtonImage(textField: confirmPasswordTextField,
+                             button: confirmEyeButton)
     }
     
     @objc
     func passwordsMatching() {
         passwordTextField.textFieldisChangingButton(label: confirmPasswordErrorLabel,
                                                     color: .galleryGrey)
-        changeEyeButtonImage(textField: confirmPasswordTextField, button: confirmEyeButton)
+        changeEyeButtonImage(textField: confirmPasswordTextField,
+                             button: confirmEyeButton)
     }
 
     private func setupView() {
@@ -559,9 +573,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     private func changeEyeButtonImage(textField: UITextField, button: UIButton) {
         if textField.isSecureTextEntry {
-            button.setImage(UIImage(named: "passwordOff"), for: .normal)
+            button.setImage(R.image.passwordOff(), for: .normal)
         } else {
-            button.setImage(UIImage(named: "password"), for: .normal)
+            button.setImage(R.image.password(), for: .normal)
         }
     }
     

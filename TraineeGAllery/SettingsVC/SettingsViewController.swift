@@ -72,48 +72,47 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     lazy var personalDataLabel: UILabel = {
         let view = UILabel()
         view.textColor = .black
-        view.font = .robotoRegular(ofSize: 14)
-        view.text = "Personal data"
+        view.font = R.font.robotoRegular(size: 14)
+        view.text = R.string.localization.settingsPersonalData()
         
         return view
     }()
     
     lazy var userNameTextField: CustomTextField = {
         let view = CustomTextField()
-        let text = "User Name"
+        let text = R.string.localization.settingsUserName()
         view.atributedString(text: text)
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
-        view.setupIcon(name: "user")
-        
+        view.setupBorder()
+        view.setupRIcon(image: R.image.user())
         return view
     }()
     
     lazy var birthdayTextField: CustomTextField = {
         let view = CustomTextField()
-        let text = "Birthday"
-        view.keyboardType = .numbersAndPunctuation
+        let text = R.string.localization.settingsBirthday()
         view.atributedString(text: text)
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
-        view.setupIcon(name: "birthday")
-        
+        view.keyboardType = .numbersAndPunctuation
+        view.setupBorder()
+        view.setupRIcon(image: R.image.birthday())
+
         return view
     }()
     
     lazy var emailLabel: UILabel = {
         let view = UILabel()
         view.textColor = .black
-        view.font = .robotoRegular(ofSize: 14)
-        view.text = "E-mail adress"
+        view.font = R.font.robotoRegular(size: 14)
+        view.text = R.string.localization.settingsEmailAdress()
         
         return view
     }()
     
     lazy var emailTextField: CustomTextField = {
         let view = CustomTextField()
-        let text = "E-mail adress"
+        let text = R.string.localization.settingsEmailAdress()
         view.atributedString(text: text)
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
-        view.setupIcon(name: "email")
+        view.setupBorder()
+        view.setupRIcon(image: R.image.email())
         
         return view
     }()
@@ -121,7 +120,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     lazy var passwordLabel: UILabel = {
         let view = UILabel()
         view.textColor = .black
-        view.font = .robotoRegular(ofSize: 14)
+        view.font = R.font.robotoRegular(size: 14)
         view.text = password.capitalized
         
         return view
@@ -129,9 +128,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var oldPasswordTextField: CustomTextField = {
         let view = CustomTextField()
-        let text = "Old \(password)"
+        let text = R.string.localization.oldPasswordTitle()
         view.atributedString(text: text)
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
+        view.setupBorder()
         view.setupIcon(name: password)
         
         return view
@@ -139,9 +138,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var newPasswordTextField: CustomTextField = {
         let view = CustomTextField()
-        let text = "New \(password)"
+        let text = R.string.localization.newPasswordTitle()
         view.atributedString(text: text)
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
+        view.setupBorder()
         view.setupIcon(name: password)
         
         return view
@@ -149,9 +148,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var confirmPasswordTextField: CustomTextField = {
         let view = CustomTextField()
-        let text = "Confirm \(password)"
+        let text = R.string.localization.confirmPasswordTitle()
         view.atributedString(text: text)
-        view.setupBorder(color: .galleryGrey, borderWidth: 1, cornerRadius: 10)
+        view.setupBorder()
         view.setupIcon(name: password)
         
         return view
@@ -159,13 +158,13 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var deleteAccountButton: UIButton = {
         let view = UIButton()
-        let text = "You can delete your account"
+        let text = R.string.localization.deleteAccountButtonTitle()
         let string = NSMutableAttributedString(string: text)
-        string.addAttributes([.font : UIFont.robotoRegular(ofSize: 16),
+        string.addAttributes([.font : R.font.robotoRegular(size: 16),
                               .foregroundColor : UIColor.black],
                              range: NSRange(location: 0,
                                             length: 16))
-        string.addAttributes([.font : UIFont.robotoRegular(ofSize: 16),
+        string.addAttributes([.font : R.font.robotoRegular(size: 16),
                               .foregroundColor : UIColor.galleryMain],
                              range: NSRange(location: 14,
                                             length: 13))
@@ -177,15 +176,20 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var signOutButton: UIButton = {
         let view = UIButton()
-        let text = "Sign Out"
-        view.setupButtonTitle(view: view, text: text, color: .galleryMain, size: 16)
-        view.addTarget(self, action: #selector(onSignOutButtonTap), for: .touchUpInside)
+        let text = R.string.localization.signOutButtonTitle()
+        view.setupButtonTitle(view: view,
+                              text: text,
+                              color: .galleryMain,
+                              size: 16)
+        view.addTarget(self,
+                       action: #selector(onSignOutButtonTap),
+                       for: .touchUpInside)
         
         return view
     }()
     
     lazy var leftBarButton: UIButton = {
-        let view = UIButton.leftBarBut(title: "Cancel")
+        let view = UIButton.leftBarBut(title: R.string.localization.cancelButtonTitle())
         view.addTarget(self,
                        action: #selector(onCancelButtonTap),
                        for: .touchUpInside)
@@ -208,11 +212,11 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupRightNavBarButton() {
-        let rightButton = UIBarButtonItem(title: "Save",
+        let rightButton = UIBarButtonItem(title: R.string.localization.saveButtonTitle(),
                                           style: .plain,
                                           target: self,
                                           action: #selector(onSaveButtonTap))
-        rightButton.setTitleTextAttributes([.font : UIFont.robotoBold(ofSize: 15),
+        rightButton.setTitleTextAttributes([.font : R.font.robotoBold(size: 15),
                                             .foregroundColor : UIColor.galleryMain],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
@@ -324,7 +328,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func onSignOutButtonTap() {
-        if let viewWindow = view.window {
+        if let _ = view.window {
             presenter?.signOut()
         }
     }
