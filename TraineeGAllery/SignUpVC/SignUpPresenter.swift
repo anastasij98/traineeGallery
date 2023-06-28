@@ -153,7 +153,11 @@ extension SignUpPresenter: SignUpPresenterProtocol {
         
         if confirmPasswordText.isEmpty || !arePaswordsEqual(passwordText,
                                                             confirmPasswordText) {
-            view?.confirmPasswordError()
+            view?.confirmPasswordError(isPasswordValid: false)
+        }
+        
+        if !confirmPasswordText.isPasswordValid {
+            view?.confirmPasswordError(isPasswordValid: true)
         }
         
         if emailText.isEmailValid && passwordText.isPasswordValid && arePaswordsEqual(passwordText, confirmPasswordText) && countOfFilledTextFields(emailText, userText, birthdayText, passwordText, confirmPasswordText) == 5  {

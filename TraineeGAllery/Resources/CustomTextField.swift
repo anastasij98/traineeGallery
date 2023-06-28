@@ -47,20 +47,18 @@ class CustomTextField: UITextField {
     ///   - color: цвет, который будет установлен в borderColor
     ///   - imageView: выбранный imageView
     ///   - image: картинка, которую надо передать в  imageView.image для её установки
-    func textFieldIsChanging(label: UILabel, color: CGColor, imageView: UIImageView, image: UIImage?) {
-        guard let image = image else { return }
+    func textFieldIsChanging(label: UILabel, color: CGColor) {
         label.isHidden = true
         self.layer.borderColor = color
-        imageView.image = image
     }
     
     /// Метод, редактирующий отображение выбранного textField'а. Скрывает передаваемый label, меняет borderColor
     /// - Parameters:
     ///   - label: label, который будет скрыт
     ///   - color: цвет, который будет установлен в borderColor
-    func textFieldIsChangingButton(label: UILabel, color: CGColor) {
-        label.isHidden = true
-        self.layer.borderColor = color
-    }
+//    func textFieldIsChangingButton(label: UILabel, color: CGColor) {
+//        label.isHidden = true
+//        self.layer.borderColor = color
+//    }
 }
 

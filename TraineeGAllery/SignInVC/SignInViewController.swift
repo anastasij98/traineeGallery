@@ -57,7 +57,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.autocapitalizationType = .none
         view.setupBorder()
         view.setupTextFieldHeight(height: 40)
-        view.setupIcon(image: R.image.email())
+        view.setupIconOnTextField(image: R.image.email())
 
         return view
     }()

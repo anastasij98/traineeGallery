@@ -62,7 +62,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                        action: #selector(userNameTextFieldChanging),
                        for: .editingChanged)
         view.setupTextFieldHeight(height: 40)
-        
+        view.setupIconOnTextField(image: R.image.user())
+
         return view
     }()
     
@@ -76,7 +77,8 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
                        action: #selector(birthdayTextFieldChanging),
                        for: .editingChanged)
         view.setupTextFieldHeight(height: 40)
-        
+        view.setupIconOnTextField(image: R.image.birthday())
+
         return view
     }()
     
@@ -85,7 +87,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.setupBorder()
         view.keyboardType = .emailAddress
         view.addSubview(emailErrorLabel)
-        view.reSetupIcon(image: R.image.email())
+        view.setupIconOnTextField(image: R.image.email())
         view.addTarget(self,
                        action: #selector(emailTextFieldChanging),
                        for: .editingChanged)
@@ -249,27 +251,6 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
-    lazy var emailImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = R.image.email()
-        
-        return view
-    }()
-    
-    lazy var userImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = R.image.user()
-        
-        return view
-    }()
-    
-    lazy var birthdayImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = R.image.birthday()
-        
-        return view
-    }()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -332,32 +313,30 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     @objc
     func userNameTextFieldChanging() {
         userNameTextField.textFieldIsChanging(label: userNameErrorLabel,
-                                              color: .galleryGrey,
-                                              imageView: userImageView,
-                                              image: R.image.user())
+                                              color: .galleryGrey)
+        userNameTextField.setupIconOnTextField(image: R.image.user())
+
     }
     
     @objc
     func birthdayTextFieldChanging() {
         birthdayTextField.textFieldIsChanging(label: birthdayErrorLabel,
-                                              color: .galleryGrey,
-                                              imageView: birthdayImageView,
-                                              image: R.image.birthday())
+                                              color: .galleryGrey)
+        birthdayTextField.setupIconOnTextField(image: R.image.birthday())
+
     }
     
     @objc
     func emailTextFieldChanging() {
-//        emailTextField.textFieldIsChanging(label: emailErrorLabel,
-//                                           color: .galleryGrey,
-//                                           imageView: emailImageView,
-//                                           image: R.image.email())
-        emailTextField.reSetupIcon(image: R.image.email())
+        emailTextField.textFieldIsChanging(label: emailErrorLabel,
+                                           color: .galleryGrey)
+        emailTextField.setupIconOnTextField(image: R.image.email())
 
     }
     
     @objc
     func passwordTextFieldChanging() {
-        passwordTextField.textFieldIsChangingButton(label: passwordErrorLabel,
+        passwordTextField.textFieldIsChanging(label: passwordErrorLabel,
                                                     color: .galleryGrey)
         changeEyeButtonImage(textField: passwordTextField,
                              button: eyeButton)
@@ -365,7 +344,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func confirmPasswordTextFieldChanging() {
-        confirmPasswordTextField.textFieldIsChangingButton(label: confirmPasswordErrorLabel,
+        confirmPasswordTextField.textFieldIsChanging(label: confirmPasswordErrorLabel,
                                                            color: .galleryGrey)
         changeEyeButtonImage(textField: confirmPasswordTextField,
                              button: confirmEyeButton)
@@ -373,7 +352,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     
     @objc
     func passwordsMatching() {
-        passwordTextField.textFieldIsChangingButton(label: confirmPasswordErrorLabel,
+        passwordTextField.textFieldIsChanging(label: confirmPasswordErrorLabel,
                                                     color: .galleryGrey)
         changeEyeButtonImage(textField: confirmPasswordTextField,
                              button: confirmEyeButton)
@@ -382,6 +361,9 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
     private func setupView() {
         view.backgroundColor = .white
         scrollView.delegate = self
+    }
+    
+    func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         stackView.addArrangedSubviews(signUpTitle, textFieldStackView, buttonsStackView)
@@ -393,14 +375,6 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         
         buttonsStackView.addArrangedSubviews(signUpButton, signInButton)
         buttonsStackView.setCustomSpacing(10, after: signUpButton)
-        
-
-    }
-    
-    func addSubviews() {
-//        emailTextField.addSubview(emailImageView)
-        userNameTextField.addSubview(userImageView)
-        birthdayTextField.addSubview(birthdayImageView)
     }
     
     func configureLayout() {
@@ -421,21 +395,6 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         textFieldStackView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
-        }
-        
-//        emailImageView.snp.makeConstraints {
-//            $0.centerY.equalTo(emailTextField.snp.centerY)
-//            $0.trailing.equalTo(emailTextField.snp.trailing).inset(11)
-//        }
-        
-        userImageView.snp.makeConstraints {
-            $0.centerY.equalTo(userNameTextField.snp.centerY)
-            $0.trailing.equalTo(userNameTextField.snp.trailing).inset(11)
-        }
-        
-        birthdayImageView.snp.makeConstraints {
-            $0.centerY.equalTo(birthdayTextField.snp.centerY)
-            $0.trailing.equalTo(birthdayTextField.snp.trailing).inset(11)
         }
         
         buttonsStackView.snp.makeConstraints {
@@ -523,20 +482,19 @@ extension SignUpViewController: SignUpViewProtocol {
     func showEmailError() {
         emailErrorLabel.isHidden = false
         emailTextField.layer.borderColor = .galleryErrorRed
-//        emailImageView.setupWarningImage()
-        emailTextField.reSetupIcon(image: R.image.warning())
+        emailTextField.setupIconOnTextField(image: R.image.warning())
     }
     
     func showUserNameError() {
         userNameErrorLabel.isHidden = false
         userNameTextField.layer.borderColor = .galleryErrorRed
-        userImageView.setupWarningImage()
+        userNameTextField.setupIconOnTextField(image: R.image.warning())
     }
     
     func showBirthdayError() {
         birthdayErrorLabel.isHidden = false
         birthdayTextField.layer.borderColor = .galleryErrorRed
-        birthdayImageView.setupWarningImage()
+        birthdayTextField.setupIconOnTextField(image: R.image.warning())
     }
     
     func passwordError() {
@@ -545,8 +503,9 @@ extension SignUpViewController: SignUpViewProtocol {
         eyeButton.setWarningImage()
     }
     
-    func confirmPasswordError() {
+    func confirmPasswordError(isPasswordValid: Bool) {
         confirmPasswordErrorLabel.isHidden = false
+        confirmPasswordErrorLabel.text = isPasswordValid ? R.string.localization.invalidPassword() :R.string.localization.passwordsDontMatch()
         confirmPasswordTextField.layer.borderColor = .galleryErrorRed
         confirmEyeButton.setWarningImage()
     }

@@ -63,7 +63,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = R.string.localization.settingsUserName()
         view.atributedString(text: text)
         view.setupBorder()
-        view.setupIcon(image: R.image.user())
+        view.setupIconOnTextField(image: R.image.user())
         return view
     }()
     
@@ -73,7 +73,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.atributedString(text: text)
         view.keyboardType = .numbersAndPunctuation
         view.setupBorder()
-        view.setupIcon(image: R.image.birthday())
+        view.setupIconOnTextField(image: R.image.birthday())
 
         return view
     }()
@@ -92,7 +92,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = R.string.localization.settingsEmailAdress()
         view.atributedString(text: text)
         view.setupBorder()
-        view.setupIcon(image: R.image.email())
+        view.setupIconOnTextField(image: R.image.email())
         
         return view
     }()

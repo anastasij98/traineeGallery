@@ -29,11 +29,11 @@ extension UITextField {
     
     /// Установка иконки с правой стороны textField'a
     /// - Parameter image: UIImage, которая будет установлена
-    func setupIcon(image: UIImage?) {
+    fileprivate func setupIcon(image: UIImage?) {
         guard let image = image else { return }
         let imageView = UIImageView(image: image)
         self.addSubview(imageView)
-        
+
         imageView.snp.makeConstraints {
             $0.centerY.equalTo(self.snp.centerY)
             $0.trailing.equalTo(self.snp.trailing).inset(11)
@@ -42,7 +42,7 @@ extension UITextField {
     
     /// Установка иконки с правой стороны textField'a
     /// - Parameter image: UIImage, которая будет установлена
-    func reSetupIcon(image: UIImage?) {
+    func setupIconOnTextField(image: UIImage?) {
         guard let image = image,
               let imageView = self.subviews.first(where: {$0 is UIImageView}) as? UIImageView else {
             setupIcon(image: image)

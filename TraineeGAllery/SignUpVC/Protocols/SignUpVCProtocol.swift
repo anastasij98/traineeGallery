@@ -13,6 +13,6 @@ protocol SignUpViewProtocol: AnyObject, AlertMessageProtocol {
     func showUserNameError()
     func showBirthdayError()
     func passwordError()
-    func confirmPasswordError()
+    func confirmPasswordError(isPasswordValid: Bool)
     func showAlertControl()
 }
