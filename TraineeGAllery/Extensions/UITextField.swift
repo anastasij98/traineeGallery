@@ -8,68 +8,10 @@
 import Foundation
 import UIKit
 
-class CustomTextField: UITextField {
-    
-    override var isSecureTextEntry: Bool {
-        didSet {
-            if isFirstResponder {
-                _ = becomeFirstResponder()
-            }
-        }
-    }
-    
-    let padding = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 40)
-    override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-    
-    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-    
-    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-    
-    open override func becomeFirstResponder() -> Bool {
-        super.becomeFirstResponder()
-        
-        if !isSecureTextEntry { return true  }
-        
-        if let currentText = text { insertText(currentText) }
-        
-        return true
-    }
-    
-    func textFieldisChanging(label: UILabel, color: CGColor, imageView: UIImageView, imageName: String) {
-        label.isHidden = true
-        self.layer.borderColor = color
-        imageView.image = UIImage(named: imageName)
-    }
-    
-    func textFieldisChangingR(label: UILabel, color: CGColor, imageView: UIImageView, image: UIImage?) {
-        guard let image = image else { return }
-        label.isHidden = true
-        self.layer.borderColor = color
-        imageView.image = image
-    }
-    
-    func textFieldisChangingButton(label: UILabel, color: CGColor) {
-        label.isHidden = true
-        self.layer.borderColor = color
-    }
-}
-
 extension UITextField {
-
-    func setRightImage(imageName: String) {
-
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        imageView.image = UIImage(named: imageName)
-        self.rightView = imageView
-        self.rightViewMode = .always
-    }
     
+    /// Преобразование String в NSMutableAttributedString для последующей установки в placeholder
+    /// - Parameter text: текст, который необходимо преобразовать
     func atributedString(text: String) {
         let string = NSMutableAttributedString(string: text)
         string.addAttributes([.font : UIFont.robotoRegular(ofSize: 17),
@@ -78,12 +20,6 @@ extension UITextField {
         self.attributedPlaceholder = string
     }
     
-//    func setupBorder(color: CGColor,borderWidth width: CGFloat, cornerRadius radius: CGFloat) {
-//        self.layer.borderColor = color
-//        self.layer.borderWidth = width
-//        self.layer.cornerRadius = radius
-//    }
-    
     /// Настраивает границу поля textField: с borderColor = .galleryGrey , borderWidth = 1 и cornerRadius = 10
     func setupBorder() {
         self.layer.borderColor = .galleryGrey
@@ -91,17 +27,9 @@ extension UITextField {
         self.layer.cornerRadius = 10
     }
     
-    func setupIcon(name: String) {
-        let imageView = UIImageView(image: UIImage(named: name))
-        self.addSubview(imageView)
-
-        imageView.snp.makeConstraints {
-            $0.centerY.equalTo(self.snp.centerY)
-            $0.trailing.equalTo(self.snp.trailing).inset(11)
-        }
-    }
-    
-    func setupRIcon(image: UIImage?) {
+    /// Установка иконки с правой стороны textField'a
+    /// - Parameter image: UIImage, которая будет установлена
+    func setupIcon(image: UIImage?) {
         guard let image = image else { return }
         let imageView = UIImageView(image: image)
         self.addSubview(imageView)
@@ -112,7 +40,19 @@ extension UITextField {
         }
     }
     
-    func addButton(button: UIView) {
+    /// Установка иконки с правой стороны textField'a
+    /// - Parameter image: UIImage, которая будет установлена
+    func reSetupIcon(image: UIImage?) {
+        guard let image = image,
+              let imageView = self.subviews.first(where: {$0 is UIImageView}) as? UIImageView else {
+            setupIcon(image: image)
+            return }
+        imageView.image = image
+    }
+    
+    /// Добавление UIButton с правой стороны textField'a
+    /// - Parameter button: UIButton, которая будет установленна
+    func addButton(button: UIButton) {
         self.addSubview(button)
         
         button.snp.makeConstraints {
@@ -121,6 +61,8 @@ extension UITextField {
         }
     }
     
+    /// Установка высоты textField'a
+    /// - Parameter height: величина высоты
     func setupTextFieldHeight(height: Int) {
         self.snp.makeConstraints {
             $0.height.equalTo(height)

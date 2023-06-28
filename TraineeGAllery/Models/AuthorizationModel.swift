@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct AuthorizationModel: Codable {
 
     var access_token: String?

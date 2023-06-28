@@ -9,10 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol AddDataVCProtocol: AnyObject, AlertMessageProtocol {
-    
-    
-}
+protocol AddDataVCProtocol: AnyObject, AlertMessageProtocol { }
 
 class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
@@ -42,14 +39,8 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = .galleryLightGrey
         view.contentMode = .scaleAspectFit
         view.image = UIImage(data: imageObject ?? Data())
-        
-        return view
-    }()
-    
-    lazy var underLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .galleryGrey
-        
+        view.addUnderLine(color: .galleryGrey)
+
         return view
     }()
     
@@ -81,7 +72,9 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupViewController()
+        setupDelegates()
+        addSubviews()
+        configureLayouts()
         navigationBar()
     }
     
@@ -90,12 +83,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         
         setupNavigationBar(customBackButton: UIBarButtonItem(customView: leftBarButton))
     }
-    
-    func popViewController(action: UIAlertAction) {
-        presenter?.popViewController(viewController: self)
-    }
-    
-    
+
     @objc
     func alertController() {
         alertControllerWithLeftButton(title: R.string.localization.alertTitleAddData(),
@@ -104,20 +92,40 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
                                       leftButtonAction: popViewController(action:))
     }
     
-    func setupViewController() {
+    @objc
+    func onAddDataButtonTap() {
+        guard let image = imageView.image?.jpegData(compressionQuality: 80),
+              let dateCreate = presenter?.getCurrentDate() else { return }
+        presenter?.mediaObject(name: nameTextView.text,
+                               file: image,
+                               dateCreate: dateCreate,
+                               description: descriptionTextView.text,
+                               new: true,
+                               popular: Bool.random(),
+                               viewController: self)
+    }
+    
+    func popViewController(action: UIAlertAction) {
+        presenter?.popViewController(viewController: self)
+    }
+    
+    func setupDelegates() {
         view.backgroundColor = .white
         scrollView.delegate = self
         nameTextView.delegate = self
         descriptionTextView.delegate = self
-        
+    }
+    
+    func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         stackView.addArrangedSubviews(imageView, nameTextView, descriptionTextView)
-        stackView.setCustomSpacing(30, after: imageView)
+    }
+    
+    func configureLayouts() {
+                stackView.setCustomSpacing(30, after: imageView)
         stackView.setCustomSpacing(20, after: nameTextView)
-        
-        imageView.addSubview(underLine)
-        
+                
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
@@ -135,12 +143,6 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
         }
         
-        underLine.snp.makeConstraints {
-            $0.height.equalTo(1)
-            $0.width.equalTo(imageView.snp.width)
-            $0.bottom.equalTo(imageView.snp.bottom)
-        }
-        
         nameTextView.snp.makeConstraints {
             $0.height.equalTo(40)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
@@ -153,7 +155,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
         }
     }
-    
+
     func navigationBar() {
         let rightButton = UIBarButtonItem(title: R.string.localization.addTitle(),
                                           style: .plain,
@@ -163,19 +165,6 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
                                             .foregroundColor : UIColor.galleryMain],
                                            for: .normal)
         navigationItem.rightBarButtonItem = rightButton
-    }
-    
-    @objc
-    func onAddDataButtonTap() {
-        guard let image = imageView.image?.jpegData(compressionQuality: 80),
-              let dateCreate = presenter?.getCurrentDate() else { return }
-        presenter?.mediaObject(name: nameTextView.text,
-                               file: image,
-                               dateCreate: dateCreate,
-                               description: descriptionTextView.text,
-                               new: true,
-                               popular: Bool.random(),
-                               viewController: self)
     }
 }
 
@@ -218,7 +207,4 @@ extension AddDataViewController: UITextViewDelegate {
     }
 }
 
-extension AddDataViewController: AddDataVCProtocol {
-    
-    
-}
+extension AddDataViewController: AddDataVCProtocol { }

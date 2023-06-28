@@ -8,23 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol ProfilePresenterProtocol {
-    
-    /// Обращение к роутеру для открытия экрана настроек(Settings)
-    func openSettings()
-    
-    /// Открытие TabBarController'a
-    /// - Parameter index: индекс выбранного экрана 
-    func openTabBarViewController(index: Int)
-    
-    /// View готово к отображению
-    func viewIsReady()
-    
-    func loadMore()
-    func getItemsCount() -> Int
-    func getItem(index: Int) -> ItemModel
-}
-
 class ProfilePresenter {
     
     weak var view: ProfileVCProtocol?
@@ -82,10 +65,6 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         view?.setupView(userName: userDef.getUsersInfo().name,
                         birthday: userDef.getUsersInfo().birthday)
         
-        getUsersImages()
-    }
-    
-    func loadMore() {
         getUsersImages()
     }
     

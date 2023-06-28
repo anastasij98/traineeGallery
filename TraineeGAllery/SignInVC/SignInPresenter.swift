@@ -8,20 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol SignInPresenterProtocol {
-    
-    /// Обращение к роутеру для открытия экрана с TabBarController'ом
-    func openTabBar()
-    
-    /// Обращение к networkServic'y для отправки запроса на авторизацию
-    func signInButtonTap(userName: String,
-                         password: String)
-    
-    /// Обращение к роутеру для закрытия экрана SignIn
-    /// - Parameter viewController: экран SignIn
-    func popViewController(viewController: SignInViewController)
-}
-
 class SignInPresenter {
     
     weak var view: SignInViewProtocol?
@@ -55,9 +41,10 @@ extension SignInPresenter: SignInPresenterProtocol {
             .debug()
             .flatMap({ [weak self] (authModel) -> Single<CurrentUserModel> in
                 guard let self = self,
-                      let accessToken = authModel.access_token else {
+                      let accessToken = authModel.access_token,
+                      let refreshToken = authModel.refresh_token else  {
                     return .error(NSError(domain: "", code: 0, userInfo: nil)) }
-                self.userDefaultsService.saveAccessToken(token: accessToken)
+                self.userDefaultsService.saveTokens(accessToken: accessToken, refreshToken: refreshToken)
                 
                 return self.network.getCurrentUser()
             })
@@ -73,7 +60,9 @@ extension SignInPresenter: SignInPresenterProtocol {
                                                        birthday: formattedDate,
                                                        email: email)
                 self.userDefaultsService.saveUsersId(id: usersId)
-                self.openTabBar()
+                DispatchQueue.main.async {
+                    self.openTabBar()
+                }
                 print(currentUserModel)
             }, onFailure: { error in
                 print(error)

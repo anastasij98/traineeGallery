@@ -10,8 +10,6 @@ import Foundation
 class FormattedDateString {
     
     ///  Преобразует дату из  "yyyy-MM-dd'T'HH:mm:ssZ" в "dd.MM.yyyy"
-    /// - Parameter string: <#string description#>
-    /// - Returns: <#description#>
     static func getFormattedDateString(string: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -27,8 +25,6 @@ class FormattedDateString {
     }
     
     /// Преобразует дату из "dd.MM.yyyy" в "yyyy-MM-dd'T'HH:mm:ssZ"
-    /// - Parameter string: <#string description#>
-    /// - Returns: <#description#>
     static func setFormattedDateString(string: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
@@ -43,6 +39,7 @@ class FormattedDateString {
         return dateString
     }
     
+    /// Метод возвращающий текущую дату в виде "yyyy-MM-dd'T'HH:mm:ssZ"
     static func getCurrentDate() -> String {
         let currentDate = Date()
         let formatter = DateFormatter()

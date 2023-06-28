@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxNetworkApiClient
 
 struct ResponseRegisterModel: Codable {
     
@@ -39,4 +38,3 @@ struct ResponseRegisterModel: Codable {
     var groups: [String]?
     var group: [String]?
 }
-

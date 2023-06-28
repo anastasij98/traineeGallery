@@ -9,29 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol DetailedViewControllerProtocol: AnyObject {
-    
-    /// Установка информации о выбранной картинке в галерее
-    /// - Parameters:
-    ///   - name: имя картинки
-    ///   - user: имя пользователя
-    ///   - description: описание картинки
-    ///   - date: дата добавления картинки
-    func setupView(name: String,
-                   user: String,
-                   description: String,
-                   date: String)
-    
-    /// Установка изображения выбранной картинке в галерее
-    /// - Parameter data: картинка в виде Data
-    func setImage(data: Data)
-}
+// TODO: прятать лейблы при щипке✅
 
 class DetailedViewController: UIViewController {
     
     var presenter: DetailedPresenterProtocol?
     
-    var scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
         view = UIScrollView(frame: .zero)
         view.isScrollEnabled = true
@@ -42,16 +26,17 @@ class DetailedViewController: UIViewController {
         return view
     }()
     
-    var totalStackView: UIStackView = {
+    lazy var totalStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .center
         view.distribution = .fill
+        view.isHidden = false
         
         return view
     }()
     
-    var upperStackView: UIStackView = {
+    lazy var upperStackView: UIStackView = {
         var view = UIStackView()
         view.axis = .horizontal
         view.alignment = .center
@@ -60,7 +45,7 @@ class DetailedViewController: UIViewController {
         return view
     }()
 
-    var lowerStackView: UIStackView = {
+    lazy var lowerStackView: UIStackView = {
         var view = UIStackView()
         view.axis = .horizontal
         view.alignment = .center
@@ -69,7 +54,7 @@ class DetailedViewController: UIViewController {
         return view
     }()
     
-    var selectedImage: UIImageView = {
+    lazy var selectedImage: UIImageView = {
         var view = UIImageView()
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFit
@@ -78,7 +63,7 @@ class DetailedViewController: UIViewController {
         return view
     }()
     
-    var imageTitle: UILabel = {
+    lazy var imageTitle: UILabel = {
         var view = UILabel()
         view.textColor = .black
         view.font = R.font.robotoRegular(size: 22)
@@ -87,7 +72,7 @@ class DetailedViewController: UIViewController {
         return view
     }()
     
-    var usersLabel: UILabel = {
+    lazy var usersLabel: UILabel = {
         var view = UILabel()
         view.textColor = .galleryGrey
         view.font = R.font.robotoRegular(size: 16)
@@ -96,7 +81,7 @@ class DetailedViewController: UIViewController {
         return view
     }()
     
-    var imageDescription: UILabel = {
+    lazy var imageDescription: UILabel = {
         var view = UILabel()
         view.textColor = .black
         view.font = R.font.robotoRegular(size: 16)
@@ -107,7 +92,7 @@ class DetailedViewController: UIViewController {
         return view
     }()
     
-    var downloadDate: UILabel = {
+    lazy var downloadDate: UILabel = {
         var view = UILabel()
         view.textColor = .galleryGrey
         view.font = R.font.robotoRegular(size: 12)
@@ -139,7 +124,7 @@ class DetailedViewController: UIViewController {
     func checkOrientationAndSetLayout() {
         if UIDevice.current.orientation.isLandscape {
             totalStackView.snp.remakeConstraints {
-                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(180)
+                $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(180)
                 $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
                 $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
                 $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
@@ -152,11 +137,10 @@ class DetailedViewController: UIViewController {
             }
         } else {
             totalStackView.snp.remakeConstraints {
-                $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(251)
+                $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(251)
                 $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
                 $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
                 $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
-
             }
             
             selectedImage.snp.remakeConstraints {
@@ -174,12 +158,12 @@ class DetailedViewController: UIViewController {
         
         view.addSubview(scrollView)
 //        scrollView.addSubviews(totalStackView, selectedImage)
-        scrollView.addSubview(totalStackView)
+        scrollView.addSubviews(selectedImage, totalStackView)
         upperStackView.addArrangedSubviews(imageTitle)
         lowerStackView.addArrangedSubviews(usersLabel, downloadDate)
 //        totalStackView.addArrangedSubviews(upperStackView, lowerStackView, imageDescription)
-        totalStackView.addArrangedSubviews(selectedImage ,upperStackView, lowerStackView, imageDescription)
-        
+        totalStackView.addArrangedSubviews(upperStackView, lowerStackView, imageDescription)
+
         totalStackView.setCustomSpacing(10.0, after: selectedImage)
         totalStackView.setCustomSpacing(10.0, after: upperStackView)
         totalStackView.setCustomSpacing(20.0, after: lowerStackView)
@@ -248,8 +232,13 @@ extension DetailedViewController: UIScrollViewDelegate  {
         selectedImage
     }
     
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        totalStackView.isHidden = true
+    }
+    
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
 //        selectedImage.transform = CGAffineTransform.identity
+        totalStackView.isHidden = false
         scrollView.setZoomScale(1.0, animated: true)
     }
 }

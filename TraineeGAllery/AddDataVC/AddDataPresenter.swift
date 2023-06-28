@@ -8,19 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol AddDataPresenterProtocol {
-    
-    func popViewController(viewController: AddDataViewController)
-    func getCurrentDate() -> String
-    func mediaObject(name: String,
-                     file: Data,
-                     dateCreate: String,
-                     description: String,
-                     new: Bool,
-                     popular: Bool,
-                     viewController: AddDataViewController)
-}
-
 class AddDataPresenter {
     
     weak var view: AddDataVCProtocol?
@@ -79,14 +66,10 @@ extension AddDataPresenter: AddDataPresenterProtocol {
                 })
             }
         })
+        .disposed(by: disposeBag)
     }
     
     func getCurrentDate() -> String {
         return FormattedDateString.getCurrentDate()
     }
 }
-        
-//{
-//  "error" : "invalid_grant",
-//  "error_description" : "The access token provided has expired."
-//}

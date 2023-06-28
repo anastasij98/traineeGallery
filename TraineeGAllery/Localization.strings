@@ -1,5 +1,13 @@
 "newLine" = "\n";
 
+// MARK: - UserDefaults
+"accessTokenKey" = "accessToken";
+"refreshTokenKey" = "refreshToken";
+"nameKey" = "name";
+"birthdayKey" = "birthday";
+"emailKey" = "email";
+"usersId" = "usersId";
+
 // MARK: - WelcomeVC
 "welcomeText" = "Welcome to Gallery!";
 "createAccountButton" = "Create an account";
@@ -9,7 +17,7 @@
 "signInTitle" = "Sign In";
 "signUpTitle" = "Sign Up";
 "email" = "Email";
-"password" = "Password";
+"passwordSignIn" = "Password";
 "cancelTitle" = "Cancel";
 "emptyFields" = "Fields are empty";
 
@@ -70,3 +78,7 @@
 "settingsBirthday" = "Birthday";
 "settingsUserName" = "User Name";
 "settingsPersonalData" = "Personal data";
+
+// MARK: - NoConnectionStack
+"noConnectionTitle" = "Sorry!";
+"noConnectionDescription" = "There is no pictures.\nPlease come back later.";

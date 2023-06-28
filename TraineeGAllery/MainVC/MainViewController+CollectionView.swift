@@ -22,6 +22,10 @@ extension MainViewController: UICollectionViewDelegate {
             presenter?.loadMoreSearched(searchText: presenter?.searchedText ?? "")
         }
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        
+//    }
 }
 //MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {

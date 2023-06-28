@@ -8,16 +8,6 @@
 import Foundation
 import UIKit
 
-protocol ProfileRouterProtocol {
-    
-    /// Обращение к конфигуратору экрана настроек(Settings) для его открытия 
-    func openSettings()
-    
-    /// Открытие TabBarController'a
-    /// - Parameter index: Parameter index: индекс выбранного экрана 
-    func openTabBarViewController(index: Int)
-}
-
 class ProfileRouter {
     
     weak var view: UIViewController?

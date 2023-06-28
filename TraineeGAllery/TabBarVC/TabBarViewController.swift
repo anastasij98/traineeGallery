@@ -8,10 +8,7 @@
 import Foundation
 import UIKit
 
-protocol TabBarVCProtocol: AnyObject {
-    
-    
-}
+protocol TabBarVCProtocol: AnyObject { }
 
 class TabBarViewController: UITabBarController {
     
@@ -20,6 +17,11 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigation()
+        setupTabImages()
+    }
+    
+    func setupNavigation() {
         let mainVC = UINavigationController()
         let addPhotoVC = UINavigationController()
         let profileVC = UINavigationController()
@@ -30,7 +32,9 @@ class TabBarViewController: UITabBarController {
         AddPhotoConfigurator.openViewController(navigationController: addPhotoVC)
         ProfileConfigurator.openViewController(navigationController: profileVC)
         tabBar.tintColor = .galleryMain
-
+    }
+    
+    func setupTabImages() {
         guard let items = tabBar.items else { return }
         let images = ["main", "photo", "profile"]
 
@@ -40,7 +44,4 @@ class TabBarViewController: UITabBarController {
     }
 }
 
-extension TabBarViewController: TabBarVCProtocol {
-    
-    
-}
+extension TabBarViewController: TabBarVCProtocol { }

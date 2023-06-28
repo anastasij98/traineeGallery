@@ -10,17 +10,6 @@ import UIKit
 import SnapKit
 import Photos
 
-protocol AddPhotoVCProtocol: AnyObject {
-    
-    /// Установка выбранного объекта в imageView.image AddPhotoViewController'a
-    /// - Parameter model: модель объекта типа ImageObjectModel
-    func setSelectedObject(model: ImageObjectModel)
-    
-    /// Установка картинки в imageView
-    /// - Parameter image: картинка в формате Data
-    func setupImageView(image: Data)
-}
-
 class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: AddPhotoPresenterProtocol?
@@ -49,13 +38,7 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         view.backgroundColor = .galleryLightGrey
-        
-        return view
-    }()
-    
-    lazy var underLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .galleryGrey
+        view.addUnderLine(color: .galleryGrey)
         
         return view
     }()
@@ -102,12 +85,25 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupScrollAndStack()
+        setupScrollView()
+        setupCollectionView()
+        addSubviews()
+        configureLayout()
         setupRightNavBarButton()
         setupCenterNavBarButton()
         presenter?.fetchAssestFromLibrary()
     }
-   
+    
+    @objc
+    func onNextButtonTap() {
+        presenter?.onNextButtonTap()
+    }
+    
+    @objc
+    func onImagePickerTap() {
+        presenter?.openImagePicker(viewController: self)
+    }
+    
     func setupCenterNavBarButton() {
         self.navigationItem.titleView = buttonView
         buttonView.addSubview(navigationBarButton)
@@ -128,10 +124,12 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         navigationItem.rightBarButtonItem = rightButton
     }
     
-    func setupScrollAndStack() {
+    func setupScrollView() {
         view.backgroundColor = .white
         scrollView.delegate = self
-        
+    }
+    
+    func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -139,13 +137,15 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
                                 forCellWithReuseIdentifier: cellId)
         collectionView.register(AddPhotoCollectionVIewCell.self,
                                 forCellWithReuseIdentifier: addPhotoId)
-        
+    }
+    
+    func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         stackView.addArrangedSubviews(imageView, selectPhotoLabel, collectionView)
-        
-        imageView.addSubview(underLine)
-        
+    }
+    
+    func configureLayout() {
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
@@ -154,19 +154,14 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
             $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
             $0.top.equalTo(scrollView.contentLayoutGuide.snp.top)
-            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).inset(10)
+            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
         }
         
         imageView.snp.makeConstraints {
-            $0.height.equalTo(scrollView.contentLayoutGuide.snp.width)
+            $0.top.equalTo(stackView.snp.top)
+            $0.height.equalTo(374)
             $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
             $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
-        }
-        
-        underLine.snp.makeConstraints {
-            $0.height.equalTo(1)
-            $0.width.equalTo(imageView.snp.width)
-            $0.bottom.equalTo(imageView.snp.bottom)
         }
         
         selectPhotoLabel.snp.makeConstraints {
@@ -175,20 +170,11 @@ class AddPhotoViewController: UIViewController, UIScrollViewDelegate {
         }
         
         collectionView.snp.makeConstraints {
-            $0.height.equalTo(view.safeAreaLayoutGuide.snp.width)
+            $0.top.equalTo(selectPhotoLabel.snp.bottom)
+            $0.height.equalTo(150)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
         }
-    }
-    
-    @objc
-    func onNextButtonTap() {
-        presenter?.onNextButtonTap()
-    }
-    
-    @objc
-    func onImagePickerTap() {
-        presenter?.openImagePicker(viewController: self)
     }
 }
 

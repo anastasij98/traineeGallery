@@ -466,28 +466,12 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
-    /// This `R.string.applicationStrings` struct is generated, and contains static references to 1 localization keys.
+    /// This `R.string.applicationStrings` struct is generated, and contains static references to 0 localization keys.
     struct applicationStrings {
-      /// Value: New
-      static let newTitle = Rswift.StringResource(key: "newTitle", tableName: "ApplicationStrings", bundle: R.hostingBundle, locales: [], comment: nil)
-
-      /// Value: New
-      static func newTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("newTitle", tableName: "ApplicationStrings", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "ApplicationStrings", preferredLanguages: preferredLanguages) else {
-          return "newTitle"
-        }
-
-        return NSLocalizedString("newTitle", tableName: "ApplicationStrings", bundle: bundle, comment: "")
-      }
-
       fileprivate init() {}
     }
 
-    /// This `R.string.localization` struct is generated, and contains static references to 52 localization keys.
+    /// This `R.string.localization` struct is generated, and contains static references to 61 localization keys.
     struct localization {
       /// Value:  
       static let newLine = Rswift.StringResource(key: "newLine", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -549,6 +533,8 @@ struct R: Rswift.Validatable {
       static let nextButtonTitle = Rswift.StringResource(key: "nextButtonTitle", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Old password
       static let oldPasswordTitle = Rswift.StringResource(key: "oldPasswordTitle", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Password
+      static let passwordSignIn = Rswift.StringResource(key: "passwordSignIn", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Password *
       static let attributedPassword = Rswift.StringResource(key: "attributedPassword", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Passwords don't match
@@ -569,6 +555,10 @@ struct R: Rswift.Validatable {
       static let signOutButtonTitle = Rswift.StringResource(key: "signOutButtonTitle", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Sign Up
       static let signUpTitle = Rswift.StringResource(key: "signUpTitle", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Sorry!
+      static let noConnectionTitle = Rswift.StringResource(key: "noConnectionTitle", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: There is no pictures. Please come back later.
+      static let noConnectionDescription = Rswift.StringResource(key: "noConnectionDescription", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: User Name
       static let settingsUserName = Rswift.StringResource(key: "settingsUserName", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: User Name *
@@ -577,22 +567,34 @@ struct R: Rswift.Validatable {
       static let welcomeText = Rswift.StringResource(key: "welcomeText", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: You can delete your account
       static let deleteAccountButtonTitle = Rswift.StringResource(key: "deleteAccountButtonTitle", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: accessToken
+      static let accessTokenKey = Rswift.StringResource(key: "accessTokenKey", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: addPhoto
       static let addPhotoId = Rswift.StringResource(key: "addPhotoId", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: birthday
+      static let birthdayKey = Rswift.StringResource(key: "birthdayKey", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: cell
       static let cellIdMain = Rswift.StringResource(key: "cellIdMain", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: clear
       static let clearReuseId = Rswift.StringResource(key: "clearReuseId", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: email
+      static let emailKey = Rswift.StringResource(key: "emailKey", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: id
       static let cellIdAddPhoto = Rswift.StringResource(key: "cellIdAddPhoto", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: indicator
       static let indicatorId = Rswift.StringResource(key: "indicatorId", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: name
+      static let nameKey = Rswift.StringResource(key: "nameKey", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: password
       static let password = Rswift.StringResource(key: "password", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: profileCellId
       static let profileCellId = Rswift.StringResource(key: "profileCellId", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: refreshToken
+      static let refreshTokenKey = Rswift.StringResource(key: "refreshTokenKey", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: userImages
       static let userImagesID = Rswift.StringResource(key: "userImagesID", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: usersId
+      static let usersId = Rswift.StringResource(key: "usersId", tableName: "Localization", bundle: R.hostingBundle, locales: [], comment: nil)
 
       /// Value:  
       static func newLine(preferredLanguages: [String]? = nil) -> String {
@@ -984,6 +986,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("oldPasswordTitle", tableName: "Localization", bundle: bundle, comment: "")
       }
 
+      /// Value: Password
+      static func passwordSignIn(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("passwordSignIn", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "passwordSignIn"
+        }
+
+        return NSLocalizedString("passwordSignIn", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
       /// Value: Password *
       static func attributedPassword(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1114,6 +1129,32 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("signUpTitle", tableName: "Localization", bundle: bundle, comment: "")
       }
 
+      /// Value: Sorry!
+      static func noConnectionTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("noConnectionTitle", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "noConnectionTitle"
+        }
+
+        return NSLocalizedString("noConnectionTitle", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
+      /// Value: There is no pictures. Please come back later.
+      static func noConnectionDescription(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("noConnectionDescription", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "noConnectionDescription"
+        }
+
+        return NSLocalizedString("noConnectionDescription", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
       /// Value: User Name
       static func settingsUserName(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1166,6 +1207,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("deleteAccountButtonTitle", tableName: "Localization", bundle: bundle, comment: "")
       }
 
+      /// Value: accessToken
+      static func accessTokenKey(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("accessTokenKey", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "accessTokenKey"
+        }
+
+        return NSLocalizedString("accessTokenKey", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
       /// Value: addPhoto
       static func addPhotoId(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1177,6 +1231,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("addPhotoId", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
+      /// Value: birthday
+      static func birthdayKey(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("birthdayKey", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "birthdayKey"
+        }
+
+        return NSLocalizedString("birthdayKey", tableName: "Localization", bundle: bundle, comment: "")
       }
 
       /// Value: cell
@@ -1205,6 +1272,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("clearReuseId", tableName: "Localization", bundle: bundle, comment: "")
       }
 
+      /// Value: email
+      static func emailKey(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("emailKey", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "emailKey"
+        }
+
+        return NSLocalizedString("emailKey", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
       /// Value: id
       static func cellIdAddPhoto(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1229,6 +1309,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("indicatorId", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
+      /// Value: name
+      static func nameKey(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("nameKey", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "nameKey"
+        }
+
+        return NSLocalizedString("nameKey", tableName: "Localization", bundle: bundle, comment: "")
       }
 
       /// Value: password
@@ -1257,6 +1350,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profileCellId", tableName: "Localization", bundle: bundle, comment: "")
       }
 
+      /// Value: refreshToken
+      static func refreshTokenKey(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("refreshTokenKey", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "refreshTokenKey"
+        }
+
+        return NSLocalizedString("refreshTokenKey", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
       /// Value: userImages
       static func userImagesID(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1268,6 +1374,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("userImagesID", tableName: "Localization", bundle: bundle, comment: "")
+      }
+
+      /// Value: usersId
+      static func usersId(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("usersId", tableName: "Localization", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localization", preferredLanguages: preferredLanguages) else {
+          return "usersId"
+        }
+
+        return NSLocalizedString("usersId", tableName: "Localization", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

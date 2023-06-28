@@ -21,6 +21,7 @@ class MainPresenter {
     var disposeBag = DisposeBag()
 
     
+    // TODO: все таки избавиться от простыней
     // загруженные картинки
     var newImages = [ItemModel]()
     var popularImages = [ItemModel]()
@@ -116,10 +117,11 @@ class MainPresenter {
 //        return (currentPage <= currentCountOfPages) || !wasResultProcessed
 //    }
 
+    // TODO: дргать подобную ину из юскейса
     var hasMorePages: Bool {
         return currentPage <= currentCountOfPages
     }
-    
+    // TODO: дргать подобную ину из юскейса
     var isLoading = false
     
     lazy var reachibilityNetwork = NetworkReachabilityManager(host: "www.ya.ru")

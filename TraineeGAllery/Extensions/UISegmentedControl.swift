@@ -9,6 +9,31 @@ import Foundation
 import UIKit
 import SnapKit
 
+extension UISegmentedControl {
+    
+    // TODO: юзать экстеншены полноценно
+    
+    func setupSege() {
+        
+    }
+    
+    func removeBorder() {
+        let background = UIImage.getSegmentedControlRectangle(color: UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor, andSize: self.bounds.size)
+        // segment background color and size
+        self.setBackgroundImage(background, for: .normal, barMetrics: .default)
+        self.setBackgroundImage(background, for: .selected, barMetrics: .default)
+        self.setBackgroundImage(background, for: .highlighted, barMetrics: .default)
+        
+        let deviderLine = UIImage.getSegmentedControlRectangle(color: .galleryWhite,
+                                                               andSize: CGSize(width: 1.0, height: 5))
+        self.setDividerImage(deviderLine, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
+        self.setTitleTextAttributes([.foregroundColor: UIColor.galleryGrey,
+                                     .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .normal)
+        self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black,
+                                     .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .selected)
+    }
+}
+
 class SplitUnderlineView: UIView {
     
     private lazy var arrayOfViews: [UIView] = .init()
@@ -50,38 +75,5 @@ class SplitUnderlineView: UIView {
         arrayOfViews.enumerated().forEach { offset, element in
             element.backgroundColor = offset == index ? .black : .clear
         }
-    }
-}
-
-extension UIImage {
-    
-    class func getSegmentedControlRectangle(color: CGColor, andSize size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(color)
-        let rectangle = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-        context?.fill(rectangle)
-        
-        let rectangleImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return rectangleImage!
-    }
-}
-
-extension UISegmentedControl {
-    
-    func removeBorder() {
-        let background = UIImage.getSegmentedControlRectangle(color: UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor, andSize: self.bounds.size)
-        // segment background color and size
-        self.setBackgroundImage(background, for: .normal, barMetrics: .default)
-        self.setBackgroundImage(background, for: .selected, barMetrics: .default)
-        self.setBackgroundImage(background, for: .highlighted, barMetrics: .default)
-        
-        let deviderLine = UIImage.getSegmentedControlRectangle(color: UIColor.white.cgColor, andSize: CGSize(width: 1.0, height: 5))
-        self.setDividerImage(deviderLine, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
-        self.setTitleTextAttributes([.foregroundColor: UIColor.galleryGrey,
-                                     .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .normal)
-        self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black,
-                                     .font: UIFont.systemFont(ofSize: 17, weight: .regular)], for: .selected)
     }
 }

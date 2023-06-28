@@ -8,15 +8,6 @@
 import Foundation
 import UIKit
 
-protocol WelcomeRouterProtocol {
-    
-    /// Открытие экрана SignUp для регистрации пользователя
-    func openSignUpPage()
-    
-    /// Открытие экрана SignIn для авторизации пользователя
-    func openSignInPage()
-}
-
 class WelcomeRouter {
     
     weak var view: UIViewController?

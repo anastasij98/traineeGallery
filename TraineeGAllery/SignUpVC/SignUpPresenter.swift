@@ -9,10 +9,25 @@ import Foundation
 import RxSwift
 import RxNetworkApiClient
 
-protocol SignUpPresenterProtocol {
+class SignUpPresenter {
     
-    /// Обращение к роутеру для открытия экрана SigIn
-    func onSignInButtonTap()
+    weak var view: SignUpViewProtocol?
+    var router: SignUpRouterProtocol
+    var network: NetworkServiceProtocol
+    var userDefaultsService: UserDefaultsServiceProtocol
+    
+    var disposeBag = DisposeBag()
+    
+    init(view: SignUpViewProtocol? = nil,
+         router: SignUpRouterProtocol,
+         network: NetworkServiceProtocol,
+         userDefaultsService: UserDefaultsServiceProtocol) {
+        self.view = view
+        self.router = router
+        self.network = network
+        self.userDefaultsService = userDefaultsService
+    }
+    
     
     ///  Запрос на регистрацию нового пользователя
     /// - Parameters:
@@ -29,47 +44,8 @@ protocol SignUpPresenterProtocol {
                          password: String,
                          username: String,
                          birthday: String,
-                         roles: [String])
-    
-    /// Обращение к роутеру для закрытия экрана SignUp
-    /// - Parameter viewController: экран SignUp
-    func popViewController(viewController: SignUpViewController)
-}
-
-class SignUpPresenter {
-    
-    weak var view: SignUpViewProtocol?
-    var router: SignUpRouterProtocol
-    var network: NetworkServiceProtocol
-    var userDefaultsService: UserDefaultsServiceProtocol
-
-    var disposeBag = DisposeBag()
-    
-    init(view: SignUpViewProtocol? = nil,
-         router: SignUpRouterProtocol,
-         network: NetworkServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
-        self.view = view
-        self.router = router
-        self.network = network
-        self.userDefaultsService = userDefaultsService
-    }
-}
-
-extension SignUpPresenter: SignUpPresenterProtocol {
-    
-    func onSignInButtonTap() {
-        router.openSignInViewController()
-    }
-    
-    func registerNewUser(email: String,
-                          phone: String,
-                          fullName: String,
-                          password: String,
-                          username: String,
-                          birthday: String,
-                          roles: [String]) {
-
+                         roles: [String]) {
+        
         let formattedBirthday = FormattedDateString.setFormattedDateString(string: birthday)
         network.registerUser(email: email,
                              password: password,
@@ -92,9 +68,10 @@ extension SignUpPresenter: SignUpPresenterProtocol {
         })
         .flatMap({ [weak self] (authModel) -> Single<CurrentUserModel> in
             guard let self = self,
-                  let accessToken = authModel.access_token else {
+                  let accessToken = authModel.access_token,
+                  let refreshToken = authModel.refresh_token else {
                 return .error(NSError(domain: "", code: 0, userInfo: nil)) }
-            self.userDefaultsService.saveAccessToken(token: accessToken)
+            self.userDefaultsService.saveTokens(accessToken: accessToken, refreshToken: refreshToken)
             
             return self.network.getCurrentUser()
         })
@@ -121,7 +98,74 @@ extension SignUpPresenter: SignUpPresenterProtocol {
         .disposed(by: disposeBag)
     }
     
+    func countOfFilledTextFields(_ emailText: String,
+                                 _ userText: String,
+                                 _ birthdayText: String,
+                                 _ passwordText: String,
+                                 _ confirmPasswordText: String) -> Int {
+        var count = 0
+        let array = [confirmPasswordText, passwordText, emailText, userText, birthdayText]
+        array.forEach { text in
+            if !text.isEmpty {
+                count += 1
+            }
+        }
+        return count
+    }
+    
+    func arePaswordsEqual(_ password: String,
+                          _ confirmPassword: String) -> Bool {
+        password == confirmPassword
+    }
+}
+
+extension SignUpPresenter: SignUpPresenterProtocol {
+    
+    func onSignInButtonTap() {
+        router.openSignInViewController()
+    }
+    
     func popViewController(viewController: SignUpViewController) {
         router.popViewController(viewController: viewController)
+    }
+    
+    func onSignUpButtonTapped(emailText: String,
+                              userText: String,
+                              birthdayText: String,
+                              passwordText: String,
+                              confirmPasswordText: String) {
+        
+        if emailText.isEmpty || !emailText.isEmailValid {
+            view?.showEmailError()
+        }
+        
+        if userText.isEmpty {
+            view?.showUserNameError()
+        }
+        
+        if birthdayText.isEmpty {
+            view?.showBirthdayError()
+        }
+        
+        if passwordText.isEmpty || !passwordText.isPasswordValid {
+            view?.passwordError()
+        }
+        
+        if confirmPasswordText.isEmpty || !arePaswordsEqual(passwordText,
+                                                            confirmPasswordText) {
+            view?.confirmPasswordError()
+        }
+        
+        if emailText.isEmailValid && passwordText.isPasswordValid && arePaswordsEqual(passwordText, confirmPasswordText) && countOfFilledTextFields(emailText, userText, birthdayText, passwordText, confirmPasswordText) == 5  {
+            registerNewUser(email: emailText ,
+                            phone: "",
+                            fullName: userText,
+                            password: confirmPasswordText,
+                            username: userText,
+                            birthday: birthdayText,
+                            roles: [])
+        } else {
+            view?.showAlertControl()
+        }
     }
 }

@@ -13,7 +13,7 @@ extension UIButton {
     
     func setupButtonTitle(view: UIButton, text: String, color: UIColor, size: CGFloat) {
         let string = NSMutableAttributedString(string: text)
-        string.addAttributes([.font : UIFont.robotoRegular(ofSize: size),
+        string.addAttributes([.font : R.font.robotoRegular(size: size),
                               .foregroundColor : color],
                              range: NSRange(location: 0, length: string.length))
         view.setAttributedTitle(string, for: .normal)
@@ -72,6 +72,6 @@ extension UIButton {
     }
     
     func setWarningImage() {
-        self.setImage(UIImage(named: "warning"), for: .normal)
+        self.setImage(R.image.warning(), for: .normal)
     }
 }

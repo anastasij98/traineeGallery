@@ -10,7 +10,7 @@ import UIKit
 
 extension String {
     
-    /// Return Bool-value that shows is e-mail adress valid or not
+    /// Возвращает значение типа Bool, которое сообщает прошел ли e-mail адрес валидацию
     var isEmailValid: Bool {
         do {
             let regex = try NSRegularExpression(pattern: "[A-Za-z0-9]{3,}+@[A-Za-z0-9]{2,}+\\.[A-Za-z]{2,}", options: .caseInsensitive)
@@ -20,7 +20,7 @@ extension String {
         }
     }
     
-    /// Return Bool-value that shows is password valid or not
+    /// Возвращает значение типа Bool, которое сообщает прошел ли пароль валидацию
     var isPasswordValid: Bool {
             let password = self.trimmingCharacters(in: CharacterSet.whitespaces)
             let passwordRegx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$"
@@ -28,11 +28,11 @@ extension String {
             return passwordCheck.evaluate(with: password)
     }
     
-    ///Sets NSMutableAttributedString with specified fontSize and fontColor
+    /// Устанавливает NSMutableAttributedString с задаваемыми fontSize и fontColor
     func placeholderText(fontSize size: CGFloat, fontColor color: UIColor) -> NSMutableAttributedString {
         let placeholderText = NSMutableAttributedString(string: self)
         placeholderText.addAttribute(.font,
-                                    value: UIFont.robotoRegular(ofSize: size),
+                                     value: R.font.robotoRegular(size: size),
                                     range: NSRange(location: 0, length: placeholderText.length))
         placeholderText.addAttribute(NSAttributedString.Key.foregroundColor,
                                     value: color,

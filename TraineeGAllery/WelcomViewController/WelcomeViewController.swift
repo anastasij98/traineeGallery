@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol WelcomeViewControllerProtocol: AnyObject {
-    
-}
+protocol WelcomeViewControllerProtocol: AnyObject { }
 
 class WelcomeViewController: UIViewController {
     
@@ -51,9 +49,7 @@ class WelcomeViewController: UIViewController {
         view.setTitleColor(.white, for: .normal)
         view.backgroundColor = .galleryBlack
         view.layer.cornerRadius = 10
-        view.snp.makeConstraints { make in
-            make.height.equalTo(40)
-        }
+        view.setupButtonHeight(height: 40)
         view.addTarget(self,
                        action: #selector(onSignUpButtonTap),
                        for: .touchUpInside)
@@ -69,9 +65,7 @@ class WelcomeViewController: UIViewController {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.cornerRadius = 10
-        view.snp.makeConstraints { make in
-            make.height.equalTo(40)
-        }
+        view.setupButtonHeight(height: 40)
         view.addTarget(self,
                        action: #selector(onSignInButtonTap),
                        for: .touchUpInside)
@@ -82,28 +76,14 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupStackView()
+        addSubviews()
+        configureLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupNavigationBar(isHidden: true)
-    }
-    
-    func setupStackView() {
-        view.backgroundColor = .white
-        view.addSubview(welcomeStackView)
-        welcomeStackView.addArrangedSubviews(welcomeImageView, welcomeLabel, createAccountButton, haveAccountButton)
-        welcomeStackView.setCustomSpacing(36, after: welcomeImageView)
-        welcomeStackView.setCustomSpacing(80, after: welcomeLabel)
-        welcomeStackView.setCustomSpacing(20, after: createAccountButton)
-        
-        welcomeStackView.snp.makeConstraints {
-            $0.centerY.equalTo(view.snp.centerY)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
-        }
     }
     
     @objc
@@ -115,6 +95,24 @@ class WelcomeViewController: UIViewController {
     func onSignInButtonTap() {
         presenter?.onSignInButtonTap()
     }
+    
+    func addSubviews() {
+        view.backgroundColor = .white
+        view.addSubview(welcomeStackView)
+        welcomeStackView.addArrangedSubviews(welcomeImageView, welcomeLabel, createAccountButton, haveAccountButton)
+    }
+    
+    func configureLayout() {
+        welcomeStackView.setCustomSpacing(36, after: welcomeImageView)
+        welcomeStackView.setCustomSpacing(80, after: welcomeLabel)
+        welcomeStackView.setCustomSpacing(20, after: createAccountButton)
+        
+        welcomeStackView.snp.makeConstraints {
+            $0.centerY.equalTo(view.snp.centerY)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
+        }
+    }    
 }
 
 extension WelcomeViewController: WelcomeViewControllerProtocol {

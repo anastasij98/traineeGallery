@@ -8,17 +8,6 @@
 import Foundation
 import UIKit
 
-protocol AddPhotoRouterProtocol {
-    
-    /// Обращение к конфигуратору для открытия AddDataViewController'a
-    /// - Parameter imageObject: передаваемый объект в виде Data
-    func onNextButtonTap(imageObject: Data)
-    
-    /// Oткрытие ImagePicker'a
-    /// - Parameter viewController: передаваемый viewController
-    func openImagePicker(viewController: AddPhotoViewController)
-}
-
 class AddPhotoRouter {
     
     weak var view: UIViewController?

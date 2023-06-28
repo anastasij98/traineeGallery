@@ -9,17 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol ProfileVCProtocol: AnyObject {
-    
-    /// Установка view ViewControler'a
-    /// - Parameters:
-    ///   - userName: имя пользователя
-    ///   - birthday: дата рождения пользователя 
-    func setupView(userName: String,
-                   birthday: String)
-    func updateCollectionView() 
-}
-
+//TODO: релоад таблицы во вьюВиллАппеар ✅
 class ProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: ProfilePresenterProtocol?
@@ -29,6 +19,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero,
                                     collectionViewLayout: UICollectionViewFlowLayout())
+
         return view
     }()
     
@@ -102,6 +93,8 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addSubviews()
+        configureLayout()
         setupLayot()
         setupCollectionView()
         setupCollectionViewLayout()
@@ -113,17 +106,27 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         
         setupRightNavBarButton()
         setupNavigationBar(isHidden: false)
+        updateCollectionView()
     }
     
-    func setupLayot() {
-        view.backgroundColor = .white
-        scrollView.delegate = self
-        
+    @objc
+    func onSettingsButtonTap() {
+        presenter?.openSettings()
+    }
+    
+    @objc
+    func onCancelButtonTap() {
+        presenter?.openTabBarViewController(index: 0)
+    }
+    
+    private func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubviews(stackView, underLine, collectionView)
         infoStackView.addArrangedSubviews(userNameLabel, birthdayLabel)
         stackView.addArrangedSubviews(userPhotoImageView, infoStackView)
-        
+    }
+    
+    private func configureLayout() {
         scrollView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
@@ -159,6 +162,11 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    private func setupLayot() {
+        view.backgroundColor = .white
+        scrollView.delegate = self
+    }
+    
     private func setupCollectionView() {
         view.backgroundColor = .white
         view.addSubview(collectionView)
@@ -181,23 +189,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func setupRightNavBarButton() {
+    private func setupRightNavBarButton() {
         let rightButton = UIBarButtonItem(image: R.image.settings(),
                                           style: .plain,
                                           target: self,
                                           action: #selector(onSettingsButtonTap))
         rightButton.tintColor = .black
         navigationItem.rightBarButtonItem = rightButton
-    }
-    
-    @objc
-    func onSettingsButtonTap() {
-        presenter?.openSettings()
-    }
-    
-    @objc
-    func onCancelButtonTap() {
-        presenter?.openTabBarViewController(index: 0)
     }
 }
 

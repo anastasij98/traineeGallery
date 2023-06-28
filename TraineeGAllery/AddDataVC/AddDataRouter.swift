@@ -8,12 +8,6 @@
 import Foundation
 import UIKit
 
-protocol AddDataRouterProtocol {
-    
-    func popViewController(viewController: AddDataViewController)
-    func openTabBarController(index: Int)
-}
-
 class AddDataRouter {
     
     weak var view: UIViewController?

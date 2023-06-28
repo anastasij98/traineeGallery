@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import Alamofire
+import RxNetworkApiClient
 
 protocol NetworkServiceProtocol {
     
@@ -83,13 +84,10 @@ protocol NetworkServiceProtocol {
                        popular: Bool,
                        iriId: Int) -> Single<ItemModel>
     
+    /// Запрос на отображение загруженных картинок текущего пользователя
+    /// - Parameter userId:Id пльзователя
     func getUsersImages(userId: Int) -> Single<ResponseModel>
-
-    func updateUsersInfo(usersId: Int,
-                         email: String,
-                         phone: String,
-                         fullName: String,
-                         username: String,
-                         birthday: String,
-                         roles: [String]) -> Single<ResponseRegisterModel>
+    
+    /// Запрос на обновление токенов
+    func requestWithRefreshToken(refreshToken: String) -> Single<AuthorizationModel>
 }

@@ -11,7 +11,7 @@ import RxNetworkApiClient
 class NetworkService {
     
     private var apiClient: ApiClient = {
-        let apiClient = ApiClientImp.authInstance(host: "https://gallery.prod1.webant.ru/")
+        let apiClient = ApiClientImp.authInstance(host: URLConfiguration.url)
         apiClient.interceptors.append(ModifiedInterceptor())
         
         return apiClient
@@ -41,7 +41,7 @@ extension NetworkService: NetworkServiceProtocol {
                 }
             }
         }
-        let request: ApiRequest<ResponseModel> = .request(path: "api/photos/",
+        let request: ApiRequest<ResponseModel> = .request(path: URLConfiguration.api,
                                                           method: .get,
                                                           query: switched,
                                                           ("limit", "\(limit)"),
@@ -149,27 +149,18 @@ extension NetworkService: NetworkServiceProtocol {
         
         return apiClient.execute(request: request)
     }
-    
-    func updateUsersInfo(usersId: Int,
-                         email: String,
-                         phone: String,
-                         fullName: String,
-                         username: String,
-                         birthday: String,
-                         roles: [String]) -> Single<ResponseRegisterModel> {
-
-        let body = RequestRegisterModel(email: email,
-                                        phone: phone,
-                                        fullName: fullName,
-                                        username: username,
-                                        birthday: birthday,
-                                        roles: roles)
         
-        let request: ApiRequest<ResponseRegisterModel> = .request(path: "api/users/\(usersId)",
-                                                                  method: .put,
-                                                                  headers: [Header.contentJson],
-                                                                  body: body)
+    func requestWithRefreshToken(refreshToken: String) -> Single<AuthorizationModel>  {
+//    refresh: GET /oauth/v2/token?client_id=&grant_type=refresh_token&refresh_token=&client_secret=
+        let clientId = "1_3fxvjh2ky7s44cskwcgo0k8cwwogkocs8k4cwcwsg0skcsw4ok"
+        let clientSecret = "4tf1qez2dc4ksg8w4og4co4w40s0gokwwkwkss8gc400owkokc"
         
+        let request: ApiRequest<AuthorizationModel> = .request(path: "oauth/v2/token",
+                                                               method: .get,
+                                                               query: ("client_id", clientId),
+                                                               ("grant_type", "refresh_token"),
+                                                               ("refresh_token", refreshToken),
+                                                               ("client_secret", clientSecret))
         
         return apiClient.execute(request: request)
     }

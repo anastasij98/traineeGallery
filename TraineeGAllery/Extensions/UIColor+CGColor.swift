@@ -60,4 +60,8 @@ extension CGColor {
     static var galleryErrorRed: CGColor {
         #colorLiteral(red: 0.9098039216, green: 0, blue: 0, alpha: 1)
     }
+    
+    static var galleryWhite: CGColor {
+        #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
 }

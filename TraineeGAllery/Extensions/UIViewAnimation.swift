@@ -10,6 +10,7 @@ import UIKit
 
 extension UIView {
     
+    /// Начало вращения
     func startRotating(duration: Double = 1) {
         let kAnimationKey = "rotation"
         if self.layer.animation(forKey: kAnimationKey) == nil {
@@ -23,6 +24,7 @@ extension UIView {
         }
     }
     
+    /// Конец вращения
     func stopRotating() {
         let kAnimationKey = "rotation"
         

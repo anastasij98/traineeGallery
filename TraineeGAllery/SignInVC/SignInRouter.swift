@@ -8,16 +8,6 @@
 import Foundation
 import UIKit
 
-protocol SignInRouterProtocol {
-    
-    /// Получение и открытие экрана с TabBarController'ом
-    func openTabBarController()
-    
-    /// Закрытие экрна SignIn
-    /// - Parameter viewController: SignIn
-    func popViewController(viewController: SignInViewController)
-}
-
 class SignInRouter {
     
     weak var view: UIViewController?

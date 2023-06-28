@@ -9,21 +9,29 @@ import Foundation
 
 class UserDefaultsService {
     
-    var accessTokenKey = "accessToken"
-    var nameKey = "name"
-    var birthdayKey = "birthday"
-    var emailKey = "email"
-    var usersId = "usersId"
+    var accessTokenKey = R.string.localization.accessTokenKey()
+    var refreshTokenKey = R.string.localization.refreshTokenKey()
+    var nameKey = R.string.localization.nameKey()
+    var birthdayKey = R.string.localization.birthdayKey()
+    var emailKey = R.string.localization.emailKey()
+    var usersId = R.string.localization.usersId()
 }
 
 extension UserDefaultsService: UserDefaultsServiceProtocol {
     
-    func saveAccessToken(token: String) {
-        UserDefaults.standard.set(token, forKey: accessTokenKey)
+    func saveTokens(accessToken: String, refreshToken: String) {
+        UserDefaults.standard.set(accessToken, forKey: accessTokenKey)
+        UserDefaults.standard.set(refreshToken, forKey: refreshTokenKey)
     }
     
     func getAccessToken() -> String {
         guard let token = UserDefaults.standard.string(forKey: accessTokenKey) else {
+            return "" }
+        return token
+    }
+    
+    func getRefreshToken() -> String {
+        guard let token = UserDefaults.standard.string(forKey: refreshTokenKey) else {
             return "" }
         return token
     }

@@ -8,19 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol MainViewControllerProtocol: AnyObject, AlertMessageProtocol {
-    
-    /// В зависимоти от состояния сети показывается либо галерея, либо информация об отсутсвтии сети
-    /// - Parameter isConnected: параметр, показывающий наличие/отсутсвие сети
-    func connectionDidChange(isConnected: Bool)
-    
-    /// Скрывает refreshControll
-    func hideRefreshControll()
-    
-    /// Обновление отображения галереи и устанавление последнего положения галереи, которое было открыто пользователем
-    /// - Parameter restoreOffset: параметр, показывающий нужно ли устанавливать последнее положение или нет
-    func updateView(restoreOffset: Bool)
-}
+// TODO: не ремувать/или что ты там делаешь, а прятать таблицу, когда нет инета ✅
 
 class MainViewController: UISearchController {
     
@@ -37,6 +25,13 @@ class MainViewController: UISearchController {
                                     collectionViewLayout: UICollectionViewFlowLayout())
         return view
     }()
+    
+    // TODO: если каеф - можешь перепсать на 1 переменную оффсет таблицы
+//
+//    func changeSavedCollectionOffset() {
+//        let oldOffset = savedCollectionViewOffset
+//        savedCollectionViewOffset = newValue
+//    }
     
     //положение галлереи
     var newCollectionViewOffset: CGPoint = CGPoint()
@@ -79,6 +74,8 @@ class MainViewController: UISearchController {
         
         return view
     }()
+    
+    // TODO: не плохая точка роста, если эт линии будут привантыми свойствами внутри сегмента и isHidden будет меняться в зависиости от текуего сегмента
     
     lazy var splitLeftUnderlineView: UIView = {
         let view = UIView()
@@ -124,10 +121,10 @@ class MainViewController: UISearchController {
         
         presenter?.viewIsReady()
         setupSegmentedControl()
+        addSubviews()
+        configureLayout()
         setupCollectionView()
-        setupCollectionViewLayout()
         updateUnderlineVisibility(hiddenValue: true)
-        setupNoConnectionStackView()
         setupSearchBar()
     }
     
@@ -141,6 +138,23 @@ class MainViewController: UISearchController {
         super.viewWillLayoutSubviews()
         
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    @objc
+    func refreshCollectionView() {
+        savedCollectionViewOffset = .zero
+        presenter?.onRefreshStarted()
+        collectionView.reloadData()
+    }
+    
+    @objc
+    func changeScreen(_ sender: UISegmentedControl) {
+        savedCollectionViewOffset = collectionView.contentOffset
+        segmentedControl.selectedSegmentIndex == 0
+            ? updateUnderlineVisibility(hiddenValue: true)
+            : updateUnderlineVisibility(hiddenValue: false)
+    
+        presenter?.didSelectSegment(withIndex: segmentedControl.selectedSegmentIndex)
     }
     
     private func setupSearchBar() {
@@ -174,10 +188,12 @@ class MainViewController: UISearchController {
         }
     }
     
-    private func setupCollectionView() {
+    private func addSubviews() {
         view.backgroundColor = .white
-        view.addSubview(collectionView)
-        
+        view.addSubviews(collectionView, noConnectionStackView)
+    }
+    
+    private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -190,22 +206,19 @@ class MainViewController: UISearchController {
         collectionView.refreshControl = refreshControl
     }
     
-    private func setupCollectionViewLayout() {
+    private func configureLayout() {
         collectionView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.top.equalTo(segmentedControl.snp.bottom).offset(5)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-    }
-    
-    private func setupNoConnectionStackView() {
-        view.addSubview(noConnectionStackView)
+        
         noConnectionStackView.snp.makeConstraints { make in
             make.center.equalTo(view.snp.center)
         }
     }
-    
+
     private func updateUnderlineVisibility(hiddenValue: Bool) {
         if hiddenValue {
             splitLeftUnderlineView.backgroundColor = .galleryMain
@@ -214,23 +227,6 @@ class MainViewController: UISearchController {
             splitLeftUnderlineView.backgroundColor = .galleryLightGrey
             splitRightUnderlineView.backgroundColor = .galleryMain
         }
-    }
-
-    @objc
-    func refreshCollectionView() {
-        savedCollectionViewOffset = .zero
-        presenter?.onRefreshStarted()
-        collectionView.reloadData()
-    }
-    
-    @objc
-    func changeScreen(_ sender: UISegmentedControl) {
-        savedCollectionViewOffset = collectionView.contentOffset
-        segmentedControl.selectedSegmentIndex == 0
-            ? updateUnderlineVisibility(hiddenValue: true)
-            : updateUnderlineVisibility(hiddenValue: false)
-    
-        presenter?.didSelectSegment(withIndex: segmentedControl.selectedSegmentIndex)
     }
 }
 

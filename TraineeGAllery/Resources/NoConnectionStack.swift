@@ -8,9 +8,12 @@
 import Foundation
 import UIKit
 
+// TODO: 1) разделяем методы верстки / конфигурацию вьюхи ✅
+// 2) выносим куда нибудь(экстеншен/новый файл) ✅
+
 class NoConnectionStack: UIView {
     
-    var noConnectionStackView: UIStackView = {
+    lazy var noConnectionStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .center
@@ -19,31 +22,31 @@ class NoConnectionStack: UIView {
         return view
     }()
     
-    var noConnectionImage: UIImageView = {
+    lazy var noConnectionImage: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Intersect")
+        view.image = R.image.intersect()
         
         return view
     }()
     
-    var noConnectionTitle: UILabel = {
+    lazy var noConnectionTitle: UILabel = {
         let view = UILabel()
-        view.font = .robotoRegular(ofSize: 17)
+        view.font = R.font.robotoRegular(size: 17)
         view.textAlignment = .center
         view.textColor = .galleryGrey
-        view.text = "Sorry!"
+        view.text = R.string.localization.noConnectionTitle()
         
         return view
     }()
     
-    var noConnectionDescription: UILabel = {
+    lazy var noConnectionDescription: UILabel = {
         let view = UILabel()
-        view.font = .robotoRegular(ofSize: 12)
+        view.font = R.font.robotoRegular(size: 12)
         view.textColor = .galleryGrey
         view.numberOfLines = 0
         view.lineBreakMode = .byWordWrapping
         view.textAlignment = .center
-        view.text = "There is no pictures.\nPlease come back later."
+        view.text = R.string.localization.noConnectionDescription()
         
         return view
     }()
@@ -51,7 +54,8 @@ class NoConnectionStack: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupStackView()
+        addSubviews()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -59,10 +63,12 @@ class NoConnectionStack: UIView {
         
     }
     
-    func setupStackView() {
+    func addSubviews() {
         self.addSubview(noConnectionStackView)
         noConnectionStackView.addArrangedSubviews(noConnectionImage, noConnectionTitle, noConnectionDescription)
-        
+    }
+    
+    func configureLayout() {
         noConnectionStackView.snp.makeConstraints {
             $0.center.equalTo(self.snp.center)
         }

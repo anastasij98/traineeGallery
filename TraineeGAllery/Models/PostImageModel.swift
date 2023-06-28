@@ -25,15 +25,3 @@ struct PostImageModel: JsonBodyConvertible {
         case date = "dateCreate"
     }
 }
-
-struct PostImage: Codable {
-    
-    var file: String?
-    var id: Int?
-    var name: String?
-}
-
-struct ErrorModel: Codable {
-    
-    var detail: String?
-}

@@ -10,12 +10,14 @@ import UIKit
 
 extension UITextView {
     
+    /// Настраивает полe  textView: с borderColor = .galleryGrey , borderWidth = 1 и cornerRadius = 10
+    /// - Parameter text: текст, который будет установлен в placeholder
     func setupTextView(text: String) {
-        self.layer.cornerRadius = 4
+        self.layer.cornerRadius = 10
         self.layer.borderWidth = 1
         self.layer.borderColor = .galleryGrey
         self.textColor = .galleryGrey
-        self.font = .robotoRegular(ofSize: 17)
+        self.font = R.font.robotoRegular(size: 17)
         self.keyboardType = .default
         self.text = text
     }

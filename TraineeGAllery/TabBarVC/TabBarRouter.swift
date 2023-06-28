@@ -8,10 +8,7 @@
 import Foundation
 import UIKit
 
-protocol TabBarRouterProtocol {
-    
-    
-}
+protocol TabBarRouterProtocol { }
 
 class TabBarRouter {
     

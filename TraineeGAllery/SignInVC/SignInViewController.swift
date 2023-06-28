@@ -9,10 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol SignInViewProtocol: AnyObject {
-    
-    
-}
+protocol SignInViewProtocol: AnyObject { }
 
 class SignInViewController: UIViewController, UIScrollViewDelegate {
     
@@ -49,13 +46,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.textAlignment = .center
         view.text = R.string.localization.signInTitle()
         view.font = R.font.robotoBold(size: 30)
-
-        return view
-    }()
-    
-    lazy var titleUnderline: UIView = {
-        let view = UIView()
-        view.backgroundColor = .galleryMain
+        view.addUnderLine()
         
         return view
     }()
@@ -66,14 +57,14 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         view.autocapitalizationType = .none
         view.setupBorder()
         view.setupTextFieldHeight(height: 40)
-        view.setupRIcon(image: R.image.email())
-        
+        view.setupIcon(image: R.image.email())
+
         return view
     }()
     
     lazy var passwordTextField: CustomTextField = {
         let view = CustomTextField()
-        view.placeholder = R.string.localization.password()
+        view.placeholder = R.string.localization.passwordSignIn()
         view.setupBorder()
         view.setupTextFieldHeight(height: 40)
         view.addButton(button: eyeButton)
@@ -92,7 +83,6 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
 
         return view
     }()
-
     
     lazy var buttonsStackView: UIStackView = {
         let view = UIStackView()
@@ -143,19 +133,22 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillAppear(animated)
         
         checkOrientationAndSetLayout()
-        setupNavigationBar(isHidden: false, customBackButton: UIBarButtonItem(customView: leftBarButton))
+        setupNavigationBar(isHidden: false,
+                           customBackButton: UIBarButtonItem(customView: leftBarButton))
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        checkOrientationAndSetLayout()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupView()
-        checkOrientationAndSetLayout()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
+        setupStackViews()
+        configureLayout()
         checkOrientationAndSetLayout()
     }
     
@@ -201,19 +194,22 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     func setupView() {
         view.backgroundColor = .white
-        view.addSubview(scrollView)
         scrollView.delegate = self
+    }
+    
+    func setupStackViews() {
+        view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         stackView.addArrangedSubviews(signInTitle, textFieldsStackView, buttonsStackView)
         stackView.setCustomSpacing(55, after: signInTitle)
         stackView.setCustomSpacing(60, after: textFieldsStackView)
         textFieldsStackView.addArrangedSubviews(emailTextField, passwordTextField)
-        signInTitle.addSubview(titleUnderline)
         textFieldsStackView.setCustomSpacing(20, after: emailTextField)
-        
         buttonsStackView.addArrangedSubviews(signInButton, signUpButton)
         buttonsStackView.setCustomSpacing(10, after: signInButton)
-        
+    }
+    
+    func configureLayout() {
         scrollView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
@@ -227,14 +223,7 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
             $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
         }
-        
-        titleUnderline.snp.makeConstraints {
-            $0.height.equalTo(2)
-            $0.width.equalTo(signInTitle.snp.width)
-            $0.bottom.equalTo(signInTitle.snp.bottom).offset(5)
-            $0.centerX.equalTo(signInTitle.snp.centerX)
-        }
-        
+
         textFieldsStackView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(16)
@@ -252,7 +241,4 @@ class SignInViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
-extension SignInViewController: SignInViewProtocol {
-    
-    
-}
+extension SignInViewController: SignInViewProtocol { }

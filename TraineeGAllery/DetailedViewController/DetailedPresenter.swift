@@ -8,12 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol DetailedPresenterProtocol {
-    
-    /// Метод показывающий, что view готово к отображению
-    func viewIsReady()
-}
-
 class DetailedPresenter {
     
     weak var view: DetailedViewControllerProtocol?

@@ -7,15 +7,6 @@
 
 import Foundation
 
-protocol WelcomePresenterProtocol {
-    
-    /// Открытие экрана SignUp для регистрации пользователя
-    func onSignUpButtonTap()
-    
-    /// Открытие экрана SignIn для авторизации пользователя
-    func onSignInButtonTap()
-}
-
 class WelcomePresenter {
     
     weak var view: WelcomeViewControllerProtocol?

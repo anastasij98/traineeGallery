@@ -9,13 +9,16 @@ import Foundation
 
 protocol UserDefaultsServiceProtocol {
     
-    /// Метод, сохраняющий accessToken в userDefaults
+    /// Метод, сохраняющий accessToken и refreshToken в userDefaults
     /// - Parameters:
     ///   - token: передаваемый token для кодирования и сохранения в userDefults
-    func saveAccessToken(token: String)
+    func saveTokens(accessToken: String, refreshToken: String)
     
     /// Метод, возвращающий accessToken из userDefaults
     func getAccessToken() -> String
+    
+    /// Метод, возвращающий refreshToken из userDefaults
+    func getRefreshToken() -> String
     
     /// Метод, сохраняющий данные пользователя(имя, день рождения, e-mail адрес) в userDefaults
     /// - Parameters:

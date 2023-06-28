@@ -9,29 +9,9 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol SettingsVCProtocol: AnyObject, AlertMessageProtocol {
-    
-    /// Установка данных пользователя в соответсвующие поля
-    /// - Parameters:
-    ///   - userName: имя пользователя
-    ///   - birthday: дата рождения пользователя
-    ///   - email: email пользователя
-    func setupView(userName: String,
-                   birthday: String,
-                   email: String)
-    
-    /// Данные, которые нужно сохрнаить в usedrDefaults и передать на экран ProfileVC
-    /// - Parameter completion: completion handler
-    func textForSaving(completion: (_ userName: String, _ birthday: String, _ email: String)  -> Void)
-    func deleteUser(action: UIAlertAction)
-    func popViewController(action: UIAlertAction)
-}
-
 class SettingsViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: SettingsPresenterProtocol?
-    
-    var password = "password"
     
     lazy var scrollView: UIScrollView = {
         var view = UIScrollView()
@@ -83,7 +63,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = R.string.localization.settingsUserName()
         view.atributedString(text: text)
         view.setupBorder()
-        view.setupRIcon(image: R.image.user())
+        view.setupIcon(image: R.image.user())
         return view
     }()
     
@@ -93,7 +73,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         view.atributedString(text: text)
         view.keyboardType = .numbersAndPunctuation
         view.setupBorder()
-        view.setupRIcon(image: R.image.birthday())
+        view.setupIcon(image: R.image.birthday())
 
         return view
     }()
@@ -112,7 +92,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = R.string.localization.settingsEmailAdress()
         view.atributedString(text: text)
         view.setupBorder()
-        view.setupRIcon(image: R.image.email())
+        view.setupIcon(image: R.image.email())
         
         return view
     }()
@@ -121,7 +101,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let view = UILabel()
         view.textColor = .black
         view.font = R.font.robotoRegular(size: 14)
-        view.text = password.capitalized
+        view.text = R.string.localization.password().capitalized
         
         return view
     }()
@@ -131,8 +111,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = R.string.localization.oldPasswordTitle()
         view.atributedString(text: text)
         view.setupBorder()
-        view.setupIcon(name: password)
-        
+        view.addButton(button: oldEyeButton)
+        view.isSecureTextEntry = true
+
         return view
     }()
     
@@ -141,8 +122,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = R.string.localization.newPasswordTitle()
         view.atributedString(text: text)
         view.setupBorder()
-        view.setupIcon(name: password)
-        
+        view.addButton(button: eyeButton)
+        view.isSecureTextEntry = true
+
         return view
     }()
     
@@ -151,8 +133,9 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         let text = R.string.localization.confirmPasswordTitle()
         view.atributedString(text: text)
         view.setupBorder()
-        view.setupIcon(name: password)
-        
+        view.addButton(button: confirmEyeButton)
+        view.isSecureTextEntry = true
+
         return view
     }()
     
@@ -197,6 +180,36 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         return view
     }()
     
+    lazy var oldEyeButton: UIButton = {
+        let view = UIButton()
+        view.setImage(R.image.passwordOff(), for: .normal)
+        view.addTarget(self,
+                       action: #selector(oldEyeButtonTapped),
+                       for: .touchUpInside)
+        
+        return view
+    }()
+    
+    lazy var eyeButton: UIButton = {
+        let view = UIButton()
+        view.setImage(R.image.passwordOff(), for: .normal)
+        view.addTarget(self,
+                       action: #selector(eyeButtonTapped),
+                       for: .touchUpInside)
+        
+        return view
+    }()
+    
+    lazy var confirmEyeButton: UIButton = {
+        let view = UIButton()
+        view.setImage(R.image.passwordOff(), for: .normal)
+        view.addTarget(self,
+                       action: #selector(confirmEyeButtonTapped),
+                       for: .touchUpInside)
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -209,6 +222,54 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
         
         setupRightNavBarButton()
         setupNavigationBar(isHidden: false, customBackButton: UIBarButtonItem(customView: leftBarButton))
+    }
+    
+    @objc
+    func oldEyeButtonTapped() {
+        oldPasswordTextField.isSecureTextEntry.toggle()
+        changeEyeButtonImage(textField: oldPasswordTextField, button: oldEyeButton)
+    }
+    
+    @objc
+    func eyeButtonTapped() {
+        newPasswordTextField.isSecureTextEntry.toggle()
+        changeEyeButtonImage(textField: newPasswordTextField, button: eyeButton)
+    }
+    
+    @objc
+    func confirmEyeButtonTapped() {
+        confirmPasswordTextField.isSecureTextEntry.toggle()
+        changeEyeButtonImage(textField: confirmPasswordTextField, button: confirmEyeButton)
+    }
+    
+    @objc
+    func onCancelButtonTap() {
+        presenter?.setCancelAlertController()
+    }
+
+    @objc
+    func onDeleteButtonTap() {
+        presenter?.setDeleteAlertController()
+    }
+
+    @objc
+    func onSaveButtonTap() {
+        presenter?.saveUsersChanges()
+    }
+    
+    @objc
+    func onSignOutButtonTap() {
+        if let _ = view.window {
+            presenter?.signOut()
+        }
+    }
+    
+    private func changeEyeButtonImage(textField: UITextField, button: UIButton) {
+        if textField.isSecureTextEntry {
+            button.setImage(R.image.passwordOff(), for: .normal)
+        } else {
+            button.setImage(R.image.password(), for: .normal)
+        }
     }
     
     func setupRightNavBarButton() {
@@ -263,9 +324,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
             $0.centerX.equalTo(stackView.snp.centerX)
             
         }
-        
         setupTextFields()
-        
         setupLabelsAndButtons()
     }
     
@@ -304,36 +363,7 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
-    @objc
-    func onCancelButtonTap() {
-        presenter?.setCancelAlertController()
-    }
-
-    @objc
-    func onDeleteButtonTap() {
-        presenter?.setDeleteAlertController()
-    }
-
-    @objc
-    func onSaveButtonTap() {
-        guard let email = emailTextField.text,
-              let userName = userNameTextField.text,
-              let birthday = birthdayTextField.text else { return }
-        presenter?.saveUsersChanges(email: email,
-                                    phone: "45674321",
-                                    username: userName,
-                                    birthday: birthday)
-    }
-    
-    @objc
-    func onSignOutButtonTap() {
-        if let _ = view.window {
-            presenter?.signOut()
-        }
-    }
 }
-
 
 extension SettingsViewController: SettingsVCProtocol {
 
@@ -359,5 +389,4 @@ extension SettingsViewController: SettingsVCProtocol {
     func popViewController(action: UIAlertAction) {
         presenter?.popViewController(viewController: self)
     }
-    
 }

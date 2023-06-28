@@ -8,31 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol SettingsPresenterProtocol {
-    
-    /// Закрытие экрана Settings
-    /// - Parameter viewController: viewController, который надо закрыть
-    func popViewController(viewController: SettingsViewController)
-    
-    /// ViewController готов к отображению
-    func viewIsReady()
-    
-    /// Сохранение данных, которые изменил пользователь
-    func saveUsersChanges(email: String,
-                          phone: String,
-                          username: String,
-                          birthday: String)
-    
-    /// Метод, отправляющий запрос на удаление пользователя
-    func deleteUser()
-    
-    /// Метод, позволяющий выйти пользователю из своего профиля
-    func signOut()
-    
-    func setCancelAlertController()
-    func setDeleteAlertController()
-}
-
 class SettingsPresenter {
     
     weak var view: SettingsVCProtocol?
@@ -66,27 +41,8 @@ extension SettingsPresenter: SettingsPresenterProtocol {
                         email: userDef.getUsersInfo().email)
     }
     
-    func saveUsersChanges(email: String,
-                          phone: String,
-                          username: String,
-                          birthday: String) {
-        let usersID = userDef.getUsersId()
-        let formattedBirthday = FormattedDateString.setFormattedDateString(string: birthday)
-        network.updateUsersInfo(usersId: usersID,
-                                email: email,
-                                phone: phone,
-                                fullName: username,
-                                username: username,
-                                birthday: formattedBirthday,
-                                roles: ["ROLE_USER"])
-        .observe(on: MainScheduler.instance)
-        .subscribe(onSuccess: { [weak self] usersModel in
-            guard let self = self else { return }
-            self.view?.textForSaving(completion: { userName, birthday, email in
-                self.userDef.saveUsersInfo(name: userName, birthday: birthday, email: email)
-            })
-        })
-        .disposed(by: disposeBag)
+    func saveUsersChanges() {
+        print("Saved")
     }
     
     func deleteUser() {

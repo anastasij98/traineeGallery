@@ -8,19 +8,6 @@
 import Foundation
 import UIKit
 
-protocol SignUpRouterProtocol {
-    
-    /// Получение и открытие экрана SignIn
-    func openSignInViewController()
-    
-    /// Открытие TabBarController'a
-    func openTabBarController()
-    
-    /// Закрытие экрана SignUp
-    /// - Parameter viewController: экран SignUp
-    func popViewController(viewController: SignUpViewController)
-}
-
 class SignUpRouter {
  
     weak var view: UIViewController?

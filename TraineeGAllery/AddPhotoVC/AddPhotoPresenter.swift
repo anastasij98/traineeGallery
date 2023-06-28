@@ -50,7 +50,6 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
     
     func fetchAssestFromLibrary() {
         let objects = PHAsset.fetchAssets(with: .image, options: nil)
-        print(objects.count)
         for index in 0..<objects.count {
             let manager = PHImageManager.default()
             let option = PHImageRequestOptions()
