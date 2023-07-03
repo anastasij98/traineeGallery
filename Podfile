@@ -23,6 +23,8 @@ target 'TraineeGAllery' do
   pod "TTGSnackbar"
 
   pod 'PKHUD', '~> 5.0'
+
+  pod 'DITranquillity'
 end
 
 post_install do |installer|

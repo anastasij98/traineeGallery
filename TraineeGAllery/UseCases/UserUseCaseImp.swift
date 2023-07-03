@@ -1,42 +1,43 @@
 //
-//  SignInPresenter.swift
+//  UserUseCaseImp.swift
 //  TraineeGAllery
 //
-//  Created by LUNNOPARK on 26.04.23.
+//  Created by LUNNOPARK on 02.07.23.
 //
 
 import Foundation
 import RxSwift
 
-class SignInPresenter {
+class UserUseCaseImp: UserUseCase {
     
-    weak var view: SignInViewProtocol?
-    var router: SignInRouterProtocol
-    var network: NetworkServiceProtocol
+    private let userGateway: UserGateway
+    private let apiUserGateway: ApiUserGateway
     var userDefaultsService: UserDefaultsServiceProtocol
+    var disposeBag = DisposeBag()
     
-    var disposeBag = DisposeBag()    
-    
-    init(view: SignInViewProtocol? = nil,
-         router: SignInRouterProtocol,
-         network: NetworkServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol) {
-        self.view = view
-        self.router = router
-        self.network = network
+    init(_ userGateway: UserGateway,
+         _ apiUserGateway: ApiUserGateway,
+         _ userDefaultsService: UserDefaultsServiceProtocol) {
+        
+        self.userGateway = userGateway
+        self.apiUserGateway = apiUserGateway
         self.userDefaultsService = userDefaultsService
     }
-}
-
-extension SignInPresenter: SignInPresenterProtocol {
     
-    func openTabBar() {
-        router.openTabBarController()
+    func getCurrentUserinfo() -> Single<CurrentUserModel> {
+        <#code#>
     }
     
-    func signInButtonTap(userName: String,
-                         password: String) {
-        network.authorizationRequest(userName: userName, password: password)
+    func registerUser(entity: RequestRegisterModel) -> Single<ResponseRegisterModel> {
+        <#code#>
+    }
+    
+    func deleteUser(id: Int) -> Single<Data> {
+        <#code#>
+    }
+    
+    func authorization(userName: String, password: String) -> Single<CurrentUserModel> {
+        apiUserGateway.authorizationRequest(userName: userName, password: password)
             .observe(on: MainScheduler.instance)
             .debug()
             .flatMap({ [weak self] (authModel) -> Single<CurrentUserModel> in
@@ -46,7 +47,7 @@ extension SignInPresenter: SignInPresenterProtocol {
                     return .error(NSError(domain: "", code: 0, userInfo: nil)) }
                 self.userDefaultsService.saveTokens(accessToken: accessToken, refreshToken: refreshToken)
                 
-                return self.network.getCurrentUser()
+                return self.apiUserGateway.getCurrentUser()
             })
             .subscribe (onSuccess: { [weak self] currentUserModel in
                 guard let self = self,
@@ -60,17 +61,12 @@ extension SignInPresenter: SignInPresenterProtocol {
                                                        birthday: formattedDate,
                                                        email: email)
                 self.userDefaultsService.saveUsersId(id: usersId)
-                DispatchQueue.main.async {
-                    self.openTabBar()
-                }
                 print(currentUserModel)
             }, onFailure: { error in
                 print(error)
+            }, onDisposed: {
+                //
             })
             .disposed(by: disposeBag)
-    }
-    
-    func popViewController(viewController: SignInViewController) {
-        router.popViewController(viewController: viewController)
     }
 }

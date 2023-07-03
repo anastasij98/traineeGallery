@@ -23,7 +23,8 @@ class SignInConfigurator {
         let presenter = SignInPresenter(view: viewController,
                                         router: router,
                                         network: network,
-                                        userDefaultsService: userDefaultsService)
+                                        userDefaultsService: userDefaultsService,
+                                        userUseCase: DI.resolve())
         viewController.presenter = presenter
         
         return viewController

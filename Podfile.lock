@@ -1,6 +1,8 @@
 PODS:
   - Alamofire (5.7.1)
   - DBDebugToolkit (0.9.0)
+  - DITranquillity (4.4.0):
+    - SwiftLazy (>= 1.2.0)
   - Kingfisher (7.8.1)
   - PKHUD (5.3.0)
   - R.swift (6.1.0):
@@ -16,12 +18,14 @@ PODS:
     - SwiftyJSON
   - RxSwift (6.2.0)
   - SnapKit (5.6.0)
+  - SwiftLazy (1.2.0)
   - SwiftyJSON (5.0.1)
   - TTGSnackbar (1.11.1)
 
 DEPENDENCIES:
   - Alamofire
   - DBDebugToolkit
+  - DITranquillity
   - Kingfisher (~> 7.0)
   - PKHUD (~> 5.0)
   - R.swift (= 6.1.0)
@@ -35,6 +39,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - DBDebugToolkit
+    - DITranquillity
     - Kingfisher
     - PKHUD
     - R.swift
@@ -42,6 +47,7 @@ SPEC REPOS:
     - RxAlamofire
     - RxSwift
     - SnapKit
+    - SwiftLazy
     - SwiftyJSON
     - TTGSnackbar
 
@@ -57,6 +63,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   DBDebugToolkit: 41663a36673c919dfe665003f159ea5621aee0db
+  DITranquillity: e7258d278edfeb4613c7a732a1ab3c1d0cd16746
   Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
@@ -65,9 +72,10 @@ SPEC CHECKSUMS:
   RxNetworkApiClient: fb28a02794b863f28d4cee8400398e347b98feea
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftLazy: 39910f792aefc7bdaf734b4b36a54edcaaf2dc93
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   TTGSnackbar: fea91c62637b5662f808a4c3b55f7631cb7e1ef7
 
-PODFILE CHECKSUM: 422e0b110fe4d5ded3c8b944177bf2f212bf2fb3
+PODFILE CHECKSUM: d6fea392333d32166ae5d4b821af9117d6c2dc23
 
 COCOAPODS: 1.12.1

@@ -24,6 +24,15 @@
 		4758098729DEB54E00BA741E /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758098629DEB54E00BA741E /* UIFont.swift */; };
 		4758098929DFF86900BA741E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758098829DFF86900BA741E /* NetworkService.swift */; };
 		4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758099429E07D9A00BA741E /* NetworkServiceProtocol.swift */; };
+		475A67C92A4DA57B00B73A40 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67C82A4DA57B00B73A40 /* DI.swift */; };
+		475A67CC2A4DAD6600B73A40 /* UserGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67CB2A4DAD6600B73A40 /* UserGateway.swift */; };
+		475A67CE2A4DAD9400B73A40 /* ApiBaseGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67CD2A4DAD9400B73A40 /* ApiBaseGateway.swift */; };
+		475A67D12A4DAEB500B73A40 /* ApiUserGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67D02A4DAEB500B73A40 /* ApiUserGateway.swift */; };
+		475A67D32A4DAF1400B73A40 /* ExtendedApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67D22A4DAF1400B73A40 /* ExtendedApiRequest.swift */; };
+		475A67D52A4DB15900B73A40 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67D42A4DB15900B73A40 /* Requests.swift */; };
+		475A67DD2A505DC200B73A40 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67DC2A505DC200B73A40 /* WelcomeViewController.swift */; };
+		475A67E02A51B7E300B73A40 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67DF2A51B7E300B73A40 /* UserUseCase.swift */; };
+		475A67E22A51B94700B73A40 /* UserUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67E12A51B94700B73A40 /* UserUseCaseImp.swift */; };
 		475AA77C29D31F2D006B9BC6 /* SegmentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */; };
 		475AA78029D6DFDB006B9BC6 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA77F29D6DFDB006B9BC6 /* UISegmentedControl.swift */; };
 		475AA78229D6E08C006B9BC6 /* UIViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */; };
@@ -65,7 +74,6 @@
 		476BAF632A1776E3002F6F6E /* MainVC+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476BAF622A1776E3002F6F6E /* MainVC+SearchBar.swift */; };
 		478514B52A49C180001F5F29 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478514B42A49C180001F5F29 /* UIImage.swift */; };
 		478514B72A49CA0A001F5F29 /* ErrorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478514B62A49CA0A001F5F29 /* ErrorModels.swift */; };
-		479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */; };
 		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
 		47AF9A372A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */; };
 		47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */; };
@@ -148,6 +156,15 @@
 		4758098629DEB54E00BA741E /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		4758098829DFF86900BA741E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4758099429E07D9A00BA741E /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		475A67C82A4DA57B00B73A40 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
+		475A67CB2A4DAD6600B73A40 /* UserGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGateway.swift; sourceTree = "<group>"; };
+		475A67CD2A4DAD9400B73A40 /* ApiBaseGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiBaseGateway.swift; sourceTree = "<group>"; };
+		475A67D02A4DAEB500B73A40 /* ApiUserGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUserGateway.swift; sourceTree = "<group>"; };
+		475A67D22A4DAF1400B73A40 /* ExtendedApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedApiRequest.swift; sourceTree = "<group>"; };
+		475A67D42A4DB15900B73A40 /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
+		475A67DC2A505DC200B73A40 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		475A67DF2A51B7E300B73A40 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
+		475A67E12A51B94700B73A40 /* UserUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImp.swift; sourceTree = "<group>"; };
 		475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentMode.swift; sourceTree = "<group>"; };
 		475AA77F29D6DFDB006B9BC6 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAnimation.swift; sourceTree = "<group>"; };
@@ -189,7 +206,6 @@
 		476BAF622A1776E3002F6F6E /* MainVC+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+SearchBar.swift"; sourceTree = "<group>"; };
 		478514B42A49C180001F5F29 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		478514B62A49CA0A001F5F29 /* ErrorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModels.swift; sourceTree = "<group>"; };
-		479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = TraineeGAllery/WelcomViewController/WelcomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47AF9A362A0C10E40030C104 /* AddPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
 		47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionStack.swift; sourceTree = "<group>"; };
@@ -294,21 +310,18 @@
 		4709BA0B29D1AC900035F64F /* TraineeGAllery */ = {
 			isa = PBXGroup;
 			children = (
+				475A67DE2A51B7CF00B73A40 /* UseCases */,
+				475A67D62A505AA700B73A40 /* Src */,
+				475A67D22A4DAF1400B73A40 /* ExtendedApiRequest.swift */,
+				475A67D42A4DB15900B73A40 /* Requests.swift */,
+				475A67CF2A4DAE8100B73A40 /* EntityGateway */,
+				475A67CA2A4DABF500B73A40 /* Gateway */,
 				4709BA0C29D1AC900035F64F /* AppDelegate.swift */,
 				4709BA0E29D1AC900035F64F /* SceneDelegate.swift */,
 				476BAF5C2A169E90002F6F6E /* R.generated.swift */,
+				475A67C82A4DA57B00B73A40 /* DI.swift */,
 				47E966A72A27813F007536AB /* UserDefaultsService */,
 				47D72DAF29E49B4E00E37909 /* NetworkService */,
-				479E68CF29ED32E10053E706 /* WelcomViewController */,
-				47E515CC29F87AC600AB5397 /* SignInVC */,
-				47E515C229F85FD200AB5397 /* SignUpVC */,
-				47EEEEC22A026F430075791D /* TabBarVC */,
-				47CB5BA929DCB5D3002BB2ED /* MainVC */,
-				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
-				47EEEEC12A026F170075791D /* AddPhotoVC */,
-				47EEEED32A02E3B70075791D /* AddDataVC */,
-				47EEEEC02A026F010075791D /* ProfileVC */,
-				47EEEED82A0947F60075791D /* SettingsVC */,
 				4709BA2729D1C3CC0035F64F /* Extensions */,
 				4709BA2229D1AEFF0035F64F /* Models */,
 				474EEFD32A1FBA5600687769 /* Resources */,
@@ -369,6 +382,57 @@
 				4709BA2C29D1E4690035F64F /* URLConfiguration.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		475A67CA2A4DABF500B73A40 /* Gateway */ = {
+			isa = PBXGroup;
+			children = (
+				475A67CD2A4DAD9400B73A40 /* ApiBaseGateway.swift */,
+				475A67CB2A4DAD6600B73A40 /* UserGateway.swift */,
+			);
+			path = Gateway;
+			sourceTree = "<group>";
+		};
+		475A67CF2A4DAE8100B73A40 /* EntityGateway */ = {
+			isa = PBXGroup;
+			children = (
+				475A67D02A4DAEB500B73A40 /* ApiUserGateway.swift */,
+			);
+			path = EntityGateway;
+			sourceTree = "<group>";
+		};
+		475A67D62A505AA700B73A40 /* Src */ = {
+			isa = PBXGroup;
+			children = (
+				475A67D72A505AB000B73A40 /* Scenes */,
+			);
+			path = Src;
+			sourceTree = "<group>";
+		};
+		475A67D72A505AB000B73A40 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				479E68CF29ED32E10053E706 /* WelcomViewController */,
+				47E515CC29F87AC600AB5397 /* SignInVC */,
+				47E515C229F85FD200AB5397 /* SignUpVC */,
+				47EEEEC22A026F430075791D /* TabBarVC */,
+				47CB5BA929DCB5D3002BB2ED /* MainVC */,
+				47CB5BBB29DDCF25002BB2ED /* DetailedViewController */,
+				47EEEEC12A026F170075791D /* AddPhotoVC */,
+				47EEEED32A02E3B70075791D /* AddDataVC */,
+				47EEEEC02A026F010075791D /* ProfileVC */,
+				47EEEED82A0947F60075791D /* SettingsVC */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		475A67DE2A51B7CF00B73A40 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				475A67DF2A51B7E300B73A40 /* UserUseCase.swift */,
+				475A67E12A51B94700B73A40 /* UserUseCaseImp.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		475AA78629D6E664006B9BC6 /* Fonts */ = {
@@ -490,7 +554,7 @@
 			isa = PBXGroup;
 			children = (
 				476852662A4B06AD00820E45 /* Protocols */,
-				479E68CD29ED32CF0053E706 /* WelcomeViewController.swift */,
+				475A67DC2A505DC200B73A40 /* WelcomeViewController.swift */,
 				47E515BC29F8588C00AB5397 /* WelcomePresenter.swift */,
 				47E515C029F85BEC00AB5397 /* WelcomeRouter.swift */,
 				47E515BE29F858BB00AB5397 /* WelcomeConfigurator.swift */,
@@ -817,8 +881,8 @@
 				47EEEECA2A0283A90075791D /* AddPhotoConfigurator.swift in Sources */,
 				476852742A4B3CB800820E45 /* SignInRouterProtocol.swift in Sources */,
 				475AA78029D6DFDB006B9BC6 /* UISegmentedControl.swift in Sources */,
-				479E68CE29ED32CF0053E706 /* WelcomeViewController.swift in Sources */,
 				47EEEED72A02E4AF0075791D /* AddDataConfigurator.swift in Sources */,
+				475A67E22A51B94700B73A40 /* UserUseCaseImp.swift in Sources */,
 				475F1EE62A14E2FE009ED8E0 /* AddPhotoPresenterProtocol.swift in Sources */,
 				47EEEEE02A098A0B0075791D /* SettingsConfigurator.swift in Sources */,
 				4709BA0D29D1AC900035F64F /* AppDelegate.swift in Sources */,
@@ -832,11 +896,13 @@
 				47E966B92A33571B007536AB /* UserDefaultsServiceProtocol.swift in Sources */,
 				47CB5B9829DB2970002BB2ED /* NoConnectionStack.swift in Sources */,
 				475AA78E29D744EF006B9BC6 /* Footers.swift in Sources */,
+				475A67DD2A505DC200B73A40 /* WelcomeViewController.swift in Sources */,
 				4768526A2A4B3C1000820E45 /* SignUpVCProtocol.swift in Sources */,
 				476BAF612A16C2FC002F6F6E /* UIButton.swift in Sources */,
 				476852952A4C13C000820E45 /* SettingsPresenterProtocol.swift in Sources */,
 				47CB5BBF29DDCF4C002BB2ED /* DetailedConfigurator.swift in Sources */,
 				47E515D429F87C3500AB5397 /* SignInConfigurator.swift in Sources */,
+				475A67E02A51B7E300B73A40 /* UserUseCase.swift in Sources */,
 				4768527B2A4B410100820E45 /* DetailedVCProtocol.swift in Sources */,
 				4709BA2929D1C3EF0035F64F /* AddSubview.swift in Sources */,
 				4709BA2629D1C06F0035F64F /* DetailedViewController.swift in Sources */,
@@ -850,11 +916,13 @@
 				47E5EE4B2A403D20008D619F /* ErrorHandler.swift in Sources */,
 				47E966B72A332319007536AB /* AlertActionMode.swift in Sources */,
 				47E515D029F87BD500AB5397 /* SignInPresenter.swift in Sources */,
+				475A67D52A4DB15900B73A40 /* Requests.swift in Sources */,
 				47E966AF2A28B817007536AB /* ModifiedInterceptor.swift in Sources */,
 				47E966A62A275BFD007536AB /* UserModel.swift in Sources */,
 				475AA78229D6E08C006B9BC6 /* UIViewAnimation.swift in Sources */,
 				47E515BF29F858BB00AB5397 /* WelcomeConfigurator.swift in Sources */,
 				47EEEEBF2A026D350075791D /* AddPhotoViewController.swift in Sources */,
+				475A67D12A4DAEB500B73A40 /* ApiUserGateway.swift in Sources */,
 				476852892A4B744300820E45 /* AddDataRouterProtocol.swift in Sources */,
 				47E515BD29F8588C00AB5397 /* WelcomePresenter.swift in Sources */,
 				47EEEEDC2A09880C0075791D /* ProfileRouter.swift in Sources */,
@@ -868,10 +936,13 @@
 				47E515C429F8600900AB5397 /* SignUpViewController.swift in Sources */,
 				47E966A92A278158007536AB /* UserDefaultsService.swift in Sources */,
 				4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */,
+				475A67C92A4DA57B00B73A40 /* DI.swift in Sources */,
 				476852902A4C0A5E00820E45 /* ProfileRouterProtocol.swift in Sources */,
 				476BAF5D2A169E90002F6F6E /* R.generated.swift in Sources */,
+				475A67D32A4DAF1400B73A40 /* ExtendedApiRequest.swift in Sources */,
 				4709BA2129D1AED70035F64F /* CollectionViewCellModel.swift in Sources */,
 				4758098729DEB54E00BA741E /* UIFont.swift in Sources */,
+				475A67CE2A4DAD9400B73A40 /* ApiBaseGateway.swift in Sources */,
 				47FC65D52A21195500F14B63 /* SettingsRouter.swift in Sources */,
 				478514B72A49CA0A001F5F29 /* ErrorModels.swift in Sources */,
 				475AA77C29D31F2D006B9BC6 /* SegmentMode.swift in Sources */,
@@ -887,6 +958,7 @@
 				47E515CA29F8602F00AB5397 /* SignUpConfigurator.swift in Sources */,
 				4709BA2429D1BE730035F64F /* UIColor+CGColor.swift in Sources */,
 				47EEEED52A02E49F0075791D /* AddDataViewController.swift in Sources */,
+				475A67CC2A4DAD6600B73A40 /* UserGateway.swift in Sources */,
 				476852872A4B740500820E45 /* AddDataPresenterProtocol.swift in Sources */,
 				47FC65D32A21194600F14B63 /* SettingsPresenter.swift in Sources */,
 			);
