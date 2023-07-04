@@ -32,6 +32,6 @@ protocol UserUseCase {
     func deleteUser(id: Int) -> Single<Data>
     
     /// Запрос на авторизацию пользователя
-    func authorization(userName: String, password: String) -> Single<CurrentUserModel>
+    func authorization(userName: String, password: String) -> Completable
 }
 

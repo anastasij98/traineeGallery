@@ -19,16 +19,16 @@ class SignInPresenter {
     
     private var userUseCase: UserUseCase
     
-    init(view: SignInViewProtocol? = nil,
-         router: SignInRouterProtocol,
-         network: NetworkServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol,
-         userUseCase: UserUseCase) {
+    init(_ view: SignInViewProtocol? = nil,
+         _ router: SignInRouterProtocol,
+         _ network: NetworkServiceProtocol,
+         _ userDefaultsService: UserDefaultsServiceProtocol,
+         _ useUseCase: UserUseCase) {
         self.view = view
         self.router = router
         self.network = network
         self.userDefaultsService = userDefaultsService
-        self.userUseCase = userUseCase
+        self.userUseCase = useUseCase
     }
     
 }
@@ -39,18 +39,33 @@ extension SignInPresenter: SignInPresenterProtocol {
         router.openTabBarController()
     }
     
+//    func signInButtonTap(userName: String,
+//                         password: String) {
+//        self.userUseCase.authorization(userName: userName, password: password)
+//            .observe(on: MainScheduler.instance)
+//            .subscribe { userModel in
+//                DispatchQueue.main.sync {
+//                    self.openTabBar()
+//                }
+//            }
+//            .disposed(by: disposeBag)
+//    }
+    
     func signInButtonTap(userName: String,
                          password: String) {
-        self.userUseCase.authorization(userName: userName, password: password)
-            .observe(on: MainScheduler.instance)
-            .subscribe { userModel in
-                DispatchQueue.main.sync {
-                    self.openTabBar()
-                }
-            }
-            .disposed(by: disposeBag)
-    }
+        self.userUseCase.authorization(userName: userName,
+                                  password: password)
+        .observe (on: MainScheduler .instance)
+        .subscribe (onCompleted: {
+            print(">>>>>>>>>COMPLETED")
+        }, onError: { error in
+            // pokazat modalky
+            print(">>>>>>>>>ERROR")
 
+        })
+        .disposed(by: disposeBag)
+    }
+    
     func popViewController(viewController: SignInViewController) {
         router.popViewController(viewController: viewController)
     }
