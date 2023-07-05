@@ -13,14 +13,14 @@ class MainPresenter {
 
     weak var view: MainViewControllerProtocol?
     var router: MainRouterProtocol
-    var network: NetworkServiceProtocol
     
     var searchedText: String = .init()
     var mode: SegmentMode = .new
     
     var disposeBag = DisposeBag()
 
-    
+    private var fileUseCase: FileUseCase
+
     // TODO: все таки избавиться от простыней
     // загруженные картинки
     var newImages = [ItemModel]()
@@ -43,95 +43,22 @@ class MainPresenter {
             }
         }
     }
-    
-    // всего страниц на сервере
-    var countOfNewPages: Int = 0
-    var countOfPopularPages: Int = 0
-    var currentCountOfPages: Int {
-        get {
-            switch mode {
-            case .new:
-                return countOfNewPages
-            case .popular:
-                return countOfPopularPages
-            }
-        }
-        set {
-            switch mode {
-            case .new:
-                countOfNewPages = newValue
-            case .popular:
-                countOfPopularPages = newValue
-            }
-        }
-    }
-    
-    // текущая загруженная страница
-    var currentNewPage: Int = 0
-    var currentPopularPage: Int = 0
-    var currentPage: Int {
-        get {
-            switch mode {
-            case .new:
-                return currentNewPage
-            case .popular:
-                return currentPopularPage
-            }
-        }
-        set {
-            switch mode {
-            case .new:
-                currentNewPage = newValue
-            case .popular:
-                currentPopularPage = newValue
-            }
-        }
-    }
-    
-    //страница на загрузку
-    var newPageToLoad: Int = 0
-    var popularPageToLoad: Int = 0
-    var pageToLoad: Int {
-        get {
-            switch mode {
-            case .new:
-                return newPageToLoad
-            case .popular:
-                return popularPageToLoad
-            }
-        }
-        set {
-            switch mode {
-            case .new:
-                newPageToLoad = newValue
-            case .popular:
-                popularPageToLoad = newValue
-            }
-        }
-    }
-    
-//    var wasResultProcessed = false
-//
-//    var hasMorePages: Bool {
-//        print("||", currentPage, currentCountOfPages)
-//        return (currentPage <= currentCountOfPages) || !wasResultProcessed
-//    }
 
-    // TODO: дргать подобную ину из юскейса
-    var hasMorePages: Bool {
-        return currentPage <= currentCountOfPages
-    }
-    // TODO: дргать подобную ину из юскейса
-    var isLoading = false
+////    var wasResultProcessed = false
+////
+////    var hasMorePages: Bool {
+////        print("||", currentPage, currentCountOfPages)
+////        return (currentPage <= currentCountOfPages) || !wasResultProcessed
+////    }
     
     lazy var reachibilityNetwork = NetworkReachabilityManager(host: "www.ya.ru")
     
     init(view: MainViewControllerProtocol? = nil,
          router: MainRouterProtocol,
-         network: NetworkServiceProtocol) {
+         fileUseCase: FileUseCase) {
         self.view = view
         self.router = router
-        self.network = network
+        self.fileUseCase = fileUseCase
     }
     
     func setupReachibilityManager() {
@@ -156,31 +83,18 @@ class MainPresenter {
     
     @objc
     func getData() {
-        pageToLoad = currentPage + 1
-        network.getImages(limit: 10,
-                          pageToLoad: pageToLoad,
-                          mode: mode,
-                          searchText: nil)
+        disposeBag = DisposeBag()
+        fileUseCase.getImages(limit: 10,
+                              mode: mode,
+                              searchText: nil)
         .observe(on: MainScheduler.instance)
-        .debug()
-        .do(onSubscribe: { [weak self] in
+        .do(onDispose: { [weak self]  in
             guard let self = self else { return }
-
-            self.isLoading = true
-        }, onDispose: { [weak self]  in
-            guard let self = self else { return }
-            self.isLoading = false
             self.view?.hideRefreshControll()
         })
         .subscribe(onSuccess:{ [weak self] data in
             guard let self = self else { return }
-//            self.wasResultProcessed = true
             self.requestImages.append(contentsOf: data.data)
-            guard let count = data.countOfPages else {
-                return
-            }
-            self.currentCountOfPages = count
-            self.currentPage = self.pageToLoad
             self.view?.updateView(restoreOffset: false)
         }, onFailure: { error in
             print(error)
@@ -191,31 +105,18 @@ class MainPresenter {
     @objc
     func getSearchData(searchText: String?) {
         disposeBag = DisposeBag()
-        pageToLoad = currentPage + 1
-
-        network.getImages(limit: 10,
-                          pageToLoad: pageToLoad,
-                          mode: mode,
-                          searchText: searchText)
+        fileUseCase.getImages(limit: 10,
+                              mode: mode,
+                              searchText: searchText)
         .observe(on: MainScheduler.instance)
-        .debug()
-        .do(onSubscribe: { [weak self] in
+        .do(onDispose: { [weak self]  in
             guard let self = self else { return }
-            self.isLoading = true
-        }, onDispose: { [weak self]  in
-            guard let self = self else { return }
-            self.isLoading = false
             self.view?.hideRefreshControll()
         })
-        .delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
         .subscribe(onSuccess:{ [weak self] data in
             guard let self = self else { return }
-//            self.wasResultProcessed = true
             self.requestImages.append(contentsOf: data.data)
             self.view?.updateView(restoreOffset: false)
-            guard let count = data.countOfPages else { return }
-            self.currentCountOfPages = count
-            self.currentPage = self.pageToLoad
         }, onFailure: { error in
             print(error)
         })
@@ -256,7 +157,7 @@ extension MainPresenter: MainPresenterProtocol {
     }
     
     func loadMore() {
-        guard !isLoading, hasMorePages else {
+        guard !fileUseCase.isLoading, fileUseCase.hasMorePages else {
 #if DEBUG
             print("All images are loaded")
 #endif
@@ -266,7 +167,7 @@ extension MainPresenter: MainPresenterProtocol {
     }
     
     func loadMoreSearched(searchText: String) {
-        guard !isLoading, hasMorePages else {
+        guard !fileUseCase.isLoading, fileUseCase.hasMorePages else {
 
 #if DEBUG
             print("All images are loaded")
@@ -290,9 +191,9 @@ extension MainPresenter: MainPresenterProtocol {
 ////            }
 ////        }
     if searchedText.isEmpty  {
-            return hasMorePages && getItemsCount() != 0
+        return fileUseCase.hasMorePages && getItemsCount() != 0
         } else {
-            if hasMorePages && getItemsCount() == 10 {
+            if fileUseCase.hasMorePages && getItemsCount() == 10 {
                 return true
             } else if getItemsCount() <= 10 {
                 return false
@@ -303,7 +204,7 @@ extension MainPresenter: MainPresenterProtocol {
     }
     
     func onRefreshStarted() {
-        currentPage = 0
+        fileUseCase.currentPage = 0
         requestImages.removeAll()
         loadMore()
     }
@@ -314,9 +215,9 @@ extension MainPresenter: MainPresenterProtocol {
     }
     
     func resetValues() {
-        pageToLoad = 0
-        currentPage = 0
-        currentCountOfPages = 0
+        fileUseCase.pageToLoad = 0
+        fileUseCase.currentPage = 0
+        fileUseCase.currentCountOfPages = 0
     }
     
     func removeAllSearchedImages() {

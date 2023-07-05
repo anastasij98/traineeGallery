@@ -7,10 +7,7 @@
 
 import Foundation
 
-protocol TabBarPresenterProtocol {
-    
-    
-}
+protocol TabBarPresenterProtocol { }
 
 class TabBarPresenter {
     

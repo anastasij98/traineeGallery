@@ -15,5 +15,7 @@ protocol ProfileVCProtocol: AnyObject {
     ///   - birthday: дата рождения пользователя
     func setupView(userName: String,
                    birthday: String)
+    
+    /// Обновление данных collectionView с картинками пользователя
     func updateCollectionView()
 }

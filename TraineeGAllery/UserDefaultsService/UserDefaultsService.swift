@@ -61,7 +61,7 @@ extension UserDefaultsService: UserDefaultsServiceProtocol {
     }
     
     func removeTokensAndUsersInfo() {
-        var usersInfo = [accessTokenKey, nameKey, birthdayKey, usersId, emailKey]
+        let usersInfo = [accessTokenKey, nameKey, birthdayKey, usersId, emailKey]
         usersInfo.forEach { key in
             UserDefaults.standard.removeObject(forKey: key)
         }

@@ -17,14 +17,18 @@ class SettingsPresenter {
     
     let disposeBag = DisposeBag()
     
+    private var userUseCase: UserUseCase
+
     init(view: SettingsViewController? = nil,
          router: SettingsRouterProtocol,
          userDef: UserDefaultsServiceProtocol,
-         network: NetworkServiceProtocol) {
+         network: NetworkServiceProtocol,
+         userUseCase: UserUseCase) {
         self.view = view
         self.router = router
         self.userDef = userDef
         self.network = network
+        self.userUseCase = userUseCase
     }
 }
 
@@ -48,13 +52,12 @@ extension SettingsPresenter: SettingsPresenterProtocol {
     func deleteUser() {
         let usersId = userDef.getUsersId()
         print(usersId)
-        network.deleteUser(id: usersId)
+        self.userUseCase.deleteUser(id: usersId)
             .observe(on: MainScheduler.instance)
-            .debug()
-            .do()
-            .subscribe(onSuccess: { [weak self] data in
-                print(data)
-                self?.router.returnToWelcomeViewController()
+            .subscribe (onCompleted: {
+                self.router.returnToWelcomeViewController()
+            }, onError: { error in
+                print(error)
             })
             .disposed(by: disposeBag)
     }

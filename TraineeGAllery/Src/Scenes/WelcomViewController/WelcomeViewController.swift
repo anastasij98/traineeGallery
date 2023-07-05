@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol WelcomeViewControllerProtocol: AnyObject { }
-
 class WelcomeViewController: UIViewController {
     
     var presenter: WelcomePresenterProtocol?

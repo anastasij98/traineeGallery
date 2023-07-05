@@ -19,12 +19,9 @@ protocol ProfilePresenterProtocol {
     /// View готово к отображению
     func viewIsReady()
 
-    /// <#Description#>
-    /// - Returns: <#description#>
+    /// Количество картинок, загруженных пользователем
     func getItemsCount() -> Int
     
-    /// <#Description#>
-    /// - Parameter index: <#index description#>
-    /// - Returns: <#description#>
+    /// Получение картинки пользователя для её отображения в collectionView(используется в cellForItemAt)
     func getItem(index: Int) -> ItemModel
 }

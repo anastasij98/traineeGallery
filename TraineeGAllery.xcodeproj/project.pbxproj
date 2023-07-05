@@ -33,6 +33,13 @@
 		475A67DD2A505DC200B73A40 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67DC2A505DC200B73A40 /* WelcomeViewController.swift */; };
 		475A67E02A51B7E300B73A40 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67DF2A51B7E300B73A40 /* UserUseCase.swift */; };
 		475A67E22A51B94700B73A40 /* UserUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67E12A51B94700B73A40 /* UserUseCaseImp.swift */; };
+		475A67E42A548EC000B73A40 /* SignInVCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67E32A548EC000B73A40 /* SignInVCProtocol.swift */; };
+		475A67E62A548F2400B73A40 /* WelcomeVCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67E52A548F2400B73A40 /* WelcomeVCProtocol.swift */; };
+		475A67E82A54932300B73A40 /* AddDataVCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67E72A54932300B73A40 /* AddDataVCProtocol.swift */; };
+		475A67EA2A5558DD00B73A40 /* FileGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67E92A5558DD00B73A40 /* FileGateway.swift */; };
+		475A67EE2A5559BC00B73A40 /* FileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67ED2A5559BC00B73A40 /* FileUseCase.swift */; };
+		475A67F02A555A5B00B73A40 /* FileUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67EF2A555A5B00B73A40 /* FileUseCaseImp.swift */; };
+		475A67F22A55660D00B73A40 /* ApiFileGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67F12A55660D00B73A40 /* ApiFileGateway.swift */; };
 		475AA77C29D31F2D006B9BC6 /* SegmentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */; };
 		475AA78029D6DFDB006B9BC6 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA77F29D6DFDB006B9BC6 /* UISegmentedControl.swift */; };
 		475AA78229D6E08C006B9BC6 /* UIViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */; };
@@ -165,6 +172,13 @@
 		475A67DC2A505DC200B73A40 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		475A67DF2A51B7E300B73A40 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		475A67E12A51B94700B73A40 /* UserUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseImp.swift; sourceTree = "<group>"; };
+		475A67E32A548EC000B73A40 /* SignInVCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVCProtocol.swift; sourceTree = "<group>"; };
+		475A67E52A548F2400B73A40 /* WelcomeVCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVCProtocol.swift; sourceTree = "<group>"; };
+		475A67E72A54932300B73A40 /* AddDataVCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataVCProtocol.swift; sourceTree = "<group>"; };
+		475A67E92A5558DD00B73A40 /* FileGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGateway.swift; sourceTree = "<group>"; };
+		475A67ED2A5559BC00B73A40 /* FileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUseCase.swift; sourceTree = "<group>"; };
+		475A67EF2A555A5B00B73A40 /* FileUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUseCaseImp.swift; sourceTree = "<group>"; };
+		475A67F12A55660D00B73A40 /* ApiFileGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFileGateway.swift; sourceTree = "<group>"; };
 		475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentMode.swift; sourceTree = "<group>"; };
 		475AA77F29D6DFDB006B9BC6 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAnimation.swift; sourceTree = "<group>"; };
@@ -389,6 +403,7 @@
 			children = (
 				475A67CD2A4DAD9400B73A40 /* ApiBaseGateway.swift */,
 				475A67CB2A4DAD6600B73A40 /* UserGateway.swift */,
+				475A67E92A5558DD00B73A40 /* FileGateway.swift */,
 			);
 			path = Gateway;
 			sourceTree = "<group>";
@@ -397,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				475A67D02A4DAEB500B73A40 /* ApiUserGateway.swift */,
+				475A67F12A55660D00B73A40 /* ApiFileGateway.swift */,
 			);
 			path = EntityGateway;
 			sourceTree = "<group>";
@@ -429,10 +445,28 @@
 		475A67DE2A51B7CF00B73A40 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				475A67EB2A55597C00B73A40 /* UserUseCase */,
+				475A67EC2A55598C00B73A40 /* FileUseCase */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		475A67EB2A55597C00B73A40 /* UserUseCase */ = {
+			isa = PBXGroup;
+			children = (
 				475A67DF2A51B7E300B73A40 /* UserUseCase.swift */,
 				475A67E12A51B94700B73A40 /* UserUseCaseImp.swift */,
 			);
-			path = UseCases;
+			path = UserUseCase;
+			sourceTree = "<group>";
+		};
+		475A67EC2A55598C00B73A40 /* FileUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				475A67ED2A5559BC00B73A40 /* FileUseCase.swift */,
+				475A67EF2A555A5B00B73A40 /* FileUseCaseImp.swift */,
+			);
+			path = FileUseCase;
 			sourceTree = "<group>";
 		};
 		475AA78629D6E664006B9BC6 /* Fonts */ = {
@@ -469,6 +503,7 @@
 		476852662A4B06AD00820E45 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				475A67E52A548F2400B73A40 /* WelcomeVCProtocol.swift */,
 				476852622A4B068800820E45 /* WelcomePresenterProtocol.swift */,
 				476852642A4B06A600820E45 /* WelcomeRouterProtocol.swift */,
 			);
@@ -488,6 +523,7 @@
 		476852702A4B3C7200820E45 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				475A67E32A548EC000B73A40 /* SignInVCProtocol.swift */,
 				476852712A4B3C9600820E45 /* SignInPresenterProtocol.swift */,
 				476852732A4B3CB800820E45 /* SignInRouterProtocol.swift */,
 			);
@@ -518,6 +554,7 @@
 			children = (
 				476852862A4B740500820E45 /* AddDataPresenterProtocol.swift */,
 				476852882A4B744300820E45 /* AddDataRouterProtocol.swift */,
+				475A67E72A54932300B73A40 /* AddDataVCProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -859,6 +896,7 @@
 				47E515CE29F87B9500AB5397 /* SignInViewController.swift in Sources */,
 				47E966B12A2A32FB007536AB /* FormattedDateString.swift in Sources */,
 				476852682A4B1C6C00820E45 /* UILabel.swift in Sources */,
+				475A67EA2A5558DD00B73A40 /* FileGateway.swift in Sources */,
 				4758098929DFF86900BA741E /* NetworkService.swift in Sources */,
 				47EEEECE2A02D42A0075791D /* AddPhotoVC+CollectionView.swift in Sources */,
 				47E966B52A2F59B6007536AB /* RegisterUserModel.swift in Sources */,
@@ -868,6 +906,7 @@
 				47EEEECC2A0283B60075791D /* ProfileConfigurator.swift in Sources */,
 				47E515D229F87C0500AB5397 /* SignInRouter.swift in Sources */,
 				476852802A4B48C300820E45 /* AddPhotoVCProtocol.swift in Sources */,
+				475A67F22A55660D00B73A40 /* ApiFileGateway.swift in Sources */,
 				4768526D2A4B3C3500820E45 /* SignUpPresenterProtocol.swift in Sources */,
 				47EEEEDA2A0988020075791D /* ProfilePresenter.swift in Sources */,
 				47E5EE472A388C23008D619F /* String.swift in Sources */,
@@ -888,8 +927,10 @@
 				4709BA0D29D1AC900035F64F /* AppDelegate.swift in Sources */,
 				476852762A4B3D0C00820E45 /* MainVCProtocol.swift in Sources */,
 				47E515C629F8601500AB5397 /* SignUpPresenter.swift in Sources */,
+				475A67F02A555A5B00B73A40 /* FileUseCaseImp.swift in Sources */,
 				47E515D629F8A04200AB5397 /* UITextField.swift in Sources */,
 				4758099529E07D9A00BA741E /* NetworkServiceProtocol.swift in Sources */,
+				475A67E42A548EC000B73A40 /* SignInVCProtocol.swift in Sources */,
 				47E966BF2A364A95007536AB /* AddDataRouter.swift in Sources */,
 				476BAF632A1776E3002F6F6E /* MainVC+SearchBar.swift in Sources */,
 				476852932A4C138900820E45 /* SettingsVCProtocol.swift in Sources */,
@@ -908,9 +949,11 @@
 				4709BA2629D1C06F0035F64F /* DetailedViewController.swift in Sources */,
 				4768526F2A4B3C4E00820E45 /* SignUpRouterProtocol.swift in Sources */,
 				47EEEEBB2A026C7B0075791D /* TabBarViewController.swift in Sources */,
+				475A67E82A54932300B73A40 /* AddDataVCProtocol.swift in Sources */,
 				476852652A4B06A600820E45 /* WelcomeRouterProtocol.swift in Sources */,
 				476852842A4B4C5100820E45 /* AddPhotoRouterProtocol.swift in Sources */,
 				47CB5BB129DCB6D4002BB2ED /* MainConfigurator.swift in Sources */,
+				475A67E62A548F2400B73A40 /* WelcomeVCProtocol.swift in Sources */,
 				47E515C829F8602000AB5397 /* SignUpRouter.swift in Sources */,
 				47CB5BBD29DDCF3D002BB2ED /* DetailedPresenter.swift in Sources */,
 				47E5EE4B2A403D20008D619F /* ErrorHandler.swift in Sources */,
@@ -934,6 +977,7 @@
 				4709BA2B29D1E0920035F64F /* ResponseModel.swift in Sources */,
 				4741B8EE2A14049900F380C2 /* UITextView.swift in Sources */,
 				47E515C429F8600900AB5397 /* SignUpViewController.swift in Sources */,
+				475A67EE2A5559BC00B73A40 /* FileUseCase.swift in Sources */,
 				47E966A92A278158007536AB /* UserDefaultsService.swift in Sources */,
 				4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */,
 				475A67C92A4DA57B00B73A40 /* DI.swift in Sources */,

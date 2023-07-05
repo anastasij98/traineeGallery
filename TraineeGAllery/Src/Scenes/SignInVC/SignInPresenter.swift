@@ -39,29 +39,16 @@ extension SignInPresenter: SignInPresenterProtocol {
         router.openTabBarController()
     }
     
-//    func signInButtonTap(userName: String,
-//                         password: String) {
-//        self.userUseCase.authorization(userName: userName, password: password)
-//            .observe(on: MainScheduler.instance)
-//            .subscribe { userModel in
-//                DispatchQueue.main.sync {
-//                    self.openTabBar()
-//                }
-//            }
-//            .disposed(by: disposeBag)
-//    }
-    
     func signInButtonTap(userName: String,
                          password: String) {
         self.userUseCase.authorization(userName: userName,
                                   password: password)
         .observe (on: MainScheduler .instance)
         .subscribe (onCompleted: {
-            print(">>>>>>>>>COMPLETED")
+            self.openTabBar()
         }, onError: { error in
-            // pokazat modalky
-            print(">>>>>>>>>ERROR")
-
+            print(">>>>>>>>>ERROR \(error.localizedDescription)")
+            self.view?.setAlertController(title: "Error", message: "\(error.localizedDescription)")
         })
         .disposed(by: disposeBag)
     }

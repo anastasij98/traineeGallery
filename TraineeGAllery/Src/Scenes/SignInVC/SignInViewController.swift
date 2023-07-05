@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol SignInViewProtocol: AnyObject { }
-
 class SignInViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: SignInPresenterProtocol?

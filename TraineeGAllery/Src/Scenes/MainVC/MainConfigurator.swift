@@ -17,11 +17,10 @@ class MainConfigurator {
     
     static func getViewController() -> MainViewController {
         let viewController = MainViewController()
-        let network = NetworkService()
         let router = MainRouter(view: viewController)
         let presenter = MainPresenter(view: viewController,
-                                         router: router,
-                                         network: network)
+                                      router: router,
+                                      fileUseCase: DI.resolve())
         viewController.presenter = presenter
         
         return viewController

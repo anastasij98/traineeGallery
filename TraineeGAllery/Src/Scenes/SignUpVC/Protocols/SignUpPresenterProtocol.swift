@@ -16,6 +16,7 @@ protocol SignUpPresenterProtocol {
     /// - Parameter viewController: экран SignUp
     func popViewController(viewController: SignUpViewController)
     
+    /// При нажатии на конпку SignUp идет проверка на заполненность всех полей и их корректность. В случае успеха -> регистрация нового пользователя, в случае ошибки -> показ соответсвующего  уведомления
     func onSignUpButtonTapped(emailText: String,
                               userText: String,
                               birthdayText: String,

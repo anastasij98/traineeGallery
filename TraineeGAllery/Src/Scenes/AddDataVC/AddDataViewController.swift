@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol AddDataVCProtocol: AnyObject, AlertMessageProtocol { }
-
 class AddDataViewController: UIViewController, UIScrollViewDelegate {
     
     var presenter: AddDataPresenter?

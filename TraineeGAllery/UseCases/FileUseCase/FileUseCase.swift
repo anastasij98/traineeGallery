@@ -1,0 +1,63 @@
+//
+//  FileUseCase.swift
+//  TraineeGAllery
+//
+//  Created by LUNNOPARK on 05.07.23.
+//
+
+import Foundation
+import RxSwift
+
+protocol FileUseCase {
+    
+    var isLoading: Bool { get set }
+    var hasMorePages: Bool { get }
+    var pageToLoad: Int { get set }
+    var currentPage: Int { get set }
+    var currentCountOfPages: Int { get set }
+    /// Загрузка картинок(Response Мodel)
+    /// - Parameters:
+    ///   - limit: количество элементов вна запрашиваемой странице
+    ///   - pageToLoad: запрашиваемая страница
+    ///   - mode: выбранный режим (New/Popular)
+    ///   - searchText: введённый текст в поле SearchBar'a
+    /// - Returns: возвращает Single, содержащий один объект типа ResponseModel
+    func getImages(limit: Int,
+                   mode: SegmentMode?,
+                   searchText: String?) -> Single<ResponseModel>
+    
+    /// Загрузка картинки на детальный экран
+    /// - Parameters:
+    ///   - name: имя картинки, взятое из модельки
+    /// - Returns: возвращает Single, содержащий один объект типа Data
+    func getImageFile(name: String) -> Completable
+    
+    ///  Запрос на создание медиа объекта
+    /// - Parameters:
+    ///   - file: объект в формате Data
+    ///   - name: "file""
+    /// - Returns: возвращается объект типа ImageModel
+    func postMediaObject(file: Data,
+                         name: String) -> Completable
+    
+    /// Запрос на создание фото с описанием
+    /// - Parameters:
+    ///   - name: имя картинки
+    ///   - dateCreate: дата создания
+    ///   - description: описание картиники
+    ///   - new: тэг new
+    ///   - popular: тэг popular
+    ///   - iriId: iri путь к картинке
+    /// - Returns: возвращается объект типа PostImageModel
+    func postImageFile(name: String,
+                       dateCreate: String,
+                       description: String,
+                       new: Bool,
+                       popular: Bool,
+                       iriId: Int) -> Completable
+    
+    /// Запрос на отображение загруженных картинок текущего пользователя
+    /// - Parameter userId:Id пльзователя
+    func getUsersImages(userId: Int) -> Completable
+}
+
