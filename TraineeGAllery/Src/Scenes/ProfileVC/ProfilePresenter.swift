@@ -12,9 +12,9 @@ class ProfilePresenter {
     
     weak var view: ProfileVCProtocol?
     var router: ProfileRouterProtocol
-    var network:NetworkServiceProtocol
     var userDef: UserDefaultsServiceProtocol
-    
+    private var fileUseCase: FileUseCase
+
     var usersImages: [ItemModel] = [ItemModel]()
 
     var currentPage: Int = 0
@@ -24,12 +24,12 @@ class ProfilePresenter {
 
     init(view: ProfileVCProtocol? = nil,
          router: ProfileRouterProtocol,
-         network: NetworkServiceProtocol,
-         userDef: UserDefaultsServiceProtocol) {
+         userDef: UserDefaultsServiceProtocol,
+         fileUseCase: FileUseCase) {
         self.view = view
         self.router = router
-        self.network = network
         self.userDef = userDef
+        self.fileUseCase = fileUseCase
     }
     
     
@@ -37,7 +37,8 @@ class ProfilePresenter {
     func getUsersImages() {
         disposeBag = DisposeBag()
         let userId = userDef.getUsersId()
-        network.getUsersImages(userId: userId)
+        
+        fileUseCase.getUsersImages(userId: userId)
             .observe(on: MainScheduler.instance)
             .subscribe(onSuccess:{ [weak self] data in
                 guard let self = self else { return }

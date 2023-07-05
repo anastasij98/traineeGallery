@@ -34,4 +34,3 @@ protocol UserUseCase {
     /// Запрос на авторизацию пользователя
     func authorization(userName: String, password: String) -> Completable
 }
-

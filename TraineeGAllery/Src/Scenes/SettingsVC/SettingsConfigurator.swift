@@ -18,12 +18,10 @@ class SettingsConfigurator {
     
     static func getViewController() -> SettingsViewController {
         let viewController = SettingsViewController()
-        let network = NetworkService()
         let router = SettingsRouter(view: viewController)
         let presenter = SettingsPresenter(view: viewController,
                                           router: router,
                                           userDef: DI.resolve(),
-                                          network: network,
                                           userUseCase: DI.resolve())
         viewController.presenter = presenter
         

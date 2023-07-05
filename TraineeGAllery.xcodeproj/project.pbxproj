@@ -40,6 +40,7 @@
 		475A67EE2A5559BC00B73A40 /* FileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67ED2A5559BC00B73A40 /* FileUseCase.swift */; };
 		475A67F02A555A5B00B73A40 /* FileUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67EF2A555A5B00B73A40 /* FileUseCaseImp.swift */; };
 		475A67F22A55660D00B73A40 /* ApiFileGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67F12A55660D00B73A40 /* ApiFileGateway.swift */; };
+		475A67F42A557A6800B73A40 /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A67F32A557A6800B73A40 /* ApiEndpoint.swift */; };
 		475AA77C29D31F2D006B9BC6 /* SegmentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */; };
 		475AA78029D6DFDB006B9BC6 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA77F29D6DFDB006B9BC6 /* UISegmentedControl.swift */; };
 		475AA78229D6E08C006B9BC6 /* UIViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */; };
@@ -179,6 +180,7 @@
 		475A67ED2A5559BC00B73A40 /* FileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUseCase.swift; sourceTree = "<group>"; };
 		475A67EF2A555A5B00B73A40 /* FileUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUseCaseImp.swift; sourceTree = "<group>"; };
 		475A67F12A55660D00B73A40 /* ApiFileGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFileGateway.swift; sourceTree = "<group>"; };
+		475A67F32A557A6800B73A40 /* ApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoint.swift; sourceTree = "<group>"; };
 		475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentMode.swift; sourceTree = "<group>"; };
 		475AA77F29D6DFDB006B9BC6 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		475AA78129D6E08C006B9BC6 /* UIViewAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAnimation.swift; sourceTree = "<group>"; };
@@ -324,16 +326,14 @@
 		4709BA0B29D1AC900035F64F /* TraineeGAllery */ = {
 			isa = PBXGroup;
 			children = (
-				475A67DE2A51B7CF00B73A40 /* UseCases */,
-				475A67D62A505AA700B73A40 /* Src */,
-				475A67D22A4DAF1400B73A40 /* ExtendedApiRequest.swift */,
-				475A67D42A4DB15900B73A40 /* Requests.swift */,
-				475A67CF2A4DAE8100B73A40 /* EntityGateway */,
-				475A67CA2A4DABF500B73A40 /* Gateway */,
 				4709BA0C29D1AC900035F64F /* AppDelegate.swift */,
 				4709BA0E29D1AC900035F64F /* SceneDelegate.swift */,
-				476BAF5C2A169E90002F6F6E /* R.generated.swift */,
 				475A67C82A4DA57B00B73A40 /* DI.swift */,
+				476BAF5C2A169E90002F6F6E /* R.generated.swift */,
+				475A67DE2A51B7CF00B73A40 /* UseCases */,
+				475A67CA2A4DABF500B73A40 /* Gateway */,
+				475A67CF2A4DAE8100B73A40 /* EntityGateway */,
+				475A67D62A505AA700B73A40 /* Src */,
 				47E966A72A27813F007536AB /* UserDefaultsService */,
 				47D72DAF29E49B4E00E37909 /* NetworkService */,
 				4709BA2729D1C3CC0035F64F /* Extensions */,
@@ -388,12 +388,15 @@
 		474EEFD32A1FBA5600687769 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				475A67F32A557A6800B73A40 /* ApiEndpoint.swift */,
+				475A67D22A4DAF1400B73A40 /* ExtendedApiRequest.swift */,
+				475A67D42A4DB15900B73A40 /* Requests.swift */,
+				4709BA2C29D1E4690035F64F /* URLConfiguration.swift */,
 				4768529A2A4C172E00820E45 /* AlertMessageProtocol.swift */,
 				476852982A4C16B300820E45 /* CustomTextField.swift */,
 				47E966B02A2A32FB007536AB /* FormattedDateString.swift */,
 				47CB5B9729DB2970002BB2ED /* NoConnectionStack.swift */,
 				475AA77B29D31F2D006B9BC6 /* SegmentMode.swift */,
-				4709BA2C29D1E4690035F64F /* URLConfiguration.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -989,6 +992,7 @@
 				475A67CE2A4DAD9400B73A40 /* ApiBaseGateway.swift in Sources */,
 				47FC65D52A21195500F14B63 /* SettingsRouter.swift in Sources */,
 				478514B72A49CA0A001F5F29 /* ErrorModels.swift in Sources */,
+				475A67F42A557A6800B73A40 /* ApiEndpoint.swift in Sources */,
 				475AA77C29D31F2D006B9BC6 /* SegmentMode.swift in Sources */,
 				4768528E2A4C0A4400820E45 /* ProfilePresenterProtocol.swift in Sources */,
 				47EEEEC62A0270BD0075791D /* TabBarRouter.swift in Sources */,

@@ -17,11 +17,9 @@ class SignUpConfigurator {
 
     static func getViewController() -> SignUpViewController {
         let viewController = SignUpViewController()
-        let network = NetworkService()
         let router = SignUpRouter(view: viewController)
         let presenter = SignUpPresenter(view: viewController,
                                         router: router,
-                                        network: network,
                                         userDefaultsService: DI.resolve(),
                                         userUseCase: DI.resolve())
         viewController.presenter = presenter

@@ -12,7 +12,6 @@ class SignInPresenter {
     
     weak var view: SignInViewProtocol?
     var router: SignInRouterProtocol
-    var network: NetworkServiceProtocol
     var userDefaultsService: UserDefaultsServiceProtocol
     
     var disposeBag = DisposeBag()    
@@ -21,12 +20,10 @@ class SignInPresenter {
     
     init(_ view: SignInViewProtocol? = nil,
          _ router: SignInRouterProtocol,
-         _ network: NetworkServiceProtocol,
          _ userDefaultsService: UserDefaultsServiceProtocol,
          _ useUseCase: UserUseCase) {
         self.view = view
         self.router = router
-        self.network = network
         self.userDefaultsService = userDefaultsService
         self.userUseCase = useUseCase
     }

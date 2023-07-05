@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 class ApiFileGateway: ApiBaseGateway, FileGateway {
+    
     func getImages(limit: Int, pageToLoad: Int, mode: SegmentMode?, searchText: String?) -> Single<ResponseModel> {
         let request: ExtendedApiRequest<ResponseModel> = .getImages(limit, pageToLoad, mode, searchText)
         

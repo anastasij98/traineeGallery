@@ -17,12 +17,11 @@ class ProfileConfigurator {
     
     static func getViewController() -> ProfileViewController {
         let viewController = ProfileViewController()
-        let network = NetworkService()
         let router = ProfileRouter(view: viewController)
         let presenter = ProfilePresenter(view: viewController,
                                          router: router,
-                                         network: network,
-                                         userDef: DI.resolve())
+                                         userDef: DI.resolve(),
+                                         fileUseCase: DI.resolve())
         viewController.presenter = presenter
         
         return viewController

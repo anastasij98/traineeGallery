@@ -12,16 +12,16 @@ class AddDataPresenter {
     
     weak var view: AddDataVCProtocol?
     var router: AddDataRouterProtocol
-    var network: NetworkServiceProtocol
+    private var fileUseCase: FileUseCase
+
     var disposeBag = DisposeBag()
-    
+
     init(view: AddDataVCProtocol? = nil,
          router: AddDataRouterProtocol,
-         mainView: MainViewControllerProtocol? = nil,
-         network: NetworkServiceProtocol) {
+         fileUseCase: FileUseCase) {
         self.view = view
         self.router = router
-        self.network = network
+        self.fileUseCase = fileUseCase
     }
 }
 
@@ -40,21 +40,14 @@ extension AddDataPresenter: AddDataPresenterProtocol {
                      viewController: AddDataViewController) {
         
         self.view?.showProgressHUD()
-        network.postMediaObject(file: file,
-                                name: name)
+        
+        fileUseCase.postMediaObject(file: file,
+                                    name: name,
+                                    dateCreate: dateCreate,
+                                    description: description,
+                                    new: new,
+                                    popular: popular)
         .observe(on: MainScheduler.instance)
-        .flatMap({ [weak self] (imageModel) -> Single<ItemModel> in
-            guard let self = self,
-                  let iriId = imageModel.id else {
-                return .error(NSError(domain: "", code: 0, userInfo: nil)) }
-            
-            return self.network.postImageFile(name: name,
-                                              dateCreate: dateCreate,
-                                              description: description,
-                                              new: new,
-                                              popular: popular,
-                                              iriId: iriId)
-        })
         .subscribe(onSuccess: { [weak self] (itemModel) in
             guard let self = self else { return }
             DispatchQueue.main.async {

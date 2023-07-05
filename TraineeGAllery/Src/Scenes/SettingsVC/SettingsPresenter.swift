@@ -13,7 +13,6 @@ class SettingsPresenter {
     weak var view: SettingsVCProtocol?
     var router: SettingsRouterProtocol
     var userDef: UserDefaultsServiceProtocol
-    var network: NetworkServiceProtocol
     
     let disposeBag = DisposeBag()
     
@@ -22,12 +21,10 @@ class SettingsPresenter {
     init(view: SettingsViewController? = nil,
          router: SettingsRouterProtocol,
          userDef: UserDefaultsServiceProtocol,
-         network: NetworkServiceProtocol,
          userUseCase: UserUseCase) {
         self.view = view
         self.router = router
         self.userDef = userDef
-        self.network = network
         self.userUseCase = userUseCase
     }
 }

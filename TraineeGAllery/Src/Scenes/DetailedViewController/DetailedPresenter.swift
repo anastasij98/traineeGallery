@@ -11,19 +11,18 @@ import RxSwift
 class DetailedPresenter {
     
     weak var view: DetailedViewControllerProtocol?
-    var networkService: NetworkServiceProtocol
     var model: ItemModel
-    var taskIdentifier: String?
-    
+    private var fileUseCase: FileUseCase
+
     var disposeBag: DisposeBag = .init()
     
     
     init(view: DetailedViewControllerProtocol? = nil,
-         network: NetworkServiceProtocol,
-         model: ItemModel) {
+         model: ItemModel,
+         fileUseCase: FileUseCase) {
         self.view = view
-        self.networkService = network
         self.model = model
+        self.fileUseCase = fileUseCase
     }
     
     func getFormattedDateString() -> String {
@@ -36,9 +35,9 @@ class DetailedPresenter {
         guard let imageName = model.image?.name else {
             return
         }
-        networkService.getImageFile(name: imageName)
+        
+        fileUseCase.getImageFile(name: imageName)
             .observe(on: MainScheduler.instance)
-            .debug()
             .subscribe(onSuccess: { [weak self] data in
                 guard let self = self else { return }
                 self.view?.setImage(data: data)

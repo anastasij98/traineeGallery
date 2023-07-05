@@ -63,21 +63,14 @@ extension ExtendedApiRequest {
     }
     
     static func registerUser(_ entity: RequestRegisterModel) -> ExtendedApiRequest {
-//        let body = RequestRegisterModel(email: email,
-//                                        phone: phone,
-//                                        fullName: fullName,
-//                                        password: password,
-//                                        username: username,
-//                                        birthday: birthday,
-//                                        roles: roles)
-        return extendedRequest(path: "api/users",
+        extendedRequest(path: "api/users",
                                method: .post,
                                headers: [Header.contentJson],
                                body: entity)
     }
     
     static func deleteUser(_ id: Int) -> ExtendedApiRequest {
-        return extendedRequest(path: "api/users/\(id)",
+        extendedRequest(path: "api/users/\(id)",
                                method: .delete,
                                headers: [Header.contentJson])
     }
@@ -125,5 +118,4 @@ extension ExtendedApiRequest {
                         ("refresh_token", refreshToken),
                         ("client_secret", URLConfiguration.clientSecret))
     }
-    
 }

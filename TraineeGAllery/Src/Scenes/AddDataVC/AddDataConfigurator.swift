@@ -18,11 +18,10 @@ class AddDataConfigurator {
     
     static func getViewController(imageObject: Data) -> AddDataViewController {
         let viewController = AddDataViewController()
-        let network = NetworkService()
         let router = AddDataRouter(view: viewController)
         let presenter = AddDataPresenter(view: viewController,
                                          router: router,
-                                         network: network)
+                                         fileUseCase: DI.resolve())
         viewController.presenter = presenter
         viewController.imageObject = imageObject
         

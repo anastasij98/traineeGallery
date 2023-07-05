@@ -15,6 +15,7 @@ protocol FileUseCase {
     var pageToLoad: Int { get set }
     var currentPage: Int { get set }
     var currentCountOfPages: Int { get set }
+    
     /// Загрузка картинок(Response Мodel)
     /// - Parameters:
     ///   - limit: количество элементов вна запрашиваемой странице
@@ -30,34 +31,22 @@ protocol FileUseCase {
     /// - Parameters:
     ///   - name: имя картинки, взятое из модельки
     /// - Returns: возвращает Single, содержащий один объект типа Data
-    func getImageFile(name: String) -> Completable
+    func getImageFile(name: String) -> Single<Data>
     
-    ///  Запрос на создание медиа объекта
+    ///  Запрос на создание медиа объекта и на создание фото с описанием
     /// - Parameters:
     ///   - file: объект в формате Data
     ///   - name: "file""
-    /// - Returns: возвращается объект типа ImageModel
-    func postMediaObject(file: Data,
-                         name: String) -> Completable
-    
-    /// Запрос на создание фото с описанием
-    /// - Parameters:
-    ///   - name: имя картинки
+    ///   - imageName: имя картинки
     ///   - dateCreate: дата создания
     ///   - description: описание картиники
     ///   - new: тэг new
     ///   - popular: тэг popular
     ///   - iriId: iri путь к картинке
-    /// - Returns: возвращается объект типа PostImageModel
-    func postImageFile(name: String,
-                       dateCreate: String,
-                       description: String,
-                       new: Bool,
-                       popular: Bool,
-                       iriId: Int) -> Completable
+    /// - Returns: возвращается объект типа ImageModel
+    func postMediaObject(file: Data, name: String, dateCreate: String, description: String, new: Bool, popular: Bool) -> Single<ItemModel>
     
     /// Запрос на отображение загруженных картинок текущего пользователя
     /// - Parameter userId:Id пльзователя
-    func getUsersImages(userId: Int) -> Completable
+    func getUsersImages(userId: Int) -> Single<ResponseModel>
 }
-

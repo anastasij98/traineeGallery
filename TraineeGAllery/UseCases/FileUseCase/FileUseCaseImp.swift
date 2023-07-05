@@ -14,6 +14,7 @@ class FileUseCaseImp: FileUseCase {
     
     var mode: SegmentMode = .new
     var disposeBag = DisposeBag()
+    
     // всего страниц на сервере
     var countOfNewPages: Int = 0
     var countOfPopularPages: Int = 0
@@ -113,19 +114,27 @@ class FileUseCaseImp: FileUseCase {
         })
     }
     
-    func getImageFile(name: String) -> Completable {
-        return .empty()
+    func getImageFile(name: String) -> Single<Data> {
+        fileGateway.getImageFile(name: name)
     }
     
-    func postMediaObject(file: Data, name: String) -> Completable {
-        return .empty()
+    func postMediaObject(file: Data, name: String, dateCreate: String, description: String, new: Bool, popular: Bool) -> Single<ItemModel> {
+        fileGateway.postMediaObject(file: file, name: name)
+            .flatMap({ [weak self] (imageModel) -> Single<ItemModel> in
+                guard let self = self,
+                      let iriId = imageModel.id else {
+                    return .error(NSError(domain: "", code: 0, userInfo: nil)) }
+                
+                return fileGateway.postImageFile(name: name,
+                                                 dateCreate: dateCreate,
+                                                 description: description,
+                                                 new: new,
+                                                 popular: popular,
+                                                 iriId: iriId)
+            })
     }
     
-    func postImageFile(name: String, dateCreate: String, description: String, new: Bool, popular: Bool, iriId: Int) -> Completable {
-        return .empty()
-    }
-    
-    func getUsersImages(userId: Int) -> Completable {
-        return .empty()
+    func getUsersImages(userId: Int) -> Single<ResponseModel> {
+        fileGateway.getUsersImages(userId: userId)
     }
 }

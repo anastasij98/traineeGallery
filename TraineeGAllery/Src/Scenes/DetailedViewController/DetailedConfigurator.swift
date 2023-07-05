@@ -17,10 +17,9 @@ class DetailedConfigurator {
     
     static func getViewController(model: ItemModel) -> DetailedViewController {
         let viewController = DetailedViewController()
-        let network = NetworkService()
         let presenter = DetailedPresenter(view: viewController,
-                                          network: network,
-                                          model: model)
+                                          model: model,
+                                          fileUseCase: DI.resolve())
         viewController.presenter = presenter
         
         return viewController

@@ -25,7 +25,8 @@ class DI {
     static func initDependencies(_ appDelegate: AppDelegate) {
         
         DI.container = DIContainer(parent: backgroundContainer)
-        
+        ApiEndpoint.baseEndpoint = ApiEndpoint.webAntDevApi
+
         self.container.register(UserDefaultsService.init)
             .as(UserDefaultsServiceProtocol.self)
             .lifetime(.single)
