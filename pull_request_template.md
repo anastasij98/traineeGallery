@@ -1,18 +1,15 @@
-## What type of PR is this? (check all applicable)
+## Ссылка на Jira
 
-- [ ] Refactor
-- [ ] Feature
-- [ ] Bug Fix
-- [ ] Optimization
-- [ ] Documentation Update
+## Тип-задачи
 
-## Description
+- [ ] Рефактор
+- [ ] Фича
+- [ ] Баг фикс
+- [ ] Оптимизация
+- [ ] Обновление документации
 
-## Related Tickets & Documents
-- Related Issue #
+## Описание
 
-## QA Instructions, Screenshots, Recordings
+## На что обратить внимание QA
 
-_Please replace this line with instructions on how to test your changes, a note
-on the devices and browsers this has been tested on, as well as any relevant
-images for UI changes._
+## Демо
