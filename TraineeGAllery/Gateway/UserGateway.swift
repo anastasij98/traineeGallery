@@ -33,4 +33,9 @@ protocol UserGateway {
     
     /// Запрос на авторизацию пользователя
     func authorizationRequest(userName: String, password: String) -> Single<AuthorizationModel>
+    
+    func requestWithRefreshToken(refreshToken: String) -> Single<AuthorizationModel>
+    func changePassword(id: String,
+                        oldPassword: String,
+                        newPassword: String) -> Single<CurrentUserModel>
 }

@@ -30,4 +30,6 @@ protocol SettingsPresenterProtocol {
     
     /// Метод, вызывающий alertController при нажатии на кнопку "Delete"
     func setDeleteAlertController()
+    func changePassword(oldPassword: String,
+                        newPassword: String)
 }

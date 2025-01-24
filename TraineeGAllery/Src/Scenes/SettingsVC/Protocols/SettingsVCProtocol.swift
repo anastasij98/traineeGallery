@@ -24,11 +24,9 @@ protocol SettingsVCProtocol: AnyObject, AlertMessageProtocol {
     func textForSaving(completion: (_ userName: String, _ birthday: String, _ email: String)  -> Void)
     
     ///  Метод, позволяющий удалить аккаунт пользователя
-    /// - Parameter action: UIAction
     func deleteUser(action: UIAlertAction)
     
     /// Закрывает текущий экран, возвращая пользователя на предыдущий
-    /// - Parameter action: UIAction
     func popViewController(action: UIAlertAction)
 }
 

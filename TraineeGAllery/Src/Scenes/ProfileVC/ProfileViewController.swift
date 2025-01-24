@@ -107,6 +107,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         setupRightNavBarButton()
         setupNavigationBar(isHidden: false)
         updateCollectionView()
+        presenter?.viewIsReady()
     }
     
     @objc
@@ -196,6 +197,14 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
                                           action: #selector(onSettingsButtonTap))
         rightButton.tintColor = .black
         navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    func openAddView(index: Int) {
+//        let image = presenter?.getItem(index: index)
+//        ImageObjectModel(imageData: )
+//        let vc = AddDataConfigurator.getViewController(imageObject: image.)
+//        self.navigationController?.pushViewController(vc,
+//                                                      animated: true)
     }
 }
 

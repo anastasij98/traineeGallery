@@ -31,7 +31,7 @@ extension AddDataPresenter: AddDataPresenterProtocol {
         router.popViewController(viewController: viewController)
     }
     
-    func mediaObject(name: String,
+    func postMediaObject(name: String,
                      file: Data,
                      dateCreate: String,
                      description: String,

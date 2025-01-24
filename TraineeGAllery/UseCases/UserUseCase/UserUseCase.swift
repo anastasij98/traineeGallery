@@ -33,4 +33,22 @@ protocol UserUseCase {
     
     /// Запрос на авторизацию пользователя
     func authorization(userName: String, password: String) -> Completable
+    
+    func requestWithRefreshToken(refreshToken: String) -> Single<AuthorizationModel>
+    func changePassword(id: String,
+                        oldPassword: String,
+                        newPassword: String) -> Single<CurrentUserModel> 
+}
+
+@objc protocol Foo {
+    
+    func someFunc()
+    @objc optional func soneOptionalFunc()
+}
+
+class SomeClass: Foo {
+    
+    func someFunc() {
+        print("print")
+    }
 }

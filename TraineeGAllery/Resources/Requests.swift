@@ -118,4 +118,34 @@ extension ExtendedApiRequest {
                         ("refresh_token", refreshToken),
                         ("client_secret", URLConfiguration.clientSecret))
     }
+    
+    static func changePassword(_ id: String,
+                               _ oldPassword: String,
+                               _ newPassword: String) -> ExtendedApiRequest {
+        
+        extendedRequest(path: "api/users/update_password/\(id)",
+                        method: .put,
+                        headers: [.acceptJson],
+                        query: ("oldPassword", oldPassword),
+                        ("newPassword", newPassword))
+    }
+    
+    static func updatePhoto(_ id: String,
+                            _ name: String,
+                            _ dateCreate: String,
+                            _ description: String,
+                            _ new: Bool,
+                            _ popular: Bool,
+                            _ iriId: Int) -> ExtendedApiRequest {
+        //        /api/photos/{id}
+        extendedRequest(path: "api/photos/\(id)",
+                        method: .patch,
+                        headers: [.acceptJson],
+                        query: ("name", "oldPassword"),
+                        ("dateCreate", "newPassword"),
+                        ("description", "oldPassword"),
+                        ("new", "newPassword"),
+                        ("popular", "newPassword"),
+                        ( "image", ""))
+    }
 }

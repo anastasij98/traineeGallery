@@ -26,6 +26,7 @@ extension AddPhotoRouter: AddPhotoRouterProtocol {
     }
     
     func openImagePicker(viewController: AddPhotoViewController) {
+        
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = viewController
         viewController.present(imagePickerController, animated: true)

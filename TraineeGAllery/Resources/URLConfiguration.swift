@@ -9,7 +9,7 @@ import Foundation
 
 struct URLConfiguration {
     
-    static var url = "https://gallery.prod1.webant.ru/"
+    static var url = "https://gallery.prod2.webant.ru/"
     static var media = "media/"
     static var api = "api/photos/"
     static var clientId = "1_3fxvjh2ky7s44cskwcgo0k8cwwogkocs8k4cwcwsg0skcsw4ok"

@@ -27,7 +27,7 @@ class SignUpViewController: UIViewController, UIScrollViewDelegate {
         view.axis = .vertical
         view.alignment = .center
         view.distribution = .fill
-        
+        view.addArrangedSubviews(UIView(), UIButton())
         return view
     }()
     

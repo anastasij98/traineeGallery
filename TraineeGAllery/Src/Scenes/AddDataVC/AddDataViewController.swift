@@ -94,7 +94,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     func onAddDataButtonTap() {
         guard let image = imageView.image?.jpegData(compressionQuality: 80),
               let dateCreate = presenter?.getCurrentDate() else { return }
-        presenter?.mediaObject(name: nameTextView.text,
+        presenter?.postMediaObject(name: nameTextView.text,
                                file: image,
                                dateCreate: dateCreate,
                                description: descriptionTextView.text,
@@ -121,7 +121,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func configureLayouts() {
-                stackView.setCustomSpacing(30, after: imageView)
+        stackView.setCustomSpacing(30, after: imageView)
         stackView.setCustomSpacing(20, after: nameTextView)
                 
         scrollView.snp.makeConstraints {
@@ -165,7 +165,7 @@ class AddDataViewController: UIViewController, UIScrollViewDelegate {
         navigationItem.rightBarButtonItem = rightButton
     }
 }
-
+// MARK: - UITextViewDelegate
 extension AddDataViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {

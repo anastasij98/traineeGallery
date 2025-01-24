@@ -11,10 +11,17 @@ import SnapKit
 
 extension UISegmentedControl {
     
-    // TODO: юзать экстеншены полноценно
-    
-    func setupSege() {
-        
+    // TODO: юзать экстеншены полноценно✅
+    func setupSegmentesControl() {
+        self.selectedSegmentIndex = 0
+        self.clipsToBounds = false
+        self.backgroundColor = .white
+        self.setTitleTextAttributes([.font : R.font.robotoRegular(size: 18),
+                                     .foregroundColor : UIColor.galleryBlack],
+                                    for: .selected)
+        self.setTitleTextAttributes([.font : R.font.robotoRegular(size: 18),
+                                     .foregroundColor : UIColor.galleryGrey],
+                                    for: .normal)
     }
     
     func removeBorder() {

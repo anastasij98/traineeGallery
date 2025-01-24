@@ -17,6 +17,5 @@ protocol MainViewControllerProtocol: AnyObject, AlertMessageProtocol {
     func hideRefreshControll()
     
     /// Обновление отображения галереи и устанавление последнего положения галереи, которое было открыто пользователем
-    /// - Parameter restoreOffset: параметр, показывающий нужно ли устанавливать последнее положение или нет
     func updateView(restoreOffset: Bool)
 }

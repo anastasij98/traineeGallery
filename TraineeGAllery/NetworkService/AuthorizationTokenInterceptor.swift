@@ -32,6 +32,7 @@ class AuthInterceptor: Interceptor {
                         request.headers = []
                     }
                     request.headers!.append(Header("Authorization", "Bearer \(accessToken)"))
+                    print(request.headers)
                 }
     }
 
@@ -58,7 +59,7 @@ extension ApiClientImp {
         let apiClient = ApiClientImp(urlSession: URLSession.shared)
         apiClient.interceptors.append(AuthInterceptor(UserDefaultsService()))
         apiClient.responseHandlersQueue.append(JsonResponseHandler())
-        apiClient.responseHandlersQueue.insert(ErrorResponseHandler(), at: 0)
+        apiClient.responseHandlersQueue.insert(ErrorResponseHandler(userUseCase: DI.resolve(), api: DI.resolve()), at: 0)
 
         return apiClient
     }

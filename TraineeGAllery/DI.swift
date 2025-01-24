@@ -31,6 +31,12 @@ class DI {
             .as(UserDefaultsServiceProtocol.self)
             .lifetime(.single)
         
+        self.container.register {
+            ErrorResponseHandler(userUseCase: $0, api: $1)
+        }
+        .as(ErrorResponseHandler.self)
+        .lifetime(.single)
+        
         self.container.register { () -> ApiClientImp in
             let config = URLSessionConfiguration.default
             config.timeoutIntervalForRequest = 60 * 20
@@ -39,7 +45,6 @@ class DI {
             config.shouldUseExtendedBackgroundIdleMode = true
             config.urlCache?.removeAllCachedResponses()
             let client = ApiClientImp(urlSessionConfiguration: config, completionHandlerQueue: .main)
-            client.responseHandlersQueue.append(ErrorResponseHandler())
             client.responseHandlersQueue.append(JsonResponseHandler())
 
             client.interceptors.append(ModifiedInterceptor())
@@ -47,6 +52,9 @@ class DI {
             return client
         }
         .as(ApiClient.self)
+        .injection(cycle: true) {
+            $0.responseHandlersQueue.insert($1 as ErrorResponseHandler, at: 0)
+        }
         .lifetime(.single)
         
         //MARK: - Gateways

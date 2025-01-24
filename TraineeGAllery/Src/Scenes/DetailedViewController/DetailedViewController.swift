@@ -233,6 +233,10 @@ extension DetailedViewController: UIScrollViewDelegate  {
     }
     
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+//        totalStackView.isHidden = true
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         totalStackView.isHidden = true
     }
     

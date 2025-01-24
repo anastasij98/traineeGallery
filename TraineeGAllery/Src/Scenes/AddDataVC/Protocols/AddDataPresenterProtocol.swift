@@ -9,24 +9,20 @@ import Foundation
 
 protocol AddDataPresenterProtocol {
     
-    /// <#Description#>
-    /// - Parameter viewController: <#viewController description#>
+    /// Закрывает экран AddDataViewController
     func popViewController(viewController: AddDataViewController)
     
-    /// <#Description#>
-    /// - Returns: <#description#>
+    /// Получение текущей даты в формате "yyyy-MM-dd’T’HH:mm:ssZ"
     func getCurrentDate() -> String
     
-    /// <#Description#>
+    /// POST запрос на загрузку картинки
     /// - Parameters:
-    ///   - name: <#name description#>
-    ///   - file: <#file description#>
-    ///   - dateCreate: <#dateCreate description#>
-    ///   - description: <#description description#>
-    ///   - new: <#new description#>
-    ///   - popular: <#popular description#>
-    ///   - viewController: <#viewController description#>
-    func mediaObject(name: String,
+    ///   - name: имя
+    ///   - file: картинка в виде Data
+    ///   - dateCreate: дата создания
+    ///   - description: описание
+    ///   - viewController: вьюКонтроллер, который будет закрыт в случае успешного выполнения запроса (в данном случае AddDataViewController)
+    func postMediaObject(name: String,
                      file: Data,
                      dateCreate: String,
                      description: String,

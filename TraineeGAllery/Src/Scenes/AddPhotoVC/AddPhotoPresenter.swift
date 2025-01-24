@@ -34,7 +34,7 @@ extension AddPhotoPresenter: AddPhotoPresenterProtocol {
     }
 
     func didSelectObject(withIndex index: Int) {
-        let object = objectsArray[index]
+       let object = objectsArray[index]
         view?.setSelectedObject(model: ImageObjectModel(imageData: object))
         selectedObject = object
     }

@@ -17,7 +17,7 @@ class SettingsPresenter {
     let disposeBag = DisposeBag()
     
     private var userUseCase: UserUseCase
-
+    
     init(view: SettingsViewController? = nil,
          router: SettingsRouterProtocol,
          userDef: UserDefaultsServiceProtocol,
@@ -78,5 +78,26 @@ extension SettingsPresenter: SettingsPresenterProtocol {
                                            message: AlertCases.cancel.rawValue,
                                            leftButtonTitle: "Exit",
                                            leftButtonAction: view.popViewController)
+    }
+    
+    func changePassword(oldPassword: String,
+                        newPassword: String) {
+        let id = String(userDef.getUsersId())
+        print(">>> id", id)
+        print(">>> oldPassword", oldPassword)
+        print(">>> newPassword", newPassword)
+        self.userUseCase.changePassword(id: id,
+                                        oldPassword: oldPassword,
+                                        newPassword: newPassword)
+        .observe(on: MainScheduler.instance)
+        .subscribe(onSuccess: { [weak self] response in
+            guard let self = self else {
+                return
+            }
+            print(response)
+        }, onFailure: { error in
+            print(error)
+        })
+        .disposed(by: disposeBag)
     }
 }

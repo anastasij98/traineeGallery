@@ -24,4 +24,6 @@ protocol ProfilePresenterProtocol {
     
     /// Получение картинки пользователя для её отображения в collectionView(используется в cellForItemAt)
     func getItem(index: Int) -> ItemModel
+    
+    func didSelectObject(withIndex index: Int)
 }

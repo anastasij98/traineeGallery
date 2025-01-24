@@ -11,9 +11,10 @@ import UIKit
 //MARK: - UICollectionViewDelegate
 extension ProfileViewController: UICollectionViewDelegate {
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter?.didSelectObject(withIndex: indexPath.item)
+//        openAddView(index: indexPath.item)
+    }
 //
 //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 //

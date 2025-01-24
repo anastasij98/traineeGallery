@@ -34,4 +34,20 @@ class ApiUserGateway: ApiBaseGateway, UserGateway {
         
         return self.apiClient.execute(request: request)
     }
+    
+    func requestWithRefreshToken(refreshToken: String) -> Single<AuthorizationModel> {
+        let request: ExtendedApiRequest<AuthorizationModel> = .requestWithRefreshToken(refreshToken)
+        
+        return self.apiClient.execute(request: request)
+    }
+    
+    func changePassword(id: String,
+                        oldPassword: String,
+                        newPassword: String) -> Single<CurrentUserModel> {
+        let request: ExtendedApiRequest<CurrentUserModel> = .changePassword(id,
+                                                                            oldPassword,
+                                                                            newPassword)
+        
+        return apiClient.execute(request: request)
+    }
 }

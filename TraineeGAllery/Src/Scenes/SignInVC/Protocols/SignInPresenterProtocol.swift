@@ -13,7 +13,7 @@ protocol SignInPresenterProtocol {
     /// Обращение к роутеру для открытия экрана с TabBarController'ом
     func openTabBar()
     
-    /// Обращение к networkServic'y для отправки запроса на авторизацию
+    /// Отправка запроса на авторизацию
     func signInButtonTap(userName: String,
                          password: String)
     

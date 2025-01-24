@@ -16,6 +16,5 @@ protocol SignUpRouterProtocol {
     func openTabBarController()
     
     /// Закрытие экрана SignUp
-    /// - Parameter viewController: экран SignUp
     func popViewController(viewController: SignUpViewController)
 }

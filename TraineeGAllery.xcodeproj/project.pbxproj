@@ -19,6 +19,7 @@
 		4709BA2929D1C3EF0035F64F /* AddSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2829D1C3EF0035F64F /* AddSubview.swift */; };
 		4709BA2B29D1E0920035F64F /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2A29D1E0920035F64F /* ResponseModel.swift */; };
 		4709BA2D29D1E4690035F64F /* URLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709BA2C29D1E4690035F64F /* URLConfiguration.swift */; };
+		470E381A2C0F3DAF0091A272 /* MoyaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470E38192C0F3DAF0091A272 /* MoyaService.swift */; };
 		47332C4D2A447D11009565FB /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47332C4C2A447D11009565FB /* UIImageView.swift */; };
 		4741B8EE2A14049900F380C2 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4741B8ED2A14049900F380C2 /* UITextView.swift */; };
 		4758098729DEB54E00BA741E /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4758098629DEB54E00BA741E /* UIFont.swift */; };
@@ -80,6 +81,7 @@
 		476BAF5F2A169F17002F6F6E /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 476BAF5E2A169F17002F6F6E /* Localization.strings */; };
 		476BAF612A16C2FC002F6F6E /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476BAF602A16C2FC002F6F6E /* UIButton.swift */; };
 		476BAF632A1776E3002F6F6E /* MainVC+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476BAF622A1776E3002F6F6E /* MainVC+SearchBar.swift */; };
+		477C76862A8F57D8006DA104 /* TestFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477C76852A8F57D8006DA104 /* TestFile.swift */; };
 		478514B52A49C180001F5F29 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478514B42A49C180001F5F29 /* UIImage.swift */; };
 		478514B72A49CA0A001F5F29 /* ErrorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478514B62A49CA0A001F5F29 /* ErrorModels.swift */; };
 		479E68D129ED39150053E706 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 479E68D029ED39150053E706 /* Roboto-Bold.ttf */; };
@@ -159,6 +161,7 @@
 		4709BA2829D1C3EF0035F64F /* AddSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubview.swift; sourceTree = "<group>"; };
 		4709BA2A29D1E0920035F64F /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		4709BA2C29D1E4690035F64F /* URLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConfiguration.swift; sourceTree = "<group>"; };
+		470E38192C0F3DAF0091A272 /* MoyaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaService.swift; sourceTree = "<group>"; };
 		47332C4C2A447D11009565FB /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4741B8ED2A14049900F380C2 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		4758098629DEB54E00BA741E /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -217,9 +220,10 @@
 		4768529C2A4C178A00820E45 /* UIViewController+ AlertMessageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ AlertMessageProtocol.swift"; sourceTree = "<group>"; };
 		476BAF592A161E12002F6F6E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		476BAF5C2A169E90002F6F6E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
-		476BAF5E2A169F17002F6F6E /* Localization.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localization.strings; path = TraineeGAllery/Localization.strings; sourceTree = SOURCE_ROOT; };
+		476BAF5E2A169F17002F6F6E /* Localization.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localization.strings; path = TraineeGAllery/Resources/Strings/Localization.strings; sourceTree = SOURCE_ROOT; };
 		476BAF602A16C2FC002F6F6E /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		476BAF622A1776E3002F6F6E /* MainVC+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+SearchBar.swift"; sourceTree = "<group>"; };
+		477C76852A8F57D8006DA104 /* TestFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFile.swift; sourceTree = "<group>"; };
 		478514B42A49C180001F5F29 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		478514B62A49CA0A001F5F29 /* ErrorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModels.swift; sourceTree = "<group>"; };
 		479E68D029ED39150053E706 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -339,12 +343,11 @@
 				4709BA2729D1C3CC0035F64F /* Extensions */,
 				4709BA2229D1AEFF0035F64F /* Models */,
 				474EEFD32A1FBA5600687769 /* Resources */,
-				475AA78629D6E664006B9BC6 /* Fonts */,
 				4709BA1229D1AC900035F64F /* Main.storyboard */,
-				4709BA1529D1AC910035F64F /* Assets.xcassets */,
 				4709BA1729D1AC910035F64F /* LaunchScreen.storyboard */,
 				4709BA1A29D1AC910035F64F /* Info.plist */,
-				476BAF5E2A169F17002F6F6E /* Localization.strings */,
+				477C76852A8F57D8006DA104 /* TestFile.swift */,
+				470E38192C0F3DAF0091A272 /* MoyaService.swift */,
 			);
 			path = TraineeGAllery;
 			sourceTree = "<group>";
@@ -388,6 +391,9 @@
 		474EEFD32A1FBA5600687769 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				475A67F52A56AF7A00B73A40 /* Strings */,
+				475AA78629D6E664006B9BC6 /* Fonts */,
+				4709BA1529D1AC910035F64F /* Assets.xcassets */,
 				475A67F32A557A6800B73A40 /* ApiEndpoint.swift */,
 				475A67D22A4DAF1400B73A40 /* ExtendedApiRequest.swift */,
 				475A67D42A4DB15900B73A40 /* Requests.swift */,
@@ -472,6 +478,15 @@
 			path = FileUseCase;
 			sourceTree = "<group>";
 		};
+		475A67F52A56AF7A00B73A40 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				476BAF5E2A169F17002F6F6E /* Localization.strings */,
+				47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		475AA78629D6E664006B9BC6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,7 +494,6 @@
 				475AA78929D6E7F4006B9BC6 /* Roboto-Light.ttf */,
 				47E966BA2A35CC0D007536AB /* Roboto-Medium.ttf */,
 				475AA78729D6E6B2006B9BC6 /* Roboto-Regular.ttf */,
-				47CB5B9929DB3556002BB2ED /* ApplicationStrings.strings */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -555,9 +569,9 @@
 		476852852A4B73EE00820E45 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				475A67E72A54932300B73A40 /* AddDataVCProtocol.swift */,
 				476852862A4B740500820E45 /* AddDataPresenterProtocol.swift */,
 				476852882A4B744300820E45 /* AddDataRouterProtocol.swift */,
-				475A67E72A54932300B73A40 /* AddDataVCProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -922,6 +936,7 @@
 				47CB5BAF29DCB685002BB2ED /* MainPresenter.swift in Sources */,
 				47EEEECA2A0283A90075791D /* AddPhotoConfigurator.swift in Sources */,
 				476852742A4B3CB800820E45 /* SignInRouterProtocol.swift in Sources */,
+				470E381A2C0F3DAF0091A272 /* MoyaService.swift in Sources */,
 				475AA78029D6DFDB006B9BC6 /* UISegmentedControl.swift in Sources */,
 				47EEEED72A02E4AF0075791D /* AddDataConfigurator.swift in Sources */,
 				475A67E22A51B94700B73A40 /* UserUseCaseImp.swift in Sources */,
@@ -973,6 +988,7 @@
 				47E515BD29F8588C00AB5397 /* WelcomePresenter.swift in Sources */,
 				47EEEEDC2A09880C0075791D /* ProfileRouter.swift in Sources */,
 				47332C4D2A447D11009565FB /* UIImageView.swift in Sources */,
+				477C76862A8F57D8006DA104 /* TestFile.swift in Sources */,
 				47CB5BB329DCB6E0002BB2ED /* MainRouter.swift in Sources */,
 				476852972A4C13F000820E45 /* SettingsRouterProtocol.swift in Sources */,
 				4709BA0F29D1AC900035F64F /* SceneDelegate.swift in Sources */,
@@ -1156,6 +1172,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CL88TLP2K9;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TraineeGAllery/Info.plist;
@@ -1188,6 +1205,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CL88TLP2K9;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TraineeGAllery/Info.plist;

@@ -13,7 +13,6 @@ extension MainViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
-        
         presenter?.searchedText = searchText
 //        if searchText.count >= 3 {
         presenter?.resetValues()

@@ -59,19 +59,10 @@ class MainViewController: UISearchController {
         let segments = [SegmentMode.new.rawValue, SegmentMode.popular.rawValue]
         let view = UISegmentedControl(items: segments)
         view.removeBorder()
-        view.selectedSegmentIndex = 0
-        view.clipsToBounds = false
+        view.setupSegmentesControl()
         view.addTarget(self,
                        action: #selector(changeScreen),
                        for: .valueChanged)
-        view.backgroundColor = .white
-        view.setTitleTextAttributes([.font : R.font.robotoRegular(size: 18),
-                                     .foregroundColor : UIColor.galleryBlack],
-                                    for: .selected)
-        view.setTitleTextAttributes([.font : R.font.robotoRegular(size: 18),
-                                     .foregroundColor : UIColor.galleryGrey],
-                                    for: .normal)
-        
         return view
     }()
     

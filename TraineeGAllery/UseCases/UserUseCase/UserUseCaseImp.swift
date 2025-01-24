@@ -75,4 +75,16 @@ class UserUseCaseImp: UserUseCase {
                 return .empty()
             }
     }
+    
+    func requestWithRefreshToken(refreshToken: String) -> Single<AuthorizationModel> {
+        userGateway.requestWithRefreshToken(refreshToken: refreshToken)
+    }
+    
+    func changePassword(id: String,
+                        oldPassword: String,
+                        newPassword: String) -> Single<CurrentUserModel> {
+        userGateway.changePassword(id: id,
+                                   oldPassword: oldPassword,
+                                   newPassword: newPassword)
+    }
 }

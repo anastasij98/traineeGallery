@@ -13,9 +13,15 @@ open class ErrorResponseHandler: ResponseHandler {
     
     private let jsonDecoder = JSONDecoder()
     let userDef = UserDefaultsService()
-    var networkService: NetworkService?
     var disposeBag = DisposeBag()
+    private var userUseCase: UserUseCaseImp
+    private var api: ApiClient
     
+    init(userUseCase: UserUseCaseImp,
+         api: ApiClient) {
+        self.userUseCase = userUseCase
+        self.api = api
+    }
     // swiftlint:disable function_body_length
     public func handle<T: Codable>(observer: @escaping SingleObserver<T>,
                                    request: ApiRequest<T>,
@@ -30,19 +36,19 @@ open class ErrorResponseHandler: ResponseHandler {
             if let data = response.data {
                 if let customError = try? jsonDecoder.decode(ErrorModelTokenExpired.self, from: data) {
                     let refreshToken = userDef.getRefreshToken()
-//                    networkService?.requestWithRefreshToken(refreshToken: refreshToken)
-//                        .observe(on: MainScheduler.instance)
-//                        .do(onSuccess: { model in
-//                            guard let accessToken = model.access_token,
-//                                  let refreshToken = model.refresh_token else {
-//                                return }
-//                            self.userDef.saveTokens(accessToken: accessToken, refreshToken: refreshToken)
-//                            print(model)
-//                        })
-//                        .subscribe()
-//                        .disposed(by: disposeBag)
-                    print(customError.error)
-                    print(customError.error_description)
+                    self.userUseCase.requestWithRefreshToken(refreshToken: refreshToken)
+                        .subscribe(onSuccess: { model in
+                            guard let accessToken = model.access_token,
+                                  let refreshToken = model.refresh_token else {
+                                return }
+                            self.userDef.saveTokens(accessToken: accessToken, refreshToken: refreshToken)
+                            print(model)
+                            self.api.execute(request: request)
+                            
+                        }, onFailure: { error in
+                            print(error)
+                        })
+                        .disposed(by: disposeBag)
                 }
             }
         }

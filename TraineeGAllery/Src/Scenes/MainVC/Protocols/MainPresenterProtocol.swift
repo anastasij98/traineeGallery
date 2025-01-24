@@ -29,11 +29,9 @@ protocol MainPresenterProtocol {
     func getItem(index: Int) -> ItemModel
     
     /// Получение количетсва элементов из массива, в котором хранятся загруженные картинки
-    /// - Returns: количество элементов в массиве
     func getItemsCount() -> Int
 
     /// Подгрузка новых данных(картинок) в зависимости от вводимого текста в SearchBar'e
-    /// - Parameter searchText: б
     func loadMoreSearched(searchText: String)
     
     /// Обнуление страниц для осуществления запроса
@@ -46,7 +44,6 @@ protocol MainPresenterProtocol {
     func loadMore()
     
     /// Необходимость отображения footer'a внизу галереи
-    /// - Returns: true/false
     func needIndicatorInFooter() -> Bool
     
     /// Начало отображение refreshControll'a

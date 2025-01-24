@@ -16,7 +16,9 @@ class ProfilePresenter {
     private var fileUseCase: FileUseCase
 
     var usersImages: [ItemModel] = [ItemModel]()
-
+    var objectsArray = [Data]()
+    var selectedObject: Data?
+    
     var currentPage: Int = 0
     var pageToLoad: Int = 0
     
@@ -32,9 +34,8 @@ class ProfilePresenter {
         self.fileUseCase = fileUseCase
     }
     
-    
-    @objc
     func getUsersImages() {
+        usersImages.removeAll()
         disposeBag = DisposeBag()
         let userId = userDef.getUsersId()
         
@@ -75,5 +76,12 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func getItem(index: Int) -> ItemModel {
         usersImages[index]
+    }
+    
+    func didSelectObject(withIndex index: Int) {
+//        let vc = AddDataConfigurator.getViewController(imageObject: ImageObjectModel(imageData: usersImages[index]))
+//        let object = objectsArray[index]
+//        view?.setSelectedObject(model: ImageObjectModel(imageData: object))
+//        selectedObject = object
     }
 }

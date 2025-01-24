@@ -13,6 +13,5 @@ protocol SignInRouterProtocol {
     func openTabBarController()
     
     /// Закрытие экрна SignIn
-    /// - Parameter viewController: SignIn
     func popViewController(viewController: SignInViewController)
 }

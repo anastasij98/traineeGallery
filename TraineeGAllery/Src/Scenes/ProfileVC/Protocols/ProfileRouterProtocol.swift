@@ -13,6 +13,6 @@ protocol ProfileRouterProtocol {
     func openSettings()
     
     /// Открытие TabBarController'a
-    /// - Parameter index: Parameter index: индекс выбранного экрана
+    /// - Parameter index: индекс выбранного экрана
     func openTabBarViewController(index: Int)
 }

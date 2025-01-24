@@ -254,7 +254,12 @@ class SettingsViewController: UIViewController, UIScrollViewDelegate {
 
     @objc
     func onSaveButtonTap() {
-        presenter?.saveUsersChanges()
+        guard let oldPassword = oldPasswordTextField.text,
+              let newPassword = confirmPasswordTextField.text else {
+            return
+        }
+        presenter?.changePassword(oldPassword: oldPassword, 
+                                  newPassword: newPassword)
     }
     
     @objc

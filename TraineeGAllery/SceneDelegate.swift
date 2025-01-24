@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let welcome = WelcomeConfigurator.getViewController()
         let navigationController = UINavigationController(rootViewController: welcome)
 
-        let viewController = isUserAuthorized()
+//        let viewController = isUserAuthorized()
+        let viewController = true
         ? TabBarConfigurator.getViewController()
         : navigationController
         
@@ -58,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
+    
     // TODO: помни,люби ✅
     func isUserAuthorized() -> Bool {
         UserDefaults.standard.string(forKey: "accessToken") != nil

@@ -9,11 +9,9 @@ import Foundation
 
 protocol AddDataRouterProtocol {
     
-    /// <#Description#>
-    /// - Parameter viewController: <#viewController description#>
+    /// Закрытие AddDataViewController'a
     func popViewController(viewController: AddDataViewController)
     
-    /// <#Description#>
-    /// - Parameter index: <#index description#>
+    /// Открытие viewController'a по выбранному индексу, который находится в tabBarContriller'e
     func openTabBarController(index: Int)
 }
